@@ -24,6 +24,129 @@ type MatchWithMeta = UnifiedMatch & {
   inStore?: boolean;
 };
 
+function AdminLoginGuard({ children }: { children: React.ReactNode }) {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Check if already authenticated (from localStorage)
+    const authKey = 'admin_auth_token';
+    const stored = typeof window !== 'undefined' ? localStorage.getItem(authKey) : null;
+    // Password should be set via environment variable, but we'll check localStorage first
+    if (stored) {
+      setIsAuthenticated(true);
+    }
+    setLoading(false);
+  }, []);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    
+    // Verify password via API endpoint
+    try {
+      const res = await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      
+      if (res.ok) {
+        const authKey = 'admin_auth_token';
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(authKey, 'authenticated');
+        }
+        setIsAuthenticated(true);
+        setPassword('');
+      } else {
+        setError('Incorrect password. Access denied.');
+        setPassword('');
+      }
+    } catch (err) {
+      setError('Failed to verify password. Please try again.');
+      setPassword('');
+    }
+  };
+
+  const handleLogout = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('admin_auth_token');
+    }
+    setIsAuthenticated(false);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <div className="text-white/60">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <div className="w-full max-w-md p-8">
+          <div className="surface rounded-lg p-8 hero-glow border border-white/10">
+            <div className="text-center mb-6">
+              <h1 className="text-2xl font-extrabold mb-2">Admin Access</h1>
+              <p className="text-white/60 text-sm">Enter password to access admin dashboard</p>
+            </div>
+            
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium mb-2 text-white/80">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-[rgb(var(--brand-yellow))] focus:border-transparent"
+                  placeholder="Enter admin password"
+                  autoFocus
+                  required
+                />
+              </div>
+              
+              {error && (
+                <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-3 text-red-100 text-sm">
+                  {error}
+                </div>
+              )}
+              
+              <button
+                type="submit"
+                className="w-full btn btn-primary"
+              >
+                Access Dashboard
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <div className="fixed top-4 right-4 z-50">
+        <button
+          onClick={handleLogout}
+          className="btn btn-ghost text-sm bg-white/5 hover:bg-white/10"
+          title="Logout"
+        >
+          Logout
+        </button>
+      </div>
+      {children}
+    </div>
+  );
+}
+
 function ToastContainer({ toasts, removeToast }: { toasts: Toast[]; removeToast: (id: string) => void }) {
   return (
     <div className="fixed bottom-4 right-4 z-[2000] space-y-2">
@@ -53,7 +176,7 @@ function ToastContainer({ toasts, removeToast }: { toasts: Toast[]; removeToast:
   );
 }
 
-export default function AdminPage() {
+function AdminPageContent() {
   const [jsonMatches, setJsonMatches] = useState<MatchWithMeta[]>([]);
   const [storeMatches, setStoreMatches] = useState<MatchWithMeta[]>([]);
   const [loading, setLoading] = useState(true);
@@ -826,5 +949,13 @@ export default function AdminPage() {
       )}
       </div>
     </div>
+  );
+}
+
+export default function AdminPage() {
+  return (
+    <AdminLoginGuard>
+      <AdminPageContent />
+    </AdminLoginGuard>
   );
 }
