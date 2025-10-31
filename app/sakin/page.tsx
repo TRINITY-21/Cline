@@ -177,10 +177,8 @@ function ToastContainer({ toasts, removeToast }: { toasts: Toast[]; removeToast:
 }
 
 function AdminPageContent() {
-  const [jsonMatches, setJsonMatches] = useState<MatchWithMeta[]>([]);
   const [storeMatches, setStoreMatches] = useState<MatchWithMeta[]>([]);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState<string | null>(null);
   const [q, setQ] = useState('');
   const [selected, setSelected] = useState<Record<string, boolean>>({});
   const [editMatch, setEditMatch] = useState<{ id: string; videoSrc: string } | null>(null);
@@ -188,8 +186,10 @@ function AdminPageContent() {
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [showTeamLogo, setShowTeamLogo] = useState(false);
   const [teamLogoData, setTeamLogoData] = useState({ name: '', sport: 'Football', file: null as File | null });
-  const [activeTab, setActiveTab] = useState<'all' | 'store' | 'approved' | 'trending'>('all');
+  const [activeTab, setActiveTab] = useState<'store' | 'approved' | 'trending' | 'predictions'>('store');
   const [trendingRows, setTrendingRows] = useState<any[]>([]);
+  const [predictions, setPredictions] = useState<any[]>([]);
+  const [loadingPredictions, setLoadingPredictions] = useState(false);
 
   const token = process.env.NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN || '';
 
@@ -203,17 +203,6 @@ function AdminPageContent() {
     setToasts(prev => prev.filter(t => t.id !== id));
   }
 
-  async function loadJson() {
-    try {
-      const res = await fetch('/api/admin/raw/matches', { cache: 'no-store' });
-      const data = await res.json();
-      const matches = Array.isArray(data) ? data : [];
-      setJsonMatches(matches);
-    } catch (err) {
-      console.error('Failed to load JSON:', err);
-      addToast('Failed to load JSON matches', 'error');
-    }
-  }
 
   async function loadStore() {
     setLoading(true);
@@ -261,11 +250,49 @@ function AdminPageContent() {
     }
   }
 
+  async function loadPredictions() {
+    setLoadingPredictions(true);
+    try {
+      const res = await fetch(`/api/admin/moderate/predictions?date=${encodeURIComponent(todayId())}`, {
+        cache: 'no-store',
+        headers: { 'x-internal-token': token },
+      });
+      const data = await res.json();
+      setPredictions(Array.isArray(data.rows) ? data.rows : []);
+    } catch (err) {
+      console.error('Failed to load predictions:', err);
+      addToast('Failed to load predictions', 'error');
+      setPredictions([]);
+    } finally {
+      setLoadingPredictions(false);
+    }
+  }
+
+  async function updatePredictionStatus(predictionId: string, status: 'won' | 'failed' | null) {
+    try {
+      const res = await fetch(`/api/admin/moderate/predictions/${encodeURIComponent(predictionId)}`, {
+        method: 'PATCH',
+        headers: {
+          'content-type': 'application/json',
+          'x-internal-token': token,
+        },
+        body: JSON.stringify({ override: { status } }),
+      });
+      if (!res.ok) throw new Error('Failed to update');
+      addToast(`Prediction marked as ${status || 'pending'}`, 'success');
+      await loadPredictions();
+    } catch (err: any) {
+      addToast(`Failed to update prediction: ${err.message}`, 'error');
+    }
+  }
+
   useEffect(() => {
-    loadJson();
     loadStore();
     loadTrending();
-  }, []);
+    if (activeTab === 'predictions') {
+      loadPredictions();
+    }
+  }, [activeTab]);
 
   // Auto-update match statuses every 5 minutes
   useEffect(() => {
@@ -295,9 +322,9 @@ function AdminPageContent() {
         // Only show matches that are explicitly marked as trending in Firestore
         return trendingMatches;
       default:
-        return jsonMatches;
+        return storeMatches;
     }
-  }, [activeTab, jsonMatches, storeMatches, approvedMatches, trendingMatches]);
+  }, [activeTab, storeMatches, approvedMatches, trendingMatches]);
 
   const filtered = useMemo(() => {
     const needle = q.toLowerCase().trim();
@@ -315,29 +342,6 @@ function AdminPageContent() {
     });
   }, [matchesByTab, q]);
 
-  async function saveMatch(match: UnifiedMatch) {
-    setSaving(match.id);
-    try {
-      const res = await fetch('/api/admin/matches/save', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          'x-internal-token': token,
-        },
-        body: JSON.stringify({ match }),
-      });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.message || 'Failed to save');
-      }
-      addToast(`Match "${match.home.name} vs ${match.away.name}" saved to Firestore`, 'success');
-      await loadStore();
-    } catch (err: any) {
-      addToast(`Failed to save match: ${err.message}`, 'error');
-    } finally {
-      setSaving(null);
-    }
-  }
 
   async function updateStatus(matchIds: string[], approved?: boolean, trending?: boolean) {
     setLoading(true);
@@ -366,28 +370,16 @@ function AdminPageContent() {
 
   async function saveVideoSrc(matchId: string, videoSrc: string) {
     try {
-      const res = await fetch(`/api/videosrc/${encodeURIComponent(matchId)}`, {
-        method: 'POST',
+      // Update directly in daily_matches via API
+      const res = await fetch(`/api/admin/moderate/matches/${encodeURIComponent(matchId)}`, {
+        method: 'PATCH',
         headers: {
           'content-type': 'application/json',
           'x-internal-token': token,
         },
-        body: JSON.stringify({
-          status: videoSrc ? 'ready' : 'pending',
-          videoSrc,
-          source: 'admin',
-          ttlMs: 60 * 60 * 1000,
-        }),
+        body: JSON.stringify({ override: { videoSrc } }),
       });
-      if (!res.ok) throw new Error('Failed to save');
-      
-      // Also update in daily_matches
-      const match = storeMatches.find(m => m.id === matchId);
-      if (match) {
-        const updatedMatch = { ...match, videoSrc };
-        await saveMatch(updatedMatch);
-      }
-      
+      if (!res.ok) throw new Error('Failed to update');
       addToast('Video source updated', 'success');
       setEditMatch(null);
       await loadStore();
@@ -455,12 +447,6 @@ function AdminPageContent() {
               {showTeamLogo ? 'Hide' : 'Manage'} Team Logos
             </button>
             <button
-              onClick={loadJson}
-              className="pill pill-muted hover:pill-active transition-all"
-            >
-              Reload JSON
-            </button>
-            <button
               onClick={loadStore}
               disabled={loading}
               className="pill pill-muted hover:pill-active transition-all disabled:opacity-50"
@@ -479,11 +465,7 @@ function AdminPageContent() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="surface p-4">
-            <div className="text-sm text-white/60 mb-1">JSON Matches</div>
-            <div className="text-2xl font-bold text-[rgb(255,212,0)]">{jsonMatches.length}</div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="surface p-4">
             <div className="text-sm text-white/60 mb-1">In Store</div>
             <div className="text-2xl font-bold text-blue-400">{storeMatches.length}</div>
@@ -540,16 +522,6 @@ function AdminPageContent() {
         {/* Tabs */}
         <div className="flex items-center gap-2 border-b border-white/10">
           <button
-            onClick={() => setActiveTab('all')}
-            className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-              activeTab === 'all'
-                ? 'border-[rgb(255,212,0)] text-[rgb(255,212,0)]'
-                : 'border-transparent text-white/60 hover:text-white/80'
-            }`}
-          >
-            All JSON ({jsonMatches.length})
-          </button>
-          <button
             onClick={() => setActiveTab('store')}
             className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
               activeTab === 'store'
@@ -578,6 +550,16 @@ function AdminPageContent() {
             }`}
           >
             Trending ({trendingMatches.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('predictions')}
+            className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+              activeTab === 'predictions'
+                ? 'border-orange-400 text-orange-400'
+                : 'border-transparent text-white/60 hover:text-white/80'
+            }`}
+          >
+            Predictions ({predictions.length})
           </button>
       </div>
 
@@ -649,27 +631,7 @@ function AdminPageContent() {
                   <tr>
                     <td colSpan={9} className="p-12">
                       <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                        {activeTab === 'all' && !q ? (
-                          <>
-                            <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-                              <svg className="w-8 h-8 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                              </svg>
-                            </div>
-                            <div className="space-y-2">
-                              <h3 className="text-lg font-semibold text-white/80">No matches in JSON</h3>
-                              <p className="text-sm text-white/50 max-w-md">
-                                Load matches from <code className="px-2 py-1 rounded bg-white/5 text-[rgb(255,212,0)]">data/unified_matches.json</code> to get started.
-                              </p>
-                              <button
-                                onClick={loadJson}
-                                className="mt-4 pill pill-active"
-                              >
-                                Reload JSON File
-                              </button>
-                            </div>
-                          </>
-                        ) : activeTab === 'store' && !q ? (
+                        {activeTab === 'store' && !q ? (
                           <>
                             <div className="w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
                               <svg className="w-8 h-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -679,7 +641,7 @@ function AdminPageContent() {
                             <div className="space-y-2">
                               <h3 className="text-lg font-semibold text-white/80">No matches in store</h3>
                               <p className="text-sm text-white/50 max-w-md">
-                                Save matches from the JSON file to Firestore&apos;s <code className="px-2 py-1 rounded bg-white/5 text-blue-400">daily_matches</code> collection. Switch to &quot;All JSON&quot; tab to see available matches.
+                                Matches are automatically added to Firestore&apos;s <code className="px-2 py-1 rounded bg-white/5 text-blue-400">daily_matches</code> collection via the hourly scrape-and-update cron job.
                               </p>
                             </div>
                           </>
@@ -742,8 +704,6 @@ function AdminPageContent() {
                     const approved = storeMatch?.approved || false;
                     // Check if match is trending: either in trendingRows (from Firestore API) or has isTrending flag
                     const trending = trendingMatches.some((m: any) => m.id === match.id) || storeMatch?.isTrending === true || storeMatch?.trending === true;
-                    const isSaving = saving === match.id;
-
                     return (
                       <tr
                         key={match.id}
@@ -785,8 +745,6 @@ function AdminPageContent() {
                         <td className="p-4 text-center">
                           {inStore ? (
                             <span className="pill pill-active !text-xs">Yes</span>
-                          ) : activeTab === 'all' ? (
-                            <span className="pill pill-muted !text-xs">No</span>
                           ) : (
                             <span className="pill pill-muted !text-xs">—</span>
                           )}
@@ -807,15 +765,6 @@ function AdminPageContent() {
                 </td>
                         <td className="p-4">
                           <div className="flex flex-wrap gap-2">
-                            {!inStore && (
-                              <button
-                                onClick={() => saveMatch(match)}
-                                disabled={isSaving || loading}
-                                className="pill pill-active disabled:opacity-50 text-xs"
-                              >
-                                {isSaving ? 'Saving...' : 'Save to Store'}
-                              </button>
-                            )}
                             {storeMatch?.videoSrc && (
                               <button
                                 onClick={() => setPreviewMatch(match.id)}
@@ -861,6 +810,140 @@ function AdminPageContent() {
         </table>
           </div>
       </div>
+
+      {/* Predictions Tab Content */}
+      {activeTab === 'predictions' && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-semibold">Predictions Management</h2>
+              <p className="text-sm text-white/60 mt-1">Manage prediction outcomes and status</p>
+            </div>
+            <button
+              onClick={loadPredictions}
+              disabled={loadingPredictions}
+              className="pill pill-active disabled:opacity-50"
+            >
+              {loadingPredictions ? 'Loading...' : 'Refresh'}
+            </button>
+          </div>
+
+          {loadingPredictions ? (
+            <div className="surface p-12 text-center">
+              <div className="text-white/60">Loading predictions...</div>
+            </div>
+          ) : predictions.length === 0 ? (
+            <div className="surface p-12 text-center">
+              <div className="text-white/60">No predictions found for today</div>
+            </div>
+          ) : (
+            <div className="surface overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="min-w-full">
+                  <thead className="bg-white/5 border-b border-white/10">
+                    <tr>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">Time</th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">Match</th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">League</th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">Prediction</th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">MSBS</th>
+                      <th className="text-center p-4 text-sm font-semibold text-white/80">Status</th>
+                      <th className="text-center p-4 text-sm font-semibold text-white/80">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {predictions.map((pred: any) => {
+                      const status = pred.status || 'pending';
+                      const isWon = status === 'won';
+                      const isFailed = status === 'failed';
+                      
+                      return (
+                        <tr
+                          key={pred.id}
+                          className={`border-t border-white/10 hover:bg-white/5 transition-colors ${
+                            isWon ? 'bg-green-500/5' : isFailed ? 'bg-red-500/5' : ''
+                          }`}
+                        >
+                          <td className="p-4 text-sm text-white/70 font-mono">
+                            {pred.timeLabel || '—'}
+                          </td>
+                          <td className="p-4">
+                            <div className="font-semibold">
+                              {pred.home || '—'} <span className="text-white/40 text-xs">vs</span>{' '}
+                              {pred.away || '—'}
+                            </div>
+                          </td>
+                          <td className="p-4 text-sm text-white/70">
+                            {pred.league || '—'}
+                          </td>
+                          <td className="p-4 text-sm">
+                            <div className="space-y-1">
+                              <div className="text-white/80">{pred.msbs || '—'}</div>
+                              <div className="text-white/60 text-xs">
+                                Winner: {pred.msbsWinner || '—'}
+                              </div>
+                            </div>
+                          </td>
+                          <td className="p-4 text-sm text-white/70">
+                            {pred.msbs || '—'}
+                          </td>
+                          <td className="p-4 text-center">
+                            <span
+                              className={`pill !text-xs ${
+                                isWon
+                                  ? 'pill-active bg-green-500/20 text-green-400 border-green-500/40'
+                                  : isFailed
+                                  ? 'bg-red-500/20 text-red-400 border-red-500/40'
+                                  : 'pill-muted'
+                              }`}
+                            >
+                              {isWon ? 'Won' : isFailed ? 'Failed' : 'Pending'}
+                            </span>
+                          </td>
+                          <td className="p-4">
+                            <div className="flex items-center justify-center gap-2">
+                              <button
+                                onClick={() => updatePredictionStatus(pred.id, 'won')}
+                                disabled={isWon}
+                                className={`pill text-xs disabled:opacity-50 ${
+                                  isWon
+                                    ? 'pill-active bg-green-500/20 text-green-400 border-green-500/40'
+                                    : 'pill-muted hover:bg-green-500/10 hover:border-green-500/30'
+                                }`}
+                              >
+                                ✓ Won
+                              </button>
+                              <button
+                                onClick={() => updatePredictionStatus(pred.id, 'failed')}
+                                disabled={isFailed}
+                                className={`pill text-xs disabled:opacity-50 ${
+                                  isFailed
+                                    ? 'bg-red-500/20 text-red-400 border-red-500/40'
+                                    : 'pill-muted hover:bg-red-500/10 hover:border-red-500/30'
+                                }`}
+                              >
+                                ✗ Failed
+                              </button>
+                              {(isWon || isFailed) && (
+                                <button
+                                  onClick={() => updatePredictionStatus(pred.id, null)}
+                                  className="pill pill-muted text-xs"
+                                >
+                                  Reset
+                                </button>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
         {/* Edit VideoSrc Modal */}
         {editMatch && (

@@ -1,6 +1,20 @@
-# Stream Hub (Legal Stream Aggregator)
+# Three Two Live
 
-Aggregates official provider links and embeds only when allowed. No content hosted.
+Sports streaming platform with match management, predictions, and automated scraping.
+
+## Quick Start
+
+1. **Setup**: See [SETUP.md](./SETUP.md) for complete setup instructions
+2. **Admin**: Access admin dashboard at `/sakin`
+3. **API**: All endpoints documented in codebase
+
+## Key Features
+
+- **Automated Scraping**: Hourly match updates, daily predictions
+- **Date-based Storage**: Matches and predictions organized by date in Firestore
+- **Admin Dashboard**: Manage matches, predictions, and team logos
+- **Status Tracking**: Automatic match status updates (live/ended)
+- **Predictions**: Track prediction success/failure with visual indicators
 
 ## Scraper
 
@@ -13,81 +27,54 @@ python3 scripts/scrape_livesports808.py --out data/unified_matches.json
 
 Output path defaults to `data/unified_matches.json` if `--out` is omitted.
 
-## Match videoSrc pipeline
+## Match videoSrc
 
-This app resolves stream `videoSrc` at kickoff via a local JSON store and an API endpoint.
+The `videoSrc` field is stored directly in matches within the `daily_matches` collection. No separate storage system is needed.
 
-### Storage
+- `videoSrc` is updated automatically via the scrape-and-update cron job (hourly)
+- `videoSrc` can be edited directly in the admin dashboard (`/sakin`)
+- `videoSrc` is part of the match object in `daily_matches` collection
+- The player component uses `videoSrc` directly from the match data
 
-- JSON adapter (default): `data/videosrc.json`
-- Switch to Firestore later via `VIDEOSRC_STORAGE=firestore` (adapter stub present).
+## Predictions
 
-### API (Next.js)
+Predictions are scraped daily from betistuta.net and stored in the `daily_predictions` collection, organized by date (same structure as `daily_matches`).
 
-- GET `/api/videosrc/[matchId]` → `{ status: 'pending'|'ready'|'error', videoSrc? }`
-- POST `/api/videosrc/[matchId]` (internal) headers: `x-internal-token: $NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN`
+### Automated Scraping
 
-Set env in `.env.local`:
+- **Daily Cron Job**: Runs once per day at 1:00 AM UTC via GitHub Actions
+- **Storage**: Predictions are automatically grouped by date in `daily_predictions/YYYY-MM-DD`
+- **Workflow**: `.github/workflows/scrape-predictions.yml`
 
-```
-NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN=dev-secret
-```
+### Manual Scraping
 
-### Scraper (Playwright)
+To scrape predictions manually:
 
-Install deps:
-
-```
-npm i -D ts-node playwright
-npx playwright install chromium
+```bash
+python3 scripts/parse_betistuta.py --in data/unified_matches.json --out data/predictions.json
 ```
 
-Run scraper for a match:
+Then import via API (if server is running):
 
-```
-NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN=dev-secret \
-API_BASE=http://localhost:3000 \
-npx ts-node scripts/scrape_videosrc.ts --matchId ufa-vs-neftekhimik-15-00 --url https://example.com/page
-```
-
-The scraper finds the first `<iframe>`/`<video>` src and POSTs it to the API with a 60m TTL.
-
-### Scheduler (optional local cron)
-
-Runs every minute and triggers scrapes for matches in a kickoff window (requires `startTime` in `data/unified_matches.json`). Provide a URL template or customize mapping logic in `scripts/scheduler.ts`.
-
-```
-NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN=dev-secret \
-API_BASE=http://localhost:3000 \
-SCRAPE_URL_TEMPLATE=https://provider.example/match/{matchId} \
-npx ts-node scripts/scheduler.ts
+```bash
+curl -X POST http://localhost:3000/api/admin/moderate/predictions \
+  -H "x-internal-token: YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  --data-binary "@data/predictions.json"
 ```
 
-### Client behavior
+### Admin Management
 
-- Match cards open a player even if `videoSrc` is empty.
-- The overlay polls `/api/videosrc/[matchId]` with backoff until `ready`, then plays.
+- View and manage predictions in `/sakin` → "Predictions" tab
+- Mark predictions as "Won" or "Failed" to track success
+- Status is displayed on the frontend with green (won) or red (failed) styling
 
-### Firebase upgrade path
+### Prediction Structure
 
-// Firestore storage adapter
+Each prediction includes:
+- `id`: Match ID (links to matches)
+- `msbs`: Predicted score (e.g., "3 - 1")
+- `msbsWinner`: Predicted winner team name
+- `status`: Can be `'won'`, `'failed'`, or `null` (pending) - set via admin dashboard
+- Stored by date in `daily_predictions/YYYY-MM-DD` documents 
 
-- Switch storage:
-
-```
-VIDEOSRC_STORAGE=firestore
-FIREBASE_PROJECT_ID=your-project-id
-# Option A: Service account JSON (preferred)
-FIREBASE_SERVICE_ACCOUNT_JSON='{ "type": "service_account", "project_id": "...", "private_key": "-----BEGIN PRIVATE KEY-----\\n...\\n-----END PRIVATE KEY-----\\n", "client_email": "..." }'
-# Or Option B: ADC via GOOGLE_APPLICATION_CREDENTIALS pointing to a JSON file
-```
-
-- Install dep locally:
-
-```
-npm i firebase-admin
-```
-
-- The API and admin UI will now read/write `videosrc` records in Firestore (collection name can be set via `VIDEOSRC_COLLECTION`, defaults to `videosrc`).
-
-- Move scheduler to Cloud Scheduler → Pub/Sub → Cloud Run/Functions when deploying to GCP.

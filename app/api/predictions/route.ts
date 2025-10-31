@@ -5,15 +5,38 @@ import path from 'path';
 
 export const revalidate = 0;
 
+function todayId(): string {
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+
 export async function GET() {
   const useFirestore = process.env.NEXT_PUBLIC_PREDICTIONS_STORAGE === 'firestore';
   if (useFirestore) {
     try {
       const admin = initFirebaseAdmin();
-      const colName = process.env.NEXT_PUBLIC_PREDICTIONS_COLLECTION || 'predictions';
-      const qs = await admin.firestore().collection(colName).where('approved', '==', true).orderBy('updatedAt', 'desc').limit(1000).get();
-      const rows = qs.docs.map(d => ({ id: d.id, ...(d.data() || {}) }));
-      return NextResponse.json(rows);
+      const dailyCol = admin.firestore().collection(
+        process.env.DAILY_PREDICTIONS_COLLECTION || process.env.NEXT_PUBLIC_DAILY_PREDICTIONS_COLLECTION || 'daily_predictions'
+      );
+      
+      // Get today's predictions
+      const today = todayId();
+      const todayDoc = await dailyCol.doc(today).get();
+      
+      if (todayDoc.exists) {
+        const data = todayDoc.data();
+        const predictions = Array.isArray(data?.predictions) ? data.predictions : [];
+        // Filter approved predictions only
+        const approved = predictions.filter((p: any) => p?.approved === true);
+        return NextResponse.json(approved);
+      }
+      
+      // If today doesn't exist, return empty array
+      return NextResponse.json([]);
     } catch (err: any) {
       return NextResponse.json({ error: 'Failed to read predictions (firestore)' }, { status: 500 });
     }

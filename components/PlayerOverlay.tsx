@@ -24,38 +24,6 @@ export default function PlayerOverlay({
     setCurrentSrc(src);
   }, [src]);
 
-  // Poll API for videoSrc if we have a matchId but no src
-  useEffect(() => {
-    if (!open) return;
-    if (currentSrc) return;
-    if (!matchId) return;
-
-    let cancelled = false;
-
-    async function poll() {
-      try {
-        const res = await fetch(`/api/videosrc/${encodeURIComponent(matchId as string)}`, { cache: 'no-store' });
-        const data = await res.json();
-        if (cancelled) return;
-        if (data && data.status === 'ready' && data.videoSrc) {
-          setCurrentSrc(data.videoSrc);
-          return; // stop polling
-        }
-      } catch {}
-      // schedule next attempt with capped exponential backoff up to 60s
-      const next = Math.min(60000, backoffRef.current * 2);
-      backoffRef.current = next;
-      timerRef.current = setTimeout(poll, next);
-    }
-
-    // kick off with initial backoff
-    backoffRef.current = 2000;
-    poll();
-    return () => {
-      cancelled = true;
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [open, matchId, currentSrc]);
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === 'Escape') onClose();

@@ -109,7 +109,17 @@ export default function MyPredictions() {
   const gamesWithPredictions = useMemo(() => {
     return enrichedGames.map((game, idx) => {
       const src = entries[idx];
-      return { game, prediction: { gameId: src?.id, predictedWinner: 'home', confidence: 0 } as any, msbs: src?.msbs, msbsWinner: src?.msbsWinner };
+      return {
+        game,
+        prediction: {
+          gameId: src?.id,
+          predictedWinner: 'home',
+          confidence: 0,
+          status: src?.status || null, // Include status from API
+        } as any,
+        msbs: src?.msbs,
+        msbsWinner: src?.msbsWinner,
+      };
     });
   }, [enrichedGames, entries]);
 
@@ -225,10 +235,24 @@ export default function MyPredictions() {
             const predictedTeamLogo = prediction.predictedWinner === 'home' ? game.home.logo : game.away.logo;
             const predictedTeamName = prediction.predictedWinner === 'home' ? game.home.name : game.away.name;
             
+            // Determine status colors
+            const predictionStatus = prediction?.status;
+            const isWon = predictionStatus === 'won';
+            const isFailed = predictionStatus === 'failed';
+            
+            // Get winner name for display
+            const winnerName = msbsWinner || (isWon ? predictedTeamName : '');
+            
             return (
               <div
                 key={game.sport + '-' + game.home.name}
-                className="text-left group rounded-lg overflow-hidden border border-white/10 bg-white/5 transition-all"
+                className={`text-left group rounded-lg overflow-hidden transition-all ${
+                  isWon
+                    ? 'border-2 border-green-500 bg-green-500/10'
+                    : isFailed
+                    ? 'border-2 border-red-500 bg-red-500/10'
+                    : 'border border-white/10 bg-white/5'
+                }`}
               >
                 <div className="p-3 space-y-2">
                   <div className="text-[10px] text-white/50 uppercase tracking-wide">{game.league}</div>
@@ -256,13 +280,25 @@ export default function MyPredictions() {
 
                   {/* MSBS from Betistuta */}
                   <div className="pt-1 border-t border-white/10">
-                    <div className="flex items-center justify-center gap-2">
-                      <span className="pill pill-active !text-[10px] !px-2 !py-0.5" title="Prediction">
-                        {msbs ? `Pred: ${msbs}` : '(Pred—)'}
-                      </span>
-                      <span className="pill pill-muted !text-[10px] !px-2 !py-0.5" title="Predicted Winner">
-                        {msbsWinner ? `Winner: ${getDisplayName(msbsWinner)}` : 'Winner: —'}
-                      </span>
+                    <div className="flex flex-col items-center gap-2">
+                      <div className="flex items-center justify-center gap-2">
+                        <span className="pill pill-active !text-[10px] !px-2 !py-0.5" title="Prediction">
+                          {msbs ? `Pred: ${msbs}` : '(Pred—)'}
+                        </span>
+                        <span className="pill pill-muted !text-[10px] !px-2 !py-0.5" title="Predicted Winner">
+                          {msbsWinner ? `Winner: ${getDisplayName(msbsWinner)}` : 'Winner: —'}
+                        </span>
+                      </div>
+                      {isWon && winnerName && (
+                        <div className="text-[11px] font-semibold text-green-400 bg-green-500/20 px-2 py-0.5 rounded">
+                          {getDisplayName(winnerName)} wins ✓
+                        </div>
+                      )}
+                      {isFailed && (
+                        <div className="text-[11px] font-semibold text-red-400 bg-red-500/20 px-2 py-0.5 rounded">
+                          Prediction failed ✗
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

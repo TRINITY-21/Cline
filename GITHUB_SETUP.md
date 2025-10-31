@@ -1,20 +1,6 @@
 # GitHub Repository Setup Instructions
 
-## Quick Setup (Automatic - If GitHub CLI is installed)
-
-Run the setup script:
-```bash
-./create-github-repo.sh
-```
-
-This will automatically:
-1. Create a private repository named `cline`
-2. Push your code
-3. Give you the link to set up secrets
-
----
-
-## Manual Setup
+## Setup Steps
 
 ### Step 1: Create GitHub Repository
 
