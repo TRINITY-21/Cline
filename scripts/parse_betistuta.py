@@ -115,8 +115,9 @@ def fuzzy_match_teams(pred_home: str, pred_away: str, match_home: str, match_awa
       return ''
     # More aggressive normalization for fuzzy matching
     n = norm_team_name(name)
-    # Remove common words that might differ
-    common_words = ['fc', 'cf', 'club', 'de', 'da', 'do', 'das', 'los', 'las', 'the']
+    # Remove common words that might differ or cause false matches
+    common_words = ['fc', 'cf', 'club', 'de', 'da', 'do', 'das', 'los', 'las', 'the', 
+                    'town', 'city', 'united', 'athletic', 'sporting', 'fc', 'cf']
     words = n.split()
     words = [w for w in words if w not in common_words and len(w) > 2]
     return ' '.join(words)
@@ -132,28 +133,58 @@ def fuzzy_match_teams(pred_home: str, pred_away: str, match_home: str, match_awa
       id_a_norm = normalize_for_fuzzy(id_away)
       
       # Check if teams match using contains logic (avoid recursion)
+      # STRICT matching for ID-based matching - exclude common words
       def quick_contains_match(s1: str, s2: str) -> bool:
         if not s1 or not s2:
           return False
-        s1_clean = s1.replace(' ', '').replace('-', '')
-        s2_clean = s2.replace(' ', '').replace('-', '')
-        if len(s1_clean) >= 4 and len(s2_clean) >= 4:
-          return s1_clean in s2_clean or s2_clean in s1_clean
+        
+        # Extract meaningful words (exclude common generic words)
+        common_words = {'town', 'city', 'fc', 'cf', 'united', 'club', 'athletic', 'sporting',
+                       'de', 'da', 'do', 'das', 'los', 'las', 'the', 'wanderers', 'rovers', 'rangers',
+                       'green', 'red', 'blue', 'white', 'black', 'forest', 'park'}
+        s1_words = {w for w in s1.lower().split() if len(w) >= 4 and w not in common_words}
+        s2_words = {w for w in s2.lower().split() if len(w) >= 4 and w not in common_words}
+        
+        # Must have meaningful words on both sides
+        if not s1_words or not s2_words:
+          return False
+        
+        # ALL meaningful words must match (100% overlap required)
+        # This prevents false matches like "Mansfield Town" → "Luton Town"
+        if s1_words == s2_words:
+          return True
+        
+        # If different number of words, all of the smaller set must be in the larger
+        if len(s1_words) <= len(s2_words):
+          if s1_words.issubset(s2_words):
+            # Require 80% overlap
+            all_words = s1_words | s2_words
+            return len(s1_words) / max(len(all_words), 1) >= 0.8
+        else:
+          if s2_words.issubset(s1_words):
+            all_words = s1_words | s2_words
+            return len(s2_words) / max(len(all_words), 1) >= 0.8
+        
         return False
       
       # Check if prediction teams match ID-extracted teams
-      home_matches = quick_contains_match(pred_h_norm, id_h_norm) or quick_contains_match(pred_h_norm, id_a_norm)
-      away_matches = quick_contains_match(pred_a_norm, id_a_norm) or quick_contains_match(pred_a_norm, id_h_norm)
+      # Both teams must match
+      home_matches_home = quick_contains_match(pred_h_norm, id_h_norm)
+      home_matches_away = quick_contains_match(pred_h_norm, id_a_norm)
+      away_matches_away = quick_contains_match(pred_a_norm, id_a_norm)
+      away_matches_home = quick_contains_match(pred_a_norm, id_h_norm)
       
-      if home_matches and away_matches:
+      # Exact order match
+      if home_matches_home and away_matches_away:
         return True
       
-      # Try swapped
-      home_matches_swapped = quick_contains_match(pred_h_norm, id_a_norm) or quick_contains_match(pred_h_norm, id_h_norm)
-      away_matches_swapped = quick_contains_match(pred_a_norm, id_h_norm) or quick_contains_match(pred_a_norm, id_a_norm)
-      
-      if home_matches_swapped and away_matches_swapped:
+      # Swapped order match
+      if home_matches_away and away_matches_home:
         return True
+      
+      # Don't allow lenient matching for ID-based matching
+      # Both teams must match exactly (home-home AND away-away OR home-away AND away-home)
+      return False
   
   pred_h_norm = normalize_for_fuzzy(pred_home)
   pred_a_norm = normalize_for_fuzzy(pred_away)
@@ -166,42 +197,143 @@ def fuzzy_match_teams(pred_home: str, pred_away: str, match_home: str, match_awa
     return True
   
   # Fuzzy: check if one team name contains the other (for abbreviations/variations)
+  # But be more strict - require significant overlap
   def contains_match(s1: str, s2: str) -> bool:
     if not s1 or not s2:
       return False
-    # Remove spaces for better matching
-    s1_clean = s1.replace(' ', '').replace('-', '')
-    s2_clean = s2.replace(' ', '').replace('-', '')
-    # Check if one contains the other (minimum 4 chars to avoid false matches)
-    if len(s1_clean) >= 4 and len(s2_clean) >= 4:
-      if s1_clean in s2_clean or s2_clean in s1_clean:
-        return True
-    # Also check if significant words match (at least 3 chars)
-    s1_words = [w for w in s1.split() if len(w) >= 3]
-    s2_words = [w for w in s2.split() if len(w) >= 3]
+    # Remove spaces and hyphens for better matching
+    s1_clean = s1.replace(' ', '').replace('-', '').lower()
+    s2_clean = s2.replace(' ', '').replace('-', '').lower()
+    
+    # If one is very short, require exact match
+    if len(s1_clean) < 4 or len(s2_clean) < 4:
+      return s1_clean == s2_clean
+    
+    # Check if one contains the other (but require at least 60% overlap)
+    if s1_clean in s2_clean:
+      # s1 is contained in s2, check if it's a significant portion
+      overlap_ratio = len(s1_clean) / max(len(s2_clean), 1)
+      return overlap_ratio >= 0.6
+    if s2_clean in s1_clean:
+      overlap_ratio = len(s2_clean) / max(len(s1_clean), 1)
+      return overlap_ratio >= 0.6
+    
+    # Check word-level matching - require at least one significant word match (5+ chars)
+    s1_words = [w for w in s1.split() if len(w) >= 5]
+    s2_words = [w for w in s2.split() if len(w) >= 5]
+    
     if s1_words and s2_words:
-      # Check if any significant word from one appears in the other
+      # Check if there's a significant word match
       for w1 in s1_words:
         for w2 in s2_words:
-          if len(w1) >= 4 and len(w2) >= 4:
-            if w1 in w2 or w2 in w1:
+          # Require exact word match or very high overlap (80%+)
+          if w1 == w2:
+            return True
+          if len(w1) >= 6 and len(w2) >= 6:
+            # Check if one word is mostly contained in the other
+            if w1 in w2 and len(w1) / len(w2) >= 0.8:
               return True
+            if w2 in w1 and len(w2) / len(w1) >= 0.8:
+              return True
+    
     return False
   
   # Check if home teams match (fuzzy) and away teams match (fuzzy)
-  home_match = contains_match(pred_h_norm, match_h_norm) or \
-               contains_match(pred_h_norm, match_a_norm)
-  away_match = contains_match(pred_a_norm, match_a_norm) or \
-               contains_match(pred_a_norm, match_h_norm)
+  # BOTH teams must match with good confidence
+  home_matches_home = contains_match(pred_h_norm, match_h_norm)
+  home_matches_away = contains_match(pred_h_norm, match_a_norm)
+  away_matches_away = contains_match(pred_a_norm, match_a_norm)
+  away_matches_home = contains_match(pred_a_norm, match_h_norm)
   
-  # Also try swapped
-  home_match_swapped = contains_match(pred_h_norm, match_a_norm) or \
-                       contains_match(pred_h_norm, match_h_norm)
-  away_match_swapped = contains_match(pred_a_norm, match_h_norm) or \
-                       contains_match(pred_a_norm, match_a_norm)
+  # Try exact order: home matches home AND away matches away
+  if (home_matches_home and away_matches_away):
+    return True
   
-  # Require both teams to match (either exact order or swapped)
-  return (home_match and away_match) or (home_match_swapped and away_match_swapped)
+  # Try swapped: home matches away AND away matches home
+  if (home_matches_away and away_matches_home):
+    return True
+  
+  # Require STRICT matching - don't match just because of common words like "Town"
+  # Both teams must have meaningful matches (excluding common words)
+  
+  def get_meaningful_words(name: str) -> set[str]:
+    """Extract meaningful words (exclude common generic words)"""
+    common_words = {'town', 'city', 'fc', 'cf', 'united', 'club', 'athletic', 'sporting', 
+                    'de', 'da', 'do', 'das', 'los', 'las', 'the', 'fc', 'cf',
+                    'wanderers', 'rovers', 'rangers', 'athletic', 'sporting',
+                    'green', 'red', 'blue', 'white', 'black', 'forest', 'park',
+                    'town', 'city', 'united', 'city', 'athletic'}
+    words = name.lower().split()
+    return {w for w in words if len(w) >= 4 and w not in common_words}
+  
+  def meaningful_match_strength(s1: str, s2: str) -> float:
+    """Calculate match strength excluding common words"""
+    if not s1 or not s2:
+      return 0.0
+    
+    # Remove common words and get meaningful words
+    s1_words = get_meaningful_words(s1)
+    s2_words = get_meaningful_words(s2)
+    
+    if not s1_words or not s2_words:
+      # If no meaningful words, require high overlap on full string
+      s1_clean = s1.replace(' ', '').replace('-', '').lower()
+      s2_clean = s2.replace(' ', '').replace('-', '').lower()
+      if s1_clean in s2_clean:
+        ratio = len(s1_clean) / max(len(s2_clean), 1)
+        return ratio if ratio >= 0.7 else 0.0
+      if s2_clean in s1_clean:
+        ratio = len(s2_clean) / max(len(s1_clean), 1)
+        return ratio if ratio >= 0.7 else 0.0
+      return 0.0
+    
+    # Check meaningful word overlap - REQUIRE STRICT MATCHING
+    common_words = s1_words & s2_words
+    
+    # If no meaningful words match at all, no match
+    if not common_words:
+      return 0.0
+    
+    # ALL meaningful words from BOTH sides must match (100% overlap required)
+    # This prevents "Mansfield Town" matching "Luton Town" (mansfield != luton)
+    if s1_words == s2_words and common_words == s1_words == s2_words:
+      return 1.0
+    
+    # If one side has fewer words, all of those must match
+    # Example: "Luton" must match "Luton", not just partially
+    if len(s1_words) <= len(s2_words):
+      # All of s1's words must be in s2
+      if s1_words.issubset(s2_words):
+        # But require at least 80% of combined words to match
+        all_words = s1_words | s2_words
+        overlap = len(common_words) / max(len(all_words), 1)
+        return overlap if overlap >= 0.8 else 0.0
+    else:
+      # All of s2's words must be in s1
+      if s2_words.issubset(s1_words):
+        all_words = s1_words | s2_words
+        overlap = len(common_words) / max(len(all_words), 1)
+        return overlap if overlap >= 0.8 else 0.0
+    
+    return 0.0
+  
+  # Calculate meaningful match strengths (excluding common words)
+  home_home_strength = meaningful_match_strength(pred_h_norm, match_h_norm)
+  home_away_strength = meaningful_match_strength(pred_h_norm, match_a_norm)
+  away_away_strength = meaningful_match_strength(pred_a_norm, match_a_norm)
+  away_home_strength = meaningful_match_strength(pred_a_norm, match_h_norm)
+  
+  # Require STRICT matching: both teams must have strong matches (70%+)
+  # Exact order: home matches home AND away matches away
+  if home_home_strength >= 0.7 and away_away_strength >= 0.7:
+    return True
+  
+  # Swapped order: home matches away AND away matches home
+  if home_away_strength >= 0.7 and away_home_strength >= 0.7:
+    return True
+  
+  # Don't allow lenient matching - prevents false matches from common words
+  return False
 
 TR_TO_EN_LEAGUE: Dict[str, str] = {
   'kolombiya': 'Colombia',
