@@ -1,20 +1,25 @@
 # Free Cron Job Setup Guide
 
-## Option 1: Vercel Cron (Easiest - If Using Vercel)
+## Option 1: Vercel Cron (Limited - Daily Only on Hobby Plan)
 
-If you're deploying to Vercel, this is the simplest option:
+⚠️ **Important Limitation**: Vercel Hobby plan only supports daily cron jobs, not every 5 minutes.
 
-### Setup Steps:
+If you want to use Vercel Cron:
+- ✅ FREE on Vercel Hobby plan
+- ⚠️ **Only runs once per day** (`0 0 * * *` = midnight UTC)
+- ⚠️ To run every 5 minutes, you'd need Vercel Pro ($20/month)
+
+### Setup Steps (if you want daily updates only):
 
 1. **Deploy your app to Vercel** (if not already)
 
-2. **The `vercel.json` file is already configured** with:
+2. **The `vercel.json` file is configured** for daily runs:
    ```json
    {
      "crons": [
        {
          "path": "/api/cron/update-match-statuses",
-         "schedule": "*/5 * * * *"
+         "schedule": "0 0 * * *"
        }
      ]
    }
@@ -26,11 +31,8 @@ If you're deploying to Vercel, this is the simplest option:
 
 4. **Redeploy** - Vercel will automatically set up the cron job
 
-### Benefits:
-- ✅ FREE on Vercel Hobby plan
-- ✅ Automatic setup
-- ✅ Runs every 5 minutes
-- ✅ No external service needed
+### Recommendation:
+💡 **Use GitHub Actions instead** (Option 2) - it's FREE and can run every 5 minutes!
 
 ---
 

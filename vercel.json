@@ -1,9 +1,4 @@
-{
-  "crons": [
-    {
-      "path": "/api/cron/update-match-statuses",
-      "schedule": "*/5 * * * *"
-    }
-  ]
-}
+{}
+
+
 
