@@ -449,6 +449,7 @@ def parse_betistuta(doc: BeautifulSoup) -> List[Dict[str, str]]:
   col_away = idx_of('Deplasman') or 4
   col_msbs = idx_of('MSBS') or 7
   col_league = idx_of('Lig') or 6
+  col_time = idx_of('Saat') or 1  # Time column
 
   results: List[Dict[str, str]] = []
   rows_processed = 0
@@ -475,6 +476,7 @@ def parse_betistuta(doc: BeautifulSoup) -> List[Dict[str, str]]:
     league_tr = normalize(tds[col_league].get_text(' ')) if col_league is not None and col_league < len(tds) else ''
     league_en = translate_league(league_tr) if league_tr else ''
     msbs_val = normalize(tds[col_msbs].get_text(' ')) if col_msbs is not None and col_msbs < len(tds) else ''
+    time_label = normalize(tds[col_time].get_text(' ')) if col_time is not None and col_time < len(tds) else ''
     
     # Compute winner name from MSBS like "2 - 1"
     winner: Optional[str] = None
@@ -487,7 +489,15 @@ def parse_betistuta(doc: BeautifulSoup) -> List[Dict[str, str]]:
         winner = away
       else:
         winner = 'Draw'
-    results.append({ 'home': home, 'away': away, 'leagueTr': league_tr, 'leagueEn': league_en, 'msbs': msbs_val, 'msbsWinner': winner or '' })
+    results.append({ 
+      'home': home, 
+      'away': away, 
+      'leagueTr': league_tr, 
+      'leagueEn': league_en, 
+      'msbs': msbs_val, 
+      'msbsWinner': winner or '',
+      'timeLabel': time_label
+    })
   
   print(f'   Processed {rows_processed} rows, skipped {rows_skipped}, extracted {len(results)} predictions')
 
@@ -496,13 +506,11 @@ def parse_betistuta(doc: BeautifulSoup) -> List[Dict[str, str]]:
 
 def main():
   ap = argparse.ArgumentParser()
-  ap.add_argument('--in', dest='in_path', default='data/unified_matches.json')
   ap.add_argument('--out', dest='out_path', default='data/predictions.json')
   ap.add_argument('--html', dest='html_path', help='Optional local HTML file to parse instead of fetching')
   args = ap.parse_args()
-
-  with open(args.in_path, 'r', encoding='utf-8') as f:
-    unified = json.load(f)
+  
+  # No longer need unified_matches.json - storing all predictions directly
 
   if args.html_path:
     with open(args.html_path, 'r', encoding='utf-8', errors='ignore') as f:
@@ -549,120 +557,48 @@ def main():
     for i, row in enumerate(bet_rows[:3]):
       print(f'   {i+1}. {row.get("home", "?")} vs {row.get("away", "?")} | MSBS: {row.get("msbs", "?")}')
   
-  # Build normalized lookup for unified matches by team pair
-  unified_map: Dict[str, Dict[str, Any]] = {}
-  for m in unified:
-    home_name = m.get('home', {}).get('name', '')
-    away_name = m.get('away', {}).get('name', '')
-    h = norm_team_name(home_name)
-    a = norm_team_name(away_name)
-    
-    # Create key with consistent separator
-    key = f"{h}|{a}"
-    unified_map[key] = m
-    
-    # Also store swapped version for easier matching
-    key_swapped = f"{a}|{h}"
-    if key_swapped != key:
-      unified_map[key_swapped] = m
-
-  print(f'\n📊 Found {len(unified)} match(es) in unified_matches.json')
-  print(f'   Created {len(unified_map)} normalized lookup key(s) (including swapped)')
-  
-  # Show sample matches for debugging
-  if len(unified_map) > 0:
-    print(f'\n📋 Sample matches (first 3):')
-    for i, match in enumerate(unified[:3]):
-      home_name = match.get('home', {}).get('name', '?')
-      away_name = match.get('away', {}).get('name', '?')
-      h = norm_team_name(home_name)
-      a = norm_team_name(away_name)
-      print(f'   {i+1}. {home_name} vs {away_name}')
-      print(f'      Normalized: "{h}" | "{a}" → Key: "{h}|{a}"')
-
+  # Store all predictions directly without matching to unified_matches.json
+  # Generate unique IDs based on team names and date
   predictions: List[Dict[str, Any]] = []
-  unmatched_count = 0
-  matched_count = 0
-  fuzzy_matched_count = 0
   
   for row in bet_rows:
-    h_raw = row.get('home', '')
-    a_raw = row.get('away', '')
-    h = norm_team_name(h_raw)
-    a = norm_team_name(a_raw)
+    h_raw = row.get('home', '').strip()
+    a_raw = row.get('away', '').strip()
     
-    # Build key with consistent format (no extra spaces)
-    key1 = f"{h}|{a}"
-    key2 = f"{a}|{h}"
-    
-    match = unified_map.get(key1)
-    if not match:
-      # try swapped order
-      match = unified_map.get(key2)
-    
-    # If exact match failed, try fuzzy matching
-    if not match:
-      for unified_match in unified:
-        match_home = unified_match.get('home', {}).get('name', '')
-        match_away = unified_match.get('away', {}).get('name', '')
-        match_id = unified_match.get('id', '')
-        
-        if fuzzy_match_teams(h_raw, a_raw, match_home, match_away, match_id):
-          match = unified_match
-          fuzzy_matched_count += 1
-          if fuzzy_matched_count <= 5:
-            print(f'🔍 Fuzzy matched: {h_raw} vs {a_raw}')
-            print(f'   → {match_home} vs {match_away} (ID: {match_id})')
-          break
-    
-    if not match:
-      unmatched_count += 1
-      if unmatched_count <= 10:  # Show first 10 unmatched for debugging
-        print(f'⚠️  No match: {h_raw} vs {a_raw}')
-        print(f'      Normalized: "{h}" | "{a}"')
-        print(f'      Looking for keys: "{key1}" or "{key2}"')
+    if not h_raw or not a_raw:
       continue
     
-    matched_count += 1
-    if matched_count <= 3 and fuzzy_matched_count == 0:
-      print(f'✓ Exact matched: {h_raw} vs {a_raw}')
+    # Generate a unique ID from team names
+    h_normalized = norm_team_name(h_raw).replace(' ', '-').replace('|', '-')
+    a_normalized = norm_team_name(a_raw).replace(' ', '-').replace('|', '-')
+    time_label = row.get('timeLabel', '').replace(':', '-') or '00-00'
+    
+    # Get time label from row
+    time_label_raw = row.get('timeLabel', '').strip()
+    time_label_for_id = time_label_raw.replace(':', '-') if time_label_raw else '00-00'
+    
+    # Create ID: home-team-vs-away-team-time
+    pred_id = f"{h_normalized}-vs-{a_normalized}-{time_label_for_id}"
     
     predictions.append({
-      'id': match.get('id'),
-      'sport': match.get('sport'),
-      'league': row.get('leagueEn') or row.get('leagueTr') or (match.get('league', {}).get('name') if match.get('league') else None),
-      'home': match.get('home', {}).get('name'),
-      'away': match.get('away', {}).get('name'),
-      'timeLabel': match.get('timeLabel'),
+      'id': pred_id,
+      'sport': 'Football',
+      'league': row.get('leagueEn') or row.get('leagueTr') or '',
+      'home': h_raw,
+      'away': a_raw,
+      'timeLabel': time_label_raw,
       'msbs': row.get('msbs', ''),
       'msbsWinner': row.get('msbsWinner', ''),
+      'status': None,  # Will be set automatically when results are available
+      'result': None,  # Will be set when actual result is fetched
     })
 
   with open(args.out_path, 'w', encoding='utf-8') as f:
     json.dump(predictions, f, ensure_ascii=False, indent=2)
   
-  print(f'\n📊 Matching Summary:')
-  print(f'   ✅ Total matched: {len(predictions)} prediction(s)')
-  if fuzzy_matched_count > 0:
-    print(f'      - Exact matches: {len(predictions) - fuzzy_matched_count}')
-    print(f'      - Fuzzy matches: {fuzzy_matched_count}')
-  print(f'   ⚠️  Unmatched: {unmatched_count} prediction(s)')
-  
-  if unmatched_count > 0 and len(unified_map) > 0:
-    print(f'\n💡 Tips to improve matching:')
-    print(f'   1. Ensure unified_matches.json is up-to-date with recent matches')
-    print(f'   2. Team names in predictions might differ from match names')
-    print(f'   3. Check if matches were scraped for the same date as predictions')
-    print(f'   4. Current unified_matches.json has {len(unified_map)} match(es)')
-    
-    # Show some unified match keys for comparison
-    print(f'\n📋 Sample unified match keys (for comparison):')
-    for i, (key, match) in enumerate(list(unified_map.items())[:5]):
-      home_name = match.get('home', {}).get('name', '?')
-      away_name = match.get('away', {}).get('name', '?')
-      print(f'   {i+1}. Key: "{key}" → {home_name} vs {away_name}')
-  
-  print(f'\n💾 Wrote {len(predictions)} prediction(s) to {args.out_path}')
+  print(f'\n📊 Scraping Summary:')
+  print(f'   ✅ Scraped: {len(predictions)} prediction(s)')
+  print(f'   💾 Wrote {len(predictions)} prediction(s) to {args.out_path}')
 
 
 if __name__ == '__main__':

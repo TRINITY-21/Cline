@@ -293,23 +293,7 @@ function AdminPageContent() {
     }
   }
 
-  async function updatePredictionStatus(predictionId: string, status: 'won' | 'failed' | null) {
-    try {
-      const res = await fetch(`/api/admin/moderate/predictions/${encodeURIComponent(predictionId)}`, {
-        method: 'PATCH',
-        headers: {
-          'content-type': 'application/json',
-          'x-internal-token': token,
-        },
-        body: JSON.stringify({ override: { status } }),
-      });
-      if (!res.ok) throw new Error('Failed to update');
-      addToast(`Prediction marked as ${status || 'pending'}`, 'success');
-      await loadPredictions();
-    } catch (err: any) {
-      addToast(`Failed to update prediction: ${err.message}`, 'error');
-    }
-  }
+  // Status updates are now automatic via results scraper - no manual updates needed
 
   async function updatePredictionApproval(predictionId: string, approved: boolean, reload: boolean = true) {
     try {
@@ -1109,35 +1093,21 @@ function AdminPageContent() {
                               >
                                 {isApproved ? '✓ Approved' : 'Approve'}
                               </button>
-                              <button
-                                onClick={() => updatePredictionStatus(pred.id, 'won')}
-                                disabled={isWon}
-                                className={`pill text-xs disabled:opacity-50 ${
-                                  isWon
-                                    ? 'pill-active bg-green-500/20 text-green-400 border-green-500/40'
-                                    : 'pill-muted hover:bg-green-500/10 hover:border-green-500/30'
-                                }`}
-                              >
-                                ✓ Won
-                              </button>
-                              <button
-                                onClick={() => updatePredictionStatus(pred.id, 'failed')}
-                                disabled={isFailed}
-                                className={`pill text-xs disabled:opacity-50 ${
-                                  isFailed
-                                    ? 'bg-red-500/20 text-red-400 border-red-500/40'
-                                    : 'pill-muted hover:bg-red-500/10 hover:border-red-500/30'
-                                }`}
-                              >
-                                ✗ Failed
-                              </button>
-                              {(isWon || isFailed) && (
-                                <button
-                                  onClick={() => updatePredictionStatus(pred.id, null)}
-                                  className="pill pill-muted text-xs"
-                                >
-                                  Reset
-                                </button>
+                              {/* Status is automatically updated by results scraper every 30 minutes */}
+                              {pred.result && (
+                                <span className="text-xs text-white/60">
+                                  Result: {pred.result} 
+                                  {pred.status && (
+                                    <span className={`ml-2 ${pred.status === 'won' ? 'text-green-400' : 'text-red-400'}`}>
+                                      ({pred.status})
+                                    </span>
+                                  )}
+                                </span>
+                              )}
+                              {!pred.result && pred.status && (
+                                <span className={`text-xs ${pred.status === 'won' ? 'text-green-400' : 'text-red-400'}`}>
+                                  {pred.status}
+                                </span>
                               )}
                             </div>
                           </td>

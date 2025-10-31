@@ -33,15 +33,7 @@ jobs:
       - name: Scrape Predictions
         run: |
           echo "Scraping predictions from betistuta.net..."
-          
-          # Check if unified_matches.json exists
-          if [ ! -f data/unified_matches.json ]; then
-            echo "⚠️  Warning: data/unified_matches.json not found. Predictions require matches to link against."
-            echo "Creating empty predictions.json..."
-            echo "[]" > data/predictions.json
-          else
-            python3 scripts/parse_betistuta.py --in data/unified_matches.json --out data/predictions.json
-          fi
+          python3 scripts/parse_betistuta.py --out data/predictions.json
           
           if [ ! -f data/predictions.json ]; then
             echo "Error: Predictions file not created."
