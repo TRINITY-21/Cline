@@ -33,6 +33,7 @@ jobs:
       - name: Scrape Predictions
         run: |
           echo "Scraping predictions from betistuta.net..."
+          echo "Note: Only high-probability predictions (2+ goal difference) will be stored"
           python3 scripts/parse_betistuta.py --out data/predictions.json
           
           if [ ! -f data/predictions.json ]; then
@@ -42,17 +43,23 @@ jobs:
           
           # Check if predictions.json has content
           PREDICTIONS_COUNT=$(jq 'length' data/predictions.json 2>/dev/null || echo "0")
+          
+          # Also check file size to catch issues
+          FILE_SIZE=$(wc -c < data/predictions.json 2>/dev/null || echo "0")
+          echo "📊 Predictions file size: $FILE_SIZE bytes"
+          
           if [ "$PREDICTIONS_COUNT" = "0" ] || [ -z "$PREDICTIONS_COUNT" ]; then
             echo "⚠️  Warning: No predictions found or predictions.json is empty"
             echo "This might happen if:"
             echo "  1. No predictions available for today's date"
-            echo "  2. Team names don't match between predictions and matches"
+            echo "  2. No predictions met the high-probability filter (2+ goal difference)"
             echo "  3. The scraping target structure changed"
             echo "Skipping import to avoid API error..."
             exit 0
           fi
           
-          echo "✅ Found $PREDICTIONS_COUNT prediction(s) in data/predictions.json"
+          echo "✅ Found $PREDICTIONS_COUNT filtered prediction(s) in data/predictions.json"
+          echo "   (Only high-probability predictions with 2+ goal difference are included)"
 
       - name: Import Predictions to Firestore
         env:
