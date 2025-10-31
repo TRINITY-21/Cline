@@ -127,6 +127,20 @@ export default function MyPredictions() {
     return MOCK_PREDICTIONS.filter(p => p.points).reduce((sum, p) => sum + (p.points || 0), 0);
   }, []);
 
+  // Calculate stats from actual predictions data
+  const stats = useMemo(() => {
+    const totalMatches = entries.length;
+    const played = entries.filter((e: any) => e.status === 'won' || e.status === 'failed').length;
+    const won = entries.filter((e: any) => e.status === 'won').length;
+    const successRate = played > 0 ? Math.round((won / played) * 100) : 0;
+    
+    return {
+      totalMatches,
+      played,
+      successRate,
+    };
+  }, [entries]);
+
   // Group predictions by league for accordion
   const groupedByLeague = useMemo(() => {
     const groups: Record<string, any[]> = {};
@@ -167,15 +181,15 @@ export default function MyPredictions() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="surface p-4">
           <div className="text-xs text-white/60 uppercase tracking-wide mb-1">Number of Matches</div>
-          <div className="text-2xl font-bold">193</div>
+          <div className="text-2xl font-bold">{stats.totalMatches}</div>
         </div>
         <div className="surface p-4">
           <div className="text-xs text-white/60 uppercase tracking-wide mb-1">Played</div>
-          <div className="text-2xl font-bold text-[rgb(var(--brand-yellow))]">4</div>
+          <div className="text-2xl font-bold text-[rgb(var(--brand-yellow))]">{stats.played}</div>
         </div>
         <div className="surface p-4">
           <div className="text-xs text-white/60 uppercase tracking-wide mb-1">Success</div>
-          <div className="text-2xl font-bold">50%</div>
+          <div className="text-2xl font-bold">{stats.successRate}%</div>
         </div>
       </div>
 
@@ -284,9 +298,6 @@ export default function MyPredictions() {
                       <div className="flex items-center justify-center gap-2">
                         <span className="pill pill-active !text-[10px] !px-2 !py-0.5" title="Prediction">
                           {msbs ? `Pred: ${msbs}` : '(Pred—)'}
-                        </span>
-                        <span className="pill pill-muted !text-[10px] !px-2 !py-0.5" title="Predicted Winner">
-                          {msbsWinner ? `Winner: ${getDisplayName(msbsWinner)}` : 'Winner: —'}
                         </span>
                       </div>
                       {isWon && winnerName && (

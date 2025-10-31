@@ -1,4 +1,5 @@
 import { initFirebaseAdmin } from '@/lib/firebase';
+import { translateMatches } from '@/lib/translate';
 import type { UnifiedMatch } from '@/lib/types';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -11,42 +12,25 @@ function auth(req: NextRequest): boolean {
 }
 
 /**
- * Determine which date document a match belongs to
- * Uses startTime (if ISO date), timeLabel, or defaults to today
+ * Get today's date in YYYY-MM-DD format
  */
-function getMatchDate(match: UnifiedMatch): string {
-  // Try to extract date from startTime if it's an ISO date
-  if (match.startTime) {
-    try {
-      const date = new Date(match.startTime);
-      if (!isNaN(date.getTime())) {
-        const yyyy = date.getFullYear();
-        const mm = String(date.getMonth() + 1).padStart(2, '0');
-        const dd = String(date.getDate()).padStart(2, '0');
-        return `${yyyy}-${mm}-${dd}`;
-      }
-    } catch {}
-  }
-
-  // Fallback: check if createdAt exists (when match was created/scheduled)
-  if (match.createdAt) {
-    try {
-      const date = new Date(match.createdAt);
-      if (!isNaN(date.getTime())) {
-        const yyyy = date.getFullYear();
-        const mm = String(date.getMonth() + 1).padStart(2, '0');
-        const dd = String(date.getDate()).padStart(2, '0');
-        return `${yyyy}-${mm}-${dd}`;
-      }
-    } catch {}
-  }
-
-  // Default to today
+function todayId(): string {
   const now = new Date();
   const yyyy = now.getFullYear();
   const mm = String(now.getMonth() + 1).padStart(2, '0');
   const dd = String(now.getDate()).padStart(2, '0');
   return `${yyyy}-${mm}-${dd}`;
+}
+
+/**
+ * Determine which date document a match belongs to
+ * For scraped matches, always use today's date to ensure new day matches go into today's document
+ */
+function getMatchDate(match: UnifiedMatch): string {
+  // Always use today's date for scraped matches
+  // This ensures that when scraping on a new day (e.g., 2025-11-01),
+  // all newly scraped matches go into today's document, not yesterday's
+  return todayId();
 }
 
 /**
@@ -133,6 +117,11 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    // Translate matches from Turkish to English before processing
+    console.log(`🌐 Translating ${scrapedMatches.length} match(es) from Turkish to English...`);
+    const translatedMatches = await translateMatches(scrapedMatches);
+    console.log(`✓ Translation completed`);
+
     const admin = initFirebaseAdmin();
     const dailyMatchesCollection = admin.firestore().collection(
       process.env.DAILY_MATCHES_COLLECTION || process.env.NEXT_PUBLIC_DAILY_MATCHES_COLLECTION || 'daily_matches'
@@ -146,8 +135,12 @@ export async function POST(req: NextRequest) {
     // Group matches by date for daily_matches updates
     const matchesByDate: Record<string, UnifiedMatch[]> = {};
 
-    // Group scraped matches by date
-    for (const scrapedMatch of scrapedMatches) {
+    // Get today's date - all scraped matches will go into today's document
+    const today = todayId();
+    console.log(`📅 Using today's date: ${today} for all scraped matches`);
+    
+    // Group translated matches by date (all will go to today's date)
+    for (const scrapedMatch of translatedMatches) {
       if (!scrapedMatch.id) {
         skippedCount++;
         continue;
@@ -158,6 +151,8 @@ export async function POST(req: NextRequest) {
       }
       matchesByDate[matchDate].push(scrapedMatch);
     }
+    
+    console.log(`📊 Grouped ${translatedMatches.length} match(es) into ${Object.keys(matchesByDate).length} date document(s):`, Object.keys(matchesByDate));
 
     // Update daily_matches collection by date
     const now = new Date().toISOString();
@@ -201,10 +196,10 @@ export async function POST(req: NextRequest) {
               skippedCount++;
             }
           } else {
-            // New match for this date
+            // New match for this date - always use today's date as createdAt
             mergedMatches.push({
               ...scrapedMatch,
-              createdAt: scrapedMatch.createdAt || now,
+              createdAt: now, // Use current time (today) for newly scraped matches
               updatedAt: now,
             });
             updatedCount++;
@@ -237,7 +232,7 @@ export async function POST(req: NextRequest) {
       updated: updatedCount,
       new: newMatchesCount,
       skipped: skippedCount,
-      total: scrapedMatches.length,
+      total: translatedMatches.length,
       dailyUpdates, // Shows how many matches per date document
       updates: updates.slice(0, 10), // Return first 10 updates as sample
       message: `Updated ${updatedCount} match(es) (${newMatchesCount} new, ${updatedCount - newMatchesCount} changed), skipped ${skippedCount} unchanged. Updated ${Object.keys(dailyUpdates).length} date document(s) in daily_matches.`

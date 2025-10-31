@@ -1,4 +1,5 @@
 import { initFirebaseAdmin } from '@/lib/firebase';
+import { translateToEnglish } from '@/lib/translate';
 import { promises as fs } from 'fs';
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
@@ -171,12 +172,26 @@ export async function POST(req: NextRequest) {
     
     console.log(`📥 Starting import of ${itemsArray.length} prediction(s)`);
     
+    // Translate predictions from Turkish to English
+    console.log(`🌐 Translating ${itemsArray.length} prediction(s) from Turkish to English...`);
+    const translatedPredictions = await Promise.all(
+      itemsArray.map(async (pred: any) => {
+        const translated: any = { ...pred };
+        if (pred.home) translated.home = await translateToEnglish(pred.home);
+        if (pred.away) translated.away = await translateToEnglish(pred.away);
+        if (pred.league) translated.league = await translateToEnglish(pred.league);
+        if (pred.msbsWinner) translated.msbsWinner = await translateToEnglish(pred.msbsWinner);
+        return translated;
+      })
+    );
+    console.log(`✓ Translation completed`);
+    
     const now = new Date().toISOString();
     
     // Group predictions by date
     const predictionsByDate: Record<string, any[]> = {};
     
-    for (const prediction of itemsArray) {
+    for (const prediction of translatedPredictions) {
       const date = await getPredictionDate(prediction, admin);
       if (!predictionsByDate[date]) {
         predictionsByDate[date] = [];

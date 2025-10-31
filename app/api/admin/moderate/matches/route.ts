@@ -1,4 +1,5 @@
 import { initFirebaseAdmin } from '@/lib/firebase';
+import { translateMatches } from '@/lib/translate';
 import { promises as fs } from 'fs';
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
@@ -148,6 +149,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No items to import' }, { status: 400 });
     }
     
+    // Translate matches from Turkish to English before saving
+    console.log(`🌐 Translating ${items.length} match(es) from Turkish to English...`);
+    const translatedItems = await translateMatches(items);
+    console.log(`✓ Translation completed`);
+    
     const admin = initFirebaseAdmin();
     const dailyCol = admin.firestore().collection(
       process.env.DAILY_MATCHES_COLLECTION || process.env.NEXT_PUBLIC_DAILY_MATCHES_COLLECTION || 'daily_matches'
@@ -171,7 +177,7 @@ export async function POST(req: NextRequest) {
     
     // Add/update imported matches
     let count = 0;
-    for (const m of items) {
+    for (const m of translatedItems) {
       const id = String(m.id || '');
       if (!id) continue;
       
