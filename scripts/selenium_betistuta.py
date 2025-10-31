@@ -11,7 +11,7 @@ import argparse
 import json
 import re
 import tempfile
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -20,15 +20,16 @@ from selenium.webdriver.common.by import By
 
 def get_betistuta_url():
   """
-  Get betistuta URL with current date parameter using local timezone.
+  Get betistuta URL with current date parameter using GMT+3 timezone.
   Format: https://www.betistuta.net/Futbol.aspx?D=M/D/YYYY
   """
-  # Get current local time
-  now = datetime.now()
+  # Get current UTC time and add 3 hours to get GMT+3
+  now_utc = datetime.now(timezone.utc)
+  gmt_plus_3 = now_utc + timedelta(hours=3)
   # Format as M/D/YYYY (e.g., 11/1/2025) - remove leading zeros
-  month = str(now.month)
-  day = str(now.day)
-  year = str(now.year)
+  month = str(gmt_plus_3.month)
+  day = str(gmt_plus_3.day)
+  year = str(gmt_plus_3.year)
   date_str = f'{month}/{day}/{year}'
   return f'https://www.betistuta.net/Futbol.aspx?D={date_str}'
   
