@@ -153,9 +153,14 @@ export async function POST(req: NextRequest) {
         items = body;
       } else if (body && Array.isArray(body.items)) {
         items = body.items;
+      } else if (body && Array.isArray(body.results)) {
+        // Also support results array (for consistency)
+        items = body.results;
       }
-    } catch {}
-    if (!items) {
+    } catch (err: any) {
+      console.warn('Failed to parse request body as JSON:', err?.message);
+    }
+    if (!items || items.length === 0) {
       try {
         const file = path.join(process.cwd(), 'data', 'predictions.json');
         const raw = await fs.readFile(file, 'utf-8');

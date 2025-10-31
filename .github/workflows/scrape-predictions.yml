@@ -78,15 +78,13 @@ jobs:
           
           echo "Importing $PREDICTIONS_COUNT prediction(s) to daily_predictions collection..."
           
-          # Read the predictions JSON and send as array
-          PREDICTIONS_DATA=$(cat data/predictions.json)
-          
+          # Use --data-binary to send file directly (avoids "Argument list too long" error)
           RESPONSE=$(curl -sS -w "\nHTTP_STATUS:%{http_code}" -X POST "${{ env.API_BASE_URL }}/api/admin/moderate/predictions" \
             -H "x-internal-token: ${{ env.NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN }}" \
             -H "Content-Type: application/json" \
-            -d "$PREDICTIONS_DATA")
+            --data-binary "@data/predictions.json")
           
-          HTTP_STATUS=$(echo "$RESPONSE" | grep -oP 'HTTP_STATUS:\K\d+')
+          HTTP_STATUS=$(echo "$RESPONSE" | grep -oP 'HTTP_STATUS:\K\d+' || echo "000")
           BODY=$(echo "$RESPONSE" | sed 's/HTTP_STATUS:[0-9]*$//')
           
           echo "$BODY"

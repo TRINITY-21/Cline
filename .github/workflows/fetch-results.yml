@@ -67,14 +67,14 @@ jobs:
           
           echo "Updating predictions with $RESULT_COUNT result(s)..."
           
-          # Send results to API
-          RESULTS_DATA=$(cat data/match_results.json)
-          REQUEST_BODY=$(jq -n --argjson results "$RESULTS_DATA" '{results: $results}')
+          # Create request body with results array
+          # Use --data-binary with a temp file to avoid "Argument list too long" error
+          jq -n --argjson results "$(cat data/match_results.json)" '{results: $results}' > /tmp/request_body.json
           
           RESPONSE=$(curl -sS -w "\nHTTP_STATUS:%{http_code}" -X POST "${{ env.API_BASE_URL }}/api/admin/predictions/update-results" \
             -H "x-internal-token: ${{ env.NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN }}" \
             -H "Content-Type: application/json" \
-            -d "$REQUEST_BODY")
+            --data-binary "@/tmp/request_body.json")
           
           HTTP_STATUS=$(echo "$RESPONSE" | grep -oP 'HTTP_STATUS:\K\d+')
           BODY=$(echo "$RESPONSE" | sed 's/HTTP_STATUS:[0-9]*$//')
