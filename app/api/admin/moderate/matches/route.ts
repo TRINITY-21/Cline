@@ -106,7 +106,9 @@ export async function GET(req: NextRequest) {
   
   // If no date specified, get today's matches or fall back to all matches from main collection
   const now = new Date();
-  const todayId = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  // Use GMT+3 timezone (add 3 hours to UTC)
+  const gmtPlus3 = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+  const todayId = `${gmtPlus3.getUTCFullYear()}-${String(gmtPlus3.getUTCMonth() + 1).padStart(2, '0')}-${String(gmtPlus3.getUTCDate()).padStart(2, '0')}`;
   
   const dailyCol = admin.firestore().collection(process.env.DAILY_MATCHES_COLLECTION || process.env.NEXT_PUBLIC_DAILY_MATCHES_COLLECTION || 'daily_matches');
   const docRef = dailyCol.doc(todayId);
@@ -161,7 +163,9 @@ export async function POST(req: NextRequest) {
     
     const now = new Date().toISOString();
     const today = new Date();
-    const dateId = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    // Use GMT+3 timezone (add 3 hours to UTC)
+    const gmtPlus3 = new Date(today.getTime() + 3 * 60 * 60 * 1000);
+    const dateId = `${gmtPlus3.getUTCFullYear()}-${String(gmtPlus3.getUTCMonth() + 1).padStart(2, '0')}-${String(gmtPlus3.getUTCDate()).padStart(2, '0')}`;
     
     // Get existing matches for today
     const dateRef = dailyCol.doc(dateId);

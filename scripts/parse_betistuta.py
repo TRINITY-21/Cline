@@ -10,16 +10,32 @@ Usage:
 import argparse
 import json
 import re
+from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional, Tuple
 
 import requests
 from bs4 import BeautifulSoup
 
-
-URL = 'https://www.betistuta.net/Futbol.aspx'
 HEADERS = {
   'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
 }
+
+
+def get_betistuta_url():
+  """
+  Get betistuta URL with current date parameter in GMT+3.
+  Format: https://www.betistuta.net/Futbol.aspx?D=M/D/YYYY
+  """
+  # Get current UTC time
+  now = datetime.utcnow()
+  # Add 3 hours to get GMT+3
+  gmt_plus_3 = now + timedelta(hours=3)
+  # Format as M/D/YYYY (e.g., 11/1/2025) - remove leading zeros
+  month = str(gmt_plus_3.month)
+  day = str(gmt_plus_3.day)
+  year = str(gmt_plus_3.year)
+  date_str = f'{month}/{day}/{year}'
+  return f'https://www.betistuta.net/Futbol.aspx?D={date_str}'
 
 
 def normalize(s: Optional[str]) -> str:
@@ -164,7 +180,9 @@ def main():
       html = f.read()
     doc = BeautifulSoup(html, 'html.parser')
   else:
-    resp = requests.get(URL, headers=HEADERS, timeout=30)
+    url = get_betistuta_url()
+    print(f'📅 Fetching predictions for date (GMT+3): {url}')
+    resp = requests.get(url, headers=HEADERS, timeout=30)
     resp.raise_for_status()
     doc = BeautifulSoup(resp.text, 'html.parser')
 
