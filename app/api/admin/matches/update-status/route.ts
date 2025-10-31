@@ -61,24 +61,6 @@ export async function PATCH(req: NextRequest) {
       }
     }
 
-    // Also update in main matches collection for consistency (if matches exist)
-    if (updated > 0) {
-      const mainCol = admin.firestore().collection(process.env.NEXT_PUBLIC_MATCHES_COLLECTION || 'matches');
-      const batch = admin.firestore().batch();
-      matchIds.forEach((matchId: string) => {
-        const matchRef = mainCol.doc(matchId);
-        const update: any = { updatedAt: now };
-        if (approved !== undefined) update.approved = approved;
-        if (trendingValue !== undefined) update.isTrending = trendingValue;
-        batch.set(matchRef, update, { merge: true });
-      });
-      try {
-        await batch.commit();
-      } catch (err) {
-        console.error('Failed to update main matches collection:', err);
-        // Don't fail the request if main collection update fails
-      }
-    }
 
     // Save back to daily_matches
     await ref.set({ id: dateId, matches: list, updatedAt: now }, { merge: true });

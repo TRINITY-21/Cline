@@ -29,16 +29,37 @@ function withAutoEndedStatus(rows: any[]): any[] {
   }
 }
 
+function todayId(): string {
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+}
+
 export async function GET() {
   const useFirestore = (process.env.MATCHES_STORAGE || process.env.NEXT_PUBLIC_MATCHES_STORAGE) === 'firestore';
   if (useFirestore) {
     try {
       const admin = initFirebaseAdmin();
-      const colName = process.env.MATCHES_COLLECTION || process.env.NEXT_PUBLIC_MATCHES_COLLECTION || 'matches';
-      // Avoid composite index by not ordering; add index if you need order.
-      const qs = await admin.firestore().collection(colName).where('approved', '==', true).limit(1000).get();
-      const rows = qs.docs.map(d => ({ id: d.id, ...(d.data() || {}) }));
-      return NextResponse.json(withAutoEndedStatus(rows));
+      const dailyCol = admin.firestore().collection(
+        process.env.DAILY_MATCHES_COLLECTION || process.env.NEXT_PUBLIC_DAILY_MATCHES_COLLECTION || 'daily_matches'
+      );
+      
+      // Get today's matches
+      const today = todayId();
+      const todayDoc = await dailyCol.doc(today).get();
+      
+      if (todayDoc.exists) {
+        const data = todayDoc.data();
+        const matches = Array.isArray(data?.matches) ? data.matches : [];
+        // Filter approved matches only
+        const approved = matches.filter((m: any) => m?.approved === true);
+        return NextResponse.json(withAutoEndedStatus(approved));
+      }
+      
+      // If today doesn't exist, return empty array
+      return NextResponse.json([]);
     } catch (err: any) {
       return NextResponse.json({ error: 'Failed to read matches (firestore)' }, { status: 500 });
     }

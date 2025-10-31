@@ -18,15 +18,11 @@ function todayId(): string {
 export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
   if (!auth(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const admin = initFirebaseAdmin();
-  const col = admin.firestore().collection(process.env.NEXT_PUBLIC_MATCHES_COLLECTION || 'matches');
   const body = await req.json().catch(() => ({}));
   const { approved, override } = body || {};
   const now = new Date().toISOString();
   
-  // Update main matches collection
-  await col.doc(params.id).set({ ...(override || {}), approved: approved !== undefined ? !!approved : undefined, updatedAt: now }, { merge: true });
-  
-  // Also update in daily_matches if it exists
+  // Update in daily_matches
   try {
     const dateId = todayId();
     const COLLECTION = process.env.DAILY_MATCHES_COLLECTION || process.env.NEXT_PUBLIC_DAILY_MATCHES_COLLECTION || 'daily_matches';
@@ -51,7 +47,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     }
   } catch (err) {
     console.error('Failed to update daily_matches:', err);
-    // Don't fail the request if daily update fails
+    return NextResponse.json({ error: 'Failed to update match' }, { status: 500 });
   }
   
   return NextResponse.json({ ok: true });

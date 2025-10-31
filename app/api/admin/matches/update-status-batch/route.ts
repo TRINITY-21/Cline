@@ -40,8 +40,6 @@ export async function POST(req: NextRequest) {
     
     let updated = 0;
     const now = new Date().toISOString();
-    const batch = admin.firestore().batch();
-    const mainCol = admin.firestore().collection(process.env.NEXT_PUBLIC_MATCHES_COLLECTION || 'matches');
     
     // Check and update each match
     for (let i = 0; i < list.length; i++) {
@@ -59,27 +57,11 @@ export async function POST(req: NextRequest) {
         list[i].status = 'ended';
         list[i].updatedAt = now;
         updated++;
-        
-        // Also update in main matches collection
-        const matchRef = mainCol.doc(match.id);
-        batch.set(matchRef, { status: 'ended', updatedAt: now }, { merge: true });
       } else if (calculatedStatus === 'live' && match.status !== 'live') {
         // Optionally update to 'live' if it's in the live window
         list[i].status = 'live';
         list[i].updatedAt = now;
         updated++;
-        
-        const matchRef = mainCol.doc(match.id);
-        batch.set(matchRef, { status: 'live', updatedAt: now }, { merge: true });
-      }
-    }
-
-    // Commit batch updates to main collection
-    if (updated > 0) {
-      try {
-        await batch.commit();
-      } catch (err) {
-        console.error('Failed to update main matches collection:', err);
       }
     }
 
