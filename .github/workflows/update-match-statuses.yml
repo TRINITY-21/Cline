@@ -19,8 +19,11 @@ jobs:
           fi
       
       - name: Call Update Match Statuses API
-        if: secrets.API_BASE_URL != ''
         run: |
+          if [ -z "${{ secrets.API_BASE_URL }}" ]; then
+            echo "⚠️  API_BASE_URL secret is not set. Skipping API call."
+            exit 0
+          fi
           echo "Calling API at: ${{ secrets.API_BASE_URL }}/api/admin/matches/update-status-batch"
           curl -X POST "${{ secrets.API_BASE_URL }}/api/admin/matches/update-status-batch" \
             -H "x-internal-token: ${{ secrets.INTERNAL_UPDATE_TOKEN }}" \
