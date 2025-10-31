@@ -1,0 +1,67 @@
+name: Scrape Predictions Daily
+
+on:
+  schedule:
+    # Runs once per day at 1:00 AM UTC
+    - cron: '0 1 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  scrape-predictions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dependencies
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Check if API URL is configured
+        run: |
+          if [ -z "${{ secrets.API_BASE_URL }}" ]; then
+            echo "⚠️  API_BASE_URL secret is not set. Skipping cron job."
+            echo "💡 Set up your deployment and add the API_BASE_URL secret to enable automatic updates."
+            exit 0
+          fi
+
+      - name: Scrape Predictions
+        run: |
+          echo "Scraping predictions from betistuta.net..."
+          python3 scripts/parse_betistuta.py --in data/unified_matches.json --out data/predictions.json
+          
+          if [ ! -f data/predictions.json ]; then
+            echo "Error: Predictions file not created."
+            exit 1
+          fi
+          
+          echo "✅ Scraped predictions saved to data/predictions.json"
+
+      - name: Import Predictions to Firestore
+        env:
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN: ${{ secrets.INTERNAL_UPDATE_TOKEN }}
+        run: |
+          if [ -z "${{ secrets.API_BASE_URL }}" ]; then
+            echo "⚠️  API_BASE_URL secret is not set. Skipping API import."
+            exit 0
+          fi
+          
+          echo "Importing predictions to daily_predictions collection..."
+          
+          # Read the predictions JSON and send as array
+          PREDICTIONS_DATA=$(cat data/predictions.json)
+          
+          curl -X POST "${{ env.API_BASE_URL }}/api/admin/moderate/predictions" \
+            -H "x-internal-token: ${{ env.NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "$PREDICTIONS_DATA" \
+            -w "\nHTTP Status: %{http_code}\n" \
+            --fail-with-body || echo "⚠️  API call failed - check your deployment URL and token"
+          
+          echo "✅ Predictions imported to daily_predictions collection (grouped by date)"
