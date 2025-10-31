@@ -10,11 +10,23 @@ jobs:
   update-statuses:
     runs-on: ubuntu-latest
     steps:
-      - name: Call Update Match Statuses API
+      - name: Check if API URL is configured
         run: |
+          if [ -z "${{ secrets.API_BASE_URL }}" ]; then
+            echo "⚠️  API_BASE_URL secret is not set. Skipping cron job."
+            echo "💡 Set up your deployment and add the API_BASE_URL secret to enable automatic updates."
+            exit 0
+          fi
+      
+      - name: Call Update Match Statuses API
+        if: secrets.API_BASE_URL != ''
+        run: |
+          echo "Calling API at: ${{ secrets.API_BASE_URL }}/api/admin/matches/update-status-batch"
           curl -X POST "${{ secrets.API_BASE_URL }}/api/admin/matches/update-status-batch" \
             -H "x-internal-token: ${{ secrets.INTERNAL_UPDATE_TOKEN }}" \
-            -H "Content-Type: application/json"
+            -H "Content-Type: application/json" \
+            -w "\nHTTP Status: %{http_code}\n" \
+            --fail-with-body || echo "⚠️  API call failed - check your deployment URL and token"
         env:
           API_BASE_URL: ${{ secrets.API_BASE_URL }}
           INTERNAL_UPDATE_TOKEN: ${{ secrets.INTERNAL_UPDATE_TOKEN }}
