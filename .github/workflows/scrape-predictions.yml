@@ -33,14 +33,34 @@ jobs:
       - name: Scrape Predictions
         run: |
           echo "Scraping predictions from betistuta.net..."
-          python3 scripts/parse_betistuta.py --in data/unified_matches.json --out data/predictions.json
+          
+          # Check if unified_matches.json exists
+          if [ ! -f data/unified_matches.json ]; then
+            echo "⚠️  Warning: data/unified_matches.json not found. Predictions require matches to link against."
+            echo "Creating empty predictions.json..."
+            echo "[]" > data/predictions.json
+          else
+            python3 scripts/parse_betistuta.py --in data/unified_matches.json --out data/predictions.json
+          fi
           
           if [ ! -f data/predictions.json ]; then
             echo "Error: Predictions file not created."
             exit 1
           fi
           
-          echo "✅ Scraped predictions saved to data/predictions.json"
+          # Check if predictions.json has content
+          PREDICTIONS_COUNT=$(jq 'length' data/predictions.json 2>/dev/null || echo "0")
+          if [ "$PREDICTIONS_COUNT" = "0" ] || [ -z "$PREDICTIONS_COUNT" ]; then
+            echo "⚠️  Warning: No predictions found or predictions.json is empty"
+            echo "This might happen if:"
+            echo "  1. No predictions available for today's date"
+            echo "  2. Team names don't match between predictions and matches"
+            echo "  3. The scraping target structure changed"
+            echo "Skipping import to avoid API error..."
+            exit 0
+          fi
+          
+          echo "✅ Found $PREDICTIONS_COUNT prediction(s) in data/predictions.json"
 
       - name: Import Predictions to Firestore
         env:
@@ -52,16 +72,37 @@ jobs:
             exit 0
           fi
           
-          echo "Importing predictions to daily_predictions collection..."
+          # Validate predictions.json exists and has content
+          if [ ! -f data/predictions.json ]; then
+            echo "⚠️  predictions.json not found. Skipping import."
+            exit 0
+          fi
+          
+          PREDICTIONS_COUNT=$(jq 'length' data/predictions.json 2>/dev/null || echo "0")
+          if [ "$PREDICTIONS_COUNT" = "0" ] || [ -z "$PREDICTIONS_COUNT" ]; then
+            echo "⚠️  No predictions to import. predictions.json is empty."
+            exit 0
+          fi
+          
+          echo "Importing $PREDICTIONS_COUNT prediction(s) to daily_predictions collection..."
           
           # Read the predictions JSON and send as array
           PREDICTIONS_DATA=$(cat data/predictions.json)
           
-          curl -X POST "${{ env.API_BASE_URL }}/api/admin/moderate/predictions" \
+          RESPONSE=$(curl -sS -w "\nHTTP_STATUS:%{http_code}" -X POST "${{ env.API_BASE_URL }}/api/admin/moderate/predictions" \
             -H "x-internal-token: ${{ env.NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN }}" \
             -H "Content-Type: application/json" \
-            -d "$PREDICTIONS_DATA" \
-            -w "\nHTTP Status: %{http_code}\n" \
-            --fail-with-body || echo "⚠️  API call failed - check your deployment URL and token"
+            -d "$PREDICTIONS_DATA")
           
-          echo "✅ Predictions imported to daily_predictions collection (grouped by date)"
+          HTTP_STATUS=$(echo "$RESPONSE" | grep -oP 'HTTP_STATUS:\K\d+')
+          BODY=$(echo "$RESPONSE" | sed 's/HTTP_STATUS:[0-9]*$//')
+          
+          echo "$BODY"
+          echo "HTTP Status: $HTTP_STATUS"
+          
+          if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 300 ]; then
+            echo "✅ Predictions imported successfully"
+          else
+            echo "⚠️  Import failed with HTTP $HTTP_STATUS"
+            exit 1
+          fi

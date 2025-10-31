@@ -187,6 +187,8 @@ def main():
     doc = BeautifulSoup(resp.text, 'html.parser')
 
   bet_rows = parse_betistuta(doc)
+  print(f'📊 Found {len(bet_rows)} prediction row(s) from betistuta.net')
+  
   # Build normalized lookup for unified matches by team pair
   unified_map: Dict[str, Dict[str, Any]] = {}
   for m in unified:
@@ -195,7 +197,10 @@ def main():
     key = f"{h}|{a}"
     unified_map[key] = m
 
+  print(f'📊 Found {len(unified_map)} match(es) in unified_matches.json')
+
   predictions: List[Dict[str, Any]] = []
+  unmatched_count = 0
   for row in bet_rows:
     h = norm_team_name(row['home'])
     a = norm_team_name(row['away'])
@@ -205,6 +210,9 @@ def main():
       # try swapped order
       match = unified_map.get(f"{a}|{h}")
     if not match:
+      unmatched_count += 1
+      if unmatched_count <= 5:  # Show first 5 unmatched for debugging
+        print(f'⚠️  No match found for: {row.get("home")} vs {row.get("away")} (normalized: {h} | {a})')
       continue
     predictions.append({
       'id': match.get('id'),
@@ -219,7 +227,13 @@ def main():
 
   with open(args.out_path, 'w', encoding='utf-8') as f:
     json.dump(predictions, f, ensure_ascii=False, indent=2)
-  print(f'Wrote {len(predictions)} predictions to {args.out_path}')
+  
+  print(f'✅ Matched {len(predictions)} prediction(s) to unified matches')
+  if unmatched_count > 0:
+    print(f'⚠️  {unmatched_count} prediction(s) could not be matched to any unified match')
+    print(f'   (Shown first 5 unmatched above; check team name normalization)')
+  
+  print(f'💾 Wrote {len(predictions)} prediction(s) to {args.out_path}')
 
 
 if __name__ == '__main__':

@@ -33,6 +33,7 @@ def get_betistuta_url():
   year = str(gmt_plus_3.year)
   date_str = f'{month}/{day}/{year}'
   return f'https://www.betistuta.net/Futbol.aspx?D={date_str}'
+  
 
 
 def normalize(s: str) -> str:
