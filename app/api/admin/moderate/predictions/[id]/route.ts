@@ -63,8 +63,15 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
         
         for (let i = 0; i < predictions.length; i++) {
           const pred = predictions[i];
-          const predId = String(pred.id || pred.gameId || '');
-          if (predId === predictionId) {
+          // Try multiple ID formats for matching
+          const predId = String(pred.id || pred.gameId || '').trim();
+          const predIdLower = predId.toLowerCase();
+          const predictionIdLower = predictionId.toLowerCase().trim();
+          
+          // Exact match or case-insensitive match
+          const idMatches = predId === predictionId || predIdLower === predictionIdLower;
+          
+          if (idMatches) {
             // Found the prediction - only update approval and status fields
             // Preserve all original scraped data (timeLabel, home, away, msbs, etc.)
             const originalPred = { ...predictions[i] }; // Preserve all original fields
@@ -113,10 +120,20 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
       return NextResponse.json({ ok: true, date: foundDateId });
     }
     
-    // If not found after searching 14 days, return 404
+    // If not found after searching 14 days, return 404 with helpful error
     if (!found) {
       console.warn(`Prediction not found: ${predictionId} (searched last 14 days)`);
-      return NextResponse.json({ error: 'Prediction not found' }, { status: 404 });
+      console.warn(`Searched dates: ${Array.from({ length: 15 }, (_, i) => {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const gmtPlus3 = new Date(d.getTime() + 3 * 60 * 60 * 1000);
+        return `${gmtPlus3.getFullYear()}-${String(gmtPlus3.getMonth() + 1).padStart(2, '0')}-${String(gmtPlus3.getDate()).padStart(2, '0')}`;
+      }).join(', ')}`);
+      return NextResponse.json({ 
+        error: 'Prediction not found',
+        searchedId: predictionId,
+        message: `Could not find prediction with ID "${predictionId}" in the last 14 days`
+      }, { status: 404 });
     }
     
     return NextResponse.json({ ok: true });

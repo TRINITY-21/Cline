@@ -305,12 +305,18 @@ function AdminPageContent() {
         },
         body: JSON.stringify({ approved }),
       });
-      if (!res.ok) throw new Error('Failed to update');
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+        console.error('Approval failed:', { predictionId, status: res.status, error: errorData });
+        throw new Error(errorData.message || errorData.error || `Failed to update (${res.status})`);
+      }
+      
       if (reload) {
         addToast(`Prediction ${approved ? 'approved' : 'unapproved'}`, 'success');
         await loadPredictions();
       }
     } catch (err: any) {
+      console.error('updatePredictionApproval error:', err);
       addToast(`Failed to update prediction: ${err.message}`, 'error');
       throw err;
     }
