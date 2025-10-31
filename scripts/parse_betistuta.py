@@ -171,15 +171,31 @@ def parse_betistuta(doc: BeautifulSoup) -> List[Dict[str, str]]:
   col_league = idx_of('Lig') or 6
 
   results: List[Dict[str, str]] = []
+  rows_processed = 0
+  rows_skipped = 0
+  
   for tr in target_table.select('tr'):
     tds = tr.find_all('td')
-    if len(tds) <= max(col_msbs or 0, col_home, col_away):
+    rows_processed += 1
+    
+    # Need at least max(col_msbs, col_home, col_away) + 1 cells (since we use 0-based indexing)
+    required_cells = max(col_msbs or 0, col_home, col_away) + 1
+    if len(tds) < required_cells:
+      rows_skipped += 1
       continue
+    
     home = normalize(tds[col_home].get_text(' '))
     away = normalize(tds[col_away].get_text(' '))
-    league_tr = normalize(tds[col_league].get_text(' ')) if col_league is not None else ''
+    
+    # Skip rows where both home and away are empty (header rows, etc.)
+    if not home and not away:
+      rows_skipped += 1
+      continue
+    
+    league_tr = normalize(tds[col_league].get_text(' ')) if col_league is not None and col_league < len(tds) else ''
     league_en = translate_league(league_tr) if league_tr else ''
-    msbs_val = normalize(tds[col_msbs].get_text(' ')) if col_msbs is not None else ''
+    msbs_val = normalize(tds[col_msbs].get_text(' ')) if col_msbs is not None and col_msbs < len(tds) else ''
+    
     # Compute winner name from MSBS like "2 - 1"
     winner: Optional[str] = None
     m = re.match(r"^(\d+)\s*-\s*(\d+)$", msbs_val)
@@ -192,6 +208,8 @@ def parse_betistuta(doc: BeautifulSoup) -> List[Dict[str, str]]:
       else:
         winner = 'Draw'
     results.append({ 'home': home, 'away': away, 'leagueTr': league_tr, 'leagueEn': league_en, 'msbs': msbs_val, 'msbsWinner': winner or '' })
+  
+  print(f'   Processed {rows_processed} rows, skipped {rows_skipped}, extracted {len(results)} predictions')
 
   return results
 

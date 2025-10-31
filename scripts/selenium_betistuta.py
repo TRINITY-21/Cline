@@ -26,7 +26,7 @@ def get_betistuta_url():
   # Get current UTC time
   now = datetime.utcnow()
   # Add 3 hours to get GMT+3
-  gmt_plus_3 = now + timedelta(hours=3)
+  gmt_plus_3 = now + timedelta(hours=0)
   # Format as M/D/YYYY (e.g., 11/1/2025) - remove leading zeros
   month = str(gmt_plus_3.month)
   day = str(gmt_plus_3.day)
