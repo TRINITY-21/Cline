@@ -557,15 +557,37 @@ def main():
     for i, row in enumerate(bet_rows[:3]):
       print(f'   {i+1}. {row.get("home", "?")} vs {row.get("away", "?")} | MSBS: {row.get("msbs", "?")}')
   
-  # Store all predictions directly without matching to unified_matches.json
+  # Store predictions with high-probability MSBS scores (2-0, 3-0, etc.)
+  # Only include predictions where one team wins by 2+ goals (high probability of win)
   # Generate unique IDs based on team names and date
   predictions: List[Dict[str, Any]] = []
+  filtered_out = 0
   
   for row in bet_rows:
     h_raw = row.get('home', '').strip()
     a_raw = row.get('away', '').strip()
     
     if not h_raw or not a_raw:
+      continue
+    
+    msbs_val = row.get('msbs', '').strip()
+    
+    # Filter: Only include predictions with MSBS like "2-0", "3-0", "4-0", etc.
+    # or "0-2", "0-3", "0-4", etc. (clear wins with 2+ goal difference)
+    is_high_probability = False
+    m = re.match(r"^(\d+)\s*-\s*(\d+)$", msbs_val)
+    if m:
+      home_score = int(m.group(1))
+      away_score = int(m.group(2))
+      goal_diff = abs(home_score - away_score)
+      
+      # Only include if goal difference is 2+ (clear win prediction)
+      # Examples: 2-0, 3-0, 4-0, 0-2, 0-3, 3-1, 4-1, etc.
+      if goal_diff >= 2:
+        is_high_probability = True
+    
+    if not is_high_probability:
+      filtered_out += 1
       continue
     
     # Generate a unique ID from team names
@@ -587,7 +609,7 @@ def main():
       'home': h_raw,
       'away': a_raw,
       'timeLabel': time_label_raw,
-      'msbs': row.get('msbs', ''),
+      'msbs': msbs_val,
       'msbsWinner': row.get('msbsWinner', ''),
       'status': None,  # Will be set automatically when results are available
       'result': None,  # Will be set when actual result is fetched
@@ -597,7 +619,9 @@ def main():
     json.dump(predictions, f, ensure_ascii=False, indent=2)
   
   print(f'\n📊 Scraping Summary:')
-  print(f'   ✅ Scraped: {len(predictions)} prediction(s)')
+  print(f'   📥 Total scraped: {len(bet_rows)} prediction(s)')
+  print(f'   ✅ High-probability (2+ goal diff): {len(predictions)} prediction(s)')
+  print(f'   ❌ Filtered out (low probability): {filtered_out} prediction(s)')
   print(f'   💾 Wrote {len(predictions)} prediction(s) to {args.out_path}')
 
 
