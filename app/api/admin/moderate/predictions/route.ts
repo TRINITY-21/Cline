@@ -188,18 +188,17 @@ export async function POST(req: NextRequest) {
     
     const now = new Date().toISOString();
     
-    // Group predictions by date
-    const predictionsByDate: Record<string, any[]> = {};
+    // For scraping imports, always use today's date to create a new document
+    // This ensures scraped predictions go into today's document regardless of server time
+    const todayDateId = todayId();
+    console.log(`📅 Using today's date (${todayDateId}) for all scraped predictions`);
     
-    for (const prediction of translatedPredictions) {
-      const date = await getPredictionDate(prediction, admin);
-      if (!predictionsByDate[date]) {
-        predictionsByDate[date] = [];
-      }
-      predictionsByDate[date].push(prediction);
-    }
+    // Group all predictions into today's date document
+    const predictionsByDate: Record<string, any[]> = {
+      [todayDateId]: translatedPredictions
+    };
     
-    console.log(`📅 Grouped predictions into ${Object.keys(predictionsByDate).length} date(s):`, Object.keys(predictionsByDate));
+    console.log(`📅 Grouped ${translatedPredictions.length} prediction(s) into date document: ${todayDateId}`);
     
     // Update each date document
     let totalImported = 0;
