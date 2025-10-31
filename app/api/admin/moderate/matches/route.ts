@@ -160,8 +160,10 @@ export async function POST(req: NextRequest) {
     );
     
     const now = new Date().toISOString();
+    // Use GMT+3 date for Firestore document ID when saving/updating
     const today = new Date();
-    const dateId = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    const gmtPlus3 = new Date(today.getTime() + 3 * 60 * 60 * 1000);
+    const dateId = `${gmtPlus3.getFullYear()}-${String(gmtPlus3.getMonth() + 1).padStart(2, '0')}-${String(gmtPlus3.getDate()).padStart(2, '0')}`;
     
     // Get existing matches for today
     const dateRef = dailyCol.doc(dateId);

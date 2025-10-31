@@ -186,12 +186,15 @@ export async function POST(req: NextRequest) {
     );
     console.log(`✓ Translation completed`);
     
-    const now = new Date().toISOString();
+    // For scraping imports, always use GMT+3 date to create a new document
+    // This ensures scraped predictions go into today's document based on GMT+3 timezone
+    const currentDate = new Date();
+    // Add 3 hours to get GMT+3 date
+    const gmtPlus3 = new Date(currentDate.getTime() + 3 * 60 * 60 * 1000);
+    const todayDateId = `${gmtPlus3.getFullYear()}-${String(gmtPlus3.getMonth() + 1).padStart(2, '0')}-${String(gmtPlus3.getDate()).padStart(2, '0')}`;
+    console.log(`📅 Using GMT+3 date (${todayDateId}) for all scraped predictions`);
     
-    // For scraping imports, always use today's date to create a new document
-    // This ensures scraped predictions go into today's document regardless of server time
-    const todayDateId = todayId();
-    console.log(`📅 Using today's date (${todayDateId}) for all scraped predictions`);
+    const now = new Date().toISOString();
     
     // Group all predictions into today's date document
     const predictionsByDate: Record<string, any[]> = {
