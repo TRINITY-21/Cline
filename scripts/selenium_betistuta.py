@@ -20,17 +20,15 @@ from selenium.webdriver.common.by import By
 
 def get_betistuta_url():
   """
-  Get betistuta URL with current date parameter in GMT+3.
+  Get betistuta URL with current date parameter using local timezone.
   Format: https://www.betistuta.net/Futbol.aspx?D=M/D/YYYY
   """
-  # Get current UTC time
-  now = datetime.utcnow()
-  # Add 3 hours to get GMT+3
-  gmt_plus_3 = now + timedelta(hours=0)
+  # Get current local time
+  now = datetime.now()
   # Format as M/D/YYYY (e.g., 11/1/2025) - remove leading zeros
-  month = str(gmt_plus_3.month)
-  day = str(gmt_plus_3.day)
-  year = str(gmt_plus_3.year)
+  month = str(now.month)
+  day = str(now.day)
+  year = str(now.year)
   date_str = f'{month}/{day}/{year}'
   return f'https://www.betistuta.net/Futbol.aspx?D={date_str}'
   
@@ -81,7 +79,7 @@ def main():
   predictions = []
   try:
     url = get_betistuta_url()
-    print(f'📅 Fetching predictions for date (GMT+3): {url}')
+    print(f'📅 Fetching predictions for date: {url}')
     driver.get(url)
     # pick the first table that contains MSBS string anywhere
     tables = driver.find_elements(By.TAG_NAME, 'table')

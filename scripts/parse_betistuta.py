@@ -10,7 +10,7 @@ Usage:
 import argparse
 import json
 import re
-from datetime import datetime, timedelta, timezone
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
 
 import requests
@@ -23,17 +23,15 @@ HEADERS = {
 
 def get_betistuta_url():
   """
-  Get betistuta URL with current date parameter in GMT+3.
+  Get betistuta URL with current date parameter using local timezone.
   Format: https://www.betistuta.net/Futbol.aspx?D=M/D/YYYY
   """
-  # Get current UTC time (timezone-aware)
-  now = datetime.now(timezone.utc)
-  # Add 3 hours to get GMT+3
-  gmt_plus_3 = now + timedelta(hours=3)
+  # Get current local time
+  now = datetime.now()
   # Format as M/D/YYYY (e.g., 11/1/2025) - remove leading zeros
-  month = str(gmt_plus_3.month)
-  day = str(gmt_plus_3.day)
-  year = str(gmt_plus_3.year)
+  month = str(now.month)
+  day = str(now.day)
+  year = str(now.year)
   date_str = f'{month}/{day}/{year}'
   return f'https://www.betistuta.net/Futbol.aspx?D={date_str}'
 
@@ -50,10 +48,159 @@ def norm_team_name(name: str) -> str:
        .replace('ş', 's').replace('ç', 'c').replace('ğ', 'g')
        .replace('ü', 'u').replace('ö', 'o').replace('ı', 'i')
        .replace('İ', 'i'))
+  # Handle more diacritics for international teams
+  n = (n
+       .replace('ß', 'ss').replace('ä', 'a').replace('ë', 'e')
+       .replace('ï', 'i').replace('ñ', 'n').replace('á', 'a')
+       .replace('é', 'e').replace('í', 'i').replace('ó', 'o')
+       .replace('ú', 'u'))
   n = re.sub(r"\(w\)$", '', n).strip()
   n = re.sub(r"[^a-z0-9]+", ' ', n)
   n = re.sub(r"\s+", ' ', n).strip()
   return n
+
+
+def extract_teams_from_id(match_id: str) -> tuple[str, str]:
+  """
+  Extract team names from match ID like "preu-en-m-nster-vs-holstein-kiel-20-30"
+  Returns (home_team, away_team) or (None, None) if can't parse
+  """
+  if not match_id or '-' not in match_id:
+    return (None, None)
+  
+  # Remove time suffix (last part that looks like time: HH-MM or HHMM)
+  parts = match_id.split('-')
+  # Look for "vs" which separates teams
+  try:
+    vs_idx = -1
+    for i, part in enumerate(parts):
+      if part == 'vs':
+        vs_idx = i
+        break
+    
+    if vs_idx == -1:
+      # No "vs" found, try to find where time starts (last 2 parts that are numbers)
+      # Find the split point by looking for number patterns at the end
+      for i in range(len(parts) - 1, max(0, len(parts) - 4), -1):
+        if parts[i].isdigit() and len(parts[i]) <= 2:
+          vs_idx = i - 1
+          break
+    
+    if vs_idx > 0:
+      home_parts = parts[:vs_idx]
+      away_parts = parts[vs_idx+1:]
+      
+      # Remove time parts from away (last 1-2 numeric parts)
+      while away_parts and away_parts[-1].isdigit() and len(away_parts[-1]) <= 2:
+        away_parts = away_parts[:-1]
+      
+      home_name = ' '.join(home_parts).replace('-', ' ')
+      away_name = ' '.join(away_parts).replace('-', ' ')
+      
+      return (home_name, away_name)
+  except:
+    pass
+  
+  return (None, None)
+
+
+def fuzzy_match_teams(pred_home: str, pred_away: str, match_home: str, match_away: str, match_id: str = None) -> bool:
+  """
+  Check if two team pairs match using fuzzy logic.
+  Returns True if teams are similar enough to be considered the same match.
+  """
+  def normalize_for_fuzzy(name: str) -> str:
+    if not name:
+      return ''
+    # More aggressive normalization for fuzzy matching
+    n = norm_team_name(name)
+    # Remove common words that might differ
+    common_words = ['fc', 'cf', 'club', 'de', 'da', 'do', 'das', 'los', 'las', 'the']
+    words = n.split()
+    words = [w for w in words if w not in common_words and len(w) > 2]
+    return ' '.join(words)
+  
+  # If match_id is provided, try to extract teams from ID first
+  if match_id:
+    id_home, id_away = extract_teams_from_id(match_id)
+    if id_home and id_away:
+      # Try matching prediction teams against ID-extracted teams
+      pred_h_norm = normalize_for_fuzzy(pred_home)
+      pred_a_norm = normalize_for_fuzzy(pred_away)
+      id_h_norm = normalize_for_fuzzy(id_home)
+      id_a_norm = normalize_for_fuzzy(id_away)
+      
+      # Check if teams match using contains logic (avoid recursion)
+      def quick_contains_match(s1: str, s2: str) -> bool:
+        if not s1 or not s2:
+          return False
+        s1_clean = s1.replace(' ', '').replace('-', '')
+        s2_clean = s2.replace(' ', '').replace('-', '')
+        if len(s1_clean) >= 4 and len(s2_clean) >= 4:
+          return s1_clean in s2_clean or s2_clean in s1_clean
+        return False
+      
+      # Check if prediction teams match ID-extracted teams
+      home_matches = quick_contains_match(pred_h_norm, id_h_norm) or quick_contains_match(pred_h_norm, id_a_norm)
+      away_matches = quick_contains_match(pred_a_norm, id_a_norm) or quick_contains_match(pred_a_norm, id_h_norm)
+      
+      if home_matches and away_matches:
+        return True
+      
+      # Try swapped
+      home_matches_swapped = quick_contains_match(pred_h_norm, id_a_norm) or quick_contains_match(pred_h_norm, id_h_norm)
+      away_matches_swapped = quick_contains_match(pred_a_norm, id_h_norm) or quick_contains_match(pred_a_norm, id_a_norm)
+      
+      if home_matches_swapped and away_matches_swapped:
+        return True
+  
+  pred_h_norm = normalize_for_fuzzy(pred_home)
+  pred_a_norm = normalize_for_fuzzy(pred_away)
+  match_h_norm = normalize_for_fuzzy(match_home)
+  match_a_norm = normalize_for_fuzzy(match_away)
+  
+  # Check exact match (both orders)
+  if (pred_h_norm == match_h_norm and pred_a_norm == match_a_norm) or \
+     (pred_h_norm == match_a_norm and pred_a_norm == match_h_norm):
+    return True
+  
+  # Fuzzy: check if one team name contains the other (for abbreviations/variations)
+  def contains_match(s1: str, s2: str) -> bool:
+    if not s1 or not s2:
+      return False
+    # Remove spaces for better matching
+    s1_clean = s1.replace(' ', '').replace('-', '')
+    s2_clean = s2.replace(' ', '').replace('-', '')
+    # Check if one contains the other (minimum 4 chars to avoid false matches)
+    if len(s1_clean) >= 4 and len(s2_clean) >= 4:
+      if s1_clean in s2_clean or s2_clean in s1_clean:
+        return True
+    # Also check if significant words match (at least 3 chars)
+    s1_words = [w for w in s1.split() if len(w) >= 3]
+    s2_words = [w for w in s2.split() if len(w) >= 3]
+    if s1_words and s2_words:
+      # Check if any significant word from one appears in the other
+      for w1 in s1_words:
+        for w2 in s2_words:
+          if len(w1) >= 4 and len(w2) >= 4:
+            if w1 in w2 or w2 in w1:
+              return True
+    return False
+  
+  # Check if home teams match (fuzzy) and away teams match (fuzzy)
+  home_match = contains_match(pred_h_norm, match_h_norm) or \
+               contains_match(pred_h_norm, match_a_norm)
+  away_match = contains_match(pred_a_norm, match_a_norm) or \
+               contains_match(pred_a_norm, match_h_norm)
+  
+  # Also try swapped
+  home_match_swapped = contains_match(pred_h_norm, match_a_norm) or \
+                       contains_match(pred_h_norm, match_h_norm)
+  away_match_swapped = contains_match(pred_a_norm, match_h_norm) or \
+                       contains_match(pred_a_norm, match_a_norm)
+  
+  # Require both teams to match (either exact order or swapped)
+  return (home_match and away_match) or (home_match_swapped and away_match_swapped)
 
 TR_TO_EN_LEAGUE: Dict[str, str] = {
   'kolombiya': 'Colombia',
@@ -230,7 +377,7 @@ def main():
     doc = BeautifulSoup(html, 'html.parser')
   else:
     url = get_betistuta_url()
-    print(f'📅 Fetching predictions for date (GMT+3): {url}')
+    print(f'📅 Fetching predictions for date: {url}')
     resp = requests.get(url, headers=HEADERS, timeout=30)
     resp.raise_for_status()
     
@@ -272,36 +419,81 @@ def main():
   # Build normalized lookup for unified matches by team pair
   unified_map: Dict[str, Dict[str, Any]] = {}
   for m in unified:
-    h = norm_team_name(m.get('home', {}).get('name', ''))
-    a = norm_team_name(m.get('away', {}).get('name', ''))
+    home_name = m.get('home', {}).get('name', '')
+    away_name = m.get('away', {}).get('name', '')
+    h = norm_team_name(home_name)
+    a = norm_team_name(away_name)
+    
+    # Create key with consistent separator
     key = f"{h}|{a}"
     unified_map[key] = m
+    
+    # Also store swapped version for easier matching
+    key_swapped = f"{a}|{h}"
+    if key_swapped != key:
+      unified_map[key_swapped] = m
 
-  print(f'\n📊 Found {len(unified_map)} match(es) in unified_matches.json')
+  print(f'\n📊 Found {len(unified)} match(es) in unified_matches.json')
+  print(f'   Created {len(unified_map)} normalized lookup key(s) (including swapped)')
   
   # Show sample matches for debugging
   if len(unified_map) > 0:
-    print(f'📋 Sample matches (first 3):')
-    for i, (key, match) in enumerate(list(unified_map.items())[:3]):
+    print(f'\n📋 Sample matches (first 3):')
+    for i, match in enumerate(unified[:3]):
       home_name = match.get('home', {}).get('name', '?')
       away_name = match.get('away', {}).get('name', '?')
-      print(f'   {i+1}. {home_name} vs {away_name} (normalized: {key})')
+      h = norm_team_name(home_name)
+      a = norm_team_name(away_name)
+      print(f'   {i+1}. {home_name} vs {away_name}')
+      print(f'      Normalized: "{h}" | "{a}" → Key: "{h}|{a}"')
 
   predictions: List[Dict[str, Any]] = []
   unmatched_count = 0
+  matched_count = 0
+  fuzzy_matched_count = 0
+  
   for row in bet_rows:
-    h = norm_team_name(row['home'])
-    a = norm_team_name(row['away'])
-    key = f"{h}|{a}"
-    match = unified_map.get(key)
+    h_raw = row.get('home', '')
+    a_raw = row.get('away', '')
+    h = norm_team_name(h_raw)
+    a = norm_team_name(a_raw)
+    
+    # Build key with consistent format (no extra spaces)
+    key1 = f"{h}|{a}"
+    key2 = f"{a}|{h}"
+    
+    match = unified_map.get(key1)
     if not match:
       # try swapped order
-      match = unified_map.get(f"{a}|{h}")
+      match = unified_map.get(key2)
+    
+    # If exact match failed, try fuzzy matching
+    if not match:
+      for unified_match in unified:
+        match_home = unified_match.get('home', {}).get('name', '')
+        match_away = unified_match.get('away', {}).get('name', '')
+        match_id = unified_match.get('id', '')
+        
+        if fuzzy_match_teams(h_raw, a_raw, match_home, match_away, match_id):
+          match = unified_match
+          fuzzy_matched_count += 1
+          if fuzzy_matched_count <= 5:
+            print(f'🔍 Fuzzy matched: {h_raw} vs {a_raw}')
+            print(f'   → {match_home} vs {match_away} (ID: {match_id})')
+          break
+    
     if not match:
       unmatched_count += 1
-      if unmatched_count <= 5:  # Show first 5 unmatched for debugging
-        print(f'⚠️  No match found for: {row.get("home")} vs {row.get("away")} (normalized: {h} | {a})')
+      if unmatched_count <= 10:  # Show first 10 unmatched for debugging
+        print(f'⚠️  No match: {h_raw} vs {a_raw}')
+        print(f'      Normalized: "{h}" | "{a}"')
+        print(f'      Looking for keys: "{key1}" or "{key2}"')
       continue
+    
+    matched_count += 1
+    if matched_count <= 3 and fuzzy_matched_count == 0:
+      print(f'✓ Exact matched: {h_raw} vs {a_raw}')
+    
     predictions.append({
       'id': match.get('id'),
       'sport': match.get('sport'),
@@ -316,12 +508,28 @@ def main():
   with open(args.out_path, 'w', encoding='utf-8') as f:
     json.dump(predictions, f, ensure_ascii=False, indent=2)
   
-  print(f'✅ Matched {len(predictions)} prediction(s) to unified matches')
-  if unmatched_count > 0:
-    print(f'⚠️  {unmatched_count} prediction(s) could not be matched to any unified match')
-    print(f'   (Shown first 5 unmatched above; check team name normalization)')
+  print(f'\n📊 Matching Summary:')
+  print(f'   ✅ Total matched: {len(predictions)} prediction(s)')
+  if fuzzy_matched_count > 0:
+    print(f'      - Exact matches: {len(predictions) - fuzzy_matched_count}')
+    print(f'      - Fuzzy matches: {fuzzy_matched_count}')
+  print(f'   ⚠️  Unmatched: {unmatched_count} prediction(s)')
   
-  print(f'💾 Wrote {len(predictions)} prediction(s) to {args.out_path}')
+  if unmatched_count > 0 and len(unified_map) > 0:
+    print(f'\n💡 Tips to improve matching:')
+    print(f'   1. Ensure unified_matches.json is up-to-date with recent matches')
+    print(f'   2. Team names in predictions might differ from match names')
+    print(f'   3. Check if matches were scraped for the same date as predictions')
+    print(f'   4. Current unified_matches.json has {len(unified_map)} match(es)')
+    
+    # Show some unified match keys for comparison
+    print(f'\n📋 Sample unified match keys (for comparison):')
+    for i, (key, match) in enumerate(list(unified_map.items())[:5]):
+      home_name = match.get('home', {}).get('name', '?')
+      away_name = match.get('away', {}).get('name', '?')
+      print(f'   {i+1}. Key: "{key}" → {home_name} vs {away_name}')
+  
+  print(f'\n💾 Wrote {len(predictions)} prediction(s) to {args.out_path}')
 
 
 if __name__ == '__main__':

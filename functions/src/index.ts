@@ -4,14 +4,12 @@ import * as functions from 'firebase-functions';
 // Initialize Firebase Admin
 admin.initializeApp();
 
-// Helper function to get today's date ID using GMT+3 timezone
+// Helper function to get today's date ID using local timezone
 function todayId(): string {
   const d = new Date();
-  // Convert UTC to GMT+3 by adding 3 hours (3 * 60 * 60 * 1000 milliseconds)
-  const gmtPlus3 = new Date(d.getTime() + 3 * 60 * 60 * 1000);
-  const yyyy = gmtPlus3.getUTCFullYear();
-  const mm = String(gmtPlus3.getUTCMonth() + 1).padStart(2, '0');
-  const dd = String(gmtPlus3.getUTCDate()).padStart(2, '0');
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
   return `${yyyy}-${mm}-${dd}`;
 }
 
