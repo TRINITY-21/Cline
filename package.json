@@ -1,0 +1,33 @@
+{
+  "name": "legal-stream-aggregator",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "update:teams": "node scripts/update_teams_catalog.js",
+    "verify:logos": "node scripts/verify_team_logos.js",
+    "fix:logos": "node scripts/verify_team_logos.js --fix"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.7.0",
+    "next": "14.2.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "20.16.11",
+    "@types/react": "18.3.7",
+    "autoprefixer": "10.4.20",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.5",
+    "playwright": "^1.56.1",
+    "postcss": "8.4.47",
+    "tailwindcss": "3.4.13",
+    "ts-node": "^10.9.2",
+    "typescript": "5.6.2"
+  }
+}

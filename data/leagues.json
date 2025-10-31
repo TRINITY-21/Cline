@@ -1,0 +1,16 @@
+[
+  {
+    "id": "ucl",
+    "name": "UEFA Champions League",
+    "aliases": ["champions league", "uefa cl", "ucl"],
+    "logo": "https://upload.wikimedia.org/wikipedia/en/5/5c/UEFA_Champions_League_logo_2.svg"
+  },
+  {
+    "id": "epl",
+    "name": "Premier League",
+    "aliases": ["epl", "english premier league", "premier league"],
+    "logo": "https://upload.wikimedia.org/wikipedia/en/f/f2/Premier_League_Logo.svg"
+  }
+]
+
+

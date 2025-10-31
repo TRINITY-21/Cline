@@ -1,0 +1,21 @@
+name: Update Match Statuses
+
+on:
+  schedule:
+    # Runs every 5 minutes
+    - cron: '*/5 * * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  update-statuses:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Update Match Statuses API
+        run: |
+          curl -X POST "${{ secrets.API_BASE_URL }}/api/admin/matches/update-status-batch" \
+            -H "x-internal-token: ${{ secrets.INTERNAL_UPDATE_TOKEN }}" \
+            -H "Content-Type: application/json"
+        env:
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          INTERNAL_UPDATE_TOKEN: ${{ secrets.INTERNAL_UPDATE_TOKEN }}
+

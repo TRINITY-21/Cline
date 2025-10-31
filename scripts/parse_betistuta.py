@@ -1,0 +1,210 @@
+#!/usr/bin/env python3
+"""
+Fetch predictions from https://www.betistuta.net/Futbol.aspx, match against
+data/unified_matches.json, and write data/predictions.json with MSBS per match.
+
+Usage:
+  python3 scripts/parse_betistuta.py --in data/unified_matches.json --out data/predictions.json
+"""
+
+import argparse
+import json
+import re
+from typing import Any, Dict, List, Optional, Tuple
+
+import requests
+from bs4 import BeautifulSoup
+
+
+URL = 'https://www.betistuta.net/Futbol.aspx'
+HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
+}
+
+
+def normalize(s: Optional[str]) -> str:
+  return (s or '').strip()
+
+
+def norm_team_name(name: str) -> str:
+  n = normalize(name)
+  n = n.lower()
+  # Basic Turkish diacritics → ASCII for robust matching
+  n = (n
+       .replace('ş', 's').replace('ç', 'c').replace('ğ', 'g')
+       .replace('ü', 'u').replace('ö', 'o').replace('ı', 'i')
+       .replace('İ', 'i'))
+  n = re.sub(r"\(w\)$", '', n).strip()
+  n = re.sub(r"[^a-z0-9]+", ' ', n)
+  n = re.sub(r"\s+", ' ', n).strip()
+  return n
+
+TR_TO_EN_LEAGUE: Dict[str, str] = {
+  'kolombiya': 'Colombia',
+  'el salvador': 'El Salvador',
+  'bolivya': 'Bolivia',
+  'brezilya': 'Brazil',
+  'nikaragua': 'Nicaragua',
+  'uruguay': 'Uruguay',
+  'cezayir': 'Algeria',
+  'cfu kulüpl': 'CFU Clubs',
+  'fas': 'Morocco',
+  'abd': 'USA',
+  'mogolistan': 'Mongolia',
+  'tayland': 'Thailand',
+  'avrupa u17 samp': 'UEFA U17 Championship',
+  'concacaf orta a': 'CONCACAF Central A',
+  'copa libertador': 'Copa Libertadores',
+  'bahreyn': 'Bahrain',
+  'belcika': 'Belgium',
+  'birlesik arap e': 'United Arab Emirates',
+  'caf sampiyonlar': 'CAF Champions',
+  'ekvador': 'Ecuador',
+  'hindistan': 'India',
+  'hollanda': 'Netherlands',
+  'irak': 'Iraq',
+  'israil': 'Israel',
+  'iskocya': 'Scotland',
+  'isvicre': 'Switzerland',
+  'ispanya': 'Spain',
+  'italya': 'Italy',
+  'katar': 'Qatar',
+  'birlesik arap emirlikleri': 'United Arab Emirates',
+  'yunanistan': 'Greece',
+  'polonya': 'Poland',
+  'slovenya': 'Slovenia',
+  'estonya': 'Estonia',
+  'finlandiya': 'Finland',
+  'makedonya': 'North Macedonia',
+  'nijer': 'Niger',
+}
+
+def translate_league(tr: str) -> str:
+  key = norm_team_name(tr)
+  return TR_TO_EN_LEAGUE.get(key, tr)
+
+
+def parse_betistuta(doc: BeautifulSoup) -> List[Dict[str, str]]:
+
+  # Prefer the main grid by id when available
+  target_table = None
+  target_table = doc.select_one('table#ctl00_MainContentFull_MainContent_MainGrid')
+  # Fallbacks: 1) header based
+  if not target_table:
+    for tbl in doc.select('table'):
+      headers = [normalize(th.get_text(' ')) for th in tbl.select('th')]
+      if any('msbs' in h.lower() for h in headers):
+        target_table = tbl
+        break
+  # 2) content based
+  if not target_table:
+    msbs_node = doc.find(lambda tag: tag.name in ['th', 'td'] and 'msbs' in normalize(tag.get_text(' ')).lower())
+    if msbs_node:
+      # climb up to the owning table
+      parent = msbs_node
+      while parent and parent.name != 'table':
+        parent = parent.parent
+      if parent and parent.name == 'table':
+        target_table = parent
+  if not target_table:
+    return []
+
+  # Determine column indices
+  headers = [normalize(th.get_text(' ')) for th in target_table.select('th')]
+  def idx_of(keyword: str) -> Optional[int]:
+    for i, h in enumerate(headers):
+      if keyword.lower() in h.lower():
+        return i
+    return None
+
+  # Known structure: Kod, Saat, EvSahibi, MS, Deplasman, IY, Lig, MSBS, ...
+  col_home = idx_of('EvSahibi') or 2
+  col_away = idx_of('Deplasman') or 4
+  col_msbs = idx_of('MSBS') or 7
+  col_league = idx_of('Lig') or 6
+
+  results: List[Dict[str, str]] = []
+  for tr in target_table.select('tr'):
+    tds = tr.find_all('td')
+    if len(tds) <= max(col_msbs or 0, col_home, col_away):
+      continue
+    home = normalize(tds[col_home].get_text(' '))
+    away = normalize(tds[col_away].get_text(' '))
+    league_tr = normalize(tds[col_league].get_text(' ')) if col_league is not None else ''
+    league_en = translate_league(league_tr) if league_tr else ''
+    msbs_val = normalize(tds[col_msbs].get_text(' ')) if col_msbs is not None else ''
+    # Compute winner name from MSBS like "2 - 1"
+    winner: Optional[str] = None
+    m = re.match(r"^(\d+)\s*-\s*(\d+)$", msbs_val)
+    if m:
+      a = int(m.group(1)); b = int(m.group(2))
+      if a > b:
+        winner = home
+      elif b > a:
+        winner = away
+      else:
+        winner = 'Draw'
+    results.append({ 'home': home, 'away': away, 'leagueTr': league_tr, 'leagueEn': league_en, 'msbs': msbs_val, 'msbsWinner': winner or '' })
+
+  return results
+
+
+def main():
+  ap = argparse.ArgumentParser()
+  ap.add_argument('--in', dest='in_path', default='data/unified_matches.json')
+  ap.add_argument('--out', dest='out_path', default='data/predictions.json')
+  ap.add_argument('--html', dest='html_path', help='Optional local HTML file to parse instead of fetching')
+  args = ap.parse_args()
+
+  with open(args.in_path, 'r', encoding='utf-8') as f:
+    unified = json.load(f)
+
+  if args.html_path:
+    with open(args.html_path, 'r', encoding='utf-8', errors='ignore') as f:
+      html = f.read()
+    doc = BeautifulSoup(html, 'html.parser')
+  else:
+    resp = requests.get(URL, headers=HEADERS, timeout=30)
+    resp.raise_for_status()
+    doc = BeautifulSoup(resp.text, 'html.parser')
+
+  bet_rows = parse_betistuta(doc)
+  # Build normalized lookup for unified matches by team pair
+  unified_map: Dict[str, Dict[str, Any]] = {}
+  for m in unified:
+    h = norm_team_name(m.get('home', {}).get('name', ''))
+    a = norm_team_name(m.get('away', {}).get('name', ''))
+    key = f"{h}|{a}"
+    unified_map[key] = m
+
+  predictions: List[Dict[str, Any]] = []
+  for row in bet_rows:
+    h = norm_team_name(row['home'])
+    a = norm_team_name(row['away'])
+    key = f"{h}|{a}"
+    match = unified_map.get(key)
+    if not match:
+      # try swapped order
+      match = unified_map.get(f"{a}|{h}")
+    if not match:
+      continue
+    predictions.append({
+      'id': match.get('id'),
+      'sport': match.get('sport'),
+      'league': row.get('leagueEn') or row.get('leagueTr') or (match.get('league', {}).get('name') if match.get('league') else None),
+      'home': match.get('home', {}).get('name'),
+      'away': match.get('away', {}).get('name'),
+      'timeLabel': match.get('timeLabel'),
+      'msbs': row.get('msbs', ''),
+      'msbsWinner': row.get('msbsWinner', ''),
+    })
+
+  with open(args.out_path, 'w', encoding='utf-8') as f:
+    json.dump(predictions, f, ensure_ascii=False, indent=2)
+  print(f'Wrote {len(predictions)} predictions to {args.out_path}')
+
+
+if __name__ == '__main__':
+  main()
+
+

@@ -1,0 +1,10 @@
+# Compiled JavaScript files
+lib/
+node_modules/
+
+# Firebase cache
+.firebase/
+
+# Logs
+*.log
+

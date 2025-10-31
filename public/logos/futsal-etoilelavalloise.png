@@ -1,0 +1,45 @@
+<!doctype html>
+<html data-critters-container>
+<head>
+  <meta charset="utf-8">
+  <title>Royal Belgian FA</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="zd-site-verification" content="6azy24vdka6qjvl9193c2">
+  <link rel="shortcut icon" href="favicon-kbvb.ico">
+  <link rel="icon" sizes="16x16 32x32 64x64" href="favicon-kbvb.ico">
+  <link rel="icon" type="image/png" sizes="196x196" href="src/assets/img/favicons/favicon_RBFA_large.png">
+  <link rel="icon" type="image/png" sizes="160x160" href="src/assets/img/favicons/favicon_RBFA_large.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="src/assets/img/favicons/favicon_RBFA_large.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="src/assets/img/favicons/favicon_RBFA_large.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="src/assets/img/favicons/favicon_RBFA_small.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="src/assets/img/favicons/favicon_RBFA_small.png">
+  <link rel="apple-touch-icon" href="src/assets/img/favicons/favicon_RBFA_small.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="src/assets/img/favicons/favicon_RBFA_large.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="src/assets/img/favicons/favicon_RBFA_large.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="src/assets/img/favicons/favicon_RBFA_large.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="src/assets/img/favicons/favicon_RBFA_small.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="src/assets/img/favicons/favicon_RBFA_large.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="src/assets/img/favicons/favicon_RBFA_large.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="src/assets/img/favicons/favicon_RBFA_large.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="src/assets/img/favicons/favicon_RBFA_large.png">
+  <meta name="msapplication-TileColor" content="#FFFFFF">
+  <meta name="msapplication-TileImage" content="/favicon-kbvb-144.png">
+  <meta name="msapplication-config" content="/browserconfig.xml">
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      'gtm.start': new Date().getTime(),
+      event: 'gtm.js'
+    });
+  </script>
+  <script data-ad-client="ca-pub-6307470907620577" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6Le-M2YfAAAAALkNlMEZbXhOxLm0tMBCqqG9MIQd"></script>
+<style>@charset "UTF-8";html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}html{box-sizing:border-box;font-size:62.5%}*,*:before,*:after{box-sizing:inherit}body{margin:0;padding:0;background:#fefefe;font-family:T-Star Pro;font-weight:400;line-height:1.5;color:#0a0a0a;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}@media print{*{background:transparent!important;color:#000!important;-webkit-print-color-adjust:economy;color-adjust:economy;box-shadow:none!important;text-shadow:none!important}@page{margin:.5cm}}:root{--mat-option-label-text-size:1.6rem;--mat-form-field-container-text-size:1.6rem;--mat-select-container-elevation-shadow:0 0 1.4rem 0 rgba(0, 0, 0, .08);--mat-select-panel-background-color:#FFF;--mdc-checkbox-selected-checkmark-color:white;--mdc-checkbox-selected-focus-icon-color:#A48C4E;--mdc-checkbox-selected-hover-icon-color:#A48C4E;--mdc-checkbox-selected-icon-color:#A48C4E;--mdc-checkbox-unselected-focus-icon-color:rgba(0, 0, 0, .2);--mdc-checkbox-unselected-hover-icon-color:rgba(0, 0, 0, .2);--mdc-checkbox-unselected-icon-color:rgba(0, 0, 0, .2);--mdc-checkbox-state-layer-size:34px;--mdc-radio-unselected-hover-icon-color:rgba(0, 0, 0, .2);--mdc-radio-unselected-focus-icon-color:rgba(0, 0, 0, .2);--mdc-radio-unselected-icon-color:rgba(0, 0, 0, .2);--mdc-radio-selected-focus-icon-color:#A48C4E;--mdc-radio-selected-hover-icon-color:#A48C4E;--mdc-radio-selected-icon-color:#A48C4E;--mat-radio-label-text-size:1.6rem}@font-face{font-family:T-Star Pro;src:url(T-StarPRO-Bold.2cdf87c1071a154e.woff2) format("woff2"),url(T-StarPRO-Bold.4815bbbfab21f4f7.woff) format("woff");font-weight:700;font-style:normal}@font-face{font-family:T-Star Pro;src:url(T-StarPRO-Heavy.6d6171875a0d1974.woff2) format("woff2"),url(T-StarPRO-Heavy.360d74a9fbff5627.woff) format("woff");font-weight:900;font-style:normal}@font-face{font-family:T-Star Pro;src:url(T-StarPRO-Medium.e0fd53cdd3b51bb1.woff2) format("woff2"),url(T-StarPRO-Medium.ef81e6f6a2fa539b.woff) format("woff");font-weight:500;font-style:normal}@font-face{font-family:T-Star Pro;src:url(T-StarPRO-Regular.26f8c6d2e0c39b41.woff2) format("woff2"),url(T-StarPRO-Regular.cd3816556d56e871.woff) format("woff");font-weight:400;font-style:normal}@media print{@page{margin-top:0;margin-bottom:0}body{padding-top:72px;padding-bottom:72px}}@media print and (-ms-high-contrast: none),print and (-ms-high-contrast: active){body *{display:unset!important;width:100%!important}}@media print{@-moz-document url-prefix(){body *{display:unset!important;width:100%!important;line-height:1!important}}}html{height:100%;overflow-y:scroll}@media all and (-ms-high-contrast: none),(-ms-high-contrast: active){html{overflow-y:auto}}body{font-size:1.9rem;height:100%}@media all and (-ms-high-contrast: none),(-ms-high-contrast: active){body{height:auto}}app-root-bf{height:100%;display:flex;flex-direction:column}@charset "UTF-8"</style><link rel="stylesheet" href="styles.df93a8a0482e7b08.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.df93a8a0482e7b08.css"></noscript></head>
+<body>
+<app-root-bf></app-root-bf>
+<script src="runtime.9735911f4cf80475.js" type="module"></script><script src="polyfills.c503ebb8a39091d4.js" type="module"></script><script src="scripts.ddca43f27ccc55b5.js" defer></script><script src="main.0b4a80482e45ae3c.js" type="module"></script></body>
+</html>

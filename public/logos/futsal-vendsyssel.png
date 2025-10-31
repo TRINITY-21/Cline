@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9800 Hjørring - Find alle Postnumre på Postnummer.org</title>
+    <meta name="description" content="Find alle danske postnumre nemt og hurtigt på PostNummer.org">
+    <meta name="robots" content="index, follow">
+    <link rel="stylesheet" href="/static/style.css">
+	<script async data-id="101462812" src="//static.getclicky.com/js"></script>
+
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+
+    <!-- PNG Icons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/icon-16x16.png">
+    <link rel="icon" type="image/png" sizes="24x24" href="/static/icon-24x24.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="36x36" href="/static/icon-36x36.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/static/icon-48x48.png">
+    <link rel="icon" type="image/png" sizes="72x72" href="/static/icon-72x72.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/static/icon-96x96.png">
+    <link rel="icon" type="image/png" sizes="128x128" href="/static/icon-128x128.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="/static/icon-144x144.png">
+    <link rel="icon" type="image/png" sizes="152x152" href="/static/icon-152x152.png">
+    <link rel="icon" type="image/png" sizes="160x160" href="/static/icon-160x160.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/static/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="196x196" href="/static/icon-196x196.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="/static/icon-256x256.png">
+    <link rel="icon" type="image/png" sizes="384x384" href="/static/icon-384x384.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/static/icon-512x512.png">
+
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
+
+    <!-- Microsoft Tiles -->
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/static/site-tile-150x150.png">
+    <meta name="msapplication-square70x70logo" content="/static/site-tile-70x70.png">
+    <meta name="msapplication-square150x150logo" content="/static/site-tile-150x150.png">
+    <meta name="msapplication-wide310x150logo" content="/static/site-tile-310x150.png">
+    <meta name="msapplication-square310x310logo" content="/static/site-tile-310x310.png">
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1642753733521186"
+	     crossorigin="anonymous"></script>
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//tracking.postnummer.org/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '35']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <a href="/" class="site-name"  style="text-decoration: none; color: #ECF0F1;">🇩🇰 PostNummer.org</a>
+        </nav>
+    </header>
+
+    <!-- Below Navigation Area -->
+    <div class="below-nav">
+        <form method="POST" class="search-form" action="/search">
+            <input type="text" name="search" placeholder="Indtast postnummer eller by" required>
+            <button type="submit">VIS</button>
+        </form>
+    </div>
+
+
+    <!-- Main Content Area -->
+    <div class="main">
+        
+    <!-- Divider -->
+    <h1>9800 Hjørring </h1>
+	
+	
+	
+
+
+	
+
+    <!-- Content Area -->
+    <div class="content-box">
+        <h3>Indtast postnummer eller bynavn for at vise info:</h2>
+
+        <form method="POST"  action="/search" class="search-form">
+            <input type="text" name="search" placeholder="Indtast postnummer eller by" required>
+            <button type="submit">VIS</button>
+        </form>
+    </div>
+
+
+
+
+
+
+ 
+    
+ 
+ 
+	
+
+    </div>
+
+    <!-- Footer or any other common elements can go here -->
+	
+	
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <h3>Postnumre i Danmark</h3>
+            <ul class="footer-links">
+                <li><a href="/k%C3%B8benhavn-k">København K</a></li>
+                <li><a href="/k%C3%B8benhavn-v">København V</a></li>
+                <li><a href="/frederiksberg">Frederiksberg</a></li>
+                <li><a href="/k%C3%B8benhavn-og-omegn">København og omegn</a></li>
+                <li><a href="/nordsj%C3%A6lland">Nordsjælland</a></li>
+                <li><a href="/bornholm">Bornholm</a></li>
+                <li><a href="/gr%C3%B8nland">Grønland</a></li>
+                <li><a href="/resten-af-sj%C3%A6lland">Resten af Sjælland</a></li>
+                <li><a href="/fyn">Fyn</a></li>
+                <li><a href="/jylland">Jylland</a></li>
+                <li><a href="/s%C3%B8nderjylland">Sønderjylland</a></li>
+                <li><a href="/nordvestjylland">Nordvestjylland</a></li>
+                <li><a href="/%C3%B8stjylland">Østjylland</a></li>
+                <li><a href="/nordjylland">Nordjylland</a></li>
+            </ul>
+        </div>
+    <p>&copy;  PostNummer.org | <a href="/om-os" style="color: #FFFFFF; text-decoration: none;">Om PostNummer.org</a></p>
+    </footer>
+
+</body>
+</html>

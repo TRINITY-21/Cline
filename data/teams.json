@@ -1,0 +1,5201 @@
+[
+  {
+    "id": "arsenal",
+    "sport": "Football",
+    "name": "Arsenal",
+    "aliases": [
+      "ars",
+      "arsenal fc",
+      "gunners"
+    ],
+    "logo": "https://logo.clearbit.com/arsenal.com"
+  },
+  {
+    "id": "chelsea",
+    "sport": "Football",
+    "name": "Chelsea",
+    "aliases": [
+      "che",
+      "chelsea fc",
+      "blues"
+    ],
+    "logo": "https://logo.clearbit.com/chelseafc.com"
+  },
+  {
+    "id": "barcelona",
+    "sport": "Football",
+    "name": "Barcelona",
+    "aliases": [
+      "fc barcelona",
+      "barca",
+      "fcb"
+    ],
+    "logo": "/logos/football-barcelona.png"
+  },
+  {
+    "id": "dortmund",
+    "sport": "Football",
+    "name": "Borussia Dortmund",
+    "aliases": [
+      "bvb",
+      "dortmund"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg"
+  },
+  {
+    "id": "realmadrid",
+    "sport": "Football",
+    "name": "Real Madrid",
+    "aliases": [
+      "real madrid cf",
+      "rm cf",
+      "real"
+    ],
+    "logo": "/logos/football-realmadrid.png"
+  },
+  {
+    "id": "fenerbahce",
+    "sport": "Basketball",
+    "name": "Fenerbahçe",
+    "aliases": [
+      "fenerbahce",
+      "fener"
+    ],
+    "logo": "/logos/basketball-fenerbahce.png"
+  },
+  {
+    "id": "mapleleafs",
+    "sport": "Hockey",
+    "name": "Toronto Maple Leafs",
+    "aliases": [
+      "maple leafs",
+      "toronto"
+    ],
+    "logo": "/logos/hockey-torontomapleleafs.png"
+  },
+  {
+    "id": "bruins",
+    "sport": "Hockey",
+    "name": "Boston Bruins",
+    "aliases": [
+      "bruins",
+      "boston"
+    ],
+    "logo": "/logos/hockey-bostonbruins.jpg"
+  },
+  {
+    "id": "italy-vball",
+    "sport": "Volleyball",
+    "name": "Italy",
+    "aliases": [
+      "ita"
+    ],
+    "logo": "/logos/volleyball-italy.jpg"
+  },
+  {
+    "id": "usa-vball",
+    "sport": "Volleyball",
+    "name": "USA",
+    "aliases": [
+      "united states",
+      "usa"
+    ],
+    "logo": "/logos/volleyball-usa.png"
+  },
+  {
+    "id": "alcaraz",
+    "sport": "Tennis",
+    "name": "Carlos Alcaraz",
+    "aliases": [
+      "alcaraz"
+    ],
+    "logo": "/logos/tennis-carlosalcaraz.png"
+  },
+  {
+    "id": "sinner",
+    "sport": "Tennis",
+    "name": "Jannik Sinner",
+    "aliases": [
+      "sinner"
+    ],
+    "logo": "https://flagcdn.com/w40/it.png"
+  },
+  {
+    "id": "astonvilla",
+    "sport": "Football",
+    "name": "Aston Villa",
+    "aliases": [
+      "villa",
+      "aston villa fc",
+      "avfc"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/en/f/f9/Aston_Villa_FC_crest_%282016%29.svg"
+  },
+  {
+    "id": "bournemouth",
+    "sport": "Football",
+    "name": "AFC Bournemouth",
+    "aliases": [
+      "bournemouth",
+      "afc bournemouth",
+      "cherries"
+    ],
+    "logo": "/logos/football-afcbournemouth.svg"
+  },
+  {
+    "id": "brentford",
+    "sport": "Football",
+    "name": "Brentford",
+    "aliases": [
+      "brentford fc",
+      "bees"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/en/2/2a/Brentford_FC_crest.svg"
+  },
+  {
+    "id": "brighton",
+    "sport": "Football",
+    "name": "Brighton & Hove Albion",
+    "aliases": [
+      "brighton",
+      "brighton and hove",
+      "bha",
+      "seagulls"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/en/f/fd/Brighton_%26_Hove_Albion_logo.svg"
+  },
+  {
+    "id": "crystalpalace",
+    "sport": "Football",
+    "name": "Crystal Palace",
+    "aliases": [
+      "palace",
+      "cpfc",
+      "eagles"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/en/0/0c/Crystal_Palace_FC_logo.svg"
+  },
+  {
+    "id": "everton",
+    "sport": "Football",
+    "name": "Everton",
+    "aliases": [
+      "everton fc",
+      "efc",
+      "toffees"
+    ],
+    "logo": "/logos/football-everton.png"
+  },
+  {
+    "id": "fulham",
+    "sport": "Football",
+    "name": "Fulham",
+    "aliases": [
+      "fulham fc",
+      "ffc",
+      "cottagers"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/en/3/3e/Fulham_FC_%28shield%29.svg"
+  },
+  {
+    "id": "ipswich",
+    "sport": "Football",
+    "name": "Ipswich Town",
+    "aliases": [
+      "ipswich",
+      "ipswich town fc"
+    ],
+    "logo": "/logos/football-ipswichtown.png"
+  },
+  {
+    "id": "leicester",
+    "sport": "Football",
+    "name": "Leicester City",
+    "aliases": [
+      "leicester",
+      "lcfc",
+      "foxes"
+    ],
+    "logo": "/logos/football-leicestercity.png"
+  },
+  {
+    "id": "liverpool",
+    "sport": "Football",
+    "name": "Liverpool",
+    "aliases": [
+      "liverpool fc",
+      "lfc",
+      "reds"
+    ],
+    "logo": "/logos/football-liverpool.png"
+  },
+  {
+    "id": "mancity",
+    "sport": "Football",
+    "name": "Manchester City",
+    "aliases": [
+      "manchester city fc",
+      "man city",
+      "mcfc",
+      "city"
+    ],
+    "logo": "/logos/football-manchestercity.png"
+  },
+  {
+    "id": "manutd",
+    "sport": "Football",
+    "name": "Manchester United",
+    "aliases": [
+      "manchester united fc",
+      "man united",
+      "man utd",
+      "mufc",
+      "red devils"
+    ],
+    "logo": "/logos/football-manchesterunited.png"
+  },
+  {
+    "id": "newcastle",
+    "sport": "Football",
+    "name": "Newcastle United",
+    "aliases": [
+      "newcastle",
+      "nufc",
+      "magpies"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/en/5/56/Newcastle_United_Logo.svg"
+  },
+  {
+    "id": "nottingham",
+    "sport": "Football",
+    "name": "Nottingham Forest",
+    "aliases": [
+      "nottingham forest fc",
+      "forest",
+      "nffc"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/en/e/e5/Nottingham_Forest_logo.svg"
+  },
+  {
+    "id": "southampton",
+    "sport": "Football",
+    "name": "Southampton",
+    "aliases": [
+      "southampton fc",
+      "saints",
+      "sfc"
+    ],
+    "logo": "/logos/football-southampton.png"
+  },
+  {
+    "id": "tottenham",
+    "sport": "Football",
+    "name": "Tottenham Hotspur",
+    "aliases": [
+      "tottenham",
+      "spurs",
+      "thfc"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/en/b/b4/Tottenham_Hotspur.svg"
+  },
+  {
+    "id": "westham",
+    "sport": "Football",
+    "name": "West Ham United",
+    "aliases": [
+      "west ham",
+      "whu",
+      "hammers"
+    ],
+    "logo": "https://upload.wikimedia.org/wikipedia/en/c/c2/West_Ham_United_FC_logo.svg"
+  },
+  {
+    "id": "wolves",
+    "sport": "Football",
+    "name": "Wolverhampton Wanderers",
+    "aliases": [
+      "wolves",
+      "wwfc"
+    ],
+    "logo": "/logos/football-wolverhamptonwanderers.png"
+  },
+  {
+    "id": "tuvbuganuud",
+    "sport": "Football",
+    "name": "Tuv Buganuud",
+    "aliases": [],
+    "logo": "/logos/football-tuvbuganuud.png"
+  },
+  {
+    "id": "deren",
+    "sport": "Football",
+    "name": "Deren",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "karakopru",
+    "sport": "Football",
+    "name": "Karakopru",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "rizespor",
+    "sport": "Football",
+    "name": "Rizespor",
+    "aliases": [],
+    "logo": "/logos/football-rizespor.svg"
+  },
+  {
+    "id": "esenlererokspor",
+    "sport": "Football",
+    "name": "Esenler Erokspor",
+    "aliases": [],
+    "logo": "/logos/football-esenlererokspor.png"
+  },
+  {
+    "id": "agri1970spor",
+    "sport": "Football",
+    "name": "Agri 1970 Spor",
+    "aliases": [],
+    "logo": "/logos/football-agri1970spor.svg"
+  },
+  {
+    "id": "ahrotekh",
+    "sport": "Football",
+    "name": "Ahrotekh",
+    "aliases": [],
+    "logo": "/logos/football-ahrotekh.svg"
+  },
+  {
+    "id": "mariupol",
+    "sport": "Football",
+    "name": "Mariupol",
+    "aliases": [],
+    "logo": "/logos/football-mariupol.png"
+  },
+  {
+    "id": "gryfslupsk",
+    "sport": "Football",
+    "name": "Gryf Slupsk",
+    "aliases": [],
+    "logo": "/logos/football-gryfslupsk.svg"
+  },
+  {
+    "id": "lechpoznan",
+    "sport": "Football",
+    "name": "Lech Poznan",
+    "aliases": [],
+    "logo": "/logos/football-lechpoznan.jpg"
+  },
+  {
+    "id": "shkupi",
+    "sport": "Football",
+    "name": "Shkupi",
+    "aliases": [],
+    "logo": "/logos/football-shkupi.png"
+  },
+  {
+    "id": "shkendija",
+    "sport": "Football",
+    "name": "Shkendija",
+    "aliases": [],
+    "logo": "/logos/football-shkendija.png"
+  },
+  {
+    "id": "rajasthanunited",
+    "sport": "Football",
+    "name": "Rajasthan United",
+    "aliases": [],
+    "logo": "/logos/football-rajasthanunited.png"
+  },
+  {
+    "id": "keralablasters",
+    "sport": "Football",
+    "name": "Kerala Blasters",
+    "aliases": [],
+    "logo": "/logos/football-keralablasters.svg"
+  },
+  {
+    "id": "chernomorets",
+    "sport": "Football",
+    "name": "Chernomorets",
+    "aliases": [],
+    "logo": "/logos/football-chernomorets.png"
+  },
+  {
+    "id": "ludogorets",
+    "sport": "Football",
+    "name": "Ludogorets",
+    "aliases": [],
+    "logo": "/logos/football-ludogorets.svg"
+  },
+  {
+    "id": "zonguldak",
+    "sport": "Football",
+    "name": "Zonguldak",
+    "aliases": [],
+    "logo": "/logos/football-zonguldak.png"
+  },
+  {
+    "id": "bodrumspor",
+    "sport": "Football",
+    "name": "Bodrumspor",
+    "aliases": [],
+    "logo": "/logos/football-bodrumspor.svg"
+  },
+  {
+    "id": "dubocica",
+    "sport": "Football",
+    "name": "Dubocica",
+    "aliases": [],
+    "logo": "/logos/football-dubocica.png"
+  },
+  {
+    "id": "mladost",
+    "sport": "Football",
+    "name": "Mladost",
+    "aliases": [],
+    "logo": "/logos/football-mladost.svg"
+  },
+  {
+    "id": "struga",
+    "sport": "Football",
+    "name": "Struga",
+    "aliases": [],
+    "logo": "/logos/football-struga.png"
+  },
+  {
+    "id": "alwahda",
+    "sport": "Football",
+    "name": "Al Wahda",
+    "aliases": [],
+    "logo": "/logos/football-alwahda.svg"
+  },
+  {
+    "id": "alnasrdubai",
+    "sport": "Football",
+    "name": "Al Nasr Dubai",
+    "aliases": [],
+    "logo": "/logos/football-alnasrdubai.svg"
+  },
+  {
+    "id": "germanyu17",
+    "sport": "Football",
+    "name": "Germany U17",
+    "aliases": [],
+    "logo": "/logos/football-germanyu17.jpg"
+  },
+  {
+    "id": "canadau17",
+    "sport": "Football",
+    "name": "Canada U17",
+    "aliases": [],
+    "logo": "/logos/football-canadau17.png"
+  },
+  {
+    "id": "concordiachiajna",
+    "sport": "Football",
+    "name": "Concordia Chiajna",
+    "aliases": [],
+    "logo": "/logos/football-concordiachiajna.jpg"
+  },
+  {
+    "id": "hermannstadt",
+    "sport": "Football",
+    "name": "Hermannstadt",
+    "aliases": [],
+    "logo": "/logos/football-hermannstadt.jpg"
+  },
+  {
+    "id": "dinamosamarkand",
+    "sport": "Football",
+    "name": "Dinamo Samarkand",
+    "aliases": [],
+    "logo": "/logos/football-dinamosamarkand.png"
+  },
+  {
+    "id": "khorezmurganch",
+    "sport": "Football",
+    "name": "Khorezm Urganch",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "navbahornamangan",
+    "sport": "Football",
+    "name": "Navbahor Namangan",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "nasaf",
+    "sport": "Football",
+    "name": "Nasaf",
+    "aliases": [],
+    "logo": "/logos/football-nasaf.svg"
+  },
+  {
+    "id": "miedzlegnica",
+    "sport": "Football",
+    "name": "Miedz Legnica",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "jagiellonia",
+    "sport": "Football",
+    "name": "Jagiellonia",
+    "aliases": [],
+    "logo": "/logos/football-jagiellonia.png"
+  },
+  {
+    "id": "ufa",
+    "sport": "Football",
+    "name": "Ufa",
+    "aliases": [],
+    "logo": "/logos/football-ufa.svg"
+  },
+  {
+    "id": "neftekhimik",
+    "sport": "Football",
+    "name": "Neftekhimik",
+    "aliases": [],
+    "logo": "/logos/football-neftekhimik.png"
+  },
+  {
+    "id": "bengaluru",
+    "sport": "Football",
+    "name": "Bengaluru",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "mohammedan",
+    "sport": "Football",
+    "name": "Mohammedan",
+    "aliases": [],
+    "logo": "/logos/football-mohammedan.png"
+  },
+  {
+    "id": "georgiau17",
+    "sport": "Football",
+    "name": "Georgia U-17",
+    "aliases": [],
+    "logo": "/logos/football-georgiau17.png"
+  },
+  {
+    "id": "greeceu17",
+    "sport": "Football",
+    "name": "Greece U-17",
+    "aliases": [],
+    "logo": "/logos/football-greeceu17.png"
+  },
+  {
+    "id": "shababalordon",
+    "sport": "Football",
+    "name": "Shabab Al-Ordon",
+    "aliases": [],
+    "logo": "/logos/football-shababalordon.png"
+  },
+  {
+    "id": "alsalt",
+    "sport": "Football",
+    "name": "Al-Salt",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "yantragabrovo",
+    "sport": "Football",
+    "name": "Yantra Gabrovo",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "cska1948",
+    "sport": "Football",
+    "name": "CSKA 1948",
+    "aliases": [],
+    "logo": "/logos/football-cska1948.png"
+  },
+  {
+    "id": "algharafa",
+    "sport": "Football",
+    "name": "Al-Gharafa",
+    "aliases": [],
+    "logo": "/logos/football-algharafa.svg"
+  },
+  {
+    "id": "alduhail",
+    "sport": "Football",
+    "name": "Al-Duhail",
+    "aliases": [],
+    "logo": "/logos/football-alduhail.svg"
+  },
+  {
+    "id": "metalist1925",
+    "sport": "Football",
+    "name": "Metalist 1925",
+    "aliases": [],
+    "logo": "/logos/football-metalist1925.svg"
+  },
+  {
+    "id": "ahrobiznes",
+    "sport": "Football",
+    "name": "Ahrobiznes",
+    "aliases": [],
+    "logo": "/logos/football-ahrobiznes.png"
+  },
+  {
+    "id": "utaarad",
+    "sport": "Football",
+    "name": "UTA Arad",
+    "aliases": [],
+    "logo": "/logos/football-utaarad.png"
+  },
+  {
+    "id": "petrolul",
+    "sport": "Football",
+    "name": "Petrolul",
+    "aliases": [],
+    "logo": "/logos/football-petrolul.png"
+  },
+  {
+    "id": "pyramids",
+    "sport": "Football",
+    "name": "Pyramids",
+    "aliases": [],
+    "logo": "/logos/football-pyramids.png"
+  },
+  {
+    "id": "ethiopianinsurance",
+    "sport": "Football",
+    "name": "Ethiopian Insurance",
+    "aliases": [],
+    "logo": "/logos/football-ethiopianinsurance.png"
+  },
+  {
+    "id": "amanatbaghdad",
+    "sport": "Football",
+    "name": "Amanat Baghdad",
+    "aliases": [],
+    "logo": "/logos/football-amanatbaghdad.png"
+  },
+  {
+    "id": "alnajaf",
+    "sport": "Football",
+    "name": "Al-Najaf",
+    "aliases": [],
+    "logo": "/logos/football-alnajaf.png"
+  },
+  {
+    "id": "algharraf",
+    "sport": "Football",
+    "name": "Al-Gharraf",
+    "aliases": [],
+    "logo": "/logos/football-algharraf.svg"
+  },
+  {
+    "id": "zakho",
+    "sport": "Football",
+    "name": "Zakho",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "damac",
+    "sport": "Football",
+    "name": "Damac",
+    "aliases": [],
+    "logo": "/logos/football-damac.svg"
+  },
+  {
+    "id": "alfateh",
+    "sport": "Football",
+    "name": "Al-Fateh",
+    "aliases": [],
+    "logo": "/logos/football-alfateh.svg"
+  },
+  {
+    "id": "chaves",
+    "sport": "Football",
+    "name": "Chaves",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "sportingb",
+    "sport": "Football",
+    "name": "Sporting B",
+    "aliases": [],
+    "logo": "/logos/football-sportingb.png"
+  },
+  {
+    "id": "ajman",
+    "sport": "Football",
+    "name": "Ajman",
+    "aliases": [],
+    "logo": "/logos/football-ajman.png"
+  },
+  {
+    "id": "alain",
+    "sport": "Football",
+    "name": "Al Ain",
+    "aliases": [],
+    "logo": "/logos/football-alain.svg"
+  },
+  {
+    "id": "shababalahli",
+    "sport": "Football",
+    "name": "Shabab Al Ahli",
+    "aliases": [],
+    "logo": "/logos/football-shababalahli.svg"
+  },
+  {
+    "id": "sharjah",
+    "sport": "Football",
+    "name": "Sharjah",
+    "aliases": [],
+    "logo": "/logos/football-sharjah.jpg"
+  },
+  {
+    "id": "kalju",
+    "sport": "Football",
+    "name": "Kalju",
+    "aliases": [],
+    "logo": "/logos/football-kalju.svg"
+  },
+  {
+    "id": "viimsi",
+    "sport": "Football",
+    "name": "Viimsi",
+    "aliases": [],
+    "logo": "/logos/football-viimsi.png"
+  },
+  {
+    "id": "interturku",
+    "sport": "Football",
+    "name": "Inter Turku",
+    "aliases": [],
+    "logo": "/logos/football-interturku.png"
+  },
+  {
+    "id": "sjk",
+    "sport": "Football",
+    "name": "SJK",
+    "aliases": [],
+    "logo": "/logos/football-sjk.png"
+  },
+  {
+    "id": "pelister",
+    "sport": "Football",
+    "name": "Pelister",
+    "aliases": [],
+    "logo": "/logos/football-pelister.svg"
+  },
+  {
+    "id": "tikvesh",
+    "sport": "Football",
+    "name": "Tikvesh",
+    "aliases": [],
+    "logo": "/logos/football-tikvesh.png"
+  },
+  {
+    "id": "malkiya",
+    "sport": "Football",
+    "name": "Malkiya",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "alahlimanama",
+    "sport": "Football",
+    "name": "Al-Ahli Manama",
+    "aliases": [],
+    "logo": "/logos/football-alahlimanama.png"
+  },
+  {
+    "id": "kups",
+    "sport": "Football",
+    "name": "KuPS",
+    "aliases": [],
+    "logo": "/logos/football-kups.png"
+  },
+  {
+    "id": "gnistan",
+    "sport": "Football",
+    "name": "Gnistan",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "bahrainsc",
+    "sport": "Football",
+    "name": "Bahrain SC",
+    "aliases": [],
+    "logo": "/logos/football-bahrainsc.png"
+  },
+  {
+    "id": "aali",
+    "sport": "Football",
+    "name": "A`Ali",
+    "aliases": [],
+    "logo": "/logos/football-aali.png"
+  },
+  {
+    "id": "alsadd",
+    "sport": "Football",
+    "name": "Al-Sadd",
+    "aliases": [],
+    "logo": "/logos/football-alsadd.png"
+  },
+  {
+    "id": "alrayyan",
+    "sport": "Football",
+    "name": "Al-Rayyan",
+    "aliases": [],
+    "logo": "/logos/football-alrayyan.png"
+  },
+  {
+    "id": "alahliamman",
+    "sport": "Football",
+    "name": "Al Ahli Amman",
+    "aliases": [],
+    "logo": "/logos/football-alahliamman.png"
+  },
+  {
+    "id": "alhussein",
+    "sport": "Football",
+    "name": "Al-Hussein",
+    "aliases": [],
+    "logo": "/logos/football-alhussein.png"
+  },
+  {
+    "id": "fakel",
+    "sport": "Football",
+    "name": "Fakel",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "arsenaltula",
+    "sport": "Football",
+    "name": "Arsenal Tula",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "midtjylland",
+    "sport": "Football",
+    "name": "Midtjylland",
+    "aliases": [],
+    "logo": "/logos/football-midtjylland.jpg"
+  },
+  {
+    "id": "silkeborg",
+    "sport": "Football",
+    "name": "Silkeborg",
+    "aliases": [],
+    "logo": "/logos/football-silkeborg.png"
+  },
+  {
+    "id": "vojvodina",
+    "sport": "Football",
+    "name": "Vojvodina",
+    "aliases": [],
+    "logo": "/logos/football-vojvodina.svg"
+  },
+  {
+    "id": "crvenazvezda",
+    "sport": "Football",
+    "name": "Crvena Zvezda",
+    "aliases": [],
+    "logo": "/logos/football-crvenazvezda.png"
+  },
+  {
+    "id": "nationalbank",
+    "sport": "Football",
+    "name": "National Bank",
+    "aliases": [],
+    "logo": "/logos/football-nationalbank.svg"
+  },
+  {
+    "id": "zamalek",
+    "sport": "Football",
+    "name": "Zamalek",
+    "aliases": [],
+    "logo": "/logos/football-zamalek.svg"
+  },
+  {
+    "id": "botosani",
+    "sport": "Football",
+    "name": "Botosani",
+    "aliases": [],
+    "logo": "/logos/football-botosani.jpg"
+  },
+  {
+    "id": "farul",
+    "sport": "Football",
+    "name": "Farul",
+    "aliases": [],
+    "logo": "/logos/football-farul.svg"
+  },
+  {
+    "id": "arkagdynia",
+    "sport": "Football",
+    "name": "Arka Gdynia",
+    "aliases": [],
+    "logo": "/logos/football-arkagdynia.svg"
+  },
+  {
+    "id": "gornikzabrze",
+    "sport": "Football",
+    "name": "Gornik Zabrze",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "ilves",
+    "sport": "Football",
+    "name": "Ilves",
+    "aliases": [],
+    "logo": "/logos/football-ilves.png"
+  },
+  {
+    "id": "hjk",
+    "sport": "Football",
+    "name": "HJK",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "pafos",
+    "sport": "Football",
+    "name": "Pafos",
+    "aliases": [],
+    "logo": "/logos/football-pafos.svg"
+  },
+  {
+    "id": "aeklarnaca",
+    "sport": "Football",
+    "name": "AEK Larnaca",
+    "aliases": [],
+    "logo": "/logos/football-aeklarnaca.svg"
+  },
+  {
+    "id": "elva",
+    "sport": "Football",
+    "name": "Elva",
+    "aliases": [],
+    "logo": "/logos/football-elva.png"
+  },
+  {
+    "id": "tallinnakalev",
+    "sport": "Football",
+    "name": "Tallinna Kalev",
+    "aliases": [],
+    "logo": "/logos/football-tallinnakalev.svg"
+  },
+  {
+    "id": "konyaspor",
+    "sport": "Football",
+    "name": "Konyaspor",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "12bingolspor",
+    "sport": "Football",
+    "name": "12 Bingolspor",
+    "aliases": [],
+    "logo": "/logos/football-12bingolspor.svg"
+  },
+  {
+    "id": "duhok",
+    "sport": "Football",
+    "name": "Duhok",
+    "aliases": [],
+    "logo": "/logos/football-duhok.png"
+  },
+  {
+    "id": "alnaft",
+    "sport": "Football",
+    "name": "Al-Naft",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "alquwa",
+    "sport": "Football",
+    "name": "Al-Quwa",
+    "aliases": [],
+    "logo": "/logos/football-alquwa.png"
+  },
+  {
+    "id": "diyala",
+    "sport": "Football",
+    "name": "Diyala",
+    "aliases": [],
+    "logo": "/logos/football-diyala.svg"
+  },
+  {
+    "id": "alahlijeddah",
+    "sport": "Football",
+    "name": "Al Ahli Jeddah",
+    "aliases": [],
+    "logo": "/logos/football-alahlijeddah.svg"
+  },
+  {
+    "id": "alriyadh",
+    "sport": "Football",
+    "name": "Al-Riyadh",
+    "aliases": [],
+    "logo": "/logos/football-alriyadh.svg"
+  },
+  {
+    "id": "alkholood",
+    "sport": "Football",
+    "name": "Al-Kholood",
+    "aliases": [],
+    "logo": "/logos/football-alkholood.png"
+  },
+  {
+    "id": "neom",
+    "sport": "Football",
+    "name": "Neom",
+    "aliases": [],
+    "logo": "/logos/football-neom.svg"
+  },
+  {
+    "id": "cagliari",
+    "sport": "Football",
+    "name": "Cagliari",
+    "aliases": [],
+    "logo": "/logos/football-cagliari.svg"
+  },
+  {
+    "id": "sassuolo",
+    "sport": "Football",
+    "name": "Sassuolo",
+    "aliases": [],
+    "logo": "/logos/football-sassuolo.svg"
+  },
+  {
+    "id": "rijnsburgseboys",
+    "sport": "Football",
+    "name": "Rijnsburgse Boys",
+    "aliases": [],
+    "logo": "/logos/football-rijnsburgseboys.png"
+  },
+  {
+    "id": "nec",
+    "sport": "Football",
+    "name": "NEC",
+    "aliases": [],
+    "logo": "/logos/football-nec.jpg"
+  },
+  {
+    "id": "orihuela",
+    "sport": "Football",
+    "name": "Orihuela",
+    "aliases": [],
+    "logo": "/logos/football-orihuela.png"
+  },
+  {
+    "id": "levante",
+    "sport": "Football",
+    "name": "Levante",
+    "aliases": [],
+    "logo": "/logos/football-levante.jpg"
+  },
+  {
+    "id": "portimonense",
+    "sport": "Football",
+    "name": "Portimonense",
+    "aliases": [],
+    "logo": "/logos/football-portimonense.png"
+  },
+  {
+    "id": "torreense",
+    "sport": "Football",
+    "name": "Torreense",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "vargastorres",
+    "sport": "Football",
+    "name": "Vargas Torres",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "cumbaya",
+    "sport": "Football",
+    "name": "Cumbaya",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "rbsalzburg",
+    "sport": "Football",
+    "name": "RB Salzburg",
+    "aliases": [],
+    "logo": "/logos/football-rbsalzburg.svg"
+  },
+  {
+    "id": "swarovskitirol",
+    "sport": "Football",
+    "name": "Swarovski Tirol",
+    "aliases": [],
+    "logo": "/logos/football-swarovskitirol.svg"
+  },
+  {
+    "id": "atleticovinotinto",
+    "sport": "Football",
+    "name": "Atletico Vinotinto",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "22dejulio",
+    "sport": "Football",
+    "name": "22 de Julio",
+    "aliases": [],
+    "logo": "/logos/football-22dejulio.png"
+  },
+  {
+    "id": "benficab",
+    "sport": "Football",
+    "name": "Benfica B",
+    "aliases": [],
+    "logo": "/logos/football-benficab.png"
+  },
+  {
+    "id": "pacosdeferreira",
+    "sport": "Football",
+    "name": "Pacos de Ferreira",
+    "aliases": [],
+    "logo": "/logos/football-pacosdeferreira.jpg"
+  },
+  {
+    "id": "valledeegues",
+    "sport": "Football",
+    "name": "Valle de Egues",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "fcandorra",
+    "sport": "Football",
+    "name": "FC Andorra",
+    "aliases": [],
+    "logo": "/logos/football-fcandorra.png"
+  },
+  {
+    "id": "atleticobaleares",
+    "sport": "Football",
+    "name": "Atletico Baleares",
+    "aliases": [],
+    "logo": "/logos/football-atleticobaleares.jpg"
+  },
+  {
+    "id": "gimnastictarragona",
+    "sport": "Football",
+    "name": "Gimnastic Tarragona",
+    "aliases": [],
+    "logo": "/logos/football-gimnastictarragona.svg"
+  },
+  {
+    "id": "dumbravita",
+    "sport": "Football",
+    "name": "Dumbravita",
+    "aliases": [],
+    "logo": "/logos/football-dumbravita.png"
+  },
+  {
+    "id": "rapidbucuresti",
+    "sport": "Football",
+    "name": "Rapid Bucuresti",
+    "aliases": [],
+    "logo": "/logos/football-rapidbucuresti.svg"
+  },
+  {
+    "id": "udlogrones",
+    "sport": "Football",
+    "name": "UD Logrones",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "ponferradina",
+    "sport": "Football",
+    "name": "Ponferradina",
+    "aliases": [],
+    "logo": "/logos/football-ponferradina.png"
+  },
+  {
+    "id": "realavila",
+    "sport": "Football",
+    "name": "Real Avila",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "realaviles",
+    "sport": "Football",
+    "name": "Real Aviles",
+    "aliases": [],
+    "logo": "/logos/football-realaviles.png"
+  },
+  {
+    "id": "getxo",
+    "sport": "Football",
+    "name": "Getxo",
+    "aliases": [],
+    "logo": "/logos/football-getxo.svg"
+  },
+  {
+    "id": "alaves",
+    "sport": "Football",
+    "name": "Alaves",
+    "aliases": [],
+    "logo": "/logos/football-alaves.png"
+  },
+  {
+    "id": "spartarotterdam",
+    "sport": "Football",
+    "name": "Sparta Rotterdam",
+    "aliases": [],
+    "logo": "/logos/football-spartarotterdam.jpg"
+  },
+  {
+    "id": "groningen",
+    "sport": "Football",
+    "name": "Groningen",
+    "aliases": [],
+    "logo": "/logos/football-groningen.png"
+  },
+  {
+    "id": "fusrabat",
+    "sport": "Football",
+    "name": "FUS Rabat",
+    "aliases": [],
+    "logo": "/logos/football-fusrabat.svg"
+  },
+  {
+    "id": "olympicsafi",
+    "sport": "Football",
+    "name": "Olympic Safi",
+    "aliases": [],
+    "logo": "/logos/football-olympicsafi.svg"
+  },
+  {
+    "id": "gent",
+    "sport": "Football",
+    "name": "Gent",
+    "aliases": [],
+    "logo": "/logos/football-gent.svg"
+  },
+  {
+    "id": "patroeisden",
+    "sport": "Football",
+    "name": "Patro Eisden",
+    "aliases": [],
+    "logo": "/logos/football-patroeisden.jpg"
+  },
+  {
+    "id": "seraing",
+    "sport": "Football",
+    "name": "Seraing",
+    "aliases": [],
+    "logo": "/logos/football-seraing.png"
+  },
+  {
+    "id": "oudheverlee",
+    "sport": "Football",
+    "name": "Oud-Heverlee",
+    "aliases": [],
+    "logo": "/logos/football-oudheverlee.png"
+  },
+  {
+    "id": "cercle",
+    "sport": "Football",
+    "name": "Cercle",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "kortrijk",
+    "sport": "Football",
+    "name": "Kortrijk",
+    "aliases": [],
+    "logo": "/logos/football-kortrijk.svg"
+  },
+  {
+    "id": "grasshopper",
+    "sport": "Football",
+    "name": "Grasshopper",
+    "aliases": [],
+    "logo": "/logos/football-grasshopper.png"
+  },
+  {
+    "id": "youngboys",
+    "sport": "Football",
+    "name": "Young Boys",
+    "aliases": [],
+    "logo": "/logos/football-youngboys.png"
+  },
+  {
+    "id": "lugano",
+    "sport": "Football",
+    "name": "Lugano",
+    "aliases": [],
+    "logo": "/logos/football-lugano.png"
+  },
+  {
+    "id": "luzern",
+    "sport": "Football",
+    "name": "Luzern",
+    "aliases": [],
+    "logo": "/logos/football-luzern.jpg"
+  },
+  {
+    "id": "beerschot",
+    "sport": "Football",
+    "name": "Beerschot",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "westerlo",
+    "sport": "Football",
+    "name": "Westerlo",
+    "aliases": [],
+    "logo": "/logos/football-westerlo.png"
+  },
+  {
+    "id": "knokke",
+    "sport": "Football",
+    "name": "Knokke",
+    "aliases": [],
+    "logo": "/logos/football-knokke.jpg"
+  },
+  {
+    "id": "sinttruidense",
+    "sport": "Football",
+    "name": "Sint-Truidense",
+    "aliases": [],
+    "logo": "/logos/football-sinttruidense.jpg"
+  },
+  {
+    "id": "nordsjaelland",
+    "sport": "Football",
+    "name": "Nordsjaelland",
+    "aliases": [],
+    "logo": "/logos/football-nordsjaelland.svg"
+  },
+  {
+    "id": "broendby",
+    "sport": "Football",
+    "name": "Broendby",
+    "aliases": [],
+    "logo": "/logos/football-broendby.png"
+  },
+  {
+    "id": "pisa",
+    "sport": "Football",
+    "name": "Pisa",
+    "aliases": [],
+    "logo": "/logos/football-pisa.svg"
+  },
+  {
+    "id": "lazio",
+    "sport": "Football",
+    "name": "Lazio",
+    "aliases": [],
+    "logo": "/logos/football-lazio.png"
+  },
+  {
+    "id": "realmurcia",
+    "sport": "Football",
+    "name": "Real Murcia",
+    "aliases": [],
+    "logo": "/logos/football-realmurcia.svg"
+  },
+  {
+    "id": "antequera",
+    "sport": "Football",
+    "name": "Antequera",
+    "aliases": [],
+    "logo": "/logos/football-antequera.png"
+  },
+  {
+    "id": "atleticoantoniano",
+    "sport": "Football",
+    "name": "Atletico Antoniano",
+    "aliases": [],
+    "logo": "/logos/football-atleticoantoniano.png"
+  },
+  {
+    "id": "castellon",
+    "sport": "Football",
+    "name": "Castellon",
+    "aliases": [],
+    "logo": "/logos/football-castellon.png"
+  },
+  {
+    "id": "unionestepona",
+    "sport": "Football",
+    "name": "Union Estepona",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "malaga",
+    "sport": "Football",
+    "name": "Malaga",
+    "aliases": [],
+    "logo": "/logos/football-malaga.png"
+  },
+  {
+    "id": "legiawarsaw",
+    "sport": "Football",
+    "name": "Legia Warsaw",
+    "aliases": [],
+    "logo": "/logos/football-legiawarsaw.png"
+  },
+  {
+    "id": "pogonszczecin",
+    "sport": "Football",
+    "name": "Pogon Szczecin",
+    "aliases": [],
+    "logo": "/logos/football-pogonszczecin.png"
+  },
+  {
+    "id": "samano",
+    "sport": "Football",
+    "name": "Samano",
+    "aliases": [],
+    "logo": "/logos/football-samano.jpg"
+  },
+  {
+    "id": "deportivo",
+    "sport": "Football",
+    "name": "Deportivo",
+    "aliases": [],
+    "logo": "/logos/football-deportivo.png"
+  },
+  {
+    "id": "atleticlleida",
+    "sport": "Football",
+    "name": "Atletic Lleida",
+    "aliases": [],
+    "logo": "/logos/football-atleticlleida.png"
+  },
+  {
+    "id": "espanyol",
+    "sport": "Football",
+    "name": "Espanyol",
+    "aliases": [],
+    "logo": "/logos/football-espanyol.svg"
+  },
+  {
+    "id": "imbabura",
+    "sport": "Football",
+    "name": "Imbabura",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "chacaritas",
+    "sport": "Football",
+    "name": "Chacaritas",
+    "aliases": [],
+    "logo": "/logos/football-chacaritas.jpg"
+  },
+  {
+    "id": "leixoes",
+    "sport": "Football",
+    "name": "Leixoes",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "viseu",
+    "sport": "Football",
+    "name": "Viseu",
+    "aliases": [],
+    "logo": "/logos/football-viseu.png"
+  },
+  {
+    "id": "maritimo",
+    "sport": "Football",
+    "name": "Maritimo",
+    "aliases": [],
+    "logo": "/logos/football-maritimo.png"
+  },
+  {
+    "id": "udleiria",
+    "sport": "Football",
+    "name": "UD Leiria",
+    "aliases": [],
+    "logo": "/logos/football-udleiria.png"
+  },
+  {
+    "id": "unionmagdalena",
+    "sport": "Football",
+    "name": "Union Magdalena",
+    "aliases": [],
+    "logo": "/logos/football-unionmagdalena.png"
+  },
+  {
+    "id": "deportestolima",
+    "sport": "Football",
+    "name": "Deportes Tolima",
+    "aliases": [],
+    "logo": "/logos/football-deportestolima.png"
+  },
+  {
+    "id": "realtomayapo",
+    "sport": "Football",
+    "name": "Real Tomayapo",
+    "aliases": [],
+    "logo": "/logos/football-realtomayapo.png"
+  },
+  {
+    "id": "independientese",
+    "sport": "Football",
+    "name": "Independiente SE",
+    "aliases": [],
+    "logo": "/logos/football-independientese.png"
+  },
+  {
+    "id": "lanus",
+    "sport": "Football",
+    "name": "Lanus",
+    "aliases": [],
+    "logo": "/logos/football-lanus.svg"
+  },
+  {
+    "id": "universidaddechile",
+    "sport": "Football",
+    "name": "Universidad de Chile",
+    "aliases": [],
+    "logo": "/logos/football-universidaddechile.png"
+  },
+  {
+    "id": "om",
+    "sport": "Football",
+    "name": "OM",
+    "aliases": [],
+    "logo": "/logos/football-om.png"
+  },
+  {
+    "id": "cibao",
+    "sport": "Football",
+    "name": "Cibao",
+    "aliases": [],
+    "logo": "/logos/football-cibao.svg"
+  },
+  {
+    "id": "boyaca-chico",
+    "sport": "Football",
+    "name": "Boyacá Chicó",
+    "aliases": [],
+    "logo": "/logos/boyaca-chico.jpg"
+  },
+  {
+    "id": "americadecali",
+    "sport": "Football",
+    "name": "America de Cali",
+    "aliases": [],
+    "logo": "/logos/football-americadecali.svg"
+  },
+  {
+    "id": "thestrongest",
+    "sport": "Football",
+    "name": "The Strongest",
+    "aliases": [],
+    "logo": "/logos/football-thestrongest.jpg"
+  },
+  {
+    "id": "orientepetrolero",
+    "sport": "Football",
+    "name": "Oriente Petrolero",
+    "aliases": [],
+    "logo": "/logos/football-orientepetrolero.png"
+  },
+  {
+    "id": "palmeiras",
+    "sport": "Football",
+    "name": "Palmeiras",
+    "aliases": [],
+    "logo": "/logos/football-palmeiras.png"
+  },
+  {
+    "id": "lduquito",
+    "sport": "Football",
+    "name": "LDU Quito",
+    "aliases": [],
+    "logo": "/logos/football-lduquito.svg"
+  },
+  {
+    "id": "spokanezephyrw",
+    "sport": "Football",
+    "name": "Spokane Zephyr (W)",
+    "aliases": [],
+    "logo": "/logos/football-spokanezephyrw.png"
+  },
+  {
+    "id": "carolinaascentw",
+    "sport": "Football",
+    "name": "Carolina Ascent (W)",
+    "aliases": [],
+    "logo": "/logos/football-carolinaascentw.png"
+  },
+  {
+    "id": "sakhalinskieakuly",
+    "sport": "Ice Hockey",
+    "name": "Sakhalinskie Akuly",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "taifun",
+    "sport": "Ice Hockey",
+    "name": "Taifun",
+    "aliases": [],
+    "logo": "/logos/ice hockey-taifun.svg"
+  },
+  {
+    "id": "metallurg",
+    "sport": "Ice Hockey",
+    "name": "Metallurg",
+    "aliases": [],
+    "logo": "/logos/ice hockey-metallurg.png"
+  },
+  {
+    "id": "dynamo576",
+    "sport": "Ice Hockey",
+    "name": "Dynamo-576",
+    "aliases": [],
+    "logo": "/logos/ice hockey-dynamo576.png"
+  },
+  {
+    "id": "sibirskiesnaypery",
+    "sport": "Ice Hockey",
+    "name": "Sibirskie Snaypery",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "jhcmolot",
+    "sport": "Ice Hockey",
+    "name": "JHC Molot",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "norilsk",
+    "sport": "Ice Hockey",
+    "name": "Norilsk",
+    "aliases": [],
+    "logo": "/logos/ice hockey-norilsk.jpg"
+  },
+  {
+    "id": "izhstal",
+    "sport": "Ice Hockey",
+    "name": "Izhstal",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "metallurgnk",
+    "sport": "Ice Hockey",
+    "name": "Metallurg Nk",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "molot",
+    "sport": "Ice Hockey",
+    "name": "Molot",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "sokolkrasnoyarsk",
+    "sport": "Ice Hockey",
+    "name": "Sokol Krasnoyarsk",
+    "aliases": [],
+    "logo": "/logos/ice hockey-sokolkrasnoyarsk.jpg"
+  },
+  {
+    "id": "toros",
+    "sport": "Ice Hockey",
+    "name": "Toros",
+    "aliases": [],
+    "logo": "/logos/ice hockey-toros.svg"
+  },
+  {
+    "id": "dynamoaltay",
+    "sport": "Ice Hockey",
+    "name": "Dynamo Altay",
+    "aliases": [],
+    "logo": "/logos/ice hockey-dynamoaltay.svg"
+  },
+  {
+    "id": "olimpiya",
+    "sport": "Ice Hockey",
+    "name": "Olimpiya",
+    "aliases": [],
+    "logo": "/logos/ice hockey-olimpiya.jpg"
+  },
+  {
+    "id": "jhckristall",
+    "sport": "Ice Hockey",
+    "name": "JHC Kristall",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "ermak",
+    "sport": "Ice Hockey",
+    "name": "Ermak",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "skavmf",
+    "sport": "Ice Hockey",
+    "name": "SKA-VMF",
+    "aliases": [],
+    "logo": "/logos/ice hockey-skavmf.png"
+  },
+  {
+    "id": "kristall",
+    "sport": "Ice Hockey",
+    "name": "Kristall",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "sputnikalmetyevsk",
+    "sport": "Ice Hockey",
+    "name": "Sputnik Almetyevsk",
+    "aliases": [],
+    "logo": "/logos/ice hockey-sputnikalmetyevsk.png"
+  },
+  {
+    "id": "tyumenskylegion",
+    "sport": "Ice Hockey",
+    "name": "Tyumensky Legion",
+    "aliases": [],
+    "logo": "/logos/ice hockey-tyumenskylegion.jpg"
+  },
+  {
+    "id": "hclipetsk",
+    "sport": "Ice Hockey",
+    "name": "HC Lipetsk",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "dizelist",
+    "sport": "Ice Hockey",
+    "name": "Dizelist",
+    "aliases": [],
+    "logo": "/logos/ice hockey-dizelist.png"
+  },
+  {
+    "id": "granit",
+    "sport": "Ice Hockey",
+    "name": "Granit",
+    "aliases": [],
+    "logo": "/logos/ice hockey-granit.jpg"
+  },
+  {
+    "id": "buran",
+    "sport": "Ice Hockey",
+    "name": "Buran",
+    "aliases": [],
+    "logo": "/logos/ice hockey-buran.png"
+  },
+  {
+    "id": "kaluga",
+    "sport": "Ice Hockey",
+    "name": "Kaluga",
+    "aliases": [],
+    "logo": "/logos/ice hockey-kaluga.jpg"
+  },
+  {
+    "id": "bryansk",
+    "sport": "Ice Hockey",
+    "name": "Bryansk",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "dynamostpburg",
+    "sport": "Ice Hockey",
+    "name": "Dynamo St Pburg",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "dizel",
+    "sport": "Ice Hockey",
+    "name": "Dizel",
+    "aliases": [],
+    "logo": "/logos/ice hockey-dizel.svg"
+  },
+  {
+    "id": "torpedonn",
+    "sport": "Ice Hockey",
+    "name": "Torpedo NN",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "ladatl",
+    "sport": "Ice Hockey",
+    "name": "Lada Tl",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "gomel",
+    "sport": "Ice Hockey",
+    "name": "Gomel",
+    "aliases": [],
+    "logo": "/logos/ice hockey-gomel.svg"
+  },
+  {
+    "id": "mogilev",
+    "sport": "Ice Hockey",
+    "name": "Mogilev",
+    "aliases": [],
+    "logo": "/logos/ice hockey-mogilev.svg"
+  },
+  {
+    "id": "nemangrodno",
+    "sport": "Ice Hockey",
+    "name": "Neman Grodno",
+    "aliases": [],
+    "logo": "/logos/ice hockey-nemangrodno.jpg"
+  },
+  {
+    "id": "shakhtyorsl",
+    "sport": "Ice Hockey",
+    "name": "Shakhtyor Sl",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "lokomotivorsha",
+    "sport": "Ice Hockey",
+    "name": "Lokomotiv Orsha",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "yunostminsk",
+    "sport": "Ice Hockey",
+    "name": "Yunost Minsk",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "severstal",
+    "sport": "Ice Hockey",
+    "name": "Severstal",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "dynamomsk",
+    "sport": "Ice Hockey",
+    "name": "Dynamo Msk",
+    "aliases": [],
+    "logo": "/logos/ice hockey-dynamomsk.png"
+  },
+  {
+    "id": "dinamomn",
+    "sport": "Ice Hockey",
+    "name": "Dinamo Mn",
+    "aliases": [],
+    "logo": "/logos/ice hockey-dinamomn.png"
+  },
+  {
+    "id": "amur",
+    "sport": "Ice Hockey",
+    "name": "Amur",
+    "aliases": [],
+    "logo": "/logos/ice hockey-amur.svg"
+  },
+  {
+    "id": "pyry",
+    "sport": "Ice Hockey",
+    "name": "Pyry",
+    "aliases": [],
+    "logo": "/logos/ice hockey-pyry.png"
+  },
+  {
+    "id": "keupa",
+    "sport": "Ice Hockey",
+    "name": "KeuPa",
+    "aliases": [],
+    "logo": "/logos/ice hockey-keupa.png"
+  },
+  {
+    "id": "kvantaa",
+    "sport": "Ice Hockey",
+    "name": "K-Vantaa",
+    "aliases": [],
+    "logo": "/logos/ice hockey-kvantaa.png"
+  },
+  {
+    "id": "hermes",
+    "sport": "Ice Hockey",
+    "name": "Hermes",
+    "aliases": [],
+    "logo": "/logos/ice hockey-hermes.jpg"
+  },
+  {
+    "id": "beranizlin",
+    "sport": "Ice Hockey",
+    "name": "Berani Zlin",
+    "aliases": [],
+    "logo": "/logos/ice hockey-beranizlin.jpg"
+  },
+  {
+    "id": "dynamopardubiceb",
+    "sport": "Ice Hockey",
+    "name": "Dynamo Pardubice B",
+    "aliases": [],
+    "logo": "/logos/ice hockey-dynamopardubiceb.svg"
+  },
+  {
+    "id": "hsriga",
+    "sport": "Ice Hockey",
+    "name": "HS Riga",
+    "aliases": [],
+    "logo": "/logos/ice hockey-hsriga.svg"
+  },
+  {
+    "id": "mogo",
+    "sport": "Ice Hockey",
+    "name": "Mogo",
+    "aliases": [],
+    "logo": "/logos/ice hockey-mogo.png"
+  },
+  {
+    "id": "skelleftea",
+    "sport": "Ice Hockey",
+    "name": "Skelleftea",
+    "aliases": [],
+    "logo": "/logos/ice hockey-skelleftea.png"
+  },
+  {
+    "id": "brynas",
+    "sport": "Ice Hockey",
+    "name": "Brynas",
+    "aliases": [],
+    "logo": "/logos/ice hockey-brynas.png"
+  },
+  {
+    "id": "oerebro",
+    "sport": "Ice Hockey",
+    "name": "Oerebro",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "linkoeping",
+    "sport": "Ice Hockey",
+    "name": "Linkoeping",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "rogle",
+    "sport": "Ice Hockey",
+    "name": "Rogle",
+    "aliases": [],
+    "logo": "/logos/ice hockey-rogle.png"
+  },
+  {
+    "id": "lulea",
+    "sport": "Ice Hockey",
+    "name": "Lulea",
+    "aliases": [],
+    "logo": "/logos/ice hockey-lulea.png"
+  },
+  {
+    "id": "malmoe",
+    "sport": "Ice Hockey",
+    "name": "Malmoe",
+    "aliases": [],
+    "logo": "/logos/ice hockey-malmoe.svg"
+  },
+  {
+    "id": "timra",
+    "sport": "Ice Hockey",
+    "name": "Timra",
+    "aliases": [],
+    "logo": "/logos/ice hockey-timra.jpg"
+  },
+  {
+    "id": "djurgarden",
+    "sport": "Ice Hockey",
+    "name": "Djurgarden",
+    "aliases": [],
+    "logo": "/logos/ice hockey-djurgarden.png"
+  },
+  {
+    "id": "hv71",
+    "sport": "Ice Hockey",
+    "name": "HV71",
+    "aliases": [],
+    "logo": "/logos/ice hockey-hv71.svg"
+  },
+  {
+    "id": "farjestad",
+    "sport": "Ice Hockey",
+    "name": "Farjestad",
+    "aliases": [],
+    "logo": "/logos/ice hockey-farjestad.png"
+  },
+  {
+    "id": "leksand",
+    "sport": "Ice Hockey",
+    "name": "Leksand",
+    "aliases": [],
+    "logo": "/logos/ice hockey-leksand.png"
+  },
+  {
+    "id": "frolunda",
+    "sport": "Ice Hockey",
+    "name": "Frolunda",
+    "aliases": [],
+    "logo": "/logos/ice hockey-frolunda.svg"
+  },
+  {
+    "id": "vaxjoe",
+    "sport": "Ice Hockey",
+    "name": "Vaxjoe",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "zellereisbaren",
+    "sport": "Ice Hockey",
+    "name": "Zeller Eisbaren",
+    "aliases": [],
+    "logo": "/logos/ice hockey-zellereisbaren.png"
+  },
+  {
+    "id": "merano",
+    "sport": "Ice Hockey",
+    "name": "Merano",
+    "aliases": [],
+    "logo": "/logos/ice hockey-merano.png"
+  },
+  {
+    "id": "sisak",
+    "sport": "Ice Hockey",
+    "name": "Sisak",
+    "aliases": [],
+    "logo": "/logos/ice hockey-sisak.png"
+  },
+  {
+    "id": "salzburgii",
+    "sport": "Ice Hockey",
+    "name": "Salzburg II",
+    "aliases": [],
+    "logo": "/logos/ice hockey-salzburgii.jpg"
+  },
+  {
+    "id": "grizzlyswolfsburg",
+    "sport": "Ice Hockey",
+    "name": "Grizzlys Wolfsburg",
+    "aliases": [],
+    "logo": "/logos/ice hockey-grizzlyswolfsburg.png"
+  },
+  {
+    "id": "augsburg",
+    "sport": "Ice Hockey",
+    "name": "Augsburg",
+    "aliases": [],
+    "logo": "/logos/ice hockey-augsburg.svg"
+  },
+  {
+    "id": "fischtownpinguins",
+    "sport": "Ice Hockey",
+    "name": "Fischtown Pinguins",
+    "aliases": [],
+    "logo": "/logos/ice hockey-fischtownpinguins.png"
+  },
+  {
+    "id": "iserlohnroosters",
+    "sport": "Ice Hockey",
+    "name": "Iserlohn Roosters",
+    "aliases": [],
+    "logo": "/logos/ice hockey-iserlohnroosters.jpg"
+  },
+  {
+    "id": "geneva",
+    "sport": "Ice Hockey",
+    "name": "Geneva",
+    "aliases": [],
+    "logo": "/logos/ice hockey-geneva.png"
+  },
+  {
+    "id": "zug",
+    "sport": "Ice Hockey",
+    "name": "Zug",
+    "aliases": [],
+    "logo": "/logos/ice hockey-zug.svg"
+  },
+  {
+    "id": "rittensport",
+    "sport": "Ice Hockey",
+    "name": "Ritten Sport",
+    "aliases": [],
+    "logo": "/logos/ice hockey-rittensport.png"
+  },
+  {
+    "id": "kitzbuhel",
+    "sport": "Ice Hockey",
+    "name": "Kitzbuhel",
+    "aliases": [],
+    "logo": "/logos/ice hockey-kitzbuhel.png"
+  },
+  {
+    "id": "nice",
+    "sport": "Ice Hockey",
+    "name": "Nice",
+    "aliases": [],
+    "logo": "/logos/ice hockey-nice.svg"
+  },
+  {
+    "id": "angers",
+    "sport": "Ice Hockey",
+    "name": "Angers",
+    "aliases": [],
+    "logo": "/logos/ice hockey-angers.svg"
+  },
+  {
+    "id": "wipptalbroncos",
+    "sport": "Ice Hockey",
+    "name": "Wipptal Broncos",
+    "aliases": [],
+    "logo": "/logos/ice hockey-wipptalbroncos.png"
+  },
+  {
+    "id": "jesenice",
+    "sport": "Ice Hockey",
+    "name": "Jesenice",
+    "aliases": [],
+    "logo": "/logos/ice hockey-jesenice.png"
+  },
+  {
+    "id": "brixen",
+    "sport": "Ice Hockey",
+    "name": "Brixen",
+    "aliases": [],
+    "logo": "/logos/ice hockey-brixen.png"
+  },
+  {
+    "id": "toblach",
+    "sport": "Ice Hockey",
+    "name": "Toblach",
+    "aliases": [],
+    "logo": "/logos/ice hockey-toblach.png"
+  },
+  {
+    "id": "fassafalcons",
+    "sport": "Ice Hockey",
+    "name": "Fassa Falcons",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "kaltern",
+    "sport": "Ice Hockey",
+    "name": "Kaltern",
+    "aliases": [],
+    "logo": "/logos/ice hockey-kaltern.png"
+  },
+  {
+    "id": "grenoble",
+    "sport": "Ice Hockey",
+    "name": "Grenoble",
+    "aliases": [],
+    "logo": "/logos/ice hockey-grenoble.png"
+  },
+  {
+    "id": "rouen",
+    "sport": "Ice Hockey",
+    "name": "Rouen",
+    "aliases": [],
+    "logo": "/logos/ice hockey-rouen.png"
+  },
+  {
+    "id": "varese",
+    "sport": "Ice Hockey",
+    "name": "Varese",
+    "aliases": [],
+    "logo": "/logos/ice hockey-varese.png"
+  },
+  {
+    "id": "eppan",
+    "sport": "Ice Hockey",
+    "name": "Eppan",
+    "aliases": [],
+    "logo": "/logos/ice hockey-eppan.jpg"
+  },
+  {
+    "id": "alleghe",
+    "sport": "Ice Hockey",
+    "name": "Alleghe",
+    "aliases": [],
+    "logo": "/logos/ice hockey-alleghe.png"
+  },
+  {
+    "id": "feltreghiaccio",
+    "sport": "Ice Hockey",
+    "name": "Feltreghiaccio",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "valdifiemme",
+    "sport": "Ice Hockey",
+    "name": "Valdifiemme",
+    "aliases": [],
+    "logo": "/logos/ice hockey-valdifiemme.jpg"
+  },
+  {
+    "id": "pergine",
+    "sport": "Ice Hockey",
+    "name": "Pergine",
+    "aliases": [],
+    "logo": "/logos/ice hockey-pergine.svg"
+  },
+  {
+    "id": "valpellice",
+    "sport": "Ice Hockey",
+    "name": "Valpellice",
+    "aliases": [],
+    "logo": "/logos/ice hockey-valpellice.svg"
+  },
+  {
+    "id": "aosta",
+    "sport": "Ice Hockey",
+    "name": "Aosta",
+    "aliases": [],
+    "logo": "/logos/ice hockey-aosta.jpg"
+  },
+  {
+    "id": "philadelphia",
+    "sport": "Ice Hockey",
+    "name": "Philadelphia",
+    "aliases": [],
+    "logo": "/logos/ice hockey-philadelphia.svg"
+  },
+  {
+    "id": "nashville",
+    "sport": "Ice Hockey",
+    "name": "Nashville",
+    "aliases": [],
+    "logo": "/logos/ice hockey-nashville.svg"
+  },
+  {
+    "id": "ottawa",
+    "sport": "Ice Hockey",
+    "name": "Ottawa",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "calgary",
+    "sport": "Ice Hockey",
+    "name": "Calgary",
+    "aliases": [],
+    "logo": "/logos/ice hockey-calgary.jpg"
+  },
+  {
+    "id": "tampabay",
+    "sport": "Ice Hockey",
+    "name": "Tampa Bay",
+    "aliases": [],
+    "logo": "/logos/ice hockey-tampabay.png"
+  },
+  {
+    "id": "dallas",
+    "sport": "Ice Hockey",
+    "name": "Dallas",
+    "aliases": [],
+    "logo": "/logos/ice hockey-dallas.png"
+  },
+  {
+    "id": "boston",
+    "sport": "Ice Hockey",
+    "name": "Boston",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "buffalo",
+    "sport": "Ice Hockey",
+    "name": "Buffalo",
+    "aliases": [],
+    "logo": "/logos/ice hockey-buffalo.svg"
+  },
+  {
+    "id": "carolina",
+    "sport": "Ice Hockey",
+    "name": "Carolina",
+    "aliases": [],
+    "logo": "/logos/ice hockey-carolina.svg"
+  },
+  {
+    "id": "nyislanders",
+    "sport": "Ice Hockey",
+    "name": "NY Islanders",
+    "aliases": [],
+    "logo": "/logos/ice hockey-nyislanders.jpg"
+  },
+  {
+    "id": "saintlouis",
+    "sport": "Ice Hockey",
+    "name": "Saint-Louis",
+    "aliases": [],
+    "logo": "/logos/ice hockey-saintlouis.svg"
+  },
+  {
+    "id": "vancouver",
+    "sport": "Ice Hockey",
+    "name": "Vancouver",
+    "aliases": [],
+    "logo": "/logos/ice hockey-vancouver.png"
+  },
+  {
+    "id": "winnipeg",
+    "sport": "Ice Hockey",
+    "name": "Winnipeg",
+    "aliases": [],
+    "logo": "/logos/ice hockey-winnipeg.svg"
+  },
+  {
+    "id": "chicago",
+    "sport": "Ice Hockey",
+    "name": "Chicago",
+    "aliases": [],
+    "logo": "/logos/ice hockey-chicago.jpg"
+  },
+  {
+    "id": "minnesota",
+    "sport": "Ice Hockey",
+    "name": "Minnesota",
+    "aliases": [],
+    "logo": "/logos/ice hockey-minnesota.svg"
+  },
+  {
+    "id": "pittsburgh",
+    "sport": "Ice Hockey",
+    "name": "Pittsburgh",
+    "aliases": [],
+    "logo": "/logos/ice hockey-pittsburgh.svg"
+  },
+  {
+    "id": "edmonton",
+    "sport": "Ice Hockey",
+    "name": "Edmonton",
+    "aliases": [],
+    "logo": "/logos/ice hockey-edmonton.svg"
+  },
+  {
+    "id": "rangers",
+    "sport": "Ice Hockey",
+    "name": "Rangers",
+    "aliases": [],
+    "logo": "/logos/ice hockey-rangers.png"
+  },
+  {
+    "id": "brisbanebullets",
+    "sport": "Basketball",
+    "name": "Brisbane Bullets",
+    "aliases": [],
+    "logo": "/logos/basketball-brisbanebullets.svg"
+  },
+  {
+    "id": "cairnstaipans",
+    "sport": "Basketball",
+    "name": "Cairns Taipans",
+    "aliases": [],
+    "logo": "/logos/basketball-cairnstaipans.svg"
+  },
+  {
+    "id": "ulsanmobisphoebus",
+    "sport": "Basketball",
+    "name": "Ulsan Mobis Phoebus",
+    "aliases": [],
+    "logo": "/logos/basketball-ulsanmobisphoebus.jpg"
+  },
+  {
+    "id": "suwonsonicboom",
+    "sport": "Basketball",
+    "name": "Suwon Sonicboom",
+    "aliases": [],
+    "logo": "/logos/basketball-suwonsonicboom.svg"
+  },
+  {
+    "id": "changwonsakers",
+    "sport": "Basketball",
+    "name": "Changwon Sakers",
+    "aliases": [],
+    "logo": "/logos/basketball-changwonsakers.jpg"
+  },
+  {
+    "id": "newtaipeikings",
+    "sport": "Basketball",
+    "name": "New Taipei Kings",
+    "aliases": [],
+    "logo": "/logos/basketball-newtaipeikings.png"
+  },
+  {
+    "id": "barsyatyrauw",
+    "sport": "Basketball",
+    "name": "Barsy Atyrau (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-barsyatyrauw.png"
+  },
+  {
+    "id": "kaspiyw",
+    "sport": "Basketball",
+    "name": "Kaspiy (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "proteasvoulas",
+    "sport": "Basketball",
+    "name": "Proteas Voulas",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "koroivos",
+    "sport": "Basketball",
+    "name": "Koroivos",
+    "aliases": [],
+    "logo": "/logos/basketball-koroivos.jpg"
+  },
+  {
+    "id": "barsyatyrau",
+    "sport": "Basketball",
+    "name": "Barsy Atyrau",
+    "aliases": [],
+    "logo": "/logos/basketball-barsyatyrau.png"
+  },
+  {
+    "id": "almatylegion",
+    "sport": "Basketball",
+    "name": "Almaty Legion",
+    "aliases": [],
+    "logo": "/logos/basketball-almatylegion.png"
+  },
+  {
+    "id": "vikos",
+    "sport": "Basketball",
+    "name": "Vikos",
+    "aliases": [],
+    "logo": "/logos/basketball-vikos.png"
+  },
+  {
+    "id": "lefkadas",
+    "sport": "Basketball",
+    "name": "Lefkadas",
+    "aliases": [],
+    "logo": "/logos/basketball-lefkadas.png"
+  },
+  {
+    "id": "vytis",
+    "sport": "Basketball",
+    "name": "Vytis",
+    "aliases": [],
+    "logo": "/logos/basketball-vytis.png"
+  },
+  {
+    "id": "dzukija",
+    "sport": "Basketball",
+    "name": "Dzukija",
+    "aliases": [],
+    "logo": "/logos/basketball-dzukija.jpg"
+  },
+  {
+    "id": "mersinw",
+    "sport": "Basketball",
+    "name": "Mersin (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-mersinw.png"
+  },
+  {
+    "id": "reyervenicew",
+    "sport": "Basketball",
+    "name": "Reyer Venice (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-reyervenicew.png"
+  },
+  {
+    "id": "emlakkonutw",
+    "sport": "Basketball",
+    "name": "Emlak Konut (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "royalssaarlouisw",
+    "sport": "Basketball",
+    "name": "Royals Saarlouis (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-royalssaarlouisw.png"
+  },
+  {
+    "id": "gargzdu",
+    "sport": "Basketball",
+    "name": "Gargzdu",
+    "aliases": [],
+    "logo": "/logos/basketball-gargzdu.jpg"
+  },
+  {
+    "id": "jonava",
+    "sport": "Basketball",
+    "name": "Jonava",
+    "aliases": [],
+    "logo": "/logos/basketball-jonava.png"
+  },
+  {
+    "id": "zalgiris2",
+    "sport": "Basketball",
+    "name": "Zalgiris 2",
+    "aliases": [],
+    "logo": "/logos/basketball-zalgiris2.png"
+  },
+  {
+    "id": "vilniausstekas",
+    "sport": "Basketball",
+    "name": "Vilniaus Stekas",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "omegatauras",
+    "sport": "Basketball",
+    "name": "Omega-Tauras",
+    "aliases": [],
+    "logo": "/logos/basketball-omegatauras.png"
+  },
+  {
+    "id": "telsiai",
+    "sport": "Basketball",
+    "name": "Telsiai",
+    "aliases": [],
+    "logo": "/logos/basketball-telsiai.svg"
+  },
+  {
+    "id": "mba",
+    "sport": "Basketball",
+    "name": "MBA",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "samara",
+    "sport": "Basketball",
+    "name": "Samara",
+    "aliases": [],
+    "logo": "/logos/basketball-samara.png"
+  },
+  {
+    "id": "neptunasakvaservis",
+    "sport": "Basketball",
+    "name": "Neptunas-Akvaservis",
+    "aliases": [],
+    "logo": "/logos/basketball-neptunasakvaservis.png"
+  },
+  {
+    "id": "vilniausperlas",
+    "sport": "Basketball",
+    "name": "Vilniaus Perlas",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "beroew",
+    "sport": "Basketball",
+    "name": "Beroe (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-beroew.png"
+  },
+  {
+    "id": "slezawroclaww",
+    "sport": "Basketball",
+    "name": "Sleza Wroclaw (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-slezawroclaww.jpg"
+  },
+  {
+    "id": "kibirkstisvilniusw",
+    "sport": "Basketball",
+    "name": "Kibirkstis Vilnius (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-kibirkstisvilniusw.png"
+  },
+  {
+    "id": "kelternw",
+    "sport": "Basketball",
+    "name": "Keltern (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-kelternw.png"
+  },
+  {
+    "id": "sepsisicw",
+    "sport": "Basketball",
+    "name": "Sepsi SIC (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-sepsisicw.png"
+  },
+  {
+    "id": "kangoeroesmechelenw",
+    "sport": "Basketball",
+    "name": "Kangoeroes Mechelen (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "umcslublinw",
+    "sport": "Basketball",
+    "name": "UMCS Lublin (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "namurcapitalew",
+    "sport": "Basketball",
+    "name": "Namur Capitale (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-namurcapitalew.png"
+  },
+  {
+    "id": "palangoskursiai",
+    "sport": "Basketball",
+    "name": "Palangos Kursiai",
+    "aliases": [],
+    "logo": "/logos/basketball-palangoskursiai.png"
+  },
+  {
+    "id": "vilkaviskioperlas",
+    "sport": "Basketball",
+    "name": "Vilkaviskio Perlas",
+    "aliases": [],
+    "logo": "/logos/basketball-vilkaviskioperlas.png"
+  },
+  {
+    "id": "jurbarkaskarys",
+    "sport": "Basketball",
+    "name": "Jurbarkas-Karys",
+    "aliases": [],
+    "logo": "/logos/basketball-jurbarkaskarys.png"
+  },
+  {
+    "id": "olimpas",
+    "sport": "Basketball",
+    "name": "Olimpas",
+    "aliases": [],
+    "logo": "/logos/basketball-olimpas.png"
+  },
+  {
+    "id": "crvenazvezdaw",
+    "sport": "Basketball",
+    "name": "Crvena Zvezda (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-crvenazvezdaw.png"
+  },
+  {
+    "id": "tttrigaw",
+    "sport": "Basketball",
+    "name": "TTT Riga (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-tttrigaw.png"
+  },
+  {
+    "id": "besiktasw",
+    "sport": "Basketball",
+    "name": "Besiktas (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-besiktasw.png"
+  },
+  {
+    "id": "gorzowwielkopolskiw",
+    "sport": "Basketball",
+    "name": "Gorzow Wielkopolski (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-gorzowwielkopolskiw.png"
+  },
+  {
+    "id": "peacpecsw",
+    "sport": "Basketball",
+    "name": "PEAC-Pecs (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-peacpecsw.png"
+  },
+  {
+    "id": "elitzurramlaw",
+    "sport": "Basketball",
+    "name": "Elitzur Ramla (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "kretinga",
+    "sport": "Basketball",
+    "name": "Kretinga",
+    "aliases": [],
+    "logo": "/logos/basketball-kretinga.png"
+  },
+  {
+    "id": "mazeikiai",
+    "sport": "Basketball",
+    "name": "Mazeikiai",
+    "aliases": [],
+    "logo": "/logos/basketball-mazeikiai.jpg"
+  },
+  {
+    "id": "olomoucko",
+    "sport": "Basketball",
+    "name": "Olomoucko",
+    "aliases": [],
+    "logo": "/logos/basketball-olomoucko.png"
+  },
+  {
+    "id": "nymburk",
+    "sport": "Basketball",
+    "name": "Nymburk",
+    "aliases": [],
+    "logo": "/logos/basketball-nymburk.png"
+  },
+  {
+    "id": "levski",
+    "sport": "Basketball",
+    "name": "Levski",
+    "aliases": [],
+    "logo": "/logos/basketball-levski.jpg"
+  },
+  {
+    "id": "chernomore",
+    "sport": "Basketball",
+    "name": "Cherno More",
+    "aliases": [],
+    "logo": "/logos/basketball-chernomore.png"
+  },
+  {
+    "id": "craiova",
+    "sport": "Basketball",
+    "name": "Craiova",
+    "aliases": [],
+    "logo": "/logos/basketball-craiova.jpg"
+  },
+  {
+    "id": "galati",
+    "sport": "Basketball",
+    "name": "Galati",
+    "aliases": [],
+    "logo": "/logos/basketball-galati.png"
+  },
+  {
+    "id": "zalgiris",
+    "sport": "Basketball",
+    "name": "Zalgiris",
+    "aliases": [],
+    "logo": "/logos/basketball-zalgiris.png"
+  },
+  {
+    "id": "asvel",
+    "sport": "Basketball",
+    "name": "ASVEL",
+    "aliases": [],
+    "logo": "/logos/basketball-asvel.svg"
+  },
+  {
+    "id": "ragusadubrovnikw",
+    "sport": "Basketball",
+    "name": "Ragusa Dubrovník (W)",
+    "aliases": [],
+    "logo": "/logos/basketball-ragusadubrovnikw.png"
+  },
+  {
+    "id": "dinamosassariw",
+    "sport": "Basketball",
+    "name": "Dinamo Sassari (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "baerenkleinbasel",
+    "sport": "Basketball",
+    "name": "Baeren Kleinbasel",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "boncourt",
+    "sport": "Basketball",
+    "name": "Boncourt",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "studentskicentar",
+    "sport": "Basketball",
+    "name": "Studentski Centar",
+    "aliases": [],
+    "logo": "/logos/basketball-studentskicentar.png"
+  },
+  {
+    "id": "krka",
+    "sport": "Basketball",
+    "name": "Krka",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "maccabita",
+    "sport": "Basketball",
+    "name": "Maccabi T-A",
+    "aliases": [],
+    "logo": "/logos/basketball-maccabita.svg"
+  },
+  {
+    "id": "crvenazvezda",
+    "sport": "Basketball",
+    "name": "Crvena Zvezda",
+    "aliases": [],
+    "logo": "/logos/basketball-crvenazvezda.png"
+  },
+  {
+    "id": "valencia",
+    "sport": "Basketball",
+    "name": "Valencia",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "dubai",
+    "sport": "Basketball",
+    "name": "Dubai",
+    "aliases": [],
+    "logo": "/logos/basketball-dubai.svg"
+  },
+  {
+    "id": "bayernmunich",
+    "sport": "Basketball",
+    "name": "Bayern Munich",
+    "aliases": [],
+    "logo": "/logos/basketball-bayernmunich.png"
+  },
+  {
+    "id": "virtusbologna",
+    "sport": "Basketball",
+    "name": "Virtus Bologna",
+    "aliases": [],
+    "logo": "/logos/basketball-virtusbologna.png"
+  },
+  {
+    "id": "milan",
+    "sport": "Basketball",
+    "name": "Milan",
+    "aliases": [],
+    "logo": "/logos/basketball-milan.png"
+  },
+  {
+    "id": "paris",
+    "sport": "Basketball",
+    "name": "Paris",
+    "aliases": [],
+    "logo": "/logos/basketball-paris.svg"
+  },
+  {
+    "id": "realmadrid",
+    "sport": "Basketball",
+    "name": "Real Madrid",
+    "aliases": [],
+    "logo": "/logos/basketball-realmadrid.svg"
+  },
+  {
+    "id": "franca",
+    "sport": "Basketball",
+    "name": "Franca",
+    "aliases": [],
+    "logo": "/logos/basketball-franca.png"
+  },
+  {
+    "id": "uniaocorinthians",
+    "sport": "Basketball",
+    "name": "Uniao Corinthians",
+    "aliases": [],
+    "logo": "/logos/basketball-uniaocorinthians.png"
+  },
+  {
+    "id": "bauru",
+    "sport": "Basketball",
+    "name": "Bauru",
+    "aliases": [],
+    "logo": "/logos/basketball-bauru.png"
+  },
+  {
+    "id": "caxiasdosul",
+    "sport": "Basketball",
+    "name": "Caxias do Sul",
+    "aliases": [],
+    "logo": "/logos/basketball-caxiasdosul.jpg"
+  },
+  {
+    "id": "rioclaro",
+    "sport": "Basketball",
+    "name": "Rio Claro",
+    "aliases": [],
+    "logo": "/logos/basketball-rioclaro.png"
+  },
+  {
+    "id": "osasco",
+    "sport": "Basketball",
+    "name": "Osasco",
+    "aliases": [],
+    "logo": "/logos/basketball-osasco.svg"
+  },
+  {
+    "id": "charlotte",
+    "sport": "Basketball",
+    "name": "Charlotte",
+    "aliases": [],
+    "logo": "/logos/basketball-charlotte.png"
+  },
+  {
+    "id": "orlando",
+    "sport": "Basketball",
+    "name": "Orlando",
+    "aliases": [],
+    "logo": "/logos/basketball-orlando.svg"
+  },
+  {
+    "id": "brasilia",
+    "sport": "Basketball",
+    "name": "Brasilia",
+    "aliases": [],
+    "logo": "/logos/basketball-brasilia.svg"
+  },
+  {
+    "id": "paulistano",
+    "sport": "Basketball",
+    "name": "Paulistano",
+    "aliases": [],
+    "logo": "/logos/basketball-paulistano.png"
+  },
+  {
+    "id": "cimarronesdelchoco",
+    "sport": "Basketball",
+    "name": "Cimarrones del Choco",
+    "aliases": [],
+    "logo": "/logos/basketball-cimarronesdelchoco.png"
+  },
+  {
+    "id": "paisas",
+    "sport": "Basketball",
+    "name": "Paisas",
+    "aliases": [],
+    "logo": "/logos/basketball-paisas.jpg"
+  },
+  {
+    "id": "milwaukee",
+    "sport": "Basketball",
+    "name": "Milwaukee",
+    "aliases": [],
+    "logo": "/logos/basketball-milwaukee.svg"
+  },
+  {
+    "id": "goldenstate",
+    "sport": "Basketball",
+    "name": "Golden State",
+    "aliases": [],
+    "logo": "/logos/basketball-goldenstate.png"
+  },
+  {
+    "id": "oklahoma",
+    "sport": "Basketball",
+    "name": "Oklahoma",
+    "aliases": [],
+    "logo": "/logos/basketball-oklahoma.svg"
+  },
+  {
+    "id": "washington",
+    "sport": "Basketball",
+    "name": "Washington",
+    "aliases": [],
+    "logo": "/logos/basketball-washington.svg"
+  },
+  {
+    "id": "sanantonio",
+    "sport": "Basketball",
+    "name": "San Antonio",
+    "aliases": [],
+    "logo": "/logos/basketball-sanantonio.svg"
+  },
+  {
+    "id": "miami",
+    "sport": "Basketball",
+    "name": "Miami",
+    "aliases": [],
+    "logo": "/logos/basketball-miami.svg"
+  },
+  {
+    "id": "atenas",
+    "sport": "Basketball",
+    "name": "Atenas",
+    "aliases": [],
+    "logo": "/logos/basketball-atenas.png"
+  },
+  {
+    "id": "obera",
+    "sport": "Basketball",
+    "name": "Obera",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "sanlorenzo",
+    "sport": "Basketball",
+    "name": "San Lorenzo",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "racingdechivilcoy",
+    "sport": "Basketball",
+    "name": "Racing de Chivilcoy",
+    "aliases": [],
+    "logo": "/logos/basketball-racingdechivilcoy.png"
+  },
+  {
+    "id": "marianonavone",
+    "sport": "Tennis",
+    "name": "Mariano Navone",
+    "aliases": [],
+    "logo": "/logos/tennis-marianonavone.jpg"
+  },
+  {
+    "id": "davidjordasanchis",
+    "sport": "Tennis",
+    "name": "David Jorda Sanchis",
+    "aliases": [],
+    "logo": "/logos/tennis-davidjordasanchis.png"
+  },
+  {
+    "id": "hoppermontes",
+    "sport": "Tennis",
+    "name": "Hopper / Montes",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "chandrasekarstalder",
+    "sport": "Tennis",
+    "name": "Chandrasekar / Stalder",
+    "aliases": [],
+    "logo": "/logos/tennis-chandrasekarstalder.png"
+  },
+  {
+    "id": "eliasymer",
+    "sport": "Tennis",
+    "name": "Elias Ymer",
+    "aliases": [],
+    "logo": "/logos/tennis-eliasymer.png"
+  },
+  {
+    "id": "kokoroisomura",
+    "sport": "Tennis",
+    "name": "Kokoro Isomura",
+    "aliases": [],
+    "logo": "/logos/tennis-kokoroisomura.png"
+  },
+  {
+    "id": "tarodaniel",
+    "sport": "Tennis",
+    "name": "Taro Daniel",
+    "aliases": [],
+    "logo": "/logos/tennis-tarodaniel.jpg"
+  },
+  {
+    "id": "yizhou",
+    "sport": "Tennis",
+    "name": "Yi Zhou",
+    "aliases": [],
+    "logo": "/logos/tennis-yizhou.jpg"
+  },
+  {
+    "id": "jurijrodionov",
+    "sport": "Tennis",
+    "name": "Jurij Rodionov",
+    "aliases": [],
+    "logo": "/logos/tennis-jurijrodionov.jpg"
+  },
+  {
+    "id": "yutashimizu",
+    "sport": "Tennis",
+    "name": "Yuta Shimizu",
+    "aliases": [],
+    "logo": "/logos/tennis-yutashimizu.png"
+  },
+  {
+    "id": "fredericoferreirasilva",
+    "sport": "Tennis",
+    "name": "Frederico-Ferreira Silva",
+    "aliases": [],
+    "logo": "/logos/tennis-fredericoferreirasilva.jpg"
+  },
+  {
+    "id": "yoshihitonishioka",
+    "sport": "Tennis",
+    "name": "Yoshihito Nishioka",
+    "aliases": [],
+    "logo": "/logos/tennis-yoshihitonishioka.jpg"
+  },
+  {
+    "id": "alyciaparksw",
+    "sport": "Tennis",
+    "name": "Alycia Parks (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-alyciaparksw.png"
+  },
+  {
+    "id": "kajajuvanw",
+    "sport": "Tennis",
+    "name": "Kaja Juvan (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-kajajuvanw.jpg"
+  },
+  {
+    "id": "ayukawawmorisakiw",
+    "sport": "Tennis",
+    "name": "Ayukawa (W) /  Morisaki (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "lumsdenwhaverlagw",
+    "sport": "Tennis",
+    "name": "Lumsden (W) /  Haverlag (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-lumsdenwhaverlagw.png"
+  },
+  {
+    "id": "goldhoffwinegar",
+    "sport": "Tennis",
+    "name": "Goldhoff / Winegar",
+    "aliases": [],
+    "logo": "/logos/tennis-goldhoffwinegar.png"
+  },
+  {
+    "id": "hermansbayldon",
+    "sport": "Tennis",
+    "name": "Hermans / Bayldon",
+    "aliases": [],
+    "logo": "/logos/tennis-hermansbayldon.png"
+  },
+  {
+    "id": "watanabeuesugi",
+    "sport": "Tennis",
+    "name": "Watanabe / Uesugi",
+    "aliases": [],
+    "logo": "/logos/tennis-watanabeuesugi.png"
+  },
+  {
+    "id": "rojerlammons",
+    "sport": "Tennis",
+    "name": "Rojer / Lammons",
+    "aliases": [],
+    "logo": "/logos/tennis-rojerlammons.png"
+  },
+  {
+    "id": "annakalinskayaw",
+    "sport": "Tennis",
+    "name": "Anna Kalinskaya (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-annakalinskayaw.png"
+  },
+  {
+    "id": "shuaizhangw",
+    "sport": "Tennis",
+    "name": "Shuai Zhang (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-shuaizhangw.png"
+  },
+  {
+    "id": "webleysmithwovcharenkow",
+    "sport": "Tennis",
+    "name": "Webley-Smith (W) /  Ovcharenko (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "mladenovicwpiterw",
+    "sport": "Tennis",
+    "name": "Mladenovic (W) /  Piter (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-mladenovicwpiterw.png"
+  },
+  {
+    "id": "dominikasalkovaw",
+    "sport": "Tennis",
+    "name": "Dominika Salkova (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "anastasiazakharovaw",
+    "sport": "Tennis",
+    "name": "Anastasia Zakharova (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-anastasiazakharovaw.png"
+  },
+  {
+    "id": "romiosho",
+    "sport": "Tennis",
+    "name": "Romios / Ho",
+    "aliases": [],
+    "logo": "/logos/tennis-romiosho.png"
+  },
+  {
+    "id": "uchidashimizu",
+    "sport": "Tennis",
+    "name": "Uchida / Shimizu",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "enshuowshuow",
+    "sport": "Tennis",
+    "name": "En-shuo (W) /  Shuo (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-enshuowshuow.png"
+  },
+  {
+    "id": "xiyuwyouw",
+    "sport": "Tennis",
+    "name": "Xiyu (W) /  You (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-xiyuwyouw.jpg"
+  },
+  {
+    "id": "kimannw",
+    "sport": "Tennis",
+    "name": "Kim /  Ann (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-kimannw.png"
+  },
+  {
+    "id": "reynoldswatt",
+    "sport": "Tennis",
+    "name": "Reynolds / Watt",
+    "aliases": [],
+    "logo": "/logos/tennis-reynoldswatt.png"
+  },
+  {
+    "id": "annablinkovaw",
+    "sport": "Tennis",
+    "name": "Anna Blinkova (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-annablinkovaw.png"
+  },
+  {
+    "id": "annabondarw",
+    "sport": "Tennis",
+    "name": "Anna Bondar (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-annabondarw.png"
+  },
+  {
+    "id": "belindabencicw",
+    "sport": "Tennis",
+    "name": "Belinda Bencic (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-belindabencicw.png"
+  },
+  {
+    "id": "wangyafanw",
+    "sport": "Tennis",
+    "name": "Wang Yafan (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "ingliswgibsonw",
+    "sport": "Tennis",
+    "name": "Inglis (W) /  Gibson (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-ingliswgibsonw.jpg"
+  },
+  {
+    "id": "koboriwplipuechw",
+    "sport": "Tennis",
+    "name": "Kobori (W) /  Plipuech (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "arinarodionovaw",
+    "sport": "Tennis",
+    "name": "Arina Rodionova (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-arinarodionovaw.jpg"
+  },
+  {
+    "id": "stormhunterw",
+    "sport": "Tennis",
+    "name": "Storm Hunter (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-stormhunterw.png"
+  },
+  {
+    "id": "hartonowthombarew",
+    "sport": "Tennis",
+    "name": "Hartono (W) /  Thombare (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "kuwatawnaklow",
+    "sport": "Tennis",
+    "name": "Kuwata (W) /  Naklo (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "zhuoxuanbaiw",
+    "sport": "Tennis",
+    "name": "Zhuoxuan Bai (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-zhuoxuanbaiw.png"
+  },
+  {
+    "id": "hanyuguow",
+    "sport": "Tennis",
+    "name": "Hanyu Guo (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-hanyuguow.png"
+  },
+  {
+    "id": "janicetjenw",
+    "sport": "Tennis",
+    "name": "Janice Tjen (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-janicetjenw.png"
+  },
+  {
+    "id": "lindafruhvirtovaw",
+    "sport": "Tennis",
+    "name": "Linda Fruhvirtova (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-lindafruhvirtovaw.png"
+  },
+  {
+    "id": "salisburyskupski",
+    "sport": "Tennis",
+    "name": "Salisbury / Skupski",
+    "aliases": [],
+    "logo": "/logos/tennis-salisburyskupski.jpg"
+  },
+  {
+    "id": "peerstracy",
+    "sport": "Tennis",
+    "name": "Peers / Tracy",
+    "aliases": [],
+    "logo": "/logos/tennis-peerstracy.jpg"
+  },
+  {
+    "id": "lorenzogiustino",
+    "sport": "Tennis",
+    "name": "Lorenzo Giustino",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "ioannisxilas",
+    "sport": "Tennis",
+    "name": "Ioannis Xilas",
+    "aliases": [],
+    "logo": "/logos/tennis-ioannisxilas.png"
+  },
+  {
+    "id": "krawietzpuetz",
+    "sport": "Tennis",
+    "name": "Krawietz / Puetz",
+    "aliases": [],
+    "logo": "/logos/tennis-krawietzpuetz.jpg"
+  },
+  {
+    "id": "krajicekmektic",
+    "sport": "Tennis",
+    "name": "Krajicek / Mektic",
+    "aliases": [],
+    "logo": "/logos/tennis-krajicekmektic.jpg"
+  },
+  {
+    "id": "pedrovivesmarcos",
+    "sport": "Tennis",
+    "name": "Pedro Vives Marcos",
+    "aliases": [],
+    "logo": "/logos/tennis-pedrovivesmarcos.png"
+  },
+  {
+    "id": "danadded",
+    "sport": "Tennis",
+    "name": "Dan Added",
+    "aliases": [],
+    "logo": "/logos/tennis-danadded.png"
+  },
+  {
+    "id": "polinaiatcenkow",
+    "sport": "Tennis",
+    "name": "Polina Iatcenko (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-polinaiatcenkow.png"
+  },
+  {
+    "id": "katarzynakawaw",
+    "sport": "Tennis",
+    "name": "Katarzyna Kawa (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-katarzynakawaw.png"
+  },
+  {
+    "id": "cameronnorrie",
+    "sport": "Tennis",
+    "name": "Cameron Norrie",
+    "aliases": [],
+    "logo": "/logos/tennis-cameronnorrie.jpg"
+  },
+  {
+    "id": "valentinvacherot",
+    "sport": "Tennis",
+    "name": "Valentin Vacherot",
+    "aliases": [],
+    "logo": "/logos/tennis-valentinvacherot.png"
+  },
+  {
+    "id": "alexandraealaw",
+    "sport": "Tennis",
+    "name": "Alexandra Eala (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-alexandraealaw.png"
+  },
+  {
+    "id": "victoriambokow",
+    "sport": "Tennis",
+    "name": "Victoria Mboko (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-victoriambokow.png"
+  },
+  {
+    "id": "sahajayamalapalliw",
+    "sport": "Tennis",
+    "name": "Sahaja Yamalapalli (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-sahajayamalapalliw.png"
+  },
+  {
+    "id": "donnavekicw",
+    "sport": "Tennis",
+    "name": "Donna Vekic (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-donnavekicw.png"
+  },
+  {
+    "id": "pariswillis",
+    "sport": "Tennis",
+    "name": "Paris / Willis",
+    "aliases": [],
+    "logo": "/logos/tennis-pariswillis.png"
+  },
+  {
+    "id": "haasefrantzen",
+    "sport": "Tennis",
+    "name": "Haase / Frantzen",
+    "aliases": [],
+    "logo": "/logos/tennis-haasefrantzen.png"
+  },
+  {
+    "id": "arthurgea",
+    "sport": "Tennis",
+    "name": "Arthur Gea",
+    "aliases": [],
+    "logo": "/logos/tennis-arthurgea.png"
+  },
+  {
+    "id": "jankumstat",
+    "sport": "Tennis",
+    "name": "Jan Kumstat",
+    "aliases": [],
+    "logo": "/logos/tennis-jankumstat.jpg"
+  },
+  {
+    "id": "miedlercabral",
+    "sport": "Tennis",
+    "name": "Miedler / Cabral",
+    "aliases": [],
+    "logo": "/logos/tennis-miedlercabral.png"
+  },
+  {
+    "id": "granollerszeballos",
+    "sport": "Tennis",
+    "name": "Granollers / Zeballos",
+    "aliases": [],
+    "logo": "/logos/tennis-granollerszeballos.jpg"
+  },
+  {
+    "id": "joannagarlandw",
+    "sport": "Tennis",
+    "name": "Joanna Garland (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-joannagarlandw.jpg"
+  },
+  {
+    "id": "meiyamaguchiw",
+    "sport": "Tennis",
+    "name": "Mei Yamaguchi (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-meiyamaguchiw.png"
+  },
+  {
+    "id": "heliovaarapatten",
+    "sport": "Tennis",
+    "name": "Heliovaara / Patten",
+    "aliases": [],
+    "logo": "/logos/tennis-heliovaarapatten.jpg"
+  },
+  {
+    "id": "nysrogervasselin",
+    "sport": "Tennis",
+    "name": "Nys / Roger-Vasselin",
+    "aliases": [],
+    "logo": "/logos/tennis-nysrogervasselin.jpg"
+  },
+  {
+    "id": "mikrutlatinovic",
+    "sport": "Tennis",
+    "name": "Mikrut / Latinovic",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "serdarusickalender",
+    "sport": "Tennis",
+    "name": "Serdarusic / Kalender",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "denollywestphal",
+    "sport": "Tennis",
+    "name": "Denolly / Westphal",
+    "aliases": [],
+    "logo": "/logos/tennis-denollywestphal.png"
+  },
+  {
+    "id": "jermarpereira",
+    "sport": "Tennis",
+    "name": "Jermar / Pereira",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "lanserewnugrohow",
+    "sport": "Tennis",
+    "name": "Lansere (W) /  Nugroho (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "sutjiadiwtjenw",
+    "sport": "Tennis",
+    "name": "Sutjiadi (W) /  Tjen (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-sutjiadiwtjenw.png"
+  },
+  {
+    "id": "felixaugeraliassime",
+    "sport": "Tennis",
+    "name": "Felix Auger-Aliassime",
+    "aliases": [],
+    "logo": "/logos/tennis-felixaugeraliassime.jpg"
+  },
+  {
+    "id": "danielaltmaier",
+    "sport": "Tennis",
+    "name": "Daniel Altmaier",
+    "aliases": [],
+    "logo": "/logos/tennis-danielaltmaier.jpg"
+  },
+  {
+    "id": "tsengchunhsin",
+    "sport": "Tennis",
+    "name": "Tseng Chun-hsin",
+    "aliases": [],
+    "logo": "/logos/tennis-tsengchunhsin.jpg"
+  },
+  {
+    "id": "eliotspizzirri",
+    "sport": "Tennis",
+    "name": "Eliot Spizzirri",
+    "aliases": [],
+    "logo": "/logos/tennis-eliotspizzirri.jpg"
+  },
+  {
+    "id": "himenosakatsumew",
+    "sport": "Tennis",
+    "name": "Himeno Sakatsume (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-himenosakatsumew.png"
+  },
+  {
+    "id": "eudicechongw",
+    "sport": "Tennis",
+    "name": "Eudice Chong (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-eudicechongw.png"
+  },
+  {
+    "id": "francescomaestrelli",
+    "sport": "Tennis",
+    "name": "Francesco Maestrelli",
+    "aliases": [],
+    "logo": "/logos/tennis-francescomaestrelli.png"
+  },
+  {
+    "id": "davidpichler",
+    "sport": "Tennis",
+    "name": "David Pichler",
+    "aliases": [],
+    "logo": "/logos/tennis-davidpichler.jpg"
+  },
+  {
+    "id": "pavlasekbhambri",
+    "sport": "Tennis",
+    "name": "Pavlasek / Bhambri",
+    "aliases": [],
+    "logo": "/logos/tennis-pavlasekbhambri.png"
+  },
+  {
+    "id": "glasspoolcash",
+    "sport": "Tennis",
+    "name": "Glasspool / Cash",
+    "aliases": [],
+    "logo": "/logos/tennis-glasspoolcash.jpg"
+  },
+  {
+    "id": "kimberlybirrellw",
+    "sport": "Tennis",
+    "name": "Kimberly Birrell (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-kimberlybirrellw.png"
+  },
+  {
+    "id": "shrivallirashmikaabhamidipatyw",
+    "sport": "Tennis",
+    "name": "Shrivalli Rashmikaa Bhamidipaty (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "timofeevawiatcenkow",
+    "sport": "Tennis",
+    "name": "Timofeeva (W) /  Iatcenko (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-timofeevawiatcenkow.png"
+  },
+  {
+    "id": "wernerwyamalapalliw",
+    "sport": "Tennis",
+    "name": "Werner (W) /  Yamalapalli (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "ouakaagenov",
+    "sport": "Tennis",
+    "name": "Ouakaa / Genov",
+    "aliases": [],
+    "logo": "/logos/tennis-ouakaagenov.png"
+  },
+  {
+    "id": "duncanmackinlay",
+    "sport": "Tennis",
+    "name": "Duncan / Mackinlay",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "miapohankovaw",
+    "sport": "Tennis",
+    "name": "Mia Pohankova (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-miapohankovaw.jpg"
+  },
+  {
+    "id": "dianeparryw",
+    "sport": "Tennis",
+    "name": "Diane Parry (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-dianeparryw.jpg"
+  },
+  {
+    "id": "vivesmarcoshussey",
+    "sport": "Tennis",
+    "name": "Vives Marcos / Hussey",
+    "aliases": [],
+    "logo": "/logos/tennis-vivesmarcoshussey.png"
+  },
+  {
+    "id": "verbinsimakin",
+    "sport": "Tennis",
+    "name": "Verbin / Simakin",
+    "aliases": [],
+    "logo": "/logos/tennis-verbinsimakin.png"
+  },
+  {
+    "id": "benshelton",
+    "sport": "Tennis",
+    "name": "Ben Shelton",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "andreyrublev",
+    "sport": "Tennis",
+    "name": "Andrey Rublev",
+    "aliases": [],
+    "logo": "/logos/tennis-andreyrublev.jpg"
+  },
+  {
+    "id": "paulvocel",
+    "sport": "Tennis",
+    "name": "Paul / Vocel",
+    "aliases": [],
+    "logo": "/logos/tennis-paulvocel.png"
+  },
+  {
+    "id": "barrientoswithrow",
+    "sport": "Tennis",
+    "name": "Barrientos / Withrow",
+    "aliases": [],
+    "logo": "/logos/tennis-barrientoswithrow.jpg"
+  },
+  {
+    "id": "titouandroguet",
+    "sport": "Tennis",
+    "name": "Titouan Droguet",
+    "aliases": [],
+    "logo": "/logos/tennis-titouandroguet.png"
+  },
+  {
+    "id": "laslodjere",
+    "sport": "Tennis",
+    "name": "Laslo Djere",
+    "aliases": [],
+    "logo": "/logos/tennis-laslodjere.png"
+  },
+  {
+    "id": "zeynepsonmezw",
+    "sport": "Tennis",
+    "name": "Zeynep Sonmez (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-zeynepsonmezw.png"
+  },
+  {
+    "id": "lanlanatararudeew",
+    "sport": "Tennis",
+    "name": "Lanlana Tararudee (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "karenkhachanov",
+    "sport": "Tennis",
+    "name": "Karen Khachanov",
+    "aliases": [],
+    "logo": "/logos/tennis-karenkhachanov.jpg"
+  },
+  {
+    "id": "alexdeminaur",
+    "sport": "Tennis",
+    "name": "Alex De Minaur",
+    "aliases": [],
+    "logo": "/logos/tennis-alexdeminaur.jpg"
+  },
+  {
+    "id": "taylorfritz",
+    "sport": "Tennis",
+    "name": "Taylor Fritz",
+    "aliases": [],
+    "logo": "/logos/tennis-taylorfritz.jpg"
+  },
+  {
+    "id": "alexandrbublik",
+    "sport": "Tennis",
+    "name": "Alexandr Bublik",
+    "aliases": [],
+    "logo": "/logos/tennis-alexandrbublik.jpg"
+  },
+  {
+    "id": "johannusmonday",
+    "sport": "Tennis",
+    "name": "Johannus Monday",
+    "aliases": [],
+    "logo": "/logos/tennis-johannusmonday.png"
+  },
+  {
+    "id": "cannonkingsley",
+    "sport": "Tennis",
+    "name": "Cannon Kingsley",
+    "aliases": [],
+    "logo": "/logos/tennis-cannonkingsley.jpg"
+  },
+  {
+    "id": "rafaeljodar",
+    "sport": "Tennis",
+    "name": "Rafael Jodar",
+    "aliases": [],
+    "logo": "/logos/tennis-rafaeljodar.jpg"
+  },
+  {
+    "id": "sabapurtseladze",
+    "sport": "Tennis",
+    "name": "Saba Purtseladze",
+    "aliases": [],
+    "logo": "/logos/tennis-sabapurtseladze.png"
+  },
+  {
+    "id": "verbeekgille",
+    "sport": "Tennis",
+    "name": "Verbeek / Gille",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "beharvliegen",
+    "sport": "Tennis",
+    "name": "Behar / Vliegen",
+    "aliases": [],
+    "logo": "/logos/tennis-beharvliegen.png"
+  },
+  {
+    "id": "raphaelcollignon",
+    "sport": "Tennis",
+    "name": "Raphael Collignon",
+    "aliases": [],
+    "logo": "/logos/tennis-raphaelcollignon.svg"
+  },
+  {
+    "id": "stanislaswawrinka",
+    "sport": "Tennis",
+    "name": "Stanislas Wawrinka",
+    "aliases": [],
+    "logo": "/logos/tennis-stanislaswawrinka.jpg"
+  },
+  {
+    "id": "rinkyhijikata",
+    "sport": "Tennis",
+    "name": "Rinky Hijikata",
+    "aliases": [],
+    "logo": "/logos/tennis-rinkyhijikata.svg"
+  },
+  {
+    "id": "matsrosenkranz",
+    "sport": "Tennis",
+    "name": "Mats Rosenkranz",
+    "aliases": [],
+    "logo": "/logos/tennis-matsrosenkranz.png"
+  },
+  {
+    "id": "lorenzosonego",
+    "sport": "Tennis",
+    "name": "Lorenzo Sonego",
+    "aliases": [],
+    "logo": "/logos/tennis-lorenzosonego.jpg"
+  },
+  {
+    "id": "daniilmedvedev",
+    "sport": "Tennis",
+    "name": "Daniil Medvedev",
+    "aliases": [],
+    "logo": "/logos/tennis-daniilmedvedev.jpg"
+  },
+  {
+    "id": "mitchellkrueger",
+    "sport": "Tennis",
+    "name": "Mitchell Krueger",
+    "aliases": [],
+    "logo": "/logos/tennis-mitchellkrueger.svg"
+  },
+  {
+    "id": "dhakshineswarsuresh",
+    "sport": "Tennis",
+    "name": "Dhakshineswar Suresh",
+    "aliases": [],
+    "logo": "/logos/tennis-dhakshineswarsuresh.png"
+  },
+  {
+    "id": "ariasingildsen",
+    "sport": "Tennis",
+    "name": "Arias / Ingildsen",
+    "aliases": [],
+    "logo": "/logos/tennis-ariasingildsen.png"
+  },
+  {
+    "id": "kestelboimzormann",
+    "sport": "Tennis",
+    "name": "Kestelboim / Zormann",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "alvaroguillenmeza",
+    "sport": "Tennis",
+    "name": "Alvaro-Guillen Meza",
+    "aliases": [],
+    "logo": "/logos/tennis-alvaroguillenmeza.png"
+  },
+  {
+    "id": "andresandrade",
+    "sport": "Tennis",
+    "name": "Andres Andrade",
+    "aliases": [],
+    "logo": "/logos/tennis-andresandrade.png"
+  },
+  {
+    "id": "elninopraha",
+    "sport": "Table Tennis",
+    "name": "El Nino Praha",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "havirov",
+    "sport": "Table Tennis",
+    "name": "Havirov",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "gorgodzewfossahuergow",
+    "sport": "Tennis",
+    "name": "Gorgodze (W) /  Fossa Huergo (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-gorgodzewfossahuergow.png"
+  },
+  {
+    "id": "zeballoswzolotarevaw",
+    "sport": "Tennis",
+    "name": "Zeballos (W) /  Zolotareva (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-zeballoswzolotarevaw.jpg"
+  },
+  {
+    "id": "stevenskirkov",
+    "sport": "Tennis",
+    "name": "Stevens / Kirkov",
+    "aliases": [],
+    "logo": "/logos/tennis-stevenskirkov.png"
+  },
+  {
+    "id": "nouzarikl",
+    "sport": "Tennis",
+    "name": "Nouza / Rikl",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "jazminortenziw",
+    "sport": "Tennis",
+    "name": "Jazmin Ortenzi (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-jazminortenziw.png"
+  },
+  {
+    "id": "juliagrabherw",
+    "sport": "Tennis",
+    "name": "Julia Grabher (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-juliagrabherw.png"
+  },
+  {
+    "id": "marklajal",
+    "sport": "Tennis",
+    "name": "Mark Lajal",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "thiagotirante",
+    "sport": "Tennis",
+    "name": "Thiago Tirante",
+    "aliases": [],
+    "logo": "/logos/tennis-thiagotirante.jpg"
+  },
+  {
+    "id": "franciscocerundolo",
+    "sport": "Tennis",
+    "name": "Francisco Cerundolo",
+    "aliases": [],
+    "logo": "/logos/tennis-franciscocerundolo.jpg"
+  },
+  {
+    "id": "boulaiskiger",
+    "sport": "Tennis",
+    "name": "Boulais / Kiger",
+    "aliases": [],
+    "logo": "/logos/tennis-boulaiskiger.png"
+  },
+  {
+    "id": "perezvance",
+    "sport": "Tennis",
+    "name": "Perez / Vance",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "harperstevenson",
+    "sport": "Tennis",
+    "name": "Harper / Stevenson",
+    "aliases": [],
+    "logo": "/logos/tennis-harperstevenson.png"
+  },
+  {
+    "id": "thaynefuchs",
+    "sport": "Tennis",
+    "name": "Thayne / Fuchs",
+    "aliases": [],
+    "logo": "/logos/tennis-thaynefuchs.jpg"
+  },
+  {
+    "id": "sinjakrausw",
+    "sport": "Tennis",
+    "name": "Sinja Kraus (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-sinjakrausw.png"
+  },
+  {
+    "id": "selenajanicijevicw",
+    "sport": "Tennis",
+    "name": "Selena Janicijevic (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-selenajanicijevicw.png"
+  },
+  {
+    "id": "romanandresburruchaga",
+    "sport": "Tennis",
+    "name": "Roman-Andres Burruchaga",
+    "aliases": [],
+    "logo": "/logos/tennis-romanandresburruchaga.png"
+  },
+  {
+    "id": "marcocecchinato",
+    "sport": "Tennis",
+    "name": "Marco Cecchinato",
+    "aliases": [],
+    "logo": "/logos/tennis-marcocecchinato.jpg"
+  },
+  {
+    "id": "kickercigarran",
+    "sport": "Tennis",
+    "name": "Kicker / Cigarran",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "martinezgomez",
+    "sport": "Tennis",
+    "name": "Martinez / Gomez",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "pannaudvardyw",
+    "sport": "Tennis",
+    "name": "Panna Udvardy (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-pannaudvardyw.png"
+  },
+  {
+    "id": "varvaralepchenkow",
+    "sport": "Tennis",
+    "name": "Varvara Lepchenko (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-varvaralepchenkow.svg"
+  },
+  {
+    "id": "alejandrodavidovichfokina",
+    "sport": "Tennis",
+    "name": "Alejandro Davidovich Fokina",
+    "aliases": [],
+    "logo": "/logos/tennis-alejandrodavidovichfokina.jpg"
+  },
+  {
+    "id": "alexanderzverev",
+    "sport": "Tennis",
+    "name": "Alexander Zverev",
+    "aliases": [],
+    "logo": "/logos/tennis-alexanderzverev.jpg"
+  },
+  {
+    "id": "whitehousebroom",
+    "sport": "Tennis",
+    "name": "Whitehouse / Broom",
+    "aliases": [],
+    "logo": "/logos/tennis-whitehousebroom.jpg"
+  },
+  {
+    "id": "ruehlzahraj",
+    "sport": "Tennis",
+    "name": "Ruehl / Zahraj",
+    "aliases": [],
+    "logo": "/logos/tennis-ruehlzahraj.png"
+  },
+  {
+    "id": "clarkehands",
+    "sport": "Tennis",
+    "name": "Clarke / Hands",
+    "aliases": [],
+    "logo": "/logos/tennis-clarkehands.jpg"
+  },
+  {
+    "id": "collarinidutradasilva",
+    "sport": "Tennis",
+    "name": "Collarini / Dutra da Silva",
+    "aliases": [],
+    "logo": "/logos/tennis-collarinidutradasilva.png"
+  },
+  {
+    "id": "andrademeza",
+    "sport": "Tennis",
+    "name": "Andrade / Meza",
+    "aliases": [],
+    "logo": "/logos/tennis-andrademeza.jpg"
+  },
+  {
+    "id": "sarabejlekw",
+    "sport": "Tennis",
+    "name": "Sara Bejlek (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-sarabejlekw.png"
+  },
+  {
+    "id": "juliarieraw",
+    "sport": "Tennis",
+    "name": "Julia Riera (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-juliarieraw.png"
+  },
+  {
+    "id": "smithwleew",
+    "sport": "Tennis",
+    "name": "Smith (W) /  Lee (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-smithwleew.png"
+  },
+  {
+    "id": "pigossiwcandiottow",
+    "sport": "Tennis",
+    "name": "Pigossi (W) /  Candiotto (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "arklonhuertas",
+    "sport": "Tennis",
+    "name": "Arklon Huertas",
+    "aliases": [],
+    "logo": "/logos/tennis-arklonhuertas.png"
+  },
+  {
+    "id": "carlosmariazarate",
+    "sport": "Tennis",
+    "name": "Carlos Maria Zarate",
+    "aliases": [],
+    "logo": "/logos/tennis-carlosmariazarate.svg"
+  },
+  {
+    "id": "lepchenkowjanicijevicw",
+    "sport": "Tennis",
+    "name": "Lepchenko (W) /  Janicijevic (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "strakhovawherrerolinanaw",
+    "sport": "Tennis",
+    "name": "Strakhova (W) /  Herrero-Linana (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-strakhovawherrerolinanaw.png"
+  },
+  {
+    "id": "escobarreyesvarela",
+    "sport": "Tennis",
+    "name": "Escobar / Reyes Varela",
+    "aliases": [],
+    "logo": "/logos/tennis-escobarreyesvarela.jpg"
+  },
+  {
+    "id": "zeballosrodriguez",
+    "sport": "Tennis",
+    "name": "Zeballos / Rodriguez",
+    "aliases": [],
+    "logo": "/logos/tennis-zeballosrodriguez.jpg"
+  },
+  {
+    "id": "gamizwvedderw",
+    "sport": "Tennis",
+    "name": "Gamiz (W) /  Vedder (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-gamizwvedderw.png"
+  },
+  {
+    "id": "lizarazowperezgarciaw",
+    "sport": "Tennis",
+    "name": "Lizarazo (W) /  Perez García (W)",
+    "aliases": [],
+    "logo": "/logos/tennis-lizarazowperezgarciaw.png"
+  },
+  {
+    "id": "ignaciobuse",
+    "sport": "Tennis",
+    "name": "Ignacio Buse",
+    "aliases": [],
+    "logo": "/logos/tennis-ignaciobuse.png"
+  },
+  {
+    "id": "juanbautistatorres",
+    "sport": "Tennis",
+    "name": "Juan Bautista Torres",
+    "aliases": [],
+    "logo": "/logos/tennis-juanbautistatorres.png"
+  },
+  {
+    "id": "yaquisdeobregon",
+    "sport": "Baseball",
+    "name": "Yaquis de Obregon",
+    "aliases": [],
+    "logo": "/logos/baseball-yaquisdeobregon.png"
+  },
+  {
+    "id": "canerosmochis",
+    "sport": "Baseball",
+    "name": "Caneros Mochis",
+    "aliases": [],
+    "logo": "/logos/baseball-canerosmochis.png"
+  },
+  {
+    "id": "aguilasdemexicali",
+    "sport": "Baseball",
+    "name": "Aguilas de Mexicali",
+    "aliases": [],
+    "logo": "/logos/baseball-aguilasdemexicali.png"
+  },
+  {
+    "id": "tucson",
+    "sport": "Baseball",
+    "name": "Tucson",
+    "aliases": [],
+    "logo": "/logos/baseball-tucson.svg"
+  },
+  {
+    "id": "hermosillo",
+    "sport": "Baseball",
+    "name": "Hermosillo",
+    "aliases": [],
+    "logo": "/logos/baseball-hermosillo.jpg"
+  },
+  {
+    "id": "tomateros",
+    "sport": "Baseball",
+    "name": "Tomateros",
+    "aliases": [],
+    "logo": "/logos/baseball-tomateros.png"
+  },
+  {
+    "id": "jaguaresdenayarit",
+    "sport": "Baseball",
+    "name": "Jaguares de Nayarit",
+    "aliases": [],
+    "logo": "/logos/baseball-jaguaresdenayarit.png"
+  },
+  {
+    "id": "algodoneros",
+    "sport": "Baseball",
+    "name": "Algodoneros",
+    "aliases": [],
+    "logo": "/logos/baseball-algodoneros.png"
+  },
+  {
+    "id": "wellingtonfirebirds",
+    "sport": "Cricket",
+    "name": "Wellington Firebirds",
+    "aliases": [],
+    "logo": "/logos/cricket-wellingtonfirebirds.png"
+  },
+  {
+    "id": "canterburykings",
+    "sport": "Cricket",
+    "name": "Canterbury Kings",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "aucklandaces",
+    "sport": "Cricket",
+    "name": "Auckland Aces",
+    "aliases": [],
+    "logo": "/logos/cricket-aucklandaces.png"
+  },
+  {
+    "id": "otagovolts",
+    "sport": "Cricket",
+    "name": "Otago Volts",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "centralstags",
+    "sport": "Cricket",
+    "name": "Central Stags",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "northernbrave",
+    "sport": "Cricket",
+    "name": "Northern Brave",
+    "aliases": [],
+    "logo": "/logos/cricket-northernbrave.png"
+  },
+  {
+    "id": "hochiminh",
+    "sport": "Volleyball",
+    "name": "Ho Chi Minh",
+    "aliases": [],
+    "logo": "/logos/volleyball-hochiminh.svg"
+  },
+  {
+    "id": "danang",
+    "sport": "Volleyball",
+    "name": "Da Nang",
+    "aliases": [],
+    "logo": "/logos/volleyball-danang.svg"
+  },
+  {
+    "id": "quangninhw",
+    "sport": "Volleyball",
+    "name": "Quang Ninh (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "binhdienlonganw",
+    "sport": "Volleyball",
+    "name": "Binh Dien Long An (W)",
+    "aliases": [],
+    "logo": "/logos/volleyball-binhdienlonganw.svg"
+  },
+  {
+    "id": "indiaw",
+    "sport": "Cricket",
+    "name": "India (W)",
+    "aliases": [],
+    "logo": "/logos/cricket-indiaw.png"
+  },
+  {
+    "id": "australiaw",
+    "sport": "Cricket",
+    "name": "Australia (W)",
+    "aliases": [],
+    "logo": "/logos/cricket-australiaw.svg"
+  },
+  {
+    "id": "bacninhw",
+    "sport": "Volleyball",
+    "name": "Bac Ninh (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "haiphongw",
+    "sport": "Volleyball",
+    "name": "Hai Phong (W)",
+    "aliases": [],
+    "logo": "/logos/volleyball-haiphongw.png"
+  },
+  {
+    "id": "argentinau17",
+    "sport": "Handball",
+    "name": "Argentina U17",
+    "aliases": [],
+    "logo": "/logos/handball-argentinau17.png"
+  },
+  {
+    "id": "usau17",
+    "sport": "Handball",
+    "name": "USA U17",
+    "aliases": [],
+    "logo": "/logos/handball-usau17.png"
+  },
+  {
+    "id": "vinlong",
+    "sport": "Volleyball",
+    "name": "Vinlong",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "kanshatkodong",
+    "sport": "Volleyball",
+    "name": "Kan Shat Ko Dong",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "brazilu17",
+    "sport": "Handball",
+    "name": "Brazil U17",
+    "aliases": [],
+    "logo": "/logos/handball-brazilu17.jpg"
+  },
+  {
+    "id": "tunisiau17",
+    "sport": "Handball",
+    "name": "Tunisia U17",
+    "aliases": [],
+    "logo": "/logos/handball-tunisiau17.png"
+  },
+  {
+    "id": "cartagena",
+    "sport": "Futsal",
+    "name": "Cartagena",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "zalgirisk",
+    "sport": "Futsal",
+    "name": "Zalgiris K",
+    "aliases": [],
+    "logo": "/logos/futsal-zalgirisk.jpg"
+  },
+  {
+    "id": "araz",
+    "sport": "Futsal",
+    "name": "Araz",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "differdange",
+    "sport": "Futsal",
+    "name": "Differdange",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "bubamara",
+    "sport": "Futsal",
+    "name": "Buba Mara",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "minerva",
+    "sport": "Futsal",
+    "name": "Minerva",
+    "aliases": [],
+    "logo": "/logos/futsal-minerva.svg"
+  },
+  {
+    "id": "etoilelavalloise",
+    "sport": "Futsal",
+    "name": "Etoile Lavalloise",
+    "aliases": [],
+    "logo": "/logos/futsal-etoilelavalloise.png"
+  },
+  {
+    "id": "semey",
+    "sport": "Futsal",
+    "name": "Semey",
+    "aliases": [],
+    "logo": "/logos/futsal-semey.png"
+  },
+  {
+    "id": "fkriga",
+    "sport": "Futsal",
+    "name": "FK Riga",
+    "aliases": [],
+    "logo": "/logos/futsal-fkriga.png"
+  },
+  {
+    "id": "benfica",
+    "sport": "Futsal",
+    "name": "Benfica",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "weilimdorf",
+    "sport": "Futsal",
+    "name": "Weilimdorf",
+    "aliases": [],
+    "logo": "/logos/futsal-weilimdorf.png"
+  },
+  {
+    "id": "akaa",
+    "sport": "Futsal",
+    "name": "Akaa",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "kiev",
+    "sport": "Futsal",
+    "name": "Kiev",
+    "aliases": [],
+    "logo": "/logos/futsal-kiev.svg"
+  },
+  {
+    "id": "hitkiev",
+    "sport": "Futsal",
+    "name": "HIT Kiev",
+    "aliases": [],
+    "logo": "/logos/futsal-hitkiev.png"
+  },
+  {
+    "id": "kairat",
+    "sport": "Futsal",
+    "name": "Kairat",
+    "aliases": [],
+    "logo": "/logos/futsal-kairat.jpg"
+  },
+  {
+    "id": "sporting",
+    "sport": "Futsal",
+    "name": "Sporting",
+    "aliases": [],
+    "logo": "/logos/futsal-sporting.svg"
+  },
+  {
+    "id": "asterixavow",
+    "sport": "Volleyball",
+    "name": "Asterix Avo (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "olympiacosw",
+    "sport": "Volleyball",
+    "name": "Olympiacos (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "sokolmogilnow",
+    "sport": "Volleyball",
+    "name": "Sokol Mogilno (W)",
+    "aliases": [],
+    "logo": "/logos/volleyball-sokolmogilnow.png"
+  },
+  {
+    "id": "uniopolew",
+    "sport": "Volleyball",
+    "name": "UNI Opole (W)",
+    "aliases": [],
+    "logo": "/logos/volleyball-uniopolew.jpg"
+  },
+  {
+    "id": "kaunasvduw",
+    "sport": "Volleyball",
+    "name": "Kaunas VDU (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "oksilw",
+    "sport": "Volleyball",
+    "name": "Oksil (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "germanyu17",
+    "sport": "Handball",
+    "name": "Germany U17",
+    "aliases": [],
+    "logo": "/logos/handball-germanyu17.png"
+  },
+  {
+    "id": "qataru17",
+    "sport": "Handball",
+    "name": "Qatar U17",
+    "aliases": [],
+    "logo": "/logos/handball-qataru17.png"
+  },
+  {
+    "id": "ustinadlabem",
+    "sport": "Volleyball",
+    "name": "Usti nad Labem",
+    "aliases": [],
+    "logo": "/logos/volleyball-ustinadlabem.png"
+  },
+  {
+    "id": "aeroodolenavoda",
+    "sport": "Volleyball",
+    "name": "Aero Odolena Voda",
+    "aliases": [],
+    "logo": "/logos/volleyball-aeroodolenavoda.png"
+  },
+  {
+    "id": "olympiacos",
+    "sport": "Volleyball",
+    "name": "Olympiacos",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "napredakodzak",
+    "sport": "Volleyball",
+    "name": "Napredak Odzak",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "achvolley",
+    "sport": "Volleyball",
+    "name": "ACH Volley",
+    "aliases": [],
+    "logo": "/logos/volleyball-achvolley.png"
+  },
+  {
+    "id": "orion",
+    "sport": "Volleyball",
+    "name": "Orion",
+    "aliases": [],
+    "logo": "/logos/volleyball-orion.png"
+  },
+  {
+    "id": "pribram",
+    "sport": "Volleyball",
+    "name": "Pribram",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "karlovarsko",
+    "sport": "Volleyball",
+    "name": "Karlovarsko",
+    "aliases": [],
+    "logo": "/logos/volleyball-karlovarsko.png"
+  },
+  {
+    "id": "fatumnyiregyhazaw",
+    "sport": "Volleyball",
+    "name": "Fatum Nyiregyhaza (W)",
+    "aliases": [],
+    "logo": "/logos/volleyball-fatumnyiregyhazaw.png"
+  },
+  {
+    "id": "lpviestiw",
+    "sport": "Volleyball",
+    "name": "LP Viesti (W)",
+    "aliases": [],
+    "logo": "/logos/volleyball-lpviestiw.png"
+  },
+  {
+    "id": "duklaliberec",
+    "sport": "Volleyball",
+    "name": "Dukla Liberec",
+    "aliases": [],
+    "logo": "/logos/volleyball-duklaliberec.png"
+  },
+  {
+    "id": "zlin",
+    "sport": "Volleyball",
+    "name": "Zlin",
+    "aliases": [],
+    "logo": "/logos/volleyball-zlin.png"
+  },
+  {
+    "id": "beskydy",
+    "sport": "Volleyball",
+    "name": "Beskydy",
+    "aliases": [],
+    "logo": "/logos/volleyball-beskydy.png"
+  },
+  {
+    "id": "kladno",
+    "sport": "Volleyball",
+    "name": "Kladno",
+    "aliases": [],
+    "logo": "/logos/volleyball-kladno.svg"
+  },
+  {
+    "id": "ceskebudejovice",
+    "sport": "Volleyball",
+    "name": "Ceske Budejovice",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "brno",
+    "sport": "Volleyball",
+    "name": "Brno",
+    "aliases": [],
+    "logo": "/logos/volleyball-brno.svg"
+  },
+  {
+    "id": "norway",
+    "sport": "Handball",
+    "name": "Norway",
+    "aliases": [],
+    "logo": "/logos/handball-norway.png"
+  },
+  {
+    "id": "denmark",
+    "sport": "Handball",
+    "name": "Denmark",
+    "aliases": [],
+    "logo": "/logos/handball-denmark.png"
+  },
+  {
+    "id": "lokomotivzagrebw",
+    "sport": "Handball",
+    "name": "Lokomotiv Zagreb (W)",
+    "aliases": [],
+    "logo": "/logos/handball-lokomotivzagrebw.svg"
+  },
+  {
+    "id": "osijekw",
+    "sport": "Handball",
+    "name": "Osijek (W)",
+    "aliases": [],
+    "logo": "/logos/handball-osijekw.svg"
+  },
+  {
+    "id": "splitw",
+    "sport": "Handball",
+    "name": "Split (W)",
+    "aliases": [],
+    "logo": "/logos/handball-splitw.jpg"
+  },
+  {
+    "id": "rudarlabinw",
+    "sport": "Handball",
+    "name": "Rudar Labin (W)",
+    "aliases": [],
+    "logo": "/logos/handball-rudarlabinw.png"
+  },
+  {
+    "id": "lucenec",
+    "sport": "Futsal",
+    "name": "Lucenec",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "vendsyssel",
+    "sport": "Futsal",
+    "name": "Vendsyssel",
+    "aliases": [],
+    "logo": "/logos/futsal-vendsyssel.png"
+  },
+  {
+    "id": "unitedgalati",
+    "sport": "Futsal",
+    "name": "United Galati",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "tigersroermond",
+    "sport": "Futsal",
+    "name": "Tigers Roermond",
+    "aliases": [],
+    "logo": "/logos/futsal-tigersroermond.png"
+  },
+  {
+    "id": "luxolstandrews",
+    "sport": "Futsal",
+    "name": "Luxol St Andrews",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "loznica",
+    "sport": "Futsal",
+    "name": "Loznica",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "anderlecht",
+    "sport": "Futsal",
+    "name": "Anderlecht",
+    "aliases": [],
+    "logo": "/logos/futsal-anderlecht.svg"
+  },
+  {
+    "id": "piastgliwice",
+    "sport": "Futsal",
+    "name": "Piast Gliwice",
+    "aliases": [],
+    "logo": "/logos/futsal-piastgliwice.jpg"
+  },
+  {
+    "id": "palma",
+    "sport": "Futsal",
+    "name": "Palma",
+    "aliases": [],
+    "logo": "/logos/futsal-palma.png"
+  },
+  {
+    "id": "chrudim",
+    "sport": "Futsal",
+    "name": "Chrudim",
+    "aliases": [],
+    "logo": "/logos/futsal-chrudim.png"
+  },
+  {
+    "id": "perugiaw",
+    "sport": "Volleyball",
+    "name": "Perugia (W)",
+    "aliases": [],
+    "logo": "/logos/volleyball-perugiaw.svg"
+  },
+  {
+    "id": "verovolleymilanw",
+    "sport": "Volleyball",
+    "name": "Vero Volley Milan (W)",
+    "aliases": [],
+    "logo": "/logos/volleyball-verovolleymilanw.jpg"
+  },
+  {
+    "id": "tours",
+    "sport": "Volleyball",
+    "name": "Tours",
+    "aliases": [],
+    "logo": "/logos/volleyball-tours.svg"
+  },
+  {
+    "id": "alternaspvb",
+    "sport": "Volleyball",
+    "name": "Alterna SPVB",
+    "aliases": [],
+    "logo": "/logos/volleyball-alternaspvb.png"
+  },
+  {
+    "id": "siliko",
+    "sport": "Futsal",
+    "name": "Siliko",
+    "aliases": [],
+    "logo": "/logos/futsal-siliko.png"
+  },
+  {
+    "id": "forza",
+    "sport": "Futsal",
+    "name": "Forza",
+    "aliases": [],
+    "logo": "/logos/futsal-forza.png"
+  },
+  {
+    "id": "novovrieme",
+    "sport": "Futsal",
+    "name": "Novo Vrieme",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "prishtina",
+    "sport": "Futsal",
+    "name": "Prishtina",
+    "aliases": [],
+    "logo": "/logos/futsal-prishtina.svg"
+  },
+  {
+    "id": "guaguas",
+    "sport": "Volleyball",
+    "name": "Guaguas",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "mavelore",
+    "sport": "Volleyball",
+    "name": "MAV-Elore",
+    "aliases": [],
+    "logo": "/logos/volleyball-mavelore.png"
+  },
+  {
+    "id": "nis",
+    "sport": "Volleyball",
+    "name": "Nis",
+    "aliases": [],
+    "logo": "/logos/volleyball-nis.png"
+  },
+  {
+    "id": "vojvodina",
+    "sport": "Volleyball",
+    "name": "Vojvodina",
+    "aliases": [],
+    "logo": "/logos/volleyball-vojvodina.jpg"
+  },
+  {
+    "id": "spainu17",
+    "sport": "Handball",
+    "name": "Spain U17",
+    "aliases": [],
+    "logo": "/logos/handball-spainu17.png"
+  },
+  {
+    "id": "egyptu17",
+    "sport": "Handball",
+    "name": "Egypt U17",
+    "aliases": [],
+    "logo": "/logos/handball-egyptu17.png"
+  },
+  {
+    "id": "verona",
+    "sport": "Volleyball",
+    "name": "Verona",
+    "aliases": [],
+    "logo": "/logos/volleyball-verona.jpg"
+  },
+  {
+    "id": "powervolley",
+    "sport": "Volleyball",
+    "name": "Power Volley",
+    "aliases": [],
+    "logo": "/logos/volleyball-powervolley.png"
+  },
+  {
+    "id": "netherlands",
+    "sport": "Handball",
+    "name": "Netherlands",
+    "aliases": [],
+    "logo": "/logos/handball-netherlands.png"
+  },
+  {
+    "id": "faroeislands",
+    "sport": "Handball",
+    "name": "Faroe Islands",
+    "aliases": [],
+    "logo": "/logos/handball-faroeislands.svg"
+  },
+  {
+    "id": "helviarechinaw",
+    "sport": "Volleyball",
+    "name": "Helvia Rechina (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "marignanow",
+    "sport": "Volleyball",
+    "name": "Marignano (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "catania",
+    "sport": "Futsal",
+    "name": "Catania",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "aek",
+    "sport": "Futsal",
+    "name": "AEK",
+    "aliases": [],
+    "logo": "/logos/futsal-aek.svg"
+  },
+  {
+    "id": "aniolytorun",
+    "sport": "Volleyball",
+    "name": "Anioly Torun",
+    "aliases": [],
+    "logo": "/logos/volleyball-aniolytorun.png"
+  },
+  {
+    "id": "vislabydgoszcz",
+    "sport": "Volleyball",
+    "name": "Visla Bydgoszcz",
+    "aliases": [],
+    "logo": "/logos/volleyball-vislabydgoszcz.png"
+  },
+  {
+    "id": "perlalublinw",
+    "sport": "Handball",
+    "name": "Perla Lublin (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "gminakobierzycew",
+    "sport": "Handball",
+    "name": "Gmina Kobierzyce (W)",
+    "aliases": [],
+    "logo": "/logos/handball-gminakobierzycew.jpg"
+  },
+  {
+    "id": "soyaux",
+    "sport": "Rugby Union",
+    "name": "Soyaux",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "grenoble",
+    "sport": "Rugby Union",
+    "name": "Grenoble",
+    "aliases": [],
+    "logo": "/logos/rugby union-grenoble.svg"
+  },
+  {
+    "id": "maringaw",
+    "sport": "Volleyball",
+    "name": "Maringa (W)",
+    "aliases": [],
+    "logo": "/logos/volleyball-maringaw.png"
+  },
+  {
+    "id": "tijucaw",
+    "sport": "Volleyball",
+    "name": "Tijuca (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "mackenziew",
+    "sport": "Volleyball",
+    "name": "Mackenzie (W)",
+    "aliases": [],
+    "logo": "/logos/volleyball-mackenziew.png"
+  },
+  {
+    "id": "renascesorocabaw",
+    "sport": "Volleyball",
+    "name": "Renasce Sorocaba (W)",
+    "aliases": [],
+    "logo": ""
+  },
+  {
+    "id": "utsaroadrunners",
+    "sport": "American Football",
+    "name": "UTSA Roadrunners",
+    "aliases": [],
+    "logo": "/logos/american football-utsaroadrunners.svg"
+  },
+  {
+    "id": "tulanegreenwave",
+    "sport": "American Football",
+    "name": "Tulane Green Wave",
+    "aliases": [],
+    "logo": "/logos/american football-tulanegreenwave.png"
+  },
+  {
+    "id": "coastalcarolinachanticleers",
+    "sport": "American Football",
+    "name": "Coastal Carolina Chanticleers",
+    "aliases": [],
+    "logo": "/logos/american football-coastalcarolinachanticleers.png"
+  },
+  {
+    "id": "marshallthunderingherd",
+    "sport": "American Football",
+    "name": "Marshall Thundering Herd",
+    "aliases": [],
+    "logo": "/logos/american football-marshallthunderingherd.png"
+  },
+  {
+    "id": "delawarehornets",
+    "sport": "American Football",
+    "name": "Delaware Hornets",
+    "aliases": [],
+    "logo": "/logos/american football-delawarehornets.png"
+  },
+  {
+    "id": "norfolkspartans",
+    "sport": "American Football",
+    "name": "Norfolk Spartans",
+    "aliases": [],
+    "logo": "/logos/american football-norfolkspartans.png"
+  },
+  {
+    "id": "brasiliavoleiw",
+    "sport": "Volleyball",
+    "name": "Brasilia Volei (W)",
+    "aliases": [],
+    "logo": "/logos/volleyball-brasiliavoleiw.png"
+  },
+  {
+    "id": "osascow",
+    "sport": "Volleyball",
+    "name": "Osasco (W)",
+    "aliases": [],
+    "logo": "/logos/volleyball-osascow.jpg"
+  },
+  {
+    "id": "miamidolphins",
+    "sport": "American Football",
+    "name": "Miami Dolphins",
+    "aliases": [],
+    "logo": "/logos/american football-miamidolphins.svg"
+  },
+  {
+    "id": "baltimoreravens",
+    "sport": "American Football",
+    "name": "Baltimore Ravens",
+    "aliases": [],
+    "logo": "/logos/american football-baltimoreravens.png"
+  },
+  {
+    "id": "elversberg",
+    "sport": "Football",
+    "name": "Elversberg",
+    "logo": "/logos/elversberg.png",
+    "aliases": []
+  },
+  {
+    "id": "audax",
+    "sport": "Football",
+    "name": "Audax",
+    "logo": "/logos/audax.jpg",
+    "aliases": []
+  },
+  {
+    "id": "cobresal",
+    "sport": "Football",
+    "name": "Cobresal",
+    "logo": "/logos/cobresal.png",
+    "aliases": []
+  }
+]

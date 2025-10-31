@@ -1,0 +1,19 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#FFD400" stop-opacity="0.35"/>
+      <stop offset="70%" stop-color="#FFD400" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#FFD400" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="#0B0B0E"/>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#glow)"/>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="#FFD400" stroke-opacity="0.35"/>
+  <g font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-weight="800" text-anchor="middle" fill="#FFD400">
+    <text x="32" y="36" font-size="26">3</text>
+    <circle cx="32" cy="40" r="2" fill="#FFD400" />
+    <text x="32" y="54" font-size="26">2</text>
+  </g>
+</svg>
+
+

@@ -1,0 +1,6302 @@
+[
+    {
+      "id": "tuv-buganuud-vs-deren-5-00",
+      "sport": "Football",
+      "league": {
+        "name": "Mongolia. Premier League"
+      },
+      "home": {
+        "name": "Tuv Buganuud"
+      },
+      "away": {
+        "name": "Deren"
+      },
+      "status": "live",
+      "timeLabel": "5:00",
+      "startTime": "5:00",
+      "videoSrc": "https://www.youtube.com/embed/J6ENiuxoJP0?autoplay=1",
+      "today": true
+    },
+    {
+      "id": "karakopru-vs-rizespor-11-00",
+      "sport": "Football",
+      "league": {
+        "name": "Turkey. Cup"
+      },
+      "home": {
+        "name": "Karakopru"
+      },
+      "away": {
+        "name": "Rizespor"
+      },
+      "status": "upcoming",
+      "timeLabel": "11:00",
+      "startTime": "11:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "esenler-erokspor-vs-agri-1970-spor-11-00",
+      "sport": "Football",
+      "league": {
+        "name": "Turkey. Cup"
+      },
+      "home": {
+        "name": "Esenler Erokspor"
+      },
+      "away": {
+        "name": "Agri 1970 Spor"
+      },
+      "status": "upcoming",
+      "timeLabel": "11:00",
+      "startTime": "11:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "ahrotekh-vs-mariupol-11-00",
+      "sport": "Football",
+      "league": {
+        "name": "Ukraine. Cup"
+      },
+      "home": {
+        "name": "Ahrotekh"
+      },
+      "away": {
+        "name": "Mariupol"
+      },
+      "status": "upcoming",
+      "timeLabel": "11:00",
+      "startTime": "11:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "gryf-slupsk-vs-lech-poznan-12-00",
+      "sport": "Football",
+      "league": {
+        "name": "Poland. Cup"
+      },
+      "home": {
+        "name": "Gryf Slupsk"
+      },
+      "away": {
+        "name": "Lech Poznan"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:00",
+      "startTime": "12:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "shkupi-vs-shkendija-12-00",
+      "sport": "Football",
+      "league": {
+        "name": "North Macedonia. 1. MFL"
+      },
+      "home": {
+        "name": "Shkupi"
+      },
+      "away": {
+        "name": "Shkendija"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:00",
+      "startTime": "12:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "rajasthan-united-vs-kerala-blasters-12-00",
+      "sport": "Football",
+      "league": {
+        "name": "India. Super Cup"
+      },
+      "home": {
+        "name": "Rajasthan United"
+      },
+      "away": {
+        "name": "Kerala Blasters"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:00",
+      "startTime": "12:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "chernomorets-vs-ludogorets-12-30",
+      "sport": "Football",
+      "league": {
+        "name": "Bulgaria. Cup"
+      },
+      "home": {
+        "name": "Chernomorets"
+      },
+      "away": {
+        "name": "Ludogorets"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:30",
+      "startTime": "12:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "zonguldak-vs-bodrumspor-12-45",
+      "sport": "Football",
+      "league": {
+        "name": "Turkey. Cup"
+      },
+      "home": {
+        "name": "Zonguldak"
+      },
+      "away": {
+        "name": "Bodrumspor"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:45",
+      "startTime": "12:45",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "dubocica-vs-mladost-13-00",
+      "sport": "Football",
+      "league": {
+        "name": "Serbia. Cup"
+      },
+      "home": {
+        "name": "Dubocica"
+      },
+      "away": {
+        "name": "Mladost"
+      },
+      "status": "upcoming",
+      "timeLabel": "13:00",
+      "startTime": "13:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "shkupi-vs-struga-13-30",
+      "sport": "Football",
+      "league": {
+        "name": "North Macedonia. 1. MFL"
+      },
+      "home": {
+        "name": "Shkupi"
+      },
+      "away": {
+        "name": "Struga"
+      },
+      "status": "upcoming",
+      "timeLabel": "13:30",
+      "startTime": "13:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "al-wahda-vs-al-nasr-dubai-14-00",
+      "sport": "Football",
+      "league": {
+        "name": "UAE. Pro League"
+      },
+      "home": {
+        "name": "Al Wahda"
+      },
+      "away": {
+        "name": "Al Nasr Dubai"
+      },
+      "status": "upcoming",
+      "timeLabel": "14:00",
+      "startTime": "14:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "germany-u17-vs-canada-u17-14-00",
+      "sport": "Football",
+      "league": {
+        "name": "Friendly Match. National Teams"
+      },
+      "home": {
+        "name": "Germany U17"
+      },
+      "away": {
+        "name": "Canada U17"
+      },
+      "status": "upcoming",
+      "timeLabel": "14:00",
+      "startTime": "14:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "concordia-chiajna-vs-hermannstadt-14-00",
+      "sport": "Football",
+      "league": {
+        "name": "Romania. Cup"
+      },
+      "home": {
+        "name": "Concordia Chiajna"
+      },
+      "away": {
+        "name": "Hermannstadt"
+      },
+      "status": "upcoming",
+      "timeLabel": "14:00",
+      "startTime": "14:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "dinamo-samarkand-vs-khorezm-urganch-14-30",
+      "sport": "Football",
+      "league": {
+        "name": "Uzbekistan. Super League"
+      },
+      "home": {
+        "name": "Dinamo Samarkand"
+      },
+      "away": {
+        "name": "Khorezm Urganch"
+      },
+      "status": "upcoming",
+      "timeLabel": "14:30",
+      "startTime": "14:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "navbahor-namangan-vs-nasaf-14-30",
+      "sport": "Football",
+      "league": {
+        "name": "Uzbekistan. Super League"
+      },
+      "home": {
+        "name": "Navbahor Namangan"
+      },
+      "away": {
+        "name": "Nasaf"
+      },
+      "status": "upcoming",
+      "timeLabel": "14:30",
+      "startTime": "14:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "miedz-legnica-vs-jagiellonia-15-00",
+      "sport": "Football",
+      "league": {
+        "name": "Poland. Cup"
+      },
+      "home": {
+        "name": "Miedz Legnica"
+      },
+      "away": {
+        "name": "Jagiellonia"
+      },
+      "status": "upcoming",
+      "timeLabel": "15:00",
+      "startTime": "15:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "ufa-vs-neftekhimik-15-00",
+      "sport": "Football",
+      "league": {
+        "name": "Russia. Cup"
+      },
+      "home": {
+        "name": "Ufa"
+      },
+      "away": {
+        "name": "Neftekhimik"
+      },
+      "status": "upcoming",
+      "timeLabel": "15:00",
+      "startTime": "15:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "bengaluru-vs-mohammedan-15-00",
+      "sport": "Football",
+      "league": {
+        "name": "India. Super Cup"
+      },
+      "home": {
+        "name": "Bengaluru"
+      },
+      "away": {
+        "name": "Mohammedan"
+      },
+      "status": "upcoming",
+      "timeLabel": "15:00",
+      "startTime": "15:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "georgia-u-17-vs-greece-u-17-15-00",
+      "sport": "Football",
+      "league": {
+        "name": "European U-17 Championship qualification"
+      },
+      "home": {
+        "name": "Georgia U-17"
+      },
+      "away": {
+        "name": "Greece U-17"
+      },
+      "status": "upcoming",
+      "timeLabel": "15:00",
+      "startTime": "15:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "shabab-al-ordon-vs-al-salt-15-00",
+      "sport": "Football",
+      "league": {
+        "name": "Jordan. Premier League"
+      },
+      "home": {
+        "name": "Shabab Al-Ordon"
+      },
+      "away": {
+        "name": "Al-Salt"
+      },
+      "status": "upcoming",
+      "timeLabel": "15:00",
+      "startTime": "15:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "yantra-gabrovo-vs-cska-1948-15-30",
+      "sport": "Football",
+      "league": {
+        "name": "Bulgaria. Cup"
+      },
+      "home": {
+        "name": "Yantra Gabrovo"
+      },
+      "away": {
+        "name": "CSKA 1948"
+      },
+      "status": "upcoming",
+      "timeLabel": "15:30",
+      "startTime": "15:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "al-gharafa-vs-al-duhail-15-30",
+      "sport": "Football",
+      "league": {
+        "name": "Qatar. Stars League"
+      },
+      "home": {
+        "name": "Al-Gharafa"
+      },
+      "away": {
+        "name": "Al-Duhail"
+      },
+      "status": "upcoming",
+      "timeLabel": "15:30",
+      "startTime": "15:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "metalist-1925-vs-ahrobiznes-16-00",
+      "sport": "Football",
+      "league": {
+        "name": "Ukraine. Cup"
+      },
+      "home": {
+        "name": "Metalist 1925"
+      },
+      "away": {
+        "name": "Ahrobiznes"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:00",
+      "startTime": "16:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "uta-arad-vs-petrolul-16-00",
+      "sport": "Football",
+      "league": {
+        "name": "Romania. Cup"
+      },
+      "home": {
+        "name": "UTA Arad"
+      },
+      "away": {
+        "name": "Petrolul"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:00",
+      "startTime": "16:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "pyramids-vs-ethiopian-insurance-16-00",
+      "sport": "Football",
+      "league": {
+        "name": "CAF Champions League. Qualification"
+      },
+      "home": {
+        "name": "Pyramids"
+      },
+      "away": {
+        "name": "Ethiopian Insurance"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:00",
+      "startTime": "16:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "amanat-baghdad-vs-al-najaf-16-00",
+      "sport": "Football",
+      "league": {
+        "name": "Iraq. Premier League"
+      },
+      "home": {
+        "name": "Amanat Baghdad"
+      },
+      "away": {
+        "name": "Al-Najaf"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:00",
+      "startTime": "16:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "al-gharraf-vs-zakho-16-00",
+      "sport": "Football",
+      "league": {
+        "name": "Iraq. Premier League"
+      },
+      "home": {
+        "name": "Al-Gharraf"
+      },
+      "away": {
+        "name": "Zakho"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:00",
+      "startTime": "16:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "damac-vs-al-fateh-16-15",
+      "sport": "Football",
+      "league": {
+        "name": "Saudi Arabia. Pro League"
+      },
+      "home": {
+        "name": "Damac"
+      },
+      "away": {
+        "name": "Al-Fateh"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:15",
+      "startTime": "16:15",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "chaves-vs-sporting-b-16-45",
+      "sport": "Football",
+      "league": {
+        "name": "Portugal. Segunda Liga"
+      },
+      "home": {
+        "name": "Chaves"
+      },
+      "away": {
+        "name": "Sporting B"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:45",
+      "startTime": "16:45",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "ajman-vs-al-ain-16-45",
+      "sport": "Football",
+      "league": {
+        "name": "UAE. Pro League"
+      },
+      "home": {
+        "name": "Ajman"
+      },
+      "away": {
+        "name": "Al Ain"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:45",
+      "startTime": "16:45",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "shabab-al-ahli-vs-sharjah-16-45",
+      "sport": "Football",
+      "league": {
+        "name": "UAE. Pro League"
+      },
+      "home": {
+        "name": "Shabab Al Ahli"
+      },
+      "away": {
+        "name": "Sharjah"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:45",
+      "startTime": "16:45",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "kalju-vs-viimsi-16-50",
+      "sport": "Football",
+      "league": {
+        "name": "Estonia. Cup"
+      },
+      "home": {
+        "name": "Kalju"
+      },
+      "away": {
+        "name": "Viimsi"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:50",
+      "startTime": "16:50",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "inter-turku-vs-sjk-17-00",
+      "sport": "Football",
+      "league": {
+        "name": "Finland. Veikkausliiga"
+      },
+      "home": {
+        "name": "Inter Turku"
+      },
+      "away": {
+        "name": "SJK"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "pelister-vs-tikvesh-17-00",
+      "sport": "Football",
+      "league": {
+        "name": "North Macedonia. 1. MFL"
+      },
+      "home": {
+        "name": "Pelister"
+      },
+      "away": {
+        "name": "Tikvesh"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "pyramids-vs-ethiopian-insurance-17-00",
+      "sport": "Football",
+      "league": {
+        "name": "CAF Champions League"
+      },
+      "home": {
+        "name": "Pyramids"
+      },
+      "away": {
+        "name": "Ethiopian Insurance"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "malkiya-vs-al-ahli-manama-17-00",
+      "sport": "Football",
+      "league": {
+        "name": "Bahrain. Premier League"
+      },
+      "home": {
+        "name": "Malkiya"
+      },
+      "away": {
+        "name": "Al-Ahli Manama"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "kups-vs-gnistan-17-00",
+      "sport": "Football",
+      "league": {
+        "name": "Finland. Veikkausliiga"
+      },
+      "home": {
+        "name": "KuPS"
+      },
+      "away": {
+        "name": "Gnistan"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "bahrain-sc-vs-a-ali-17-00",
+      "sport": "Football",
+      "league": {
+        "name": "Bahrain. Premier League"
+      },
+      "home": {
+        "name": "Bahrain SC"
+      },
+      "away": {
+        "name": "A`Ali"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "al-sadd-vs-al-rayyan-17-30",
+      "sport": "Football",
+      "league": {
+        "name": "Qatar. Stars League"
+      },
+      "home": {
+        "name": "Al-Sadd"
+      },
+      "away": {
+        "name": "Al-Rayyan"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:30",
+      "startTime": "17:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "al-ahli-amman-vs-al-hussein-17-30",
+      "sport": "Football",
+      "league": {
+        "name": "Jordan. Premier League"
+      },
+      "home": {
+        "name": "Al Ahli Amman"
+      },
+      "away": {
+        "name": "Al-Hussein"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:30",
+      "startTime": "17:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "fakel-vs-arsenal-tula-17-30",
+      "sport": "Football",
+      "league": {
+        "name": "Russia. Cup"
+      },
+      "home": {
+        "name": "Fakel"
+      },
+      "away": {
+        "name": "Arsenal Tula"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:30",
+      "startTime": "17:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "midtjylland-vs-silkeborg-17-45",
+      "sport": "Football",
+      "league": {
+        "name": "Denmark. Cup"
+      },
+      "home": {
+        "name": "Midtjylland"
+      },
+      "away": {
+        "name": "Silkeborg"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:45",
+      "startTime": "17:45",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "vojvodina-vs-crvena-zvezda-18-00",
+      "sport": "Football",
+      "league": {
+        "name": "Serbia. Superliga"
+      },
+      "home": {
+        "name": "Vojvodina"
+      },
+      "away": {
+        "name": "Crvena Zvezda"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "national-bank-vs-zamalek-18-00",
+      "sport": "Football",
+      "league": {
+        "name": "Egypt. Premier League"
+      },
+      "home": {
+        "name": "National Bank"
+      },
+      "away": {
+        "name": "Zamalek"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "botosani-vs-farul-18-00",
+      "sport": "Football",
+      "league": {
+        "name": "Romania. Cup"
+      },
+      "home": {
+        "name": "Botosani"
+      },
+      "away": {
+        "name": "Farul"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "arka-gdynia-vs-gornik-zabrze-18-00",
+      "sport": "Football",
+      "league": {
+        "name": "Poland. Cup"
+      },
+      "home": {
+        "name": "Arka Gdynia"
+      },
+      "away": {
+        "name": "Gornik Zabrze"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "ilves-vs-hjk-18-00",
+      "sport": "Football",
+      "league": {
+        "name": "Finland. Veikkausliiga"
+      },
+      "home": {
+        "name": "Ilves"
+      },
+      "away": {
+        "name": "HJK"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "pafos-vs-aek-larnaca-18-00",
+      "sport": "Football",
+      "league": {
+        "name": "Cyprus. Supercup"
+      },
+      "home": {
+        "name": "Pafos"
+      },
+      "away": {
+        "name": "AEK Larnaca"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "elva-vs-tallinna-kalev-18-20",
+      "sport": "Football",
+      "league": {
+        "name": "Estonia. Cup"
+      },
+      "home": {
+        "name": "Elva"
+      },
+      "away": {
+        "name": "Tallinna Kalev"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:20",
+      "startTime": "18:20",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "konyaspor-vs-12-bingolspor-18-30",
+      "sport": "Football",
+      "league": {
+        "name": "Turkey. Cup"
+      },
+      "home": {
+        "name": "Konyaspor"
+      },
+      "away": {
+        "name": "12 Bingolspor"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:30",
+      "startTime": "18:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "duhok-vs-al-naft-18-30",
+      "sport": "Football",
+      "league": {
+        "name": "Iraq. Premier League"
+      },
+      "home": {
+        "name": "Duhok"
+      },
+      "away": {
+        "name": "Al-Naft"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:30",
+      "startTime": "18:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "al-quwa-vs-diyala-18-30",
+      "sport": "Football",
+      "league": {
+        "name": "Iraq. Premier League"
+      },
+      "home": {
+        "name": "Al-Quwa"
+      },
+      "away": {
+        "name": "Diyala"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:30",
+      "startTime": "18:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "al-ahli-jeddah-vs-al-riyadh-18-30",
+      "sport": "Football",
+      "league": {
+        "name": "Saudi Arabia. Pro League"
+      },
+      "home": {
+        "name": "Al Ahli Jeddah"
+      },
+      "away": {
+        "name": "Al-Riyadh"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:30",
+      "startTime": "18:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "al-kholood-vs-neom-18-30",
+      "sport": "Football",
+      "league": {
+        "name": "Saudi Arabia. Pro League"
+      },
+      "home": {
+        "name": "Al-Kholood"
+      },
+      "away": {
+        "name": "Neom"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:30",
+      "startTime": "18:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "cagliari-vs-sassuolo-18-30",
+      "sport": "Football",
+      "league": {
+        "name": "Italy. Serie A"
+      },
+      "home": {
+        "name": "Cagliari"
+      },
+      "away": {
+        "name": "Sassuolo"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:30",
+      "startTime": "18:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "rijnsburgse-boys-vs-nec-18-45",
+      "sport": "Football",
+      "league": {
+        "name": "Netherlands. KNVB Cup"
+      },
+      "home": {
+        "name": "Rijnsburgse Boys"
+      },
+      "away": {
+        "name": "NEC"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:45",
+      "startTime": "18:45",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "orihuela-vs-levante-19-00",
+      "sport": "Football",
+      "league": {
+        "name": "Spain. Copa del Rey"
+      },
+      "home": {
+        "name": "Orihuela"
+      },
+      "away": {
+        "name": "Levante"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "portimonense-vs-torreense-19-00",
+      "sport": "Football",
+      "league": {
+        "name": "Portugal. Segunda Liga"
+      },
+      "home": {
+        "name": "Portimonense"
+      },
+      "away": {
+        "name": "Torreense"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "vargas-torres-vs-cumbaya-19-00",
+      "sport": "Football",
+      "league": {
+        "name": "Ecuador. Serie B"
+      },
+      "home": {
+        "name": "Vargas Torres"
+      },
+      "away": {
+        "name": "Cumbaya"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "rb-salzburg-vs-swarovski-tirol-19-00",
+      "sport": "Football",
+      "league": {
+        "name": "Austria. Cup"
+      },
+      "home": {
+        "name": "RB Salzburg"
+      },
+      "away": {
+        "name": "Swarovski Tirol"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "atletico-vinotinto-vs-22-de-julio-19-00",
+      "sport": "Football",
+      "league": {
+        "name": "Ecuador. Serie B"
+      },
+      "home": {
+        "name": "Atletico Vinotinto"
+      },
+      "away": {
+        "name": "22 de Julio"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "benfica-b-vs-pacos-de-ferreira-19-00",
+      "sport": "Football",
+      "league": {
+        "name": "Portugal. Segunda Liga"
+      },
+      "home": {
+        "name": "Benfica B"
+      },
+      "away": {
+        "name": "Pacos de Ferreira"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "valle-de-egues-vs-fc-andorra-19-30",
+      "sport": "Football",
+      "league": {
+        "name": "Spain. Copa del Rey"
+      },
+      "home": {
+        "name": "Valle de Egues"
+      },
+      "away": {
+        "name": "FC Andorra"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:30",
+      "startTime": "19:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "atletico-baleares-vs-gimnastic-tarragona-20-00",
+      "sport": "Football",
+      "league": {
+        "name": "Spain. Copa del Rey"
+      },
+      "home": {
+        "name": "Atletico Baleares"
+      },
+      "away": {
+        "name": "Gimnastic Tarragona"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "dumbravita-vs-rapid-bucuresti-20-00",
+      "sport": "Football",
+      "league": {
+        "name": "Romania. Cup"
+      },
+      "home": {
+        "name": "Dumbravita"
+      },
+      "away": {
+        "name": "Rapid Bucuresti"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "ud-logrones-vs-ponferradina-20-00",
+      "sport": "Football",
+      "league": {
+        "name": "Spain. Copa del Rey"
+      },
+      "home": {
+        "name": "UD Logrones"
+      },
+      "away": {
+        "name": "Ponferradina"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "real-avila-vs-real-aviles-20-00",
+      "sport": "Football",
+      "league": {
+        "name": "Spain. Copa del Rey"
+      },
+      "home": {
+        "name": "Real Avila"
+      },
+      "away": {
+        "name": "Real Aviles"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "getxo-vs-alaves-20-00",
+      "sport": "Football",
+      "league": {
+        "name": "Spain. Copa del Rey"
+      },
+      "home": {
+        "name": "Getxo"
+      },
+      "away": {
+        "name": "Alaves"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "sparta-rotterdam-vs-groningen-20-00",
+      "sport": "Football",
+      "league": {
+        "name": "Netherlands. KNVB Cup"
+      },
+      "home": {
+        "name": "Sparta Rotterdam"
+      },
+      "away": {
+        "name": "Groningen"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "fus-rabat-vs-olympic-safi-20-00",
+      "sport": "Football",
+      "league": {
+        "name": "Morocco. Botola Pro"
+      },
+      "home": {
+        "name": "FUS Rabat"
+      },
+      "away": {
+        "name": "Olympic Safi"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "gent-vs-patro-eisden-20-30",
+      "sport": "Football",
+      "league": {
+        "name": "Belgium. Cup"
+      },
+      "home": {
+        "name": "Gent"
+      },
+      "away": {
+        "name": "Patro Eisden"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "seraing-vs-oud-heverlee-20-30",
+      "sport": "Football",
+      "league": {
+        "name": "Belgium. Cup"
+      },
+      "home": {
+        "name": "Seraing"
+      },
+      "away": {
+        "name": "Oud-Heverlee"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "cercle-vs-kortrijk-20-30",
+      "sport": "Football",
+      "league": {
+        "name": "Belgium. Cup"
+      },
+      "home": {
+        "name": "Cercle"
+      },
+      "away": {
+        "name": "Kortrijk"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "grasshopper-vs-young-boys-20-30",
+      "sport": "Football",
+      "league": {
+        "name": "Switzerland. Super League"
+      },
+      "home": {
+        "name": "Grasshopper"
+      },
+      "away": {
+        "name": "Young Boys"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "lugano-vs-luzern-20-30",
+      "sport": "Football",
+      "league": {
+        "name": "Switzerland. Super League"
+      },
+      "home": {
+        "name": "Lugano"
+      },
+      "away": {
+        "name": "Luzern"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "beerschot-vs-westerlo-20-30",
+      "sport": "Football",
+      "league": {
+        "name": "Belgium. Cup"
+      },
+      "home": {
+        "name": "Beerschot"
+      },
+      "away": {
+        "name": "Westerlo"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "knokke-vs-sint-truidense-20-30",
+      "sport": "Football",
+      "league": {
+        "name": "Belgium. Cup"
+      },
+      "home": {
+        "name": "Knokke"
+      },
+      "away": {
+        "name": "Sint-Truidense"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "nordsjaelland-vs-broendby-20-45",
+      "sport": "Football",
+      "league": {
+        "name": "Denmark. Cup"
+      },
+      "home": {
+        "name": "Nordsjaelland"
+      },
+      "away": {
+        "name": "Broendby"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:45",
+      "startTime": "20:45",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "pisa-vs-lazio-20-45",
+      "sport": "Football",
+      "league": {
+        "name": "Italy. Serie A"
+      },
+      "home": {
+        "name": "Pisa"
+      },
+      "away": {
+        "name": "Lazio"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:45",
+      "startTime": "20:45",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "real-murcia-vs-antequera-21-00",
+      "sport": "Football",
+      "league": {
+        "name": "Spain. Copa del Rey"
+      },
+      "home": {
+        "name": "Real Murcia"
+      },
+      "away": {
+        "name": "Antequera"
+      },
+      "status": "upcoming",
+      "timeLabel": "21:00",
+      "startTime": "21:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "atletico-antoniano-vs-castellon-21-00",
+      "sport": "Football",
+      "league": {
+        "name": "Spain. Copa del Rey"
+      },
+      "home": {
+        "name": "Atletico Antoniano"
+      },
+      "away": {
+        "name": "Castellon"
+      },
+      "status": "upcoming",
+      "timeLabel": "21:00",
+      "startTime": "21:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "union-estepona-vs-malaga-21-00",
+      "sport": "Football",
+      "league": {
+        "name": "Spain. Copa del Rey"
+      },
+      "home": {
+        "name": "Union Estepona"
+      },
+      "away": {
+        "name": "Malaga"
+      },
+      "status": "upcoming",
+      "timeLabel": "21:00",
+      "startTime": "21:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "legia-warsaw-vs-pogon-szczecin-21-00",
+      "sport": "Football",
+      "league": {
+        "name": "Poland. Cup"
+      },
+      "home": {
+        "name": "Legia Warsaw"
+      },
+      "away": {
+        "name": "Pogon Szczecin"
+      },
+      "status": "upcoming",
+      "timeLabel": "21:00",
+      "startTime": "21:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "samano-vs-deportivo-21-00",
+      "sport": "Football",
+      "league": {
+        "name": "Spain. Copa del Rey"
+      },
+      "home": {
+        "name": "Samano"
+      },
+      "away": {
+        "name": "Deportivo"
+      },
+      "status": "upcoming",
+      "timeLabel": "21:00",
+      "startTime": "21:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "atletic-lleida-vs-espanyol-21-00",
+      "sport": "Football",
+      "league": {
+        "name": "Spain. Copa del Rey"
+      },
+      "home": {
+        "name": "Atletic Lleida"
+      },
+      "away": {
+        "name": "Espanyol"
+      },
+      "status": "upcoming",
+      "timeLabel": "21:00",
+      "startTime": "21:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "imbabura-vs-chacaritas-21-00",
+      "sport": "Football",
+      "league": {
+        "name": "Ecuador. Serie B"
+      },
+      "home": {
+        "name": "Imbabura"
+      },
+      "away": {
+        "name": "Chacaritas"
+      },
+      "status": "upcoming",
+      "timeLabel": "21:00",
+      "startTime": "21:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "leixoes-vs-viseu-21-15",
+      "sport": "Football",
+      "league": {
+        "name": "Portugal. Segunda Liga"
+      },
+      "home": {
+        "name": "Leixoes"
+      },
+      "away": {
+        "name": "Viseu"
+      },
+      "status": "upcoming",
+      "timeLabel": "21:15",
+      "startTime": "21:15",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "maritimo-vs-ud-leiria-21-15",
+      "sport": "Football",
+      "league": {
+        "name": "Portugal. Segunda Liga"
+      },
+      "home": {
+        "name": "Maritimo"
+      },
+      "away": {
+        "name": "UD Leiria"
+      },
+      "status": "upcoming",
+      "timeLabel": "21:15",
+      "startTime": "21:15",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "union-magdalena-vs-deportes-tolima-22-00",
+      "sport": "Football",
+      "league": {
+        "name": "Colombia. Primera A"
+      },
+      "home": {
+        "name": "Union Magdalena"
+      },
+      "away": {
+        "name": "Deportes Tolima"
+      },
+      "status": "upcoming",
+      "timeLabel": "22:00",
+      "startTime": "22:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "real-tomayapo-vs-independiente-se-22-00",
+      "sport": "Football",
+      "league": {
+        "name": "Bolivia. League Cup"
+      },
+      "home": {
+        "name": "Real Tomayapo"
+      },
+      "away": {
+        "name": "Independiente SE"
+      },
+      "status": "upcoming",
+      "timeLabel": "22:00",
+      "startTime": "22:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "lanus-vs-universidad-de-chile-23-00",
+      "sport": "Football",
+      "league": {
+        "name": "Copa Sudamericana"
+      },
+      "home": {
+        "name": "Lanus"
+      },
+      "away": {
+        "name": "Universidad de Chile"
+      },
+      "status": "upcoming",
+      "timeLabel": "23:00",
+      "startTime": "23:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "om-vs-cibao-23-00",
+      "sport": "Football",
+      "league": {
+        "name": "CONCACAF Caribbean Cup"
+      },
+      "home": {
+        "name": "OM"
+      },
+      "away": {
+        "name": "Cibao"
+      },
+      "status": "upcoming",
+      "timeLabel": "23:00",
+      "startTime": "23:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "boyaca-chico-vs-america-de-cali-0-10",
+      "sport": "Football",
+      "league": {
+        "name": "Colombia. Primera A"
+      },
+      "home": {
+        "name": "Boyaca Chico"
+      },
+      "away": {
+        "name": "America de Cali"
+      },
+      "status": "upcoming",
+      "timeLabel": "0:10",
+      "startTime": "0:10",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "the-strongest-vs-oriente-petrolero-0-30",
+      "sport": "Football",
+      "league": {
+        "name": "Bolivia. League Cup"
+      },
+      "home": {
+        "name": "The Strongest"
+      },
+      "away": {
+        "name": "Oriente Petrolero"
+      },
+      "status": "upcoming",
+      "timeLabel": "0:30",
+      "startTime": "0:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "palmeiras-vs-ldu-quito-1-30",
+      "sport": "Football",
+      "league": {
+        "name": "Copa Libertadores"
+      },
+      "home": {
+        "name": "Palmeiras"
+      },
+      "away": {
+        "name": "LDU Quito"
+      },
+      "status": "upcoming",
+      "timeLabel": "1:30",
+      "startTime": "1:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "spokane-zephyr-w-vs-carolina-ascent-w-2-00",
+      "sport": "Football",
+      "league": {
+        "name": "USA. Women. USL"
+      },
+      "home": {
+        "name": "Spokane Zephyr (W)"
+      },
+      "away": {
+        "name": "Carolina Ascent (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "2:00",
+      "startTime": "2:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "sakhalinskie-akuly-vs-taifun-9-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Russia. MHL"
+      },
+      "home": {
+        "name": "Sakhalinskie Akuly"
+      },
+      "away": {
+        "name": "Taifun"
+      },
+      "status": "upcoming",
+      "timeLabel": "9:00",
+      "startTime": "9:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "metallurg-vs-dynamo-576-11-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Russia. NMHL"
+      },
+      "home": {
+        "name": "Metallurg"
+      },
+      "away": {
+        "name": "Dynamo-576"
+      },
+      "status": "upcoming",
+      "timeLabel": "11:00",
+      "startTime": "11:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "sibirskie-snaypery-vs-jhc-molot-12-30",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Russia. MHL"
+      },
+      "home": {
+        "name": "Sibirskie Snaypery"
+      },
+      "away": {
+        "name": "JHC Molot"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:30",
+      "startTime": "12:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "norilsk-vs-izhstal-13-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Russia. VHL"
+      },
+      "home": {
+        "name": "Norilsk"
+      },
+      "away": {
+        "name": "Izhstal"
+      },
+      "status": "upcoming",
+      "timeLabel": "13:00",
+      "startTime": "13:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "metallurg-nk-vs-molot-13-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Russia. VHL"
+      },
+      "home": {
+        "name": "Metallurg Nk"
+      },
+      "away": {
+        "name": "Molot"
+      },
+      "status": "upcoming",
+      "timeLabel": "13:00",
+      "startTime": "13:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "sokol-krasnoyarsk-vs-toros-13-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Russia. VHL"
+      },
+      "home": {
+        "name": "Sokol Krasnoyarsk"
+      },
+      "away": {
+        "name": "Toros"
+      },
+      "status": "upcoming",
+      "timeLabel": "13:00",
+      "startTime": "13:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "dynamo-altay-vs-olimpiya-13-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Russia. VHL"
+      },
+      "home": {
+        "name": "Dynamo Altay"
+      },
+      "away": {
+        "name": "Olimpiya"
+      },
+      "status": "upcoming",
+      "timeLabel": "13:00",
+      "startTime": "13:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "jhc-kristall-vs-ermak-14-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Russia. NMHL"
+      },
+      "home": {
+        "name": "JHC Kristall"
+      },
+      "away": {
+        "name": "Ermak"
+      },
+      "status": "upcoming",
+      "timeLabel": "14:00",
+      "startTime": "14:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "ska-vmf-vs-kristall-15-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Russia. VHL"
+      },
+      "home": {
+        "name": "SKA-VMF"
+      },
+      "away": {
+        "name": "Kristall"
+      },
+      "status": "upcoming",
+      "timeLabel": "15:00",
+      "startTime": "15:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "sputnik-almetyevsk-vs-tyumensky-legion-16-30",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Russia. MHL"
+      },
+      "home": {
+        "name": "Sputnik Almetyevsk"
+      },
+      "away": {
+        "name": "Tyumensky Legion"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:30",
+      "startTime": "16:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "hc-lipetsk-vs-dizelist-16-30",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Russia. NMHL"
+      },
+      "home": {
+        "name": "HC Lipetsk"
+      },
+      "away": {
+        "name": "Dizelist"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:30",
+      "startTime": "16:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "granit-vs-buran-17-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Russia. NMHL"
+      },
+      "home": {
+        "name": "Granit"
+      },
+      "away": {
+        "name": "Buran"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "kaluga-vs-bryansk-17-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Russia. NMHL"
+      },
+      "home": {
+        "name": "Kaluga"
+      },
+      "away": {
+        "name": "Bryansk"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "dynamo-st-pburg-vs-dizel-17-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Russia. VHL"
+      },
+      "home": {
+        "name": "Dynamo St Pburg"
+      },
+      "away": {
+        "name": "Dizel"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "torpedo-nn-vs-lada-tl-17-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "KHL"
+      },
+      "home": {
+        "name": "Torpedo NN"
+      },
+      "away": {
+        "name": "Lada Tl"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "gomel-vs-mogilev-17-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Belarus. Extraleague"
+      },
+      "home": {
+        "name": "Gomel"
+      },
+      "away": {
+        "name": "Mogilev"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "neman-grodno-vs-shakhtyor-sl-17-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Belarus. Extraleague"
+      },
+      "home": {
+        "name": "Neman Grodno"
+      },
+      "away": {
+        "name": "Shakhtyor Sl"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "lokomotiv-orsha-vs-yunost-minsk-17-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Belarus. Extraleague"
+      },
+      "home": {
+        "name": "Lokomotiv Orsha"
+      },
+      "away": {
+        "name": "Yunost Minsk"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "severstal-vs-dynamo-msk-17-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "KHL"
+      },
+      "home": {
+        "name": "Severstal"
+      },
+      "away": {
+        "name": "Dynamo Msk"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "dinamo-mn-vs-amur-17-10",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "KHL"
+      },
+      "home": {
+        "name": "Dinamo Mn"
+      },
+      "away": {
+        "name": "Amur"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:10",
+      "startTime": "17:10",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "pyry-vs-keupa-17-30",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Finland. Mestis"
+      },
+      "home": {
+        "name": "Pyry"
+      },
+      "away": {
+        "name": "KeuPa"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:30",
+      "startTime": "17:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "k-vantaa-vs-hermes-17-30",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Finland. Mestis"
+      },
+      "home": {
+        "name": "K-Vantaa"
+      },
+      "away": {
+        "name": "Hermes"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:30",
+      "startTime": "17:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "berani-zlin-vs-dynamo-pardubice-b-17-30",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Czech Republic. 1. Liga"
+      },
+      "home": {
+        "name": "Berani Zlin"
+      },
+      "away": {
+        "name": "Dynamo Pardubice B"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:30",
+      "startTime": "17:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "hs-riga-vs-mogo-18-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Latvia. LHL"
+      },
+      "home": {
+        "name": "HS Riga"
+      },
+      "away": {
+        "name": "Mogo"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "skelleftea-vs-brynas-19-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Sweden. SHL"
+      },
+      "home": {
+        "name": "Skelleftea"
+      },
+      "away": {
+        "name": "Brynas"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "oerebro-vs-linkoeping-19-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Sweden. SHL"
+      },
+      "home": {
+        "name": "Oerebro"
+      },
+      "away": {
+        "name": "Linkoeping"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "rogle-vs-lulea-19-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Sweden. SHL"
+      },
+      "home": {
+        "name": "Rogle"
+      },
+      "away": {
+        "name": "Lulea"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "malmoe-vs-timra-19-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Sweden. SHL"
+      },
+      "home": {
+        "name": "Malmoe"
+      },
+      "away": {
+        "name": "Timra"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "djurgarden-vs-hv71-19-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Sweden. SHL"
+      },
+      "home": {
+        "name": "Djurgarden"
+      },
+      "away": {
+        "name": "HV71"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "farjestad-vs-leksand-19-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Sweden. SHL"
+      },
+      "home": {
+        "name": "Farjestad"
+      },
+      "away": {
+        "name": "Leksand"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "frolunda-vs-vaxjoe-19-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Sweden. SHL"
+      },
+      "home": {
+        "name": "Frolunda"
+      },
+      "away": {
+        "name": "Vaxjoe"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "zeller-eisbaren-vs-merano-19-30",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Alps Hockey League"
+      },
+      "home": {
+        "name": "Zeller Eisbaren"
+      },
+      "away": {
+        "name": "Merano"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:30",
+      "startTime": "19:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "sisak-vs-salzburg-ii-19-30",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Alps Hockey League"
+      },
+      "home": {
+        "name": "Sisak"
+      },
+      "away": {
+        "name": "Salzburg II"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:30",
+      "startTime": "19:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "grizzlys-wolfsburg-vs-augsburg-19-30",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Germany. DEL"
+      },
+      "home": {
+        "name": "Grizzlys Wolfsburg"
+      },
+      "away": {
+        "name": "Augsburg"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:30",
+      "startTime": "19:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "fischtown-pinguins-vs-iserlohn-roosters-19-30",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Germany. DEL"
+      },
+      "home": {
+        "name": "Fischtown Pinguins"
+      },
+      "away": {
+        "name": "Iserlohn Roosters"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:30",
+      "startTime": "19:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "geneva-vs-zug-19-45",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Switzerland. National League"
+      },
+      "home": {
+        "name": "Geneva"
+      },
+      "away": {
+        "name": "Zug"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:45",
+      "startTime": "19:45",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "ritten-sport-vs-kitzbuhel-20-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Alps Hockey League"
+      },
+      "home": {
+        "name": "Ritten Sport"
+      },
+      "away": {
+        "name": "Kitzbuhel"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "nice-vs-angers-20-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "France. Ligue Magnus"
+      },
+      "home": {
+        "name": "Nice"
+      },
+      "away": {
+        "name": "Angers"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "wipptal-broncos-vs-jesenice-20-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Alps Hockey League"
+      },
+      "home": {
+        "name": "Wipptal Broncos"
+      },
+      "away": {
+        "name": "Jesenice"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "brixen-vs-toblach-20-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Italy. IHL"
+      },
+      "home": {
+        "name": "Brixen"
+      },
+      "away": {
+        "name": "Toblach"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "fassa-falcons-vs-kaltern-20-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Italy. IHL"
+      },
+      "home": {
+        "name": "Fassa Falcons"
+      },
+      "away": {
+        "name": "Kaltern"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "grenoble-vs-rouen-20-15",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "France. Ligue Magnus"
+      },
+      "home": {
+        "name": "Grenoble"
+      },
+      "away": {
+        "name": "Rouen"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:15",
+      "startTime": "20:15",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "varese-vs-eppan-20-30",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Italy. IHL"
+      },
+      "home": {
+        "name": "Varese"
+      },
+      "away": {
+        "name": "Eppan"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "alleghe-vs-feltreghiaccio-20-30",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Italy. IHL"
+      },
+      "home": {
+        "name": "Alleghe"
+      },
+      "away": {
+        "name": "Feltreghiaccio"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "valdifiemme-vs-pergine-20-30",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Italy. IHL"
+      },
+      "home": {
+        "name": "Valdifiemme"
+      },
+      "away": {
+        "name": "Pergine"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "valpellice-vs-aosta-20-30",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "Italy. IHL"
+      },
+      "home": {
+        "name": "Valpellice"
+      },
+      "away": {
+        "name": "Aosta"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "philadelphia-vs-nashville-0-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "NHL"
+      },
+      "home": {
+        "name": "Philadelphia"
+      },
+      "away": {
+        "name": "Nashville"
+      },
+      "status": "upcoming",
+      "timeLabel": "0:00",
+      "startTime": "0:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "ottawa-vs-calgary-0-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "NHL"
+      },
+      "home": {
+        "name": "Ottawa"
+      },
+      "away": {
+        "name": "Calgary"
+      },
+      "status": "upcoming",
+      "timeLabel": "0:00",
+      "startTime": "0:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "tampa-bay-vs-dallas-0-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "NHL"
+      },
+      "home": {
+        "name": "Tampa Bay"
+      },
+      "away": {
+        "name": "Dallas"
+      },
+      "status": "upcoming",
+      "timeLabel": "0:00",
+      "startTime": "0:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "boston-vs-buffalo-0-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "NHL"
+      },
+      "home": {
+        "name": "Boston"
+      },
+      "away": {
+        "name": "Buffalo"
+      },
+      "status": "upcoming",
+      "timeLabel": "0:00",
+      "startTime": "0:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "carolina-vs-ny-islanders-0-30",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "NHL"
+      },
+      "home": {
+        "name": "Carolina"
+      },
+      "away": {
+        "name": "NY Islanders"
+      },
+      "status": "upcoming",
+      "timeLabel": "0:30",
+      "startTime": "0:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "saint-louis-vs-vancouver-1-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "NHL"
+      },
+      "home": {
+        "name": "Saint-Louis"
+      },
+      "away": {
+        "name": "Vancouver"
+      },
+      "status": "upcoming",
+      "timeLabel": "1:00",
+      "startTime": "1:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "winnipeg-vs-chicago-1-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "NHL"
+      },
+      "home": {
+        "name": "Winnipeg"
+      },
+      "away": {
+        "name": "Chicago"
+      },
+      "status": "upcoming",
+      "timeLabel": "1:00",
+      "startTime": "1:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "minnesota-vs-pittsburgh-1-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "NHL"
+      },
+      "home": {
+        "name": "Minnesota"
+      },
+      "away": {
+        "name": "Pittsburgh"
+      },
+      "status": "upcoming",
+      "timeLabel": "1:00",
+      "startTime": "1:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "edmonton-vs-rangers-2-00",
+      "sport": "Ice Hockey",
+      "league": {
+        "name": "NHL"
+      },
+      "home": {
+        "name": "Edmonton"
+      },
+      "away": {
+        "name": "Rangers"
+      },
+      "status": "upcoming",
+      "timeLabel": "2:00",
+      "startTime": "2:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "brisbane-bullets-vs-cairns-taipans-9-30",
+      "sport": "Basketball",
+      "league": {
+        "name": "Australia. NBL"
+      },
+      "home": {
+        "name": "Brisbane Bullets"
+      },
+      "away": {
+        "name": "Cairns Taipans"
+      },
+      "status": "upcoming",
+      "timeLabel": "9:30",
+      "startTime": "9:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "ulsan-mobis-phoebus-vs-suwon-sonicboom-11-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "South Korea. KBL"
+      },
+      "home": {
+        "name": "Ulsan Mobis Phoebus"
+      },
+      "away": {
+        "name": "Suwon Sonicboom"
+      },
+      "status": "upcoming",
+      "timeLabel": "11:00",
+      "startTime": "11:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "changwon-sakers-vs-new-taipei-kings-11-10",
+      "sport": "Basketball",
+      "league": {
+        "name": "EASL"
+      },
+      "home": {
+        "name": "Changwon Sakers"
+      },
+      "away": {
+        "name": "New Taipei Kings"
+      },
+      "status": "upcoming",
+      "timeLabel": "11:10",
+      "startTime": "11:10",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "barsy-atyrau-w-vs-kaspiy-w-11-45",
+      "sport": "Basketball",
+      "league": {
+        "name": "Kazakhstan. Women. Vysheyshaya Liga"
+      },
+      "home": {
+        "name": "Barsy Atyrau (W)"
+      },
+      "away": {
+        "name": "Kaspiy (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "11:45",
+      "startTime": "11:45",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "proteas-voulas-vs-koroivos-15-30",
+      "sport": "Basketball",
+      "league": {
+        "name": "Greece. A2 Ethniki"
+      },
+      "home": {
+        "name": "Proteas Voulas"
+      },
+      "away": {
+        "name": "Koroivos"
+      },
+      "status": "upcoming",
+      "timeLabel": "15:30",
+      "startTime": "15:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "barsy-atyrau-vs-almaty-legion-15-30",
+      "sport": "Basketball",
+      "league": {
+        "name": "Kazakhstan. National League"
+      },
+      "home": {
+        "name": "Barsy Atyrau"
+      },
+      "away": {
+        "name": "Almaty Legion"
+      },
+      "status": "upcoming",
+      "timeLabel": "15:30",
+      "startTime": "15:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "vikos-vs-lefkadas-16-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Greece. A2 Ethniki"
+      },
+      "home": {
+        "name": "Vikos"
+      },
+      "away": {
+        "name": "Lefkadas"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:00",
+      "startTime": "16:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "vytis-vs-dzukija-17-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Lithuania. NKL"
+      },
+      "home": {
+        "name": "Vytis"
+      },
+      "away": {
+        "name": "Dzukija"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "mersin-w-vs-reyer-venice-w-17-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Women. Euroleague"
+      },
+      "home": {
+        "name": "Mersin (W)"
+      },
+      "away": {
+        "name": "Reyer Venice (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "emlak-konut-w-vs-royals-saarlouis-w-17-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Women. Eurocup"
+      },
+      "home": {
+        "name": "Emlak Konut (W)"
+      },
+      "away": {
+        "name": "Royals Saarlouis (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "gargzdu-vs-jonava-17-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Lithuania. Cup"
+      },
+      "home": {
+        "name": "Gargzdu"
+      },
+      "away": {
+        "name": "Jonava"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "zalgiris-2-vs-vilniaus-stekas-17-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Lithuania. NKL"
+      },
+      "home": {
+        "name": "Zalgiris 2"
+      },
+      "away": {
+        "name": "Vilniaus Stekas"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "omega-tauras-vs-telsiai-17-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Lithuania. NKL"
+      },
+      "home": {
+        "name": "Omega-Tauras"
+      },
+      "away": {
+        "name": "Telsiai"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "mba-vs-samara-17-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "VTB United League"
+      },
+      "home": {
+        "name": "MBA"
+      },
+      "away": {
+        "name": "Samara"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "neptunas-akvaservis-vs-vilniaus-perlas-17-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Lithuania. NKL"
+      },
+      "home": {
+        "name": "Neptunas-Akvaservis"
+      },
+      "away": {
+        "name": "Vilniaus Perlas"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "beroe-w-vs-sleza-wroclaw-w-18-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Women. Eurocup"
+      },
+      "home": {
+        "name": "Beroe (W)"
+      },
+      "away": {
+        "name": "Sleza Wroclaw (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "kibirkstis-vilnius-w-vs-keltern-w-18-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Women. Eurocup"
+      },
+      "home": {
+        "name": "Kibirkstis Vilnius (W)"
+      },
+      "away": {
+        "name": "Keltern (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "sepsi-sic-w-vs-kangoeroes-mechelen-w-18-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Women. Eurocup"
+      },
+      "home": {
+        "name": "Sepsi SIC (W)"
+      },
+      "away": {
+        "name": "Kangoeroes Mechelen (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "umcs-lublin-w-vs-namur-capitale-w-18-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Women. Eurocup"
+      },
+      "home": {
+        "name": "UMCS Lublin (W)"
+      },
+      "away": {
+        "name": "Namur Capitale (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "palangos-kursiai-vs-vilkaviskio-perlas-18-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Lithuania. NKL"
+      },
+      "home": {
+        "name": "Palangos Kursiai"
+      },
+      "away": {
+        "name": "Vilkaviskio Perlas"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "jurbarkas-karys-vs-olimpas-18-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Lithuania. NKL"
+      },
+      "home": {
+        "name": "Jurbarkas-Karys"
+      },
+      "away": {
+        "name": "Olimpas"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "crvena-zvezda-w-vs-ttt-riga-w-18-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Women. Eurocup"
+      },
+      "home": {
+        "name": "Crvena Zvezda (W)"
+      },
+      "away": {
+        "name": "TTT Riga (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "besiktas-w-vs-gorzow-wielkopolski-w-18-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Women. Eurocup"
+      },
+      "home": {
+        "name": "Besiktas (W)"
+      },
+      "away": {
+        "name": "Gorzow Wielkopolski (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "peac-pecs-w-vs-elitzur-ramla-w-18-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Women. Eurocup"
+      },
+      "home": {
+        "name": "PEAC-Pecs (W)"
+      },
+      "away": {
+        "name": "Elitzur Ramla (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "kretinga-vs-mazeikiai-18-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Lithuania. NKL"
+      },
+      "home": {
+        "name": "Kretinga"
+      },
+      "away": {
+        "name": "Mazeikiai"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "olomoucko-vs-nymburk-18-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Czech Republic. NBL"
+      },
+      "home": {
+        "name": "Olomoucko"
+      },
+      "away": {
+        "name": "Nymburk"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "levski-vs-cherno-more-18-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Bulgaria. NBL"
+      },
+      "home": {
+        "name": "Levski"
+      },
+      "away": {
+        "name": "Cherno More"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "craiova-vs-galati-18-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Romania. Liga Nationala"
+      },
+      "home": {
+        "name": "Craiova"
+      },
+      "away": {
+        "name": "Galati"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "zalgiris-vs-asvel-19-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Euroleague"
+      },
+      "home": {
+        "name": "Zalgiris"
+      },
+      "away": {
+        "name": "ASVEL"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "ragusa-dubrovnk-w-vs-dinamo-sassari-w-19-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Women. Eurocup"
+      },
+      "home": {
+        "name": "Ragusa Dubrovník (W)"
+      },
+      "away": {
+        "name": "Dinamo Sassari (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "baeren-kleinbasel-vs-boncourt-19-30",
+      "sport": "Basketball",
+      "league": {
+        "name": "Switzerland. NLB"
+      },
+      "home": {
+        "name": "Baeren Kleinbasel"
+      },
+      "away": {
+        "name": "Boncourt"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:30",
+      "startTime": "19:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "studentski-centar-vs-krka-20-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Adriatic League"
+      },
+      "home": {
+        "name": "Studentski Centar"
+      },
+      "away": {
+        "name": "Krka"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "maccabi-t-a-vs-crvena-zvezda-20-05",
+      "sport": "Basketball",
+      "league": {
+        "name": "Euroleague"
+      },
+      "home": {
+        "name": "Maccabi T-A"
+      },
+      "away": {
+        "name": "Crvena Zvezda"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:05",
+      "startTime": "20:05",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "valencia-vs-dubai-20-30",
+      "sport": "Basketball",
+      "league": {
+        "name": "Euroleague"
+      },
+      "home": {
+        "name": "Valencia"
+      },
+      "away": {
+        "name": "Dubai"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "bayern-munich-vs-virtus-bologna-20-30",
+      "sport": "Basketball",
+      "league": {
+        "name": "Euroleague"
+      },
+      "home": {
+        "name": "Bayern Munich"
+      },
+      "away": {
+        "name": "Virtus Bologna"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "milan-vs-paris-20-30",
+      "sport": "Basketball",
+      "league": {
+        "name": "Euroleague"
+      },
+      "home": {
+        "name": "Milan"
+      },
+      "away": {
+        "name": "Paris"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "real-madrid-vs-fenerbahce-21-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Euroleague"
+      },
+      "home": {
+        "name": "Real Madrid"
+      },
+      "away": {
+        "name": "Fenerbahce"
+      },
+      "status": "upcoming",
+      "timeLabel": "21:00",
+      "startTime": "21:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "franca-vs-uniao-corinthians-23-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Brazil. NBB"
+      },
+      "home": {
+        "name": "Franca"
+      },
+      "away": {
+        "name": "Uniao Corinthians"
+      },
+      "status": "upcoming",
+      "timeLabel": "23:00",
+      "startTime": "23:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "bauru-vs-caxias-do-sul-23-30",
+      "sport": "Basketball",
+      "league": {
+        "name": "Brazil. NBB"
+      },
+      "home": {
+        "name": "Bauru"
+      },
+      "away": {
+        "name": "Caxias do Sul"
+      },
+      "status": "upcoming",
+      "timeLabel": "23:30",
+      "startTime": "23:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "rio-claro-vs-osasco-0-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Brazil. NBB"
+      },
+      "home": {
+        "name": "Rio Claro"
+      },
+      "away": {
+        "name": "Osasco"
+      },
+      "status": "upcoming",
+      "timeLabel": "0:00",
+      "startTime": "0:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "charlotte-vs-orlando-0-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "NBA"
+      },
+      "home": {
+        "name": "Charlotte"
+      },
+      "away": {
+        "name": "Orlando"
+      },
+      "status": "upcoming",
+      "timeLabel": "0:00",
+      "startTime": "0:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "brasilia-vs-paulistano-0-15",
+      "sport": "Basketball",
+      "league": {
+        "name": "Brazil. NBB"
+      },
+      "home": {
+        "name": "Brasilia"
+      },
+      "away": {
+        "name": "Paulistano"
+      },
+      "status": "upcoming",
+      "timeLabel": "0:15",
+      "startTime": "0:15",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "cimarrones-del-choco-vs-paisas-0-30",
+      "sport": "Basketball",
+      "league": {
+        "name": "Colombia. LBP"
+      },
+      "home": {
+        "name": "Cimarrones del Choco"
+      },
+      "away": {
+        "name": "Paisas"
+      },
+      "status": "upcoming",
+      "timeLabel": "0:30",
+      "startTime": "0:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "milwaukee-vs-golden-state-1-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "NBA"
+      },
+      "home": {
+        "name": "Milwaukee"
+      },
+      "away": {
+        "name": "Golden State"
+      },
+      "status": "upcoming",
+      "timeLabel": "1:00",
+      "startTime": "1:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "oklahoma-vs-washington-1-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "NBA"
+      },
+      "home": {
+        "name": "Oklahoma"
+      },
+      "away": {
+        "name": "Washington"
+      },
+      "status": "upcoming",
+      "timeLabel": "1:00",
+      "startTime": "1:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "san-antonio-vs-miami-1-30",
+      "sport": "Basketball",
+      "league": {
+        "name": "NBA"
+      },
+      "home": {
+        "name": "San Antonio"
+      },
+      "away": {
+        "name": "Miami"
+      },
+      "status": "upcoming",
+      "timeLabel": "1:30",
+      "startTime": "1:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "atenas-vs-obera-2-00",
+      "sport": "Basketball",
+      "league": {
+        "name": "Argentina. LNB"
+      },
+      "home": {
+        "name": "Atenas"
+      },
+      "away": {
+        "name": "Obera"
+      },
+      "status": "upcoming",
+      "timeLabel": "2:00",
+      "startTime": "2:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "san-lorenzo-vs-racing-de-chivilcoy-2-05",
+      "sport": "Basketball",
+      "league": {
+        "name": "Argentina. LNB"
+      },
+      "home": {
+        "name": "San Lorenzo"
+      },
+      "away": {
+        "name": "Racing de Chivilcoy"
+      },
+      "status": "upcoming",
+      "timeLabel": "2:05",
+      "startTime": "2:05",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "mariano-navone-vs-david-jorda-sanchis-1-20",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Lima 2"
+      },
+      "home": {
+        "name": "Mariano Navone"
+      },
+      "away": {
+        "name": "David Jorda Sanchis"
+      },
+      "status": "live",
+      "timeLabel": "1:20",
+      "startTime": "1:20",
+      "videoSrc": "https://dovkembed.pw/livetv/ex8897374",
+      "today": true
+    },
+    {
+      "id": "hopper-montes-vs-chandrasekar-stalder-1-50",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Charlottesville. Doubles"
+      },
+      "home": {
+        "name": "Hopper / Montes"
+      },
+      "away": {
+        "name": "Chandrasekar / Stalder"
+      },
+      "status": "live",
+      "timeLabel": "1:50",
+      "startTime": "1:50",
+      "videoSrc": "https://antenasport.org/channel/exY3VzdG9tU2FsdDg4ODA2NDM=",
+      "today": true
+    },
+    {
+      "id": "elias-ymer-vs-kokoro-isomura-3-05",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Seoul"
+      },
+      "home": {
+        "name": "Elias Ymer"
+      },
+      "away": {
+        "name": "Kokoro Isomura"
+      },
+      "status": "live",
+      "timeLabel": "3:05",
+      "startTime": "3:05",
+      "videoSrc": "https://dovkembed.pw/livetv/ex8893985",
+      "today": true
+    },
+    {
+      "id": "taro-daniel-vs-yi-zhou-3-10",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Seoul"
+      },
+      "home": {
+        "name": "Taro Daniel"
+      },
+      "away": {
+        "name": "Yi Zhou"
+      },
+      "status": "live",
+      "timeLabel": "3:10",
+      "startTime": "3:10",
+      "videoSrc": "https://dovkembed.pw/livetv/ex8894710",
+      "today": true
+    },
+    {
+      "id": "jurij-rodionov-vs-yuta-shimizu-4-40",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Seoul"
+      },
+      "home": {
+        "name": "Jurij Rodionov"
+      },
+      "away": {
+        "name": "Yuta Shimizu"
+      },
+      "status": "live",
+      "timeLabel": "4:40",
+      "startTime": "4:40",
+      "videoSrc": "https://dovkembed.pw/livetv/ex8894209",
+      "today": true
+    },
+    {
+      "id": "frederico-ferreira-silva-vs-yoshihito-nishioka-5-40",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Seoul"
+      },
+      "home": {
+        "name": "Frederico-Ferreira Silva"
+      },
+      "away": {
+        "name": "Yoshihito Nishioka"
+      },
+      "status": "live",
+      "timeLabel": "5:40",
+      "startTime": "5:40",
+      "videoSrc": "https://dovkembed.pw/livetv/ex8894682",
+      "today": true
+    },
+    {
+      "id": "alycia-parks-w-vs-kaja-juvan-w-6-05",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Jiujiang"
+      },
+      "home": {
+        "name": "Alycia Parks (W)"
+      },
+      "away": {
+        "name": "Kaja Juvan (W)"
+      },
+      "status": "live",
+      "timeLabel": "6:05",
+      "startTime": "6:05",
+      "videoSrc": "https://emb.apl382.me/\r\nplayer/live.php?id=239731&w=700&h=480",
+      "today": true
+    },
+    {
+      "id": "ayukawa-w-morisaki-w-vs-lumsden-w-haverlag-w-6-05",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Jiujiang. Doubles"
+      },
+      "home": {
+        "name": "Ayukawa (W) /  Morisaki (W)"
+      },
+      "away": {
+        "name": "Lumsden (W) /  Haverlag (W)"
+      },
+      "status": "live",
+      "timeLabel": "6:05",
+      "startTime": "6:05",
+      "videoSrc": "https://antenasport.org/channel/exY3VzdG9tU2FsdDg4OTkxNDg=",
+      "today": true
+    },
+    {
+      "id": "goldhoff-winegar-vs-hermans-bayldon-6-20",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Seoul. Doubles"
+      },
+      "home": {
+        "name": "Goldhoff / Winegar"
+      },
+      "away": {
+        "name": "Hermans / Bayldon"
+      },
+      "status": "live",
+      "timeLabel": "6:20",
+      "startTime": "6:20",
+      "videoSrc": "https://antenasport.org/channel/exY3VzdG9tU2FsdDg4OTk3NTE=",
+      "today": true
+    },
+    {
+      "id": "watanabe-uesugi-vs-rojer-lammons-6-55",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Seoul. Doubles"
+      },
+      "home": {
+        "name": "Watanabe / Uesugi"
+      },
+      "away": {
+        "name": "Rojer / Lammons"
+      },
+      "status": "upcoming",
+      "timeLabel": "6:55",
+      "startTime": "6:55",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "anna-kalinskaya-w-vs-shuai-zhang-w-7-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Hong Kong"
+      },
+      "home": {
+        "name": "Anna Kalinskaya (W)"
+      },
+      "away": {
+        "name": "Shuai Zhang (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "7:00",
+      "startTime": "7:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "webley-smith-w-ovcharenko-w-vs-mladenovic-w-piter-w-7-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Jiujiang. Doubles"
+      },
+      "home": {
+        "name": "Webley-Smith (W) /  Ovcharenko (W)"
+      },
+      "away": {
+        "name": "Mladenovic (W) /  Piter (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "7:00",
+      "startTime": "7:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "dominika-salkova-w-vs-anastasia-zakharova-w-7-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Jiujiang"
+      },
+      "home": {
+        "name": "Dominika Salkova (W)"
+      },
+      "away": {
+        "name": "Anastasia Zakharova (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "7:00",
+      "startTime": "7:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "romios-ho-vs-uchida-shimizu-7-50",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Seoul. Doubles"
+      },
+      "home": {
+        "name": "Romios / Ho"
+      },
+      "away": {
+        "name": "Uchida / Shimizu"
+      },
+      "status": "upcoming",
+      "timeLabel": "7:50",
+      "startTime": "7:50",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "en-shuo-w-shuo-w-vs-xiyu-w-you-w-8-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Hong Kong. Doubles"
+      },
+      "home": {
+        "name": "En-shuo (W) /  Shuo (W)"
+      },
+      "away": {
+        "name": "Xiyu (W) /  You (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "8:00",
+      "startTime": "8:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "kim-ann-w-vs-reynolds-watt-8-10",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Seoul. Doubles"
+      },
+      "home": {
+        "name": "Kim /  Ann (W)"
+      },
+      "away": {
+        "name": "Reynolds / Watt"
+      },
+      "status": "upcoming",
+      "timeLabel": "8:10",
+      "startTime": "8:10",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "anna-blinkova-w-vs-anna-bondar-w-8-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Jiujiang"
+      },
+      "home": {
+        "name": "Anna Blinkova (W)"
+      },
+      "away": {
+        "name": "Anna Bondar (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "8:30",
+      "startTime": "8:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "belinda-bencic-w-vs-wang-yafan-w-8-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Hong Kong"
+      },
+      "home": {
+        "name": "Belinda Bencic (W)"
+      },
+      "away": {
+        "name": "Wang Yafan (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "8:30",
+      "startTime": "8:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "inglis-w-gibson-w-vs-kobori-w-plipuech-w-9-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Hong Kong. Doubles"
+      },
+      "home": {
+        "name": "Inglis (W) /  Gibson (W)"
+      },
+      "away": {
+        "name": "Kobori (W) /  Plipuech (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "9:30",
+      "startTime": "9:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "arina-rodionova-w-vs-storm-hunter-w-9-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Chennai"
+      },
+      "home": {
+        "name": "Arina Rodionova (W)"
+      },
+      "away": {
+        "name": "Storm Hunter (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "9:30",
+      "startTime": "9:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "hartono-w-thombare-w-vs-kuwata-w-naklo-w-9-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Chennai. Doubles"
+      },
+      "home": {
+        "name": "Hartono (W) /  Thombare (W)"
+      },
+      "away": {
+        "name": "Kuwata (W) /  Naklo (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "9:30",
+      "startTime": "9:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "zhuoxuan-bai-w-vs-hanyu-guo-w-10-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Jiujiang"
+      },
+      "home": {
+        "name": "Zhuoxuan Bai (W)"
+      },
+      "away": {
+        "name": "Hanyu Guo (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "10:00",
+      "startTime": "10:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "janice-tjen-w-vs-linda-fruhvirtova-w-10-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Chennai"
+      },
+      "home": {
+        "name": "Janice Tjen (W)"
+      },
+      "away": {
+        "name": "Linda Fruhvirtova (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "10:30",
+      "startTime": "10:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "salisbury-skupski-vs-peers-tracy-11-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP. Paris. Doubles"
+      },
+      "home": {
+        "name": "Salisbury / Skupski"
+      },
+      "away": {
+        "name": "Peers / Tracy"
+      },
+      "status": "upcoming",
+      "timeLabel": "11:00",
+      "startTime": "11:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "lorenzo-giustino-vs-ioannis-xilas-11-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Monastir"
+      },
+      "home": {
+        "name": "Lorenzo Giustino"
+      },
+      "away": {
+        "name": "Ioannis Xilas"
+      },
+      "status": "upcoming",
+      "timeLabel": "11:00",
+      "startTime": "11:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "krawietz-puetz-vs-krajicek-mektic-11-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP. Paris. Doubles"
+      },
+      "home": {
+        "name": "Krawietz / Puetz"
+      },
+      "away": {
+        "name": "Krajicek / Mektic"
+      },
+      "status": "upcoming",
+      "timeLabel": "11:00",
+      "startTime": "11:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "pedro-vives-marcos-vs-dan-added-11-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Monastir"
+      },
+      "home": {
+        "name": "Pedro Vives Marcos"
+      },
+      "away": {
+        "name": "Dan Added"
+      },
+      "status": "upcoming",
+      "timeLabel": "11:00",
+      "startTime": "11:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "polina-iatcenko-w-vs-katarzyna-kawa-w-11-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Chennai"
+      },
+      "home": {
+        "name": "Polina Iatcenko (W)"
+      },
+      "away": {
+        "name": "Katarzyna Kawa (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "11:00",
+      "startTime": "11:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "cameron-norrie-vs-valentin-vacherot-11-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP. Paris"
+      },
+      "home": {
+        "name": "Cameron Norrie"
+      },
+      "away": {
+        "name": "Valentin Vacherot"
+      },
+      "status": "upcoming",
+      "timeLabel": "11:00",
+      "startTime": "11:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "alexandra-eala-w-vs-victoria-mboko-w-11-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Hong Kong"
+      },
+      "home": {
+        "name": "Alexandra Eala (W)"
+      },
+      "away": {
+        "name": "Victoria Mboko (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "11:30",
+      "startTime": "11:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "sahaja-yamalapalli-w-vs-donna-vekic-w-12-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Chennai"
+      },
+      "home": {
+        "name": "Sahaja Yamalapalli (W)"
+      },
+      "away": {
+        "name": "Donna Vekic (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:00",
+      "startTime": "12:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "paris-willis-vs-haase-frantzen-12-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Bratislava 2. Doubles"
+      },
+      "home": {
+        "name": "Paris / Willis"
+      },
+      "away": {
+        "name": "Haase / Frantzen"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:00",
+      "startTime": "12:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "arthur-gea-vs-jan-kumstat-12-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Monastir"
+      },
+      "home": {
+        "name": "Arthur Gea"
+      },
+      "away": {
+        "name": "Jan Kumstat"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:30",
+      "startTime": "12:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "miedler-cabral-vs-granollers-zeballos-12-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP. Paris. Doubles"
+      },
+      "home": {
+        "name": "Miedler / Cabral"
+      },
+      "away": {
+        "name": "Granollers / Zeballos"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:30",
+      "startTime": "12:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "joanna-garland-w-vs-mei-yamaguchi-w-12-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Chennai"
+      },
+      "home": {
+        "name": "Joanna Garland (W)"
+      },
+      "away": {
+        "name": "Mei Yamaguchi (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:30",
+      "startTime": "12:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "heliovaara-patten-vs-nys-roger-vasselin-12-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP. Paris. Doubles"
+      },
+      "home": {
+        "name": "Heliovaara / Patten"
+      },
+      "away": {
+        "name": "Nys / Roger-Vasselin"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:30",
+      "startTime": "12:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "mikrut-latinovic-vs-serdarusic-kalender-12-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Monastir. Doubles"
+      },
+      "home": {
+        "name": "Mikrut / Latinovic"
+      },
+      "away": {
+        "name": "Serdarusic / Kalender"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:30",
+      "startTime": "12:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "denolly-westphal-vs-jermar-pereira-12-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Monastir. Doubles"
+      },
+      "home": {
+        "name": "Denolly / Westphal"
+      },
+      "away": {
+        "name": "Jermar / Pereira"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:30",
+      "startTime": "12:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "lansere-w-nugroho-w-vs-sutjiadi-w-tjen-w-12-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Chennai. Doubles"
+      },
+      "home": {
+        "name": "Lansere (W) /  Nugroho (W)"
+      },
+      "away": {
+        "name": "Sutjiadi (W) /  Tjen (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:30",
+      "startTime": "12:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "felix-auger-aliassime-vs-daniel-altmaier-12-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP. Paris"
+      },
+      "home": {
+        "name": "Felix Auger-Aliassime"
+      },
+      "away": {
+        "name": "Daniel Altmaier"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:30",
+      "startTime": "12:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "tseng-chun-hsin-vs-eliot-spizzirri-13-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Bratislava 2"
+      },
+      "home": {
+        "name": "Tseng Chun-hsin"
+      },
+      "away": {
+        "name": "Eliot Spizzirri"
+      },
+      "status": "upcoming",
+      "timeLabel": "13:00",
+      "startTime": "13:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "himeno-sakatsume-w-vs-eudice-chong-w-13-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Hong Kong"
+      },
+      "home": {
+        "name": "Himeno Sakatsume (W)"
+      },
+      "away": {
+        "name": "Eudice Chong (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "13:00",
+      "startTime": "13:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "francesco-maestrelli-vs-david-pichler-13-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Bratislava 2"
+      },
+      "home": {
+        "name": "Francesco Maestrelli"
+      },
+      "away": {
+        "name": "David Pichler"
+      },
+      "status": "upcoming",
+      "timeLabel": "13:30",
+      "startTime": "13:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "pavlasek-bhambri-vs-glasspool-cash-14-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP. Paris. Doubles"
+      },
+      "home": {
+        "name": "Pavlasek / Bhambri"
+      },
+      "away": {
+        "name": "Glasspool / Cash"
+      },
+      "status": "upcoming",
+      "timeLabel": "14:00",
+      "startTime": "14:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "kimberly-birrell-w-vs-shrivalli-rashmikaa-bhamidipaty-w-14-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Chennai"
+      },
+      "home": {
+        "name": "Kimberly Birrell (W)"
+      },
+      "away": {
+        "name": "Shrivalli Rashmikaa Bhamidipaty (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "14:00",
+      "startTime": "14:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "timofeeva-w-iatcenko-w-vs-werner-w-yamalapalli-w-14-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Chennai. Doubles"
+      },
+      "home": {
+        "name": "Timofeeva (W) /  Iatcenko (W)"
+      },
+      "away": {
+        "name": "Werner (W) /  Yamalapalli (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "14:00",
+      "startTime": "14:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "ouakaa-genov-vs-duncan-mackinlay-14-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Monastir. Doubles"
+      },
+      "home": {
+        "name": "Ouakaa / Genov"
+      },
+      "away": {
+        "name": "Duncan / Mackinlay"
+      },
+      "status": "upcoming",
+      "timeLabel": "14:00",
+      "startTime": "14:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "mia-pohankova-w-vs-diane-parry-w-14-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Chennai"
+      },
+      "home": {
+        "name": "Mia Pohankova (W)"
+      },
+      "away": {
+        "name": "Diane Parry (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "14:00",
+      "startTime": "14:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "vives-marcos-hussey-vs-verbin-simakin-14-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Monastir. Doubles"
+      },
+      "home": {
+        "name": "Vives Marcos / Hussey"
+      },
+      "away": {
+        "name": "Verbin / Simakin"
+      },
+      "status": "upcoming",
+      "timeLabel": "14:00",
+      "startTime": "14:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "ben-shelton-vs-andrey-rublev-14-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP. Paris"
+      },
+      "home": {
+        "name": "Ben Shelton"
+      },
+      "away": {
+        "name": "Andrey Rublev"
+      },
+      "status": "upcoming",
+      "timeLabel": "14:30",
+      "startTime": "14:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "paul-vocel-vs-barrientos-withrow-15-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Bratislava 2. Doubles"
+      },
+      "home": {
+        "name": "Paul / Vocel"
+      },
+      "away": {
+        "name": "Barrientos / Withrow"
+      },
+      "status": "upcoming",
+      "timeLabel": "15:00",
+      "startTime": "15:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "titouan-droguet-vs-laslo-djere-15-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Bratislava 2"
+      },
+      "home": {
+        "name": "Titouan Droguet"
+      },
+      "away": {
+        "name": "Laslo Djere"
+      },
+      "status": "upcoming",
+      "timeLabel": "15:00",
+      "startTime": "15:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "zeynep-sonmez-w-vs-lanlana-tararudee-w-15-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Chennai"
+      },
+      "home": {
+        "name": "Zeynep Sonmez (W)"
+      },
+      "away": {
+        "name": "Lanlana Tararudee (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "15:30",
+      "startTime": "15:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "karen-khachanov-vs-alex-de-minaur-16-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP. Paris"
+      },
+      "home": {
+        "name": "Karen Khachanov"
+      },
+      "away": {
+        "name": "Alex De Minaur"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:00",
+      "startTime": "16:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "taylor-fritz-vs-alexandr-bublik-16-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP. Paris"
+      },
+      "home": {
+        "name": "Taylor Fritz"
+      },
+      "away": {
+        "name": "Alexandr Bublik"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:00",
+      "startTime": "16:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "johannus-monday-vs-cannon-kingsley-16-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Charlottesville"
+      },
+      "home": {
+        "name": "Johannus Monday"
+      },
+      "away": {
+        "name": "Cannon Kingsley"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:00",
+      "startTime": "16:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "rafael-jodar-vs-saba-purtseladze-16-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Charlottesville"
+      },
+      "home": {
+        "name": "Rafael Jodar"
+      },
+      "away": {
+        "name": "Saba Purtseladze"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:00",
+      "startTime": "16:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "verbeek-gille-vs-behar-vliegen-16-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Bratislava 2. Doubles"
+      },
+      "home": {
+        "name": "Verbeek / Gille"
+      },
+      "away": {
+        "name": "Behar / Vliegen"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:30",
+      "startTime": "16:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "raphael-collignon-vs-stanislas-wawrinka-17-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Bratislava 2"
+      },
+      "home": {
+        "name": "Raphael Collignon"
+      },
+      "away": {
+        "name": "Stanislas Wawrinka"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "rinky-hijikata-vs-mats-rosenkranz-17-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Charlottesville"
+      },
+      "home": {
+        "name": "Rinky Hijikata"
+      },
+      "away": {
+        "name": "Mats Rosenkranz"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:30",
+      "startTime": "17:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "lorenzo-sonego-vs-daniil-medvedev-17-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP. Paris"
+      },
+      "home": {
+        "name": "Lorenzo Sonego"
+      },
+      "away": {
+        "name": "Daniil Medvedev"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:30",
+      "startTime": "17:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "mitchell-krueger-vs-dhakshineswar-suresh-17-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Charlottesville"
+      },
+      "home": {
+        "name": "Mitchell Krueger"
+      },
+      "away": {
+        "name": "Dhakshineswar Suresh"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:30",
+      "startTime": "17:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "arias-ingildsen-vs-kestelboim-zormann-18-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Lima 2. Doubles"
+      },
+      "home": {
+        "name": "Arias / Ingildsen"
+      },
+      "away": {
+        "name": "Kestelboim / Zormann"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "alvaro-guillen-meza-vs-andres-andrade-18-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Lima 2"
+      },
+      "home": {
+        "name": "Alvaro-Guillen Meza"
+      },
+      "away": {
+        "name": "Andres Andrade"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "el-nino-praha-vs-havirov-18-00",
+      "sport": "Table Tennis",
+      "league": {
+        "name": "Czech Republic. Extraliga"
+      },
+      "home": {
+        "name": "El Nino Praha"
+      },
+      "away": {
+        "name": "Havirov"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "gorgodze-w-fossa-huergo-w-vs-zeballos-w-zolotareva-w-18-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Cali. Doubles"
+      },
+      "home": {
+        "name": "Gorgodze (W) /  Fossa Huergo (W)"
+      },
+      "away": {
+        "name": "Zeballos (W) /  Zolotareva (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "stevens-kirkov-vs-nouza-rikl-18-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Bratislava 2. Doubles"
+      },
+      "home": {
+        "name": "Stevens / Kirkov"
+      },
+      "away": {
+        "name": "Nouza / Rikl"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "jazmin-ortenzi-w-vs-julia-grabher-w-18-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Cali"
+      },
+      "home": {
+        "name": "Jazmin Ortenzi (W)"
+      },
+      "away": {
+        "name": "Julia Grabher (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "mark-lajal-vs-thiago-tirante-18-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Bratislava 2"
+      },
+      "home": {
+        "name": "Mark Lajal"
+      },
+      "away": {
+        "name": "Thiago Tirante"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:30",
+      "startTime": "18:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "francisco-cerundolo-vs-jannik-sinner-19-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP. Paris"
+      },
+      "home": {
+        "name": "Francisco Cerundolo"
+      },
+      "away": {
+        "name": "Jannik Sinner"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "boulais-kiger-vs-perez-vance-19-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Charlottesville. Doubles"
+      },
+      "home": {
+        "name": "Boulais / Kiger"
+      },
+      "away": {
+        "name": "Perez / Vance"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "harper-stevenson-vs-thayne-fuchs-19-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Charlottesville. Doubles"
+      },
+      "home": {
+        "name": "Harper / Stevenson"
+      },
+      "away": {
+        "name": "Thayne / Fuchs"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "sinja-kraus-w-vs-selena-janicijevic-w-19-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Cali"
+      },
+      "home": {
+        "name": "Sinja Kraus (W)"
+      },
+      "away": {
+        "name": "Selena Janicijevic (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:30",
+      "startTime": "19:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "roman-andres-burruchaga-vs-marco-cecchinato-19-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Lima 2"
+      },
+      "home": {
+        "name": "Roman-Andres Burruchaga"
+      },
+      "away": {
+        "name": "Marco Cecchinato"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:30",
+      "startTime": "19:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "kicker-cigarran-vs-martinez-gomez-19-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Lima 2. Doubles"
+      },
+      "home": {
+        "name": "Kicker / Cigarran"
+      },
+      "away": {
+        "name": "Martinez / Gomez"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:30",
+      "startTime": "19:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "panna-udvardy-w-vs-varvara-lepchenko-w-19-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Cali"
+      },
+      "home": {
+        "name": "Panna Udvardy (W)"
+      },
+      "away": {
+        "name": "Varvara Lepchenko (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:30",
+      "startTime": "19:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "alejandro-davidovich-fokina-vs-alexander-zverev-20-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP. Paris"
+      },
+      "home": {
+        "name": "Alejandro Davidovich Fokina"
+      },
+      "away": {
+        "name": "Alexander Zverev"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "whitehouse-broom-vs-ruehl-zahraj-20-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Charlottesville. Doubles"
+      },
+      "home": {
+        "name": "Whitehouse / Broom"
+      },
+      "away": {
+        "name": "Ruehl / Zahraj"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "clarke-hands-vs-chandrasekar-stalder-20-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Charlottesville. Doubles"
+      },
+      "home": {
+        "name": "Clarke / Hands"
+      },
+      "away": {
+        "name": "Chandrasekar / Stalder"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "collarini-dutra-da-silva-vs-andrade-meza-21-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Lima 2. Doubles"
+      },
+      "home": {
+        "name": "Collarini / Dutra da Silva"
+      },
+      "away": {
+        "name": "Andrade / Meza"
+      },
+      "status": "upcoming",
+      "timeLabel": "21:00",
+      "startTime": "21:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "sara-bejlek-w-vs-julia-riera-w-21-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Cali"
+      },
+      "home": {
+        "name": "Sara Bejlek (W)"
+      },
+      "away": {
+        "name": "Julia Riera (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "21:00",
+      "startTime": "21:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "smith-w-lee-w-vs-pigossi-w-candiotto-w-21-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Cali. Doubles"
+      },
+      "home": {
+        "name": "Smith (W) /  Lee (W)"
+      },
+      "away": {
+        "name": "Pigossi (W) /  Candiotto (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "21:00",
+      "startTime": "21:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "arklon-huertas-vs-carlos-maria-zarate-21-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Lima 2"
+      },
+      "home": {
+        "name": "Arklon Huertas"
+      },
+      "away": {
+        "name": "Carlos Maria Zarate"
+      },
+      "status": "upcoming",
+      "timeLabel": "21:00",
+      "startTime": "21:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "lepchenko-w-janicijevic-w-vs-strakhova-w-herrero-linana-w-22-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Cali. Doubles"
+      },
+      "home": {
+        "name": "Lepchenko (W) /  Janicijevic (W)"
+      },
+      "away": {
+        "name": "Strakhova (W) /  Herrero-Linana (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "22:30",
+      "startTime": "22:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "escobar-reyes-varela-vs-zeballos-rodriguez-22-30",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Lima 2. Doubles"
+      },
+      "home": {
+        "name": "Escobar / Reyes Varela"
+      },
+      "away": {
+        "name": "Zeballos / Rodriguez"
+      },
+      "status": "upcoming",
+      "timeLabel": "22:30",
+      "startTime": "22:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "gamiz-w-vedder-w-vs-lizarazo-w-perez-garca-w-0-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "WTA. Cali. Doubles"
+      },
+      "home": {
+        "name": "Gamiz (W) /  Vedder (W)"
+      },
+      "away": {
+        "name": "Lizarazo (W) /  Perez García (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "0:00",
+      "startTime": "0:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "ignacio-buse-vs-juan-bautista-torres-1-00",
+      "sport": "Tennis",
+      "league": {
+        "name": "ATP Challenger. Lima 2"
+      },
+      "home": {
+        "name": "Ignacio Buse"
+      },
+      "away": {
+        "name": "Juan Bautista Torres"
+      },
+      "status": "upcoming",
+      "timeLabel": "1:00",
+      "startTime": "1:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "yaquis-de-obregon-vs-caneros-mochis-3-10",
+      "sport": "Baseball",
+      "league": {
+        "name": "Mexico. LMP"
+      },
+      "home": {
+        "name": "Yaquis de Obregon"
+      },
+      "away": {
+        "name": "Caneros Mochis"
+      },
+      "status": "upcoming",
+      "timeLabel": "3:10",
+      "startTime": "3:10",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "aguilas-de-mexicali-vs-tucson-3-30",
+      "sport": "Baseball",
+      "league": {
+        "name": "Mexico. LMP"
+      },
+      "home": {
+        "name": "Aguilas de Mexicali"
+      },
+      "away": {
+        "name": "Tucson"
+      },
+      "status": "upcoming",
+      "timeLabel": "3:30",
+      "startTime": "3:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "hermosillo-vs-tomateros-3-30",
+      "sport": "Baseball",
+      "league": {
+        "name": "Mexico. LMP"
+      },
+      "home": {
+        "name": "Hermosillo"
+      },
+      "away": {
+        "name": "Tomateros"
+      },
+      "status": "upcoming",
+      "timeLabel": "3:30",
+      "startTime": "3:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "jaguares-de-nayarit-vs-algodoneros-3-30",
+      "sport": "Baseball",
+      "league": {
+        "name": "Mexico. LMP"
+      },
+      "home": {
+        "name": "Jaguares de Nayarit"
+      },
+      "away": {
+        "name": "Algodoneros"
+      },
+      "status": "upcoming",
+      "timeLabel": "3:30",
+      "startTime": "3:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "wellington-firebirds-vs-canterbury-kings-22-30",
+      "sport": "Cricket",
+      "league": {
+        "name": "New Zealand. The Ford Trophy"
+      },
+      "home": {
+        "name": "Wellington Firebirds"
+      },
+      "away": {
+        "name": "Canterbury Kings"
+      },
+      "status": "live",
+      "timeLabel": "22:30",
+      "startTime": "22:30",
+      "videoSrc": "https://dovkembed.pw/livetv/ex8806791",
+      "today": true
+    },
+    {
+      "id": "auckland-aces-vs-otago-volts-22-30",
+      "sport": "Cricket",
+      "league": {
+        "name": "New Zealand. The Ford Trophy"
+      },
+      "home": {
+        "name": "Auckland Aces"
+      },
+      "away": {
+        "name": "Otago Volts"
+      },
+      "status": "live",
+      "timeLabel": "22:30",
+      "startTime": "22:30",
+      "videoSrc": "https://dovkembed.pw/livetv/ex8806790",
+      "today": true
+    },
+    {
+      "id": "central-stags-vs-northern-brave-22-30",
+      "sport": "Cricket",
+      "league": {
+        "name": "New Zealand. The Ford Trophy"
+      },
+      "home": {
+        "name": "Central Stags"
+      },
+      "away": {
+        "name": "Northern Brave"
+      },
+      "status": "live",
+      "timeLabel": "22:30",
+      "startTime": "22:30",
+      "videoSrc": "https://dovkembed.pw/livetv/ex8806792",
+      "today": true
+    },
+    {
+      "id": "ho-chi-minh-vs-da-nang-8-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Vietnam. Premier League"
+      },
+      "home": {
+        "name": "Ho Chi Minh"
+      },
+      "away": {
+        "name": "Da Nang"
+      },
+      "status": "upcoming",
+      "timeLabel": "8:00",
+      "startTime": "8:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "quang-ninh-w-vs-binh-dien-long-an-w-10-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Vietnam. Women. Premier League"
+      },
+      "home": {
+        "name": "Quang Ninh (W)"
+      },
+      "away": {
+        "name": "Binh Dien Long An (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "10:00",
+      "startTime": "10:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "india-w-vs-australia-w-10-30",
+      "sport": "Cricket",
+      "league": {
+        "name": "Women. World Championship"
+      },
+      "home": {
+        "name": "India (W)"
+      },
+      "away": {
+        "name": "Australia (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "10:30",
+      "startTime": "10:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "bac-ninh-w-vs-hai-phong-w-12-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Vietnam. Women. Premier League"
+      },
+      "home": {
+        "name": "Bac Ninh (W)"
+      },
+      "away": {
+        "name": "Hai Phong (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "12:00",
+      "startTime": "12:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "argentina-u17-vs-usa-u17-13-00",
+      "sport": "Handball",
+      "league": {
+        "name": "Women. U-17 World Cup"
+      },
+      "home": {
+        "name": "Argentina U17"
+      },
+      "away": {
+        "name": "USA U17"
+      },
+      "status": "upcoming",
+      "timeLabel": "13:00",
+      "startTime": "13:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "vinlong-vs-kan-shat-ko-dong-14-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Vietnam. Premier League"
+      },
+      "home": {
+        "name": "Vinlong"
+      },
+      "away": {
+        "name": "Kan Shat Ko Dong"
+      },
+      "status": "upcoming",
+      "timeLabel": "14:00",
+      "startTime": "14:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "brazil-u17-vs-tunisia-u17-15-15",
+      "sport": "Handball",
+      "league": {
+        "name": "Women. U-17 World Cup"
+      },
+      "home": {
+        "name": "Brazil U17"
+      },
+      "away": {
+        "name": "Tunisia U17"
+      },
+      "status": "upcoming",
+      "timeLabel": "15:15",
+      "startTime": "15:15",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "cartagena-vs-zalgiris-k-16-00",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "Cartagena"
+      },
+      "away": {
+        "name": "Zalgiris K"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:00",
+      "startTime": "16:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "araz-vs-differdange-16-00",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "Araz"
+      },
+      "away": {
+        "name": "Differdange"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:00",
+      "startTime": "16:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "buba-mara-vs-minerva-16-00",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "Buba Mara"
+      },
+      "away": {
+        "name": "Minerva"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:00",
+      "startTime": "16:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "etoile-lavalloise-vs-semey-16-30",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "Etoile Lavalloise"
+      },
+      "away": {
+        "name": "Semey"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:30",
+      "startTime": "16:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "fk-riga-vs-benfica-16-30",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "FK Riga"
+      },
+      "away": {
+        "name": "Benfica"
+      },
+      "status": "upcoming",
+      "timeLabel": "16:30",
+      "startTime": "16:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "weilimdorf-vs-akaa-17-00",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "Weilimdorf"
+      },
+      "away": {
+        "name": "Akaa"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "kiev-vs-hit-kiev-17-00",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "Kiev"
+      },
+      "away": {
+        "name": "HIT Kiev"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "kairat-vs-sporting-17-00",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "Kairat"
+      },
+      "away": {
+        "name": "Sporting"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:00",
+      "startTime": "17:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "asterix-avo-w-vs-olympiacos-w-17-30",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Women. Champions League. Qualification"
+      },
+      "home": {
+        "name": "Asterix Avo (W)"
+      },
+      "away": {
+        "name": "Olympiacos (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:30",
+      "startTime": "17:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "sokol-mogilno-w-vs-uni-opole-w-17-30",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Poland. Women. MP"
+      },
+      "home": {
+        "name": "Sokol Mogilno (W)"
+      },
+      "away": {
+        "name": "UNI Opole (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:30",
+      "startTime": "17:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "kaunas-vdu-w-vs-oksil-w-17-30",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Women. Challenge Cup"
+      },
+      "home": {
+        "name": "Kaunas VDU (W)"
+      },
+      "away": {
+        "name": "Oksil (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:30",
+      "startTime": "17:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "germany-u17-vs-qatar-u17-17-45",
+      "sport": "Handball",
+      "league": {
+        "name": "Women. U-17 World Cup"
+      },
+      "home": {
+        "name": "Germany U17"
+      },
+      "away": {
+        "name": "Qatar U17"
+      },
+      "status": "upcoming",
+      "timeLabel": "17:45",
+      "startTime": "17:45",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "usti-nad-labem-vs-aero-odolena-voda-18-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Czech Republic. Extraliga"
+      },
+      "home": {
+        "name": "Usti nad Labem"
+      },
+      "away": {
+        "name": "Aero Odolena Voda"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "olympiacos-vs-napredak-odzak-18-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Champions League Qualifying"
+      },
+      "home": {
+        "name": "Olympiacos"
+      },
+      "away": {
+        "name": "Napredak Odzak"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "ach-volley-vs-orion-18-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Champions League Qualifying"
+      },
+      "home": {
+        "name": "ACH Volley"
+      },
+      "away": {
+        "name": "Orion"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "pribram-vs-karlovarsko-18-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Czech Republic. Extraliga"
+      },
+      "home": {
+        "name": "Pribram"
+      },
+      "away": {
+        "name": "Karlovarsko"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "fatum-nyiregyhaza-w-vs-lp-viesti-w-18-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Women. Challenge Cup"
+      },
+      "home": {
+        "name": "Fatum Nyiregyhaza (W)"
+      },
+      "away": {
+        "name": "LP Viesti (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "dukla-liberec-vs-zlin-18-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Czech Republic. Extraliga"
+      },
+      "home": {
+        "name": "Dukla Liberec"
+      },
+      "away": {
+        "name": "Zlin"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "beskydy-vs-kladno-18-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Czech Republic. Extraliga"
+      },
+      "home": {
+        "name": "Beskydy"
+      },
+      "away": {
+        "name": "Kladno"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "ceske-budejovice-vs-brno-18-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Czech Republic. Extraliga"
+      },
+      "home": {
+        "name": "Ceske Budejovice"
+      },
+      "away": {
+        "name": "Brno"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:00",
+      "startTime": "18:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "norway-vs-denmark-18-15",
+      "sport": "Handball",
+      "league": {
+        "name": "Golden League"
+      },
+      "home": {
+        "name": "Norway"
+      },
+      "away": {
+        "name": "Denmark"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:15",
+      "startTime": "18:15",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "lokomotiv-zagreb-w-vs-osijek-w-18-30",
+      "sport": "Handball",
+      "league": {
+        "name": "Croatia. Women. Super league"
+      },
+      "home": {
+        "name": "Lokomotiv Zagreb (W)"
+      },
+      "away": {
+        "name": "Osijek (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:30",
+      "startTime": "18:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "split-w-vs-rudar-labin-w-18-30",
+      "sport": "Handball",
+      "league": {
+        "name": "Croatia. Women. Super league"
+      },
+      "home": {
+        "name": "Split (W)"
+      },
+      "away": {
+        "name": "Rudar Labin (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "18:30",
+      "startTime": "18:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "lucenec-vs-vendsyssel-19-00",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "Lucenec"
+      },
+      "away": {
+        "name": "Vendsyssel"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "united-galati-vs-tigers-roermond-19-00",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "United Galati"
+      },
+      "away": {
+        "name": "Tigers Roermond"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "luxol-st-andrews-vs-loznica-19-00",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "Luxol St Andrews"
+      },
+      "away": {
+        "name": "Loznica"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "anderlecht-vs-piast-gliwice-19-00",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "Anderlecht"
+      },
+      "away": {
+        "name": "Piast Gliwice"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:00",
+      "startTime": "19:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "palma-vs-chrudim-19-30",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "Palma"
+      },
+      "away": {
+        "name": "Chrudim"
+      },
+      "status": "upcoming",
+      "timeLabel": "19:30",
+      "startTime": "19:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "perugia-w-vs-vero-volley-milan-w-20-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Italy. Women. Serie A"
+      },
+      "home": {
+        "name": "Perugia (W)"
+      },
+      "away": {
+        "name": "Vero Volley Milan (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "tours-vs-alterna-spvb-20-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "France. Ligue A"
+      },
+      "home": {
+        "name": "Tours"
+      },
+      "away": {
+        "name": "Alterna SPVB"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "siliko-vs-forza-20-00",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "Siliko"
+      },
+      "away": {
+        "name": "Forza"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "novo-vrieme-vs-prishtina-20-00",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "Novo Vrieme"
+      },
+      "away": {
+        "name": "Prishtina"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "guaguas-vs-mav-elore-20-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Champions League Qualifying"
+      },
+      "home": {
+        "name": "Guaguas"
+      },
+      "away": {
+        "name": "MAV-Elore"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "nis-vs-vojvodina-20-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Serbia. Superliga"
+      },
+      "home": {
+        "name": "Nis"
+      },
+      "away": {
+        "name": "Vojvodina"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:00",
+      "startTime": "20:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "spain-u17-vs-egypt-u17-20-15",
+      "sport": "Handball",
+      "league": {
+        "name": "Women. U-17 World Cup"
+      },
+      "home": {
+        "name": "Spain U17"
+      },
+      "away": {
+        "name": "Egypt U17"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:15",
+      "startTime": "20:15",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "verona-vs-power-volley-20-30",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Italy. Serie A"
+      },
+      "home": {
+        "name": "Verona"
+      },
+      "away": {
+        "name": "Power Volley"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "netherlands-vs-faroe-islands-20-30",
+      "sport": "Handball",
+      "league": {
+        "name": "Golden League"
+      },
+      "home": {
+        "name": "Netherlands"
+      },
+      "away": {
+        "name": "Faroe Islands"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "helvia-rechina-w-vs-marignano-w-20-30",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Italy. Women. Serie A"
+      },
+      "home": {
+        "name": "Helvia Rechina (W)"
+      },
+      "away": {
+        "name": "Marignano (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "catania-vs-aek-20-30",
+      "sport": "Futsal",
+      "league": {
+        "name": "Champions League"
+      },
+      "home": {
+        "name": "Catania"
+      },
+      "away": {
+        "name": "AEK"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "anioly-torun-vs-visla-bydgoszcz-20-30",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Poland. I Liga"
+      },
+      "home": {
+        "name": "Anioly Torun"
+      },
+      "away": {
+        "name": "Visla Bydgoszcz"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "perla-lublin-w-vs-gmina-kobierzyce-w-20-30",
+      "sport": "Handball",
+      "league": {
+        "name": "Poland. Women. Ekstraklasa"
+      },
+      "home": {
+        "name": "Perla Lublin (W)"
+      },
+      "away": {
+        "name": "Gmina Kobierzyce (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "20:30",
+      "startTime": "20:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "soyaux-vs-grenoble-21-00",
+      "sport": "Rugby Union",
+      "league": {
+        "name": "France. Pro D2"
+      },
+      "home": {
+        "name": "Soyaux"
+      },
+      "away": {
+        "name": "Grenoble"
+      },
+      "status": "upcoming",
+      "timeLabel": "21:00",
+      "startTime": "21:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "maringa-w-vs-tijuca-w-22-30",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Brazil. Women. Superliga"
+      },
+      "home": {
+        "name": "Maringa (W)"
+      },
+      "away": {
+        "name": "Tijuca (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "22:30",
+      "startTime": "22:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "mackenzie-w-vs-renasce-sorocaba-w-22-30",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Brazil. Women. Superliga"
+      },
+      "home": {
+        "name": "Mackenzie (W)"
+      },
+      "away": {
+        "name": "Renasce Sorocaba (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "22:30",
+      "startTime": "22:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "utsa-roadrunners-vs-tulane-green-wave-23-30",
+      "sport": "American Football",
+      "league": {
+        "name": "NCAA"
+      },
+      "home": {
+        "name": "UTSA Roadrunners"
+      },
+      "away": {
+        "name": "Tulane Green Wave"
+      },
+      "status": "upcoming",
+      "timeLabel": "23:30",
+      "startTime": "23:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "coastal-carolina-chanticleers-vs-marshall-thundering-herd-23-30",
+      "sport": "American Football",
+      "league": {
+        "name": "NCAA"
+      },
+      "home": {
+        "name": "Coastal Carolina Chanticleers"
+      },
+      "away": {
+        "name": "Marshall Thundering Herd"
+      },
+      "status": "upcoming",
+      "timeLabel": "23:30",
+      "startTime": "23:30",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "delaware-hornets-vs-norfolk-spartans-0-00",
+      "sport": "American Football",
+      "league": {
+        "name": "NCAA"
+      },
+      "home": {
+        "name": "Delaware Hornets"
+      },
+      "away": {
+        "name": "Norfolk Spartans"
+      },
+      "status": "upcoming",
+      "timeLabel": "0:00",
+      "startTime": "0:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "brasilia-volei-w-vs-osasco-w-1-00",
+      "sport": "Volleyball",
+      "league": {
+        "name": "Brazil. Women. Superliga"
+      },
+      "home": {
+        "name": "Brasilia Volei (W)"
+      },
+      "away": {
+        "name": "Osasco (W)"
+      },
+      "status": "upcoming",
+      "timeLabel": "1:00",
+      "startTime": "1:00",
+      "videoSrc": "",
+      "today": true
+    },
+    {
+      "id": "miami-dolphins-vs-baltimore-ravens-1-15",
+      "sport": "American Football",
+      "league": {
+        "name": "USA. NFL"
+      },
+      "home": {
+        "name": "Miami Dolphins"
+      },
+      "away": {
+        "name": "Baltimore Ravens"
+      },
+      "status": "upcoming",
+      "timeLabel": "1:15",
+      "startTime": "1:15",
+      "videoSrc": "",
+      "today": true
+    }
+  ]
