@@ -227,41 +227,61 @@ export async function POST(req: NextRequest) {
         });
         
         // Merge imported predictions with existing
+        // Process in batches to avoid Firestore document size limits (1MB max per document)
+        const BATCH_SIZE = 500;
         let dateImported = 0;
-        for (const prediction of predictions) {
-          const id = String(prediction.id || prediction.gameId || '');
-          if (!id) continue;
-          
-          const existingPred = existingMap.get(id);
-          if (existingPred) {
-            // Update existing, preserve approved flag
-            const idx = existingPredictions.findIndex((p: any) => String(p.id || p.gameId || '') === id);
-            if (idx >= 0) {
-              existingPredictions[idx] = {
-                ...prediction,
-                approved: existingPred.approved !== undefined ? existingPred.approved : false,
-                updatedAt: now,
-                createdAt: existingPred.createdAt || now,
-              };
-            }
-          } else {
-            // New prediction
-            existingPredictions.push({
-              ...prediction,
-              approved: false,
-              updatedAt: now,
-              createdAt: now,
-            });
-          }
-          dateImported++;
-        }
         
-        // Save to daily_predictions - only increment if write succeeds
-        await dateRef.set({
-          id: date,
-          predictions: existingPredictions,
-          updatedAt: now,
-        }, { merge: true });
+        // Process predictions in batches
+        for (let i = 0; i < predictions.length; i += BATCH_SIZE) {
+          const batch = predictions.slice(i, i + BATCH_SIZE);
+          
+          // Merge this batch
+          for (const prediction of batch) {
+            const id = String(prediction.id || prediction.gameId || '');
+            if (!id) continue;
+            
+            const existingPred = existingMap.get(id);
+            if (existingPred) {
+              // Update existing, preserve approved flag
+              const idx = existingPredictions.findIndex((p: any) => String(p.id || p.gameId || '') === id);
+              if (idx >= 0) {
+                existingPredictions[idx] = {
+                  ...prediction,
+                  approved: existingPred.approved !== undefined ? existingPred.approved : false,
+                  updatedAt: now,
+                  createdAt: existingPred.createdAt || now,
+                };
+              }
+            } else {
+              // New prediction
+              existingPredictions.push({
+                ...prediction,
+                approved: false,
+                updatedAt: now,
+                createdAt: now,
+              });
+            }
+            dateImported++;
+          }
+          
+          // Save incrementally after each batch to avoid document size issues
+          try {
+            await dateRef.set({
+              id: date,
+              predictions: existingPredictions,
+              updatedAt: now,
+            }, { merge: true });
+            
+            const batchNum = Math.floor(i / BATCH_SIZE) + 1;
+            const totalBatches = Math.ceil(predictions.length / BATCH_SIZE);
+            console.log(`  ✓ Saved batch ${batchNum}/${totalBatches} (${batch.length} predictions) for date ${date}`);
+          } catch (batchErr: any) {
+            const batchErrorMsg = `Error saving batch ${Math.floor(i / BATCH_SIZE) + 1} for date ${date}: ${batchErr?.message || String(batchErr)}`;
+            errors.push(batchErrorMsg);
+            console.error(batchErrorMsg, batchErr);
+            // Continue with next batch even if one fails
+          }
+        }
         
         totalImported += dateImported;
         console.log(`✓ Successfully imported ${dateImported} prediction(s) for date ${date}`);
