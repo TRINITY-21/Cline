@@ -10,7 +10,7 @@ Usage:
 import argparse
 import json
 import re
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Tuple
 
 import requests
@@ -26,8 +26,8 @@ def get_betistuta_url():
   Get betistuta URL with current date parameter in GMT+3.
   Format: https://www.betistuta.net/Futbol.aspx?D=M/D/YYYY
   """
-  # Get current UTC time
-  now = datetime.utcnow()
+  # Get current UTC time (timezone-aware)
+  now = datetime.now(timezone.utc)
   # Add 3 hours to get GMT+3
   gmt_plus_3 = now + timedelta(hours=3)
   # Format as M/D/YYYY (e.g., 11/1/2025) - remove leading zeros
@@ -105,15 +105,28 @@ def parse_betistuta(doc: BeautifulSoup) -> List[Dict[str, str]]:
   # Prefer the main grid by id when available
   target_table = None
   target_table = doc.select_one('table#ctl00_MainContentFull_MainContent_MainGrid')
+  
+  # Debug: Check if main table found
+  if target_table:
+    print('✓ Found table by ID: #ctl00_MainContentFull_MainContent_MainGrid')
+  else:
+    print('⚠️  Main table not found by ID, trying fallback methods...')
+  
   # Fallbacks: 1) header based
   if not target_table:
-    for tbl in doc.select('table'):
+    all_tables = doc.select('table')
+    print(f'   Searching through {len(all_tables)} table(s) for MSBS header...')
+    for tbl in all_tables:
       headers = [normalize(th.get_text(' ')) for th in tbl.select('th')]
+      if headers:
+        print(f'   Found table with headers: {headers[:5]}...')
       if any('msbs' in h.lower() for h in headers):
         target_table = tbl
+        print('✓ Found table by MSBS header')
         break
   # 2) content based
   if not target_table:
+    print('   Searching for MSBS in table cells...')
     msbs_node = doc.find(lambda tag: tag.name in ['th', 'td'] and 'msbs' in normalize(tag.get_text(' ')).lower())
     if msbs_node:
       # climb up to the owning table
@@ -122,7 +135,25 @@ def parse_betistuta(doc: BeautifulSoup) -> List[Dict[str, str]]:
         parent = parent.parent
       if parent and parent.name == 'table':
         target_table = parent
+        print('✓ Found table by MSBS content')
+  
   if not target_table:
+    print('✗ No table found with MSBS column')
+    print('   This could mean:')
+    print('   1. The page structure changed')
+    print('   2. No predictions available for this date')
+    print('   3. The URL format or date parameter is incorrect')
+    
+    # Try to find any table at all for debugging
+    all_tables = doc.select('table')
+    if all_tables:
+      print(f'   Found {len(all_tables)} table(s) on the page, but none contain MSBS')
+      # Show first table's structure
+      first_table = all_tables[0]
+      headers = [normalize(th.get_text(' ')) for th in first_table.select('th')]
+      if headers:
+        print(f'   First table headers: {headers}')
+    
     return []
 
   # Determine column indices
@@ -184,10 +215,41 @@ def main():
     print(f'📅 Fetching predictions for date (GMT+3): {url}')
     resp = requests.get(url, headers=HEADERS, timeout=30)
     resp.raise_for_status()
+    
+    # Debug: Check response content
+    if len(resp.text) < 1000:
+      print(f'⚠️  Warning: Response is very short ({len(resp.text)} chars), might be an error page')
+      print(f'   First 500 chars: {resp.text[:500]}')
+    
     doc = BeautifulSoup(resp.text, 'html.parser')
+    
+    # Debug: Check page title
+    title = doc.find('title')
+    if title:
+      print(f'📄 Page title: {title.get_text().strip()}')
+    
+    # Check if page contains any tables
+    all_tables = doc.select('table')
+    print(f'📊 Page contains {len(all_tables)} table(s)')
 
   bet_rows = parse_betistuta(doc)
   print(f'📊 Found {len(bet_rows)} prediction row(s) from betistuta.net')
+  
+  if len(bet_rows) == 0:
+    print('⚠️  No predictions found in the scraped HTML')
+    print('   This could mean:')
+    print('   1. No predictions available for this date')
+    print('   2. The HTML structure changed (table selectors need updating)')
+    print('   3. The page returned different content')
+    with open(args.out_path, 'w', encoding='utf-8') as f:
+      json.dump([], f, ensure_ascii=False, indent=2)
+    return
+  
+  # Show first few prediction rows for debugging
+  if len(bet_rows) > 0:
+    print(f'\n📋 Sample prediction rows (first 3):')
+    for i, row in enumerate(bet_rows[:3]):
+      print(f'   {i+1}. {row.get("home", "?")} vs {row.get("away", "?")} | MSBS: {row.get("msbs", "?")}')
   
   # Build normalized lookup for unified matches by team pair
   unified_map: Dict[str, Dict[str, Any]] = {}
@@ -197,7 +259,15 @@ def main():
     key = f"{h}|{a}"
     unified_map[key] = m
 
-  print(f'📊 Found {len(unified_map)} match(es) in unified_matches.json')
+  print(f'\n📊 Found {len(unified_map)} match(es) in unified_matches.json')
+  
+  # Show sample matches for debugging
+  if len(unified_map) > 0:
+    print(f'📋 Sample matches (first 3):')
+    for i, (key, match) in enumerate(list(unified_map.items())[:3]):
+      home_name = match.get('home', {}).get('name', '?')
+      away_name = match.get('away', {}).get('name', '?')
+      print(f'   {i+1}. {home_name} vs {away_name} (normalized: {key})')
 
   predictions: List[Dict[str, Any]] = []
   unmatched_count = 0
