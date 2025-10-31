@@ -323,11 +323,19 @@ export default function TodayMatches() {
                       <div className="p-3 space-y-2">
                         <div className="flex items-center justify-between">
                           <span className="text-[10px] text-white/50 uppercase tracking-wide">{game.league}</span>
-                          {isLive && (
-                            <span className="inline-flex items-center justify-center">
-                              <span className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-pulse" />
-                            </span>
-                          )}
+                          <div className="flex items-center gap-2">
+                            {/* Show timeLabel directly without GMT conversion */}
+                            {game.time && (
+                              <span className="text-[10px] text-white/60 font-mono">
+                                {game.time}
+                              </span>
+                            )}
+                            {isLive && (
+                              <span className="inline-flex items-center justify-center">
+                                <span className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-pulse" />
+                              </span>
+                            )}
+                          </div>
                         </div>
                         
                         <div className="flex items-center gap-4">

@@ -268,33 +268,41 @@ export default function MyPredictions() {
                     : 'border border-white/10 bg-white/5'
                 }`}
               >
-                <div className="p-3 space-y-2">
-                  <div className="text-[10px] text-white/50 uppercase tracking-wide">{game.league}</div>
+                <div className="p-2 space-y-1.5 relative">
+                  {/* Start time at top right - plain text */}
+                  {game.time && (
+                    <div className="absolute top-2 right-2">
+                      <span className="text-[10px] text-white/60 font-mono">
+                        {game.time}
+                      </span>
+                    </div>
+                  )}
+                  <div className="text-[9px] text-white/50 uppercase tracking-wide leading-tight">{game.league}</div>
 
                   {/* Match Info */}
-                  <div className="flex items-center gap-3">
-                    <div className="flex-1 flex flex-col items-center gap-1 min-w-0">
-                      <div className="duel-pedestal w-10 h-10 grid place-items-center overflow-hidden shrink-0">
-                        <TeamLogo logo={game.home.logo} name={game.home.name} size={36} />
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 flex flex-col items-center gap-0.5 min-w-0">
+                      <div className="duel-pedestal w-8 h-8 grid place-items-center overflow-hidden shrink-0">
+                        <TeamLogo logo={game.home.logo} name={game.home.name} size={28} />
                         <div className="duel-gloss" />
                       </div>
-                      <div className="font-semibold text-[11px] truncate max-w-[6rem] text-center" title={game.home.name}>{getDisplayName(game.home.name)}</div>
+                      <div className="font-semibold text-[10px] truncate max-w-[5rem] text-center leading-tight" title={game.home.name}>{getDisplayName(game.home.name)}</div>
                     </div>
 
-                    <span className="text-white/40 text-[10px] font-bold">VS</span>
+                    <span className="text-white/40 text-[9px] font-bold">VS</span>
 
-                    <div className="flex-1 flex flex-col items-center gap-1 min-w-0">
-                      <div className="duel-pedestal w-10 h-10 grid place-items-center overflow-hidden shrink-0">
-                        <TeamLogo logo={game.away.logo} name={game.away.name} size={36} />
+                    <div className="flex-1 flex flex-col items-center gap-0.5 min-w-0">
+                      <div className="duel-pedestal w-8 h-8 grid place-items-center overflow-hidden shrink-0">
+                        <TeamLogo logo={game.away.logo} name={game.away.name} size={28} />
                         <div className="duel-gloss" />
                       </div>
-                      <div className="font-semibold text-[11px] truncate max-w-[6rem] text-center" title={game.away.name}>{getDisplayName(game.away.name)}</div>
+                      <div className="font-semibold text-[10px] truncate max-w-[5rem] text-center leading-tight" title={game.away.name}>{getDisplayName(game.away.name)}</div>
                     </div>
                   </div>
 
                   {/* MSBS from Betistuta */}
-                  <div className="pt-1 border-t border-white/10">
-                    <div className="flex flex-col items-center gap-2">
+                  <div className="pt-0.5 border-t border-white/10">
+                    <div className="flex flex-col items-center gap-1">
                       <div className="flex items-center justify-center gap-2">
                         <span className="pill pill-active !text-[10px] !px-2 !py-0.5" title="Prediction">
                           {msbs ? `Pred: ${msbs}` : '(Pred—)'}

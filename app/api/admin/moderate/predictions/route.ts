@@ -12,11 +12,17 @@ function auth(req: NextRequest): boolean {
   return !!expected && token === expected;
 }
 
-function todayId(): string {
-  const d = new Date();
-  const yyyy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2, '0');
-  const dd = String(d.getDate()).padStart(2, '0');
+/**
+ * Get today's date in YYYY-MM-DD format using GMT+3 timezone
+ * This matches how predictions are stored in Firestore
+ */
+function getTodayDateIdGMT3(): string {
+  const now = new Date();
+  // Add 3 hours to get GMT+3 date
+  const gmtPlus3 = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+  const yyyy = gmtPlus3.getFullYear();
+  const mm = String(gmtPlus3.getMonth() + 1).padStart(2, '0');
+  const dd = String(gmtPlus3.getDate()).padStart(2, '0');
   return `${yyyy}-${mm}-${dd}`;
 }
 
@@ -79,8 +85,8 @@ async function getPredictionDate(prediction: any, admin: any): Promise<string> {
     } catch {}
   }
 
-  // Default to today
-  return todayId();
+  // Default to today (GMT+3)
+  return getTodayDateIdGMT3();
 }
 
 export async function GET(req: NextRequest) {
@@ -106,8 +112,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ total: 0, rows: [] });
   }
   
-  // If no date specified, get today's predictions
-  const today = todayId();
+  // If no date specified, get today's predictions using GMT+3 date
+  const today = getTodayDateIdGMT3();
   const todayDoc = await dailyCol.doc(today).get();
   
   if (todayDoc.exists) {

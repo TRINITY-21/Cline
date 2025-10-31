@@ -127,18 +127,28 @@ export async function POST(req: NextRequest) {
               }
             }
             
-            predictions[i] = {
-              ...pred,
-              result: result_score,
-              status: pred_status,
-              actualWinner: result_winner,
-              updatedAt: now_iso,
-              resultUpdatedAt: now_iso,
-            };
+            // Only update if status changed or result is new
+            const hadStatus = pred.status === 'won' || pred.status === 'failed';
+            const needsUpdate = !hadStatus || pred.result !== result_score;
             
-            dateUpdatedCount++;
-            totalUpdated++;
-            console.log(`✓ Updated (${dateId}): ${pred_home} vs ${pred_away} → ${result_score} (${pred_status})`);
+            if (needsUpdate) {
+              predictions[i] = {
+                ...pred,
+                result: result_score,
+                status: pred_status,
+                actualWinner: result_winner,
+                updatedAt: now_iso,
+                resultUpdatedAt: now_iso,
+              };
+              
+              dateUpdatedCount++;
+              totalUpdated++;
+              
+              const statusEmoji = pred_status === 'won' ? '✅' : pred_status === 'failed' ? '❌' : '⚠️';
+              console.log(`${statusEmoji} Updated (${dateId}): ${pred_home} vs ${pred_away} → ${result_score} (${pred_status || 'no status'})`);
+            } else {
+              console.log(`⏭️  Skipped (already updated): ${pred_home} vs ${pred_away}`);
+            }
             break;
           }
         }
@@ -156,10 +166,22 @@ export async function POST(req: NextRequest) {
       }
     }
     
+    // Calculate summary stats
+    const statsSummary = {
+      total_updated: totalUpdated,
+      updated_by_date: updated_by_date,
+      message: totalUpdated > 0 
+        ? `✅ Updated ${totalUpdated} prediction(s) with results. Stats will be recalculated when predictions are fetched.`
+        : 'ℹ️ No predictions were updated (either no matches found or already updated)'
+    };
+    
+    console.log(`📊 Summary: ${statsSummary.message}`);
+    
     return NextResponse.json({ 
       ok: true, 
       updated: totalUpdated,
-      updated_by_date: updated_by_date
+      updated_by_date: updated_by_date,
+      summary: statsSummary
     });
     
   } catch (err: any) {
