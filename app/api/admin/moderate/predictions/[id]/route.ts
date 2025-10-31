@@ -7,16 +7,27 @@ function auth(req: NextRequest): boolean {
   return !!expected && token === expected;
 }
 
-function todayId(): string {
-  const d = new Date();
-  const yyyy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2, '0');
-  const dd = String(d.getDate()).padStart(2, '0');
+/**
+ * Get today's date in YYYY-MM-DD format using GMT+3 timezone
+ * This matches the date format used when storing predictions
+ */
+function getTodayDateIdGMT3(): string {
+  const now = new Date();
+  // Add 3 hours to get GMT+3 date
+  const gmtPlus3 = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+  const yyyy = gmtPlus3.getFullYear();
+  const mm = String(gmtPlus3.getMonth() + 1).padStart(2, '0');
+  const dd = String(gmtPlus3.getDate()).padStart(2, '0');
   return `${yyyy}-${mm}-${dd}`;
 }
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> | { id: string } }) {
   if (!auth(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  
+  // Handle Next.js 15+ where params is a Promise
+  const resolvedParams = await (Promise.resolve(params));
+  const predictionId = resolvedParams.id;
+  
   const admin = initFirebaseAdmin();
   const dailyCol = admin.firestore().collection(
     process.env.DAILY_PREDICTIONS_COLLECTION || process.env.NEXT_PUBLIC_DAILY_PREDICTIONS_COLLECTION || 'daily_predictions'
@@ -28,87 +39,83 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   // Handle override.status for won/failed status
   const statusUpdate = override?.status !== undefined ? { status: override.status } : {};
   
-  // Try to find the prediction in today's document first
-  const today = todayId();
+  // Search for the prediction across multiple dates (last 14 days to be safe)
+  // Use GMT+3 date format to match how predictions are stored
   let found = false;
+  let foundDateId = '';
+  let foundPredictions: any[] = [];
   
   try {
-    const dateRef = dailyCol.doc(today);
-    const dateDoc = await dateRef.get();
-    
-    if (dateDoc.exists) {
-      const data = dateDoc.data();
-      const predictions = Array.isArray(data?.predictions) ? data.predictions : [];
+    // Search today and last 14 days using GMT+3 dates
+    for (let daysBack = 0; daysBack <= 14; daysBack++) {
+      const targetDate = new Date();
+      targetDate.setDate(targetDate.getDate() - daysBack);
+      // Convert to GMT+3
+      const gmtPlus3 = new Date(targetDate.getTime() + 3 * 60 * 60 * 1000);
+      const dateId = `${gmtPlus3.getFullYear()}-${String(gmtPlus3.getMonth() + 1).padStart(2, '0')}-${String(gmtPlus3.getDate()).padStart(2, '0')}`;
       
-      for (let i = 0; i < predictions.length; i++) {
-        const pred = predictions[i];
-        const predId = String(pred.id || pred.gameId || '');
-        if (predId === params.id) {
-          if (approved !== undefined) predictions[i].approved = !!approved;
-          if (override) {
-            Object.assign(predictions[i], override);
-          }
-          if (statusUpdate.status !== undefined) {
-            predictions[i].status = statusUpdate.status;
-          }
-          predictions[i].updatedAt = now;
-          found = true;
-          break;
-        }
-      }
+      const dateRef = dailyCol.doc(dateId);
+      const dateDoc = await dateRef.get();
       
-      if (found) {
-        await dateRef.set({
-          id: today,
-          predictions,
-          updatedAt: now,
-        }, { merge: true });
-        return NextResponse.json({ ok: true });
-      }
-    }
-    
-    // If not found in today, search recent dates (last 7 days)
-    if (!found) {
-      for (let daysBack = 1; daysBack <= 7; daysBack++) {
-        const date = new Date();
-        date.setDate(date.getDate() - daysBack);
-        const dateId = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+      if (dateDoc.exists) {
+        const data = dateDoc.data();
+        const predictions = Array.isArray(data?.predictions) ? data.predictions : [];
         
-        const dateRef = dailyCol.doc(dateId);
-        const dateDoc = await dateRef.get();
-        
-        if (dateDoc.exists) {
-          const data = dateDoc.data();
-          const predictions = Array.isArray(data?.predictions) ? data.predictions : [];
-          
-          for (let i = 0; i < predictions.length; i++) {
-            const pred = predictions[i];
-            const predId = String(pred.id || pred.gameId || '');
-            if (predId === params.id) {
-              if (approved !== undefined) predictions[i].approved = !!approved;
-              if (override) {
-                Object.assign(predictions[i], override);
-              }
-              if (statusUpdate.status !== undefined) {
-                predictions[i].status = statusUpdate.status;
-              }
-              predictions[i].updatedAt = now;
-              found = true;
-              
-              await dateRef.set({
-                id: dateId,
-                predictions,
-                updatedAt: now,
-              }, { merge: true });
-              
-              return NextResponse.json({ ok: true });
+        for (let i = 0; i < predictions.length; i++) {
+          const pred = predictions[i];
+          const predId = String(pred.id || pred.gameId || '');
+          if (predId === predictionId) {
+            // Found the prediction - only update approval and status fields
+            // Preserve all original scraped data (timeLabel, home, away, msbs, etc.)
+            const originalPred = { ...predictions[i] }; // Preserve all original fields
+            
+            // Only update specific fields, don't overwrite scraped data
+            if (approved !== undefined) {
+              originalPred.approved = !!approved;
             }
+            if (override) {
+              // Merge override fields but don't overwrite scraped data like timeLabel
+              Object.keys(override).forEach(key => {
+                // Only allow overriding status/result fields, not scraped data
+                if (['status', 'result', 'actualWinner', 'resultUpdatedAt'].includes(key)) {
+                  originalPred[key] = override[key];
+                }
+              });
+            }
+            if (statusUpdate.status !== undefined) {
+              originalPred.status = statusUpdate.status;
+            }
+            originalPred.updatedAt = now;
+            
+            // Replace the prediction in the array with the updated version
+            predictions[i] = originalPred;
+            
+            found = true;
+            foundDateId = dateId;
+            foundPredictions = predictions;
+            break;
           }
         }
+        
+        if (found) break;
       }
     }
     
+    // If found, save the updated predictions
+    if (found) {
+      const dateRef = dailyCol.doc(foundDateId);
+      await dateRef.set({
+        id: foundDateId,
+        predictions: foundPredictions,
+        updatedAt: now,
+      }, { merge: true });
+      
+      return NextResponse.json({ ok: true, date: foundDateId });
+    }
+    
+    // If not found after searching 14 days, return 404
     if (!found) {
+      console.warn(`Prediction not found: ${predictionId} (searched last 14 days)`);
       return NextResponse.json({ error: 'Prediction not found' }, { status: 404 });
     }
     
