@@ -22,9 +22,15 @@ jobs:
         run: |
           pip install requests beautifulsoup4
 
-      - name: Check if API URL is configured
+      - name: Install jq
         run: |
-          if [ -z "${{ secrets.API_BASE_URL }}" ]; then
+          sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Check if API URL is configured
+        env:
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+        run: |
+          if [ -z "$API_BASE_URL" ]; then
             echo "⚠️  API_BASE_URL secret is not set. Skipping cron job."
             echo "💡 Set up your deployment and add the API_BASE_URL secret to enable automatic updates."
             exit 0
@@ -49,8 +55,13 @@ jobs:
           API_BASE_URL: ${{ secrets.API_BASE_URL }}
           NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN: ${{ secrets.INTERNAL_UPDATE_TOKEN }}
         run: |
-          if [ -z "${{ secrets.API_BASE_URL }}" ]; then
+          if [ -z "$API_BASE_URL" ]; then
             echo "⚠️  API_BASE_URL secret is not set. Skipping API update."
+            exit 0
+          fi
+          
+          if [ -z "$NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN" ]; then
+            echo "⚠️  INTERNAL_UPDATE_TOKEN secret is not set. Skipping API update."
             exit 0
           fi
           
@@ -71,14 +82,15 @@ jobs:
           # Use jq to read from file directly to avoid "Argument list too long" error
           jq -n '{results: .}' < data/match_results.json > /tmp/request_body.json
           
-          RESPONSE=$(curl -sS -w "\nHTTP_STATUS:%{http_code}" -X POST "${{ env.API_BASE_URL }}/api/admin/predictions/update-results" \
-            -H "x-internal-token: ${{ env.NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN }}" \
+          # Use curl with better error handling
+          HTTP_STATUS=$(curl -sS -w "%{http_code}" -o /tmp/response_body.json -X POST "$API_BASE_URL/api/admin/predictions/update-results" \
+            -H "x-internal-token: $NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN" \
             -H "Content-Type: application/json" \
-            --data-binary "@/tmp/request_body.json")
+            --data-binary "@/tmp/request_body.json" || echo "000")
           
-          HTTP_STATUS=$(echo "$RESPONSE" | grep -oP 'HTTP_STATUS:\K\d+')
-          BODY=$(echo "$RESPONSE" | sed 's/HTTP_STATUS:[0-9]*$//')
+          BODY=$(cat /tmp/response_body.json 2>/dev/null || echo "")
           
+          echo "Response body:"
           echo "$BODY"
           echo "HTTP Status: $HTTP_STATUS"
           
