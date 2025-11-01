@@ -3,12 +3,12 @@ import { writeFileSync } from 'fs';
 
 // Import enrichment functions from fast-enrich-details.ts
 import {
-    extractHeadToHead,
-    extractLineups,
-    extractLogos,
-    extractMatchStats,
-    extractStandings,
-    extractTeamForm
+  extractHeadToHead,
+  extractLineups,
+  extractLogos,
+  extractMatchStats,
+  extractStandings,
+  extractTeamForm
 } from './fast-enrich-details';
 
 function todayId(): string {

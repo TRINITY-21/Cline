@@ -13,20 +13,36 @@ export function initFirebaseAdmin() {
       const raw = process.env.FIREBASE_SERVICE_ACCOUNT_JSON || process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_JSON;
       const filePath = process.env.FIREBASE_SERVICE_ACCOUNT_FILE || process.env.GOOGLE_APPLICATION_CREDENTIALS;
       if (raw) {
-        const parsed = JSON.parse(raw);
-        cred = admin.credential.cert(parsed);
+        try {
+          const parsed = JSON.parse(raw);
+          cred = admin.credential.cert(parsed);
+        } catch (parseError: any) {
+          console.error('❌ Failed to parse FIREBASE_SERVICE_ACCOUNT_JSON:', parseError?.message);
+          throw new Error(`Invalid FIREBASE_SERVICE_ACCOUNT_JSON: ${parseError?.message || 'JSON parse error'}`);
+        }
       } else if (filePath) {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const fs = require('fs');
-        const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-        cred = admin.credential.cert(data);
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
+          const fs = require('fs');
+          const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+          cred = admin.credential.cert(data);
+        } catch (fileError: any) {
+          console.error(`❌ Failed to read Firebase credentials from ${filePath}:`, fileError?.message);
+          throw new Error(`Cannot read Firebase credentials file: ${fileError?.message || 'File read error'}`);
+        }
       } else {
         cred = admin.credential.applicationDefault();
       }
-      admin.initializeApp({
-        credential: cred,
-        projectId: process.env.FIREBASE_PROJECT_ID || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-      });
+      
+      try {
+        admin.initializeApp({
+          credential: cred,
+          projectId: process.env.FIREBASE_PROJECT_ID || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+        });
+      } catch (initError: any) {
+        console.error('❌ Failed to initialize Firebase Admin app:', initError?.message);
+        throw new Error(`Firebase initialization failed: ${initError?.message || 'Unknown error'}`);
+      }
     }
     initialized = true;
   }
