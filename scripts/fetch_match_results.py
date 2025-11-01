@@ -155,10 +155,13 @@ def main():
   
   all_results: List[Dict[str, Any]] = []
   
-  # Check multiple days (yesterday, 2 days ago, 3 days ago) to catch all finished matches
-  for days_ago in range(1, args.max_days + 1):
+  # Check multiple days starting from today (0) up to max_days
+  # This fetches today, yesterday, 2 days ago, etc.
+  start_day = args.days  # Start from this many days ago (0 = today)
+  for days_ago in range(start_day, start_day + args.max_days):
     url = get_betistuta_results_url(days_ago)
-    print(f'📅 Fetching results from {days_ago} day(s) ago: {url}')
+    day_label = "today" if days_ago == 0 else f"{days_ago} day(s) ago"
+    print(f'📅 Fetching results from {day_label}: {url}')
     
     try:
       resp = requests.get(url, headers=HEADERS, timeout=30)
