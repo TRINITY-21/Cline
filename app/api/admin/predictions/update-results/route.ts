@@ -51,11 +51,10 @@ export async function POST(req: NextRequest) {
     let totalUpdated = 0;
     const now_iso = new Date().toISOString();
     
-    // Check last 7 days for predictions
+    // Check last 7 days for predictions using server's local date
     for (let daysBack = 0; daysBack < 7; daysBack++) {
       const targetDate = new Date(now.getTime() - daysBack * 24 * 60 * 60 * 1000);
-      const gmtPlus3 = new Date(targetDate.getTime() + 3 * 60 * 60 * 1000);
-      const dateId = `${gmtPlus3.getFullYear()}-${String(gmtPlus3.getMonth() + 1).padStart(2, '0')}-${String(gmtPlus3.getDate()).padStart(2, '0')}`;
+      const dateId = `${targetDate.getFullYear()}-${String(targetDate.getMonth() + 1).padStart(2, '0')}-${String(targetDate.getDate()).padStart(2, '0')}`;
       
       const dateRef = dailyCol.doc(dateId);
       const dateDoc = await dateRef.get();

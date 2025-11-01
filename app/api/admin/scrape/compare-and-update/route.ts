@@ -12,28 +12,23 @@ function auth(req: NextRequest): boolean {
 }
 
 /**
- * Get today's date in YYYY-MM-DD format using GMT+3 timezone
- * Used ONLY for Firestore document IDs when saving/updating
+ * Get today's date in YYYY-MM-DD format using server's local time
  */
-function getTodayDateIdGMT3(): string {
-  const now = new Date();
-  // Add 3 hours to get GMT+3 date
-  const gmtPlus3 = new Date(now.getTime() + 3 * 60 * 60 * 1000);
-  const yyyy = gmtPlus3.getFullYear();
-  const mm = String(gmtPlus3.getMonth() + 1).padStart(2, '0');
-  const dd = String(gmtPlus3.getDate()).padStart(2, '0');
+function todayId(): string {
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
   return `${yyyy}-${mm}-${dd}`;
 }
 
 /**
  * Determine which date document a match belongs to
- * For scraped matches, always use GMT+3 today's date to ensure new day matches go into today's document
+ * For scraped matches, use server's local today's date
  */
 function getMatchDate(match: UnifiedMatch): string {
-  // Always use GMT+3 today's date for scraped matches
-  // This ensures that when scraping on a new day in GMT+3,
-  // all newly scraped matches go into today's document, not yesterday's
-  return getTodayDateIdGMT3();
+  // Use server's local today's date for scraped matches
+  return todayId();
 }
 
 /**
@@ -138,9 +133,9 @@ export async function POST(req: NextRequest) {
     // Group matches by date for daily_matches updates
     const matchesByDate: Record<string, UnifiedMatch[]> = {};
 
-    // Get GMT+3 today's date - all scraped matches will go into today's document
-    const today = getTodayDateIdGMT3();
-    console.log(`📅 Using GMT+3 date: ${today} for all scraped matches`);
+    // Get server's local today's date - all scraped matches will go into today's document
+    const today = todayId();
+    console.log(`📅 Using server date: ${today} for all scraped matches`);
     
     // Group translated matches by date (all will go to today's date)
     for (const scrapedMatch of translatedMatches) {

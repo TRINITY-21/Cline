@@ -13,16 +13,13 @@ function auth(req: NextRequest): boolean {
 }
 
 /**
- * Get today's date in YYYY-MM-DD format using GMT+3 timezone
- * This matches how predictions are stored in Firestore
+ * Get today's date in YYYY-MM-DD format using server's local time
  */
-function getTodayDateIdGMT3(): string {
-  const now = new Date();
-  // Add 3 hours to get GMT+3 date
-  const gmtPlus3 = new Date(now.getTime() + 3 * 60 * 60 * 1000);
-  const yyyy = gmtPlus3.getFullYear();
-  const mm = String(gmtPlus3.getMonth() + 1).padStart(2, '0');
-  const dd = String(gmtPlus3.getDate()).padStart(2, '0');
+function todayId(): string {
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
   return `${yyyy}-${mm}-${dd}`;
 }
 
@@ -85,8 +82,8 @@ async function getPredictionDate(prediction: any, admin: any): Promise<string> {
     } catch {}
   }
 
-  // Default to today (GMT+3)
-  return getTodayDateIdGMT3();
+  // Default to today
+  return todayId();
 }
 
 export async function GET(req: NextRequest) {
@@ -112,8 +109,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ total: 0, rows: [] });
   }
   
-  // If no date specified, get today's predictions using GMT+3 date
-  const today = getTodayDateIdGMT3();
+  // If no date specified, get today's predictions
+  const today = todayId();
   const todayDoc = await dailyCol.doc(today).get();
   
   if (todayDoc.exists) {
@@ -197,13 +194,9 @@ export async function POST(req: NextRequest) {
     );
     console.log(`✓ Translation completed`);
     
-    // For scraping imports, always use GMT+3 date to create a new document
-    // This ensures scraped predictions go into today's document based on GMT+3 timezone
-    const currentDate = new Date();
-    // Add 3 hours to get GMT+3 date
-    const gmtPlus3 = new Date(currentDate.getTime() + 3 * 60 * 60 * 1000);
-    const todayDateId = `${gmtPlus3.getFullYear()}-${String(gmtPlus3.getMonth() + 1).padStart(2, '0')}-${String(gmtPlus3.getDate()).padStart(2, '0')}`;
-    console.log(`📅 Using GMT+3 date (${todayDateId}) for all scraped predictions`);
+    // For scraping imports, use server's local date
+    const todayDateId = todayId();
+    console.log(`📅 Using server date (${todayDateId}) for all scraped predictions`);
     
     const now = new Date().toISOString();
     
@@ -248,21 +241,21 @@ export async function POST(req: NextRequest) {
             
             const existingPred = existingMap.get(id);
             if (existingPred) {
-              // Update existing, preserve approved flag
+              // Update existing, auto-approve new scraped predictions
               const idx = existingPredictions.findIndex((p: any) => String(p.id || p.gameId || '') === id);
               if (idx >= 0) {
                 existingPredictions[idx] = {
                   ...prediction,
-                  approved: existingPred.approved !== undefined ? existingPred.approved : false,
+                  approved: true, // Auto-approve all scraped predictions
                   updatedAt: now,
                   createdAt: existingPred.createdAt || now,
                 };
               }
             } else {
-              // New prediction
+              // New prediction - auto-approve
               existingPredictions.push({
                 ...prediction,
-                approved: false,
+                approved: true, // Auto-approve all scraped predictions
                 updatedAt: now,
                 createdAt: now,
               });

@@ -5,17 +5,11 @@ import path from 'path';
 
 export const revalidate = 0;
 
-/**
- * Get today's date in YYYY-MM-DD format using GMT+3 timezone
- * This matches how predictions are stored in Firestore
- */
-function getTodayDateIdGMT3(): string {
-  const now = new Date();
-  // Add 3 hours to get GMT+3 date
-  const gmtPlus3 = new Date(now.getTime() + 3 * 60 * 60 * 1000);
-  const yyyy = gmtPlus3.getFullYear();
-  const mm = String(gmtPlus3.getMonth() + 1).padStart(2, '0');
-  const dd = String(gmtPlus3.getDate()).padStart(2, '0');
+function todayId(): string {
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
   return `${yyyy}-${mm}-${dd}`;
 }
 
@@ -28,8 +22,8 @@ export async function GET() {
         process.env.DAILY_PREDICTIONS_COLLECTION || process.env.NEXT_PUBLIC_DAILY_PREDICTIONS_COLLECTION || 'daily_predictions'
       );
       
-      // Get today's predictions using GMT+3 date (matches how they're stored)
-      const today = getTodayDateIdGMT3();
+      // Get today's predictions using server's local date
+      const today = todayId();
       const todayDoc = await dailyCol.doc(today).get();
       
       let allPredictions: any[] = [];
@@ -39,16 +33,14 @@ export async function GET() {
         allPredictions = Array.isArray(data?.predictions) ? data.predictions : [];
       }
       
-      // Also check yesterday and tomorrow (GMT+3) to catch predictions near day boundary
+      // Also check yesterday and tomorrow to catch predictions near day boundary
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
-      const gmtPlus3Yesterday = new Date(yesterday.getTime() + 3 * 60 * 60 * 1000);
-      const yesterdayId = `${gmtPlus3Yesterday.getFullYear()}-${String(gmtPlus3Yesterday.getMonth() + 1).padStart(2, '0')}-${String(gmtPlus3Yesterday.getDate()).padStart(2, '0')}`;
+      const yesterdayId = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
       
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
-      const gmtPlus3Tomorrow = new Date(tomorrow.getTime() + 3 * 60 * 60 * 1000);
-      const tomorrowId = `${gmtPlus3Tomorrow.getFullYear()}-${String(gmtPlus3Tomorrow.getMonth() + 1).padStart(2, '0')}-${String(gmtPlus3Tomorrow.getDate()).padStart(2, '0')}`;
+      const tomorrowId = `${tomorrow.getFullYear()}-${String(tomorrow.getMonth() + 1).padStart(2, '0')}-${String(tomorrow.getDate()).padStart(2, '0')}`;
       
       // Get predictions from adjacent days
       const [yesterdayDoc, tomorrowDoc] = await Promise.all([

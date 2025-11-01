@@ -7,17 +7,11 @@ function auth(req: NextRequest): boolean {
   return !!expected && token === expected;
 }
 
-/**
- * Get today's date in YYYY-MM-DD format using GMT+3 timezone
- * This matches the date format used when storing predictions
- */
-function getTodayDateIdGMT3(): string {
-  const now = new Date();
-  // Add 3 hours to get GMT+3 date
-  const gmtPlus3 = new Date(now.getTime() + 3 * 60 * 60 * 1000);
-  const yyyy = gmtPlus3.getFullYear();
-  const mm = String(gmtPlus3.getMonth() + 1).padStart(2, '0');
-  const dd = String(gmtPlus3.getDate()).padStart(2, '0');
+function todayId(): string {
+  const d = new Date();
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
   return `${yyyy}-${mm}-${dd}`;
 }
 
@@ -40,19 +34,16 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   const statusUpdate = override?.status !== undefined ? { status: override.status } : {};
   
   // Search for the prediction across multiple dates (last 14 days to be safe)
-  // Use GMT+3 date format to match how predictions are stored
   let found = false;
   let foundDateId = '';
   let foundPredictions: any[] = [];
   
   try {
-    // Search today and last 14 days using GMT+3 dates
+    // Search today and last 14 days using server's local date
     for (let daysBack = 0; daysBack <= 14; daysBack++) {
       const targetDate = new Date();
       targetDate.setDate(targetDate.getDate() - daysBack);
-      // Convert to GMT+3
-      const gmtPlus3 = new Date(targetDate.getTime() + 3 * 60 * 60 * 1000);
-      const dateId = `${gmtPlus3.getFullYear()}-${String(gmtPlus3.getMonth() + 1).padStart(2, '0')}-${String(gmtPlus3.getDate()).padStart(2, '0')}`;
+      const dateId = `${targetDate.getFullYear()}-${String(targetDate.getMonth() + 1).padStart(2, '0')}-${String(targetDate.getDate()).padStart(2, '0')}`;
       
       const dateRef = dailyCol.doc(dateId);
       const dateDoc = await dateRef.get();
@@ -126,8 +117,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
       console.warn(`Searched dates: ${Array.from({ length: 15 }, (_, i) => {
         const d = new Date();
         d.setDate(d.getDate() - i);
-        const gmtPlus3 = new Date(d.getTime() + 3 * 60 * 60 * 1000);
-        return `${gmtPlus3.getFullYear()}-${String(gmtPlus3.getMonth() + 1).padStart(2, '0')}-${String(gmtPlus3.getDate()).padStart(2, '0')}`;
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
       }).join(', ')}`);
       return NextResponse.json({ 
         error: 'Prediction not found',

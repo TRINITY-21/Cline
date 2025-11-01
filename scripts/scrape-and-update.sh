@@ -20,7 +20,7 @@ set +a
 
 : "${NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN:?NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN is required}"
 
-API_BASE="${API_BASE:-https://threetwo.vercel.app}"
+API_BASE="${API_BASE:-https://threetwo.netlify.app}"
 SCRAPED_OUTPUT="$ROOT_DIR/data/scraped_matches_$(date +%Y%m%d_%H%M%S).json"
 
 echo "🔍 Starting scrape and update process..."

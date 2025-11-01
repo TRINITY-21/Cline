@@ -10,7 +10,7 @@ Usage:
 import argparse
 import json
 import re
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional
 
 import requests
@@ -25,14 +25,14 @@ def get_betistuta_results_url(days_ago: int = 0) -> str:
   """
   Get betistuta URL for results (previous days).
   Format: https://www.betistuta.net/Futbol.aspx?D=M/D/YYYY
+  Date is calculated using server's local time.
   """
-  now_utc = datetime.now(timezone.utc)
-  # Subtract days_ago and add 3 hours for GMT+3
-  target_date = now_utc - timedelta(days=days_ago)
-  gmt_plus_3 = target_date + timedelta(hours=3)
-  month = str(gmt_plus_3.month)
-  day = str(gmt_plus_3.day)
-  year = str(gmt_plus_3.year)
+  now = datetime.now()
+  # Subtract days_ago using server's local time
+  target_date = now - timedelta(days=days_ago)
+  month = str(target_date.month)
+  day = str(target_date.day)
+  year = str(target_date.year)
   date_str = f'{month}/{day}/{year}'
   return f'https://www.betistuta.net/Futbol.aspx?D={date_str}'
 
