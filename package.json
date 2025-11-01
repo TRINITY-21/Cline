@@ -11,7 +11,10 @@
     "update:teams": "node scripts/update_teams_catalog.js",
     "verify:logos": "node scripts/verify_team_logos.js",
     "fix:logos": "node scripts/verify_team_logos.js --fix",
-    "scrape:highlights": "tsx scripts/scrape-dasfootball-highlights.ts"
+    "scrape:highlights": "tsx scripts/scrape-dasfootball-highlights.ts",
+    "sync:teams": "tsx scripts/sync-teams-from-enriched.ts",
+    "update:dasfootball-logos": "tsx scripts/update-teams-dasfootball-logos.ts",
+    "remove:local-logos": "tsx scripts/remove-local-logos.ts"
   },
   "dependencies": {
     "cheerio": "^1.1.2",

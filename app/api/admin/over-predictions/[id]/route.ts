@@ -307,65 +307,124 @@ export async function DELETE(
     const predictionId = resolvedParams.id;
     
     // Get path from request body
-    let weekId: string;
-    let dayOfWeek: string;
-    let dateId: string;
+    let weekId: string | null = null;
+    let dayOfWeek: string | null = null;
+    let dateId: string | null = null;
     
     try {
       const body = await req.json().catch(() => ({}));
       if (body._path && body._path.includes('/')) {
         const parts = body._path.split('/');
-        weekId = parts[0];
-        dayOfWeek = parts[1];
-        dateId = parts[2];
+        if (parts.length >= 3) {
+          weekId = parts[0];
+          dayOfWeek = parts[1];
+          dateId = parts[2];
+        }
       } else if (body.matchDate) {
         dateId = getDateId(body.matchDate);
         weekId = getWeekId(body.matchDate);
         dayOfWeek = getDayOfWeek(body.matchDate);
-      } else {
-        return NextResponse.json({ error: 'Path information required. Include _path or matchDate in request body.' }, { status: 400 });
       }
-    } catch {
-      return NextResponse.json({ error: 'Path information required. Include _path or matchDate in request body.' }, { status: 400 });
+    } catch (parseError: any) {
+      console.error('Error parsing request body:', parseError);
     }
     
-    // Get the date document
-    const weekDoc = admin.firestore().collection('over_predictions').doc(weekId);
-    const dayCol = weekDoc.collection(dayOfWeek);
-    const dateDoc = dayCol.doc(dateId);
-    const dateDocSnap = await dateDoc.get();
-    
-    if (!dateDocSnap.exists) {
-      return NextResponse.json({ error: 'Prediction date document not found' }, { status: 404 });
+    // If we don't have path info, search all predictions to find the one with matching ID
+    if (!weekId || !dayOfWeek || !dateId) {
+      console.log('Path info missing, searching all predictions for ID:', predictionId);
+      const overPredictionsCol = admin.firestore().collection('over_predictions');
+      const weeksSnapshot = await overPredictionsCol.get();
+      
+      let found = false;
+      for (const weekDoc of weeksSnapshot.docs) {
+        const currentWeekId = weekDoc.id;
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        
+        for (const day of daysOfWeek) {
+          const dayCol = weekDoc.ref.collection(day);
+          const datesSnapshot = await dayCol.get();
+          
+          for (const dateDoc of datesSnapshot.docs) {
+            const currentDateId = dateDoc.id;
+            const data = dateDoc.data();
+            const predictions = Array.isArray(data?.predictions) ? data.predictions : [];
+            
+            const predIndex = predictions.findIndex((p: any) => p.id === predictionId);
+            
+            if (predIndex >= 0) {
+              // Found it!
+              weekId = currentWeekId;
+              dayOfWeek = day;
+              dateId = currentDateId;
+              found = true;
+              
+              // Remove the prediction
+              predictions.splice(predIndex, 1);
+              
+              const now = new Date().toISOString();
+              await dateDoc.ref.set({
+                ...data,
+                predictions: predictions,
+                updatedAt: now,
+              }, { merge: true });
+              
+              return NextResponse.json({ 
+                ok: true, 
+                id: predictionId,
+                path: `${weekId}/${dayOfWeek}/${dateId}`,
+                message: 'Prediction deleted successfully' 
+              });
+            }
+          }
+          
+          if (found) break;
+        }
+        
+        if (found) break;
+      }
+      
+      if (!found) {
+        return NextResponse.json({ error: 'Prediction not found' }, { status: 404 });
+      }
+    } else {
+      // We have path info, use it directly
+      const weekDoc = admin.firestore().collection('over_predictions').doc(weekId);
+      const dayCol = weekDoc.collection(dayOfWeek);
+      const dateDoc = dayCol.doc(dateId);
+      const dateDocSnap = await dateDoc.get();
+      
+      if (!dateDocSnap.exists) {
+        return NextResponse.json({ error: 'Prediction date document not found' }, { status: 404 });
+      }
+      
+      const existingData = dateDocSnap.data() || {};
+      const predictions = Array.isArray(existingData?.predictions) ? [...existingData.predictions] : [];
+      
+      // Find and remove the prediction
+      const predIndex = predictions.findIndex((p: any) => p.id === predictionId);
+      
+      if (predIndex < 0) {
+        return NextResponse.json({ error: 'Prediction not found in specified location' }, { status: 404 });
+      }
+      
+      predictions.splice(predIndex, 1);
+      
+      const now = new Date().toISOString();
+      
+      // Update document with remaining predictions
+      await dateDoc.set({
+        ...existingData,
+        predictions: predictions,
+        updatedAt: now,
+      }, { merge: true });
+      
+      return NextResponse.json({ 
+        ok: true, 
+        id: predictionId,
+        path: `${weekId}/${dayOfWeek}/${dateId}`,
+        message: 'Prediction deleted successfully' 
+      });
     }
-    
-    const existingData = dateDocSnap.data() || {};
-    const predictions = Array.isArray(existingData?.predictions) ? [...existingData.predictions] : [];
-    
-    // Find and remove the prediction
-    const predIndex = predictions.findIndex((p: any) => p.id === predictionId);
-    
-    if (predIndex < 0) {
-      return NextResponse.json({ error: 'Prediction not found' }, { status: 404 });
-    }
-    
-    predictions.splice(predIndex, 1);
-    
-    const now = new Date().toISOString();
-    
-    // Update document with remaining predictions
-    await dateDoc.set({
-      ...existingData,
-      predictions: predictions,
-      updatedAt: now,
-    }, { merge: true });
-    
-    return NextResponse.json({ 
-      ok: true, 
-      id: predictionId,
-      path: `${weekId}/${dayOfWeek}/${dateId}`,
-      message: 'Prediction deleted successfully' 
-    });
     
   } catch (err: any) {
     console.error('Failed to delete over_prediction:', err);

@@ -86,9 +86,8 @@ export function isMatchTimePassed(timeLabel: string, bufferMinutes: number = 5):
  * - Returns 'live' if kickoff <= now < kickoff + windowMinutes
  * - Returns 'ended' if now >= kickoff + windowMinutes
  * 
- * Note: The timeLabel is assumed to be in GMT-1 format (HH:MM). Since matches are filtered
- * as "today" using isTodayFromGmtMinus1, we know this match is scheduled for today.
- * We convert GMT-1 time to the user's local timezone for accurate comparison.
+ * Note: The timeLabel is treated as local time (HH:MM) for today's matches.
+ * Since matches are already filtered as "today", we compare directly in local timezone.
  */
 export function statusFromLiveWindow(timeLabel: string, windowMinutes: number = 120): 'live' | 'upcoming' | 'ended' {
   const { time } = extractTimeLabel((timeLabel || '').trim());
@@ -101,29 +100,22 @@ export function statusFromLiveWindow(timeLabel: string, windowMinutes: number = 
   
   const now = new Date();
   
-  // Convert GMT-1 time to local time for comparison
-  // GMT-1 means UTC-1, so to get UTC time we add 1 hour
-  // Then JavaScript Date automatically converts UTC to local timezone
-  const utcYear = now.getUTCFullYear();
-  const utcMonth = now.getUTCMonth();
-  const utcDate = now.getUTCDate();
+  // Treat timeLabel as local time for today's date
+  // Since matches are filtered as "today", we compare directly in local timezone
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hh, mm, 0, 0);
+  const kickoffTime = today.getTime();
+  const nowTime = now.getTime();
   
-  // Create UTC date representing GMT-1 time: UTC = GMT-1 + 1 hour
-  // When we create a Date from UTC, it will be automatically converted to local timezone
-  const utcKickoffMs = Date.UTC(utcYear, utcMonth, utcDate, hh + 1, mm, 0, 0);
-  const localKickoff = new Date(utcKickoffMs);
-  
-  // Compare current local time with kickoff time (also in local timezone)
-  // First, check if now is before kickoff (match hasn't started)
-  if (now.getTime() < localKickoff.getTime()) {
+  // Compare: if now is before kickoff, it's upcoming
+  if (nowTime < kickoffTime) {
     return 'upcoming';
   }
   
   // Calculate end time (kickoff + window)
-  const end = new Date(localKickoff.getTime() + Math.max(0, windowMinutes) * 60 * 1000);
+  const endTime = kickoffTime + Math.max(0, windowMinutes) * 60 * 1000;
   
   // If now is before end time, match is live
-  if (now.getTime() < end.getTime()) {
+  if (nowTime < endTime) {
     return 'live';
   }
   

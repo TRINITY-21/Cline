@@ -60,22 +60,38 @@ function withAutoEndedStatus(rows: any[]): any[] {
     return (rows || []).map((m: any) => {
       const tl: string = (m?.timeLabel || '').trim();
       const status: string = m?.status || '';
-      // If status is already 'ended', keep it
-      if (!tl || status === 'ended') return m;
-      // Use the proper statusFromLiveWindow function that handles timezone conversion
-      const calculatedStatus = statusFromLiveWindow(tl, 120);
-      // Only override if the calculated status is different and more definitive
-      if (calculatedStatus === 'ended' && status !== 'ended') {
-        return { ...m, status: 'ended' };
+      
+      // If no timeLabel, return as-is
+      if (!tl) return m;
+      
+      // Use longer window (180 minutes) for live status calculation
+      // Only mark as 'ended' if it's been a very long time (6+ hours)
+      const calculatedStatusNormal = statusFromLiveWindow(tl, 180);
+      const calculatedStatusExtended = statusFromLiveWindow(tl, 360); // 6 hour window
+      
+      // If status is already 'ended', check if it should actually be live/upcoming
+      // This allows us to "fix" incorrectly marked ended matches
+      if (status === 'ended') {
+        // Only keep 'ended' if it's been 6+ hours, otherwise override to live
+        if (calculatedStatusExtended !== 'ended') {
+          // Match shouldn't be ended yet, override to calculated status
+          return { ...m, status: calculatedStatusNormal };
+        }
+        // Keep as ended if it's really been 6+ hours
+        return m;
       }
-      // If calculated status is 'live' or 'upcoming', preserve existing status unless it conflicts
-      if (calculatedStatus === 'live' && status !== 'ended') {
-        return { ...m, status: 'live' };
+      
+      // No explicit 'ended' status - use calculated status
+      let finalStatus = status;
+      if (calculatedStatusExtended === 'ended' && status !== 'ended') {
+        finalStatus = 'ended';
+      } else if (calculatedStatusNormal === 'live' && status !== 'ended') {
+        finalStatus = 'live';
+      } else if (calculatedStatusNormal === 'upcoming' && status !== 'ended' && status !== 'live') {
+        finalStatus = 'upcoming';
       }
-      if (calculatedStatus === 'upcoming' && status !== 'ended' && status !== 'live') {
-        return { ...m, status: 'upcoming' };
-      }
-      return m;
+      
+      return { ...m, status: finalStatus };
     });
   } catch {
     return rows;
