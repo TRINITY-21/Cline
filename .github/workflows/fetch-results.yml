@@ -3,7 +3,7 @@ name: Fetch Match Results
 on:
   schedule:
     # Runs every 30 minutes
-    - cron: '*/30 * * * *'
+    - cron: '* * * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI
 
 jobs:
