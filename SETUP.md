@@ -91,10 +91,6 @@ See [ADMIN_AUTH_SETUP.md](./ADMIN_AUTH_SETUP.md) for details.
 - Workflow: `.github/workflows/scrape-and-update.yml`
 - Scrapes match data and updates Firestore
 
-**Scrape Predictions** (daily at 1 AM UTC):
-- Workflow: `.github/workflows/scrape-predictions.yml`
-- Scrapes predictions from betistuta.net
-
 All cron jobs require:
 - `API_BASE_URL` secret
 - `INTERNAL_UPDATE_TOKEN` secret
@@ -104,7 +100,7 @@ All cron jobs require:
 ## Architecture
 
 - **Matches**: Stored in `daily_matches/YYYY-MM-DD` (date-based documents)
-- **Predictions**: Stored in `daily_predictions/YYYY-MM-DD` (date-based documents)
+- **Highlights**: Stored in `highlights/YYYY-MM-DD` (date-based documents)
 - **Scraping**: Automatic via GitHub Actions
 - **Updates**: Differential updates (only changed fields)
 

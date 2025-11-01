@@ -1,11 +1,11 @@
 "use client";
 
+import AdSense from '@/components/AdSense';
 import GameBrowser from '@/components/GameBrowser';
-import MyPredictions from '@/components/MyPredictions';
 import TodayMatches from '@/components/TodayMatches';
 import { useState } from 'react';
 
-type TabView = 'trending' | 'today' | 'predictions';
+type TabView = 'trending' | 'today';
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState<TabView>('trending');
@@ -34,18 +34,11 @@ export default function HomePage() {
             >
               Today&apos;s Matches
             </button>
-            <button
-              onClick={() => setActiveTab('predictions')}
-              className={activeTab === 'predictions' ? 'btn btn-primary' : 'btn btn-ghost'}
-            >
-              My Predictions
-            </button>
           </div>
         </div>
         <div className="mt-6">
           {activeTab === 'trending' && <GameBrowser />}
           {activeTab === 'today' && <TodayMatches />}
-          {activeTab === 'predictions' && <MyPredictions />}
         </div>
       </section>
 
@@ -213,6 +206,14 @@ export default function HomePage() {
               user-friendly interface, we aim to bring sports fans closer to the action. By taking simple precautions 
               like using secure browsers and VPNs when appropriate, you can enjoy sports safely and conveniently.
             </p>
+          </div>
+
+          {/* AdSense Ad Unit - Only shown on pages with substantial content */}
+          <div className="mt-8 pt-8 border-t border-white/10">
+            <AdSense 
+              adSlot="5438488539" 
+              className="flex justify-center"
+            />
           </div>
         </div>
       </section>

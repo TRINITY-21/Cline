@@ -55,6 +55,13 @@ export default function PlayerOverlay({
     }
   }, [src, currentSrc]);
 
+  const isVideoFile = useMemo(() => {
+    const base = currentSrc || src;
+    if (!base) return false;
+    return base.includes('.mp4') || base.includes('.webm') || base.includes('.m3u8') || 
+           base.includes('video/mp4') || base.includes('streamable.com');
+  }, [src, currentSrc]);
+
   if (!open) return null;
 
   return (
@@ -68,14 +75,26 @@ export default function PlayerOverlay({
             <button onClick={onClose} className="pill pill-muted">Close</button>
           </div>
           <div className="w-full aspect-video bg-black">
-            <iframe
-              title={title}
-              src={computedSrc}
-              allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-              allowFullScreen
-              referrerPolicy="no-referrer"
-              className="w-full h-full"
-            />
+            {isVideoFile ? (
+              <video
+                controls
+                autoPlay
+                className="w-full h-full"
+                src={computedSrc}
+                playsInline
+              >
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <iframe
+                title={title}
+                src={computedSrc}
+                allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                allowFullScreen
+                referrerPolicy="no-referrer"
+                className="w-full h-full"
+              />
+            )}
           </div>
         </div>
       </div>
