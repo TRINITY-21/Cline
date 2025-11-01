@@ -198,14 +198,14 @@
     "logo": "https://upload.wikimedia.org/wikipedia/en/3/3e/Fulham_FC_%28shield%29.svg"
   },
   {
-    "id": "ipswich",
+    "id": "ipswich-town",
     "sport": "Football",
     "name": "Ipswich Town",
     "aliases": [
       "ipswich",
       "ipswich town fc"
     ],
-    "logo": "/logos/football-ipswichtown.png"
+    "logo": "/logos/ipswich-town.svg"
   },
   {
     "id": "leicester",
@@ -5196,6 +5196,13 @@
     "sport": "Football",
     "name": "Cobresal",
     "logo": "/logos/cobresal.png",
+    "aliases": []
+  },
+  {
+    "id": "ipswich",
+    "sport": "Football",
+    "name": "Ipswich",
+    "logo": "/logos/ipswich.jpg",
     "aliases": []
   }
 ]

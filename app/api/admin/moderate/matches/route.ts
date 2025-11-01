@@ -1,5 +1,6 @@
 import { initFirebaseAdmin } from '@/lib/firebase';
 import { translateMatches } from '@/lib/translate';
+import { statusFromLiveWindow } from '@/lib/utils';
 import { promises as fs } from 'fs';
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
@@ -56,20 +57,23 @@ function isDateMatch(match: any, targetDate: Date): boolean {
 
 function withAutoEndedStatus(rows: any[]): any[] {
   try {
-    const now = new Date();
-    const nowMinutes = now.getHours() * 60 + now.getMinutes();
     return (rows || []).map((m: any) => {
       const tl: string = (m?.timeLabel || '').trim();
       const status: string = m?.status || '';
+      // If status is already 'ended', keep it
       if (!tl || status === 'ended') return m;
-      const match = tl.match(/^(\d{1,2}):(\d{2})$/);
-      if (!match) return m;
-      const hh = Math.min(23, Math.max(0, parseInt(match[1], 10)));
-      const mm = Math.min(59, Math.max(0, parseInt(match[2], 10)));
-      const kickoffMinutes = hh * 60 + mm;
-      const diffMinutes = nowMinutes - kickoffMinutes;
-      if (diffMinutes >= 120) {
+      // Use the proper statusFromLiveWindow function that handles timezone conversion
+      const calculatedStatus = statusFromLiveWindow(tl, 120);
+      // Only override if the calculated status is different and more definitive
+      if (calculatedStatus === 'ended' && status !== 'ended') {
         return { ...m, status: 'ended' };
+      }
+      // If calculated status is 'live' or 'upcoming', preserve existing status unless it conflicts
+      if (calculatedStatus === 'live' && status !== 'ended') {
+        return { ...m, status: 'live' };
+      }
+      if (calculatedStatus === 'upcoming' && status !== 'ended' && status !== 'live') {
+        return { ...m, status: 'upcoming' };
       }
       return m;
     });
