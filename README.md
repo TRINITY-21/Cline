@@ -10,11 +10,10 @@ Sports streaming platform with match management, predictions, and automated scra
 
 ## Key Features
 
-- **Automated Scraping**: Hourly match updates, daily predictions
-- **Date-based Storage**: Matches and predictions organized by date in Firestore
-- **Admin Dashboard**: Manage matches, predictions, and team logos
+- **Automated Scraping**: Hourly match updates
+- **Date-based Storage**: Matches organized by date in Firestore
+- **Admin Dashboard**: Manage matches and team logos
 - **Status Tracking**: Automatic match status updates (live/ended)
-- **Predictions**: Track prediction success/failure with visual indicators
 
 ## Scraper
 
@@ -38,43 +37,5 @@ The `videoSrc` field is stored directly in matches within the `daily_matches` co
 
 ## Predictions
 
-Predictions are scraped daily from betistuta.net and stored in the `daily_predictions` collection, organized by date (same structure as `daily_matches`).
-
-### Automated Scraping
-
-- **Daily Cron Job**: Runs once per day at 1:00 AM UTC via GitHub Actions
-- **Storage**: Predictions are automatically grouped by date in `daily_predictions/YYYY-MM-DD`
-- **Workflow**: `.github/workflows/scrape-predictions.yml`
-
-### Manual Scraping
-
-To scrape predictions manually:
-
-```bash
-python3 scripts/parse_betistuta.py --in data/unified_matches.json --out data/predictions.json
-```
-
-Then import via API (if server is running):
-
-```bash
-curl -X POST http://localhost:3000/api/admin/moderate/predictions \
-  -H "x-internal-token: YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  --data-binary "@data/predictions.json"
-```
-
-### Admin Management
-
-- View and manage predictions in `/sakin` → "Predictions" tab
-- Mark predictions as "Won" or "Failed" to track success
-- Status is displayed on the frontend with green (won) or red (failed) styling
-
-### Prediction Structure
-
-Each prediction includes:
-- `id`: Match ID (links to matches)
-- `msbs`: Predicted score (e.g., "3 - 1")
-- `msbsWinner`: Predicted winner team name
-- `status`: Can be `'won'`, `'failed'`, or `null` (pending) - set via admin dashboard
-- Stored by date in `daily_predictions/YYYY-MM-DD` documents 
+⚠️ **Predictions functionality has been disabled.** Automated prediction scraping workflows have been removed. 
 

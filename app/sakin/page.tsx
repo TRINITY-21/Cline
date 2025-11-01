@@ -186,11 +186,16 @@ function AdminPageContent() {
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [showTeamLogo, setShowTeamLogo] = useState(false);
   const [teamLogoData, setTeamLogoData] = useState({ name: '', sport: 'Football', file: null as File | null });
-  const [activeTab, setActiveTab] = useState<'store' | 'approved' | 'trending' | 'predictions'>('store');
+  const [activeTab, setActiveTab] = useState<'store' | 'approved' | 'trending' | 'predictions' | 'highlights' | 'approved-highlights'>('store');
   const [trendingRows, setTrendingRows] = useState<any[]>([]);
   const [predictions, setPredictions] = useState<any[]>([]);
   const [loadingPredictions, setLoadingPredictions] = useState(false);
   const [selectedPredictions, setSelectedPredictions] = useState<Record<string, boolean>>({});
+  const [highlights, setHighlights] = useState<any[]>([]);
+  const [loadingHighlights, setLoadingHighlights] = useState(false);
+  const [editHighlight, setEditHighlight] = useState<{ id: string; videoSrc: string; date: string } | null>(null);
+  const [previewHighlight, setPreviewHighlight] = useState<string | null>(null);
+  const [selectedHighlights, setSelectedHighlights] = useState<Record<string, boolean>>({});
   const [selectedDate, setSelectedDate] = useState<string>(() => {
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -260,18 +265,158 @@ function AdminPageContent() {
     }
   }
 
-  async function loadPredictions(date?: string) {
-    const targetDate = date || selectedDate;
+  async function loadHighlights(date?: string | null) {
+    setLoadingHighlights(true);
+    try {
+      let targetDate: string | null = null;
+      if (date === null || date === 'all') {
+        targetDate = null; // Load all
+      } else if (date) {
+        targetDate = date; // Use provided date
+      } else {
+        targetDate = selectedDate; // Use selectedDate (defaults to today)
+      }
+      
+      const url = targetDate 
+        ? `/api/admin/moderate/highlights?date=${encodeURIComponent(targetDate)}`
+        : '/api/admin/moderate/highlights';
+      
+      const res = await fetch(url, {
+        cache: 'no-store',
+        headers: { 'x-internal-token': token },
+      });
+      
+      if (!res.ok) {
+        throw new Error('Failed to load highlights');
+      }
+      
+      const data = await res.json();
+      const loadedHighlights = Array.isArray(data.rows) ? data.rows : [];
+      setHighlights(loadedHighlights);
+      addToast(`Loaded ${loadedHighlights.length} highlight(s)`, 'success');
+    } catch (err: any) {
+      console.error('Failed to load highlights:', err);
+      addToast(`Failed to load highlights: ${err.message}`, 'error');
+      setHighlights([]);
+    } finally {
+      setLoadingHighlights(false);
+    }
+  }
+
+  async function updateHighlightVideoSrc(highlightId: string, videoSrc: string, date: string) {
+    try {
+      const res = await fetch('/api/admin/moderate/highlights', {
+        method: 'PATCH',
+        headers: {
+          'content-type': 'application/json',
+          'x-internal-token': token,
+        },
+        body: JSON.stringify({ highlightId, videoSrc, date }),
+      });
+      
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+        throw new Error(errorData.error || errorData.message || 'Failed to update highlight');
+      }
+      
+      addToast('Video source updated successfully', 'success');
+      setEditHighlight(null);
+      await loadHighlights(selectedDate);
+    } catch (err: any) {
+      console.error('Failed to update highlight:', err);
+      addToast(`Failed to update highlight: ${err.message}`, 'error');
+    }
+  }
+
+  async function updateHighlightApproval(highlightIds: string[], approved: boolean, date?: string) {
+    setLoadingHighlights(true);
+    try {
+      // Group highlights by document date
+      const highlightsByDate: Record<string, string[]> = {};
+      
+      highlightIds.forEach(id => {
+        const highlight = highlights.find(h => h.id === id);
+        const docDate = highlight?._documentDate || date || selectedDate;
+        if (!highlightsByDate[docDate]) {
+          highlightsByDate[docDate] = [];
+        }
+        highlightsByDate[docDate].push(id);
+      });
+      
+      // Update each date document separately
+      const promises = Object.entries(highlightsByDate).map(([docDate, ids]) => {
+        return fetch('/api/admin/highlights/update-status', {
+          method: 'PATCH',
+          headers: {
+            'content-type': 'application/json',
+            'x-internal-token': token,
+          },
+          body: JSON.stringify({ highlightIds: ids, approved, date: docDate }),
+        });
+      });
+      
+      const results = await Promise.all(promises);
+      const failed = results.filter(r => !r.ok);
+      
+      if (failed.length > 0) {
+        const errorData = await failed[0].json().catch(() => ({ error: 'Unknown error' }));
+        throw new Error(errorData.error || errorData.message || 'Failed to update highlight approval');
+      }
+      
+      const action = approved ? 'approved' : 'unapproved';
+      addToast(`${highlightIds.length} highlight(s) ${action}`, 'success');
+      setSelectedHighlights({});
+      await loadHighlights(selectedDate);
+    } catch (err: any) {
+      console.error('Failed to update highlight approval:', err);
+      addToast(`Failed to update approval: ${err.message}`, 'error');
+    } finally {
+      setLoadingHighlights(false);
+    }
+  }
+
+  function toggleHighlightSelection(highlightId: string, checked: boolean) {
+    setSelectedHighlights(prev => ({ ...prev, [highlightId]: checked }));
+  }
+
+  function toggleAllHighlights(checked: boolean) {
+    const next: Record<string, boolean> = {};
+    if (checked) {
+      highlights.forEach(h => { next[h.id] = true; });
+    }
+    setSelectedHighlights(next);
+  }
+
+  async function loadPredictions(date?: string | null) {
     setLoadingPredictions(true);
     try {
-      const res = await fetch(`/api/admin/moderate/predictions?date=${encodeURIComponent(targetDate)}`, {
+      // If date is explicitly null or 'all', load all predictions
+      // Otherwise use the provided date or selectedDate
+      let targetDate: string | null = null;
+      if (date === null || date === 'all') {
+        targetDate = null; // Load all
+      } else if (date) {
+        targetDate = date; // Use provided date
+      } else {
+        targetDate = selectedDate; // Use selectedDate (defaults to today)
+      }
+      
+      const url = targetDate 
+        ? `/api/admin/over-predictions?date=${encodeURIComponent(targetDate)}`
+        : '/api/admin/over-predictions';
+      
+      const res = await fetch(url, {
         cache: 'no-store',
         headers: { 'x-internal-token': token },
       });
       const data = await res.json();
       const predictionsData = Array.isArray(data.rows) ? data.rows : [];
       setPredictions(predictionsData);
-      addToast(`Loaded ${predictionsData.length} prediction(s) for ${targetDate}`, 'success');
+      
+      const message = targetDate 
+        ? `Loaded ${predictionsData.length} prediction(s) for ${targetDate}`
+        : `Loaded ${predictionsData.length} prediction(s) from all dates`;
+      addToast(message, 'success');
     } catch (err) {
       console.error('Failed to load predictions:', err);
       addToast('Failed to load predictions', 'error');
@@ -288,6 +433,8 @@ function AdminPageContent() {
   function handleFetchForDate() {
     if (activeTab === 'predictions') {
       loadPredictions(selectedDate);
+    } else if (activeTab === 'highlights') {
+      loadHighlights(selectedDate);
     } else {
       loadStore(selectedDate);
     }
@@ -354,6 +501,106 @@ function AdminPageContent() {
     setSelectedPredictions(prev => ({ ...prev, [id]: checked ?? !prev[id] }));
   }
 
+  const [editPrediction, setEditPrediction] = useState<any | null>(null);
+  const [showPredictionForm, setShowPredictionForm] = useState(false);
+
+  async function savePrediction(predictionData: any) {
+    try {
+      // Check if this is an edit (has id) or new (no id)
+      const isEdit = editPrediction && editPrediction.id;
+      
+      // If editing, include the path information
+      if (isEdit && editPrediction._path) {
+        predictionData._path = editPrediction._path;
+      }
+      
+      const url = isEdit
+        ? `/api/admin/over-predictions/${encodeURIComponent(editPrediction.id)}`
+        : '/api/admin/over-predictions';
+      
+      const method = isEdit ? 'PATCH' : 'POST';
+      
+      const res = await fetch(url, {
+        method,
+        headers: {
+          'content-type': 'application/json',
+          'x-internal-token': token,
+        },
+        body: JSON.stringify(predictionData),
+      });
+      
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+        throw new Error(errorData.error || errorData.message || `Failed to ${isEdit ? 'update' : 'create'} prediction`);
+      }
+      
+      addToast(`Prediction ${isEdit ? 'updated' : 'created'} successfully`, 'success');
+      setEditPrediction(null);
+      setShowPredictionForm(false);
+      await loadPredictions();
+    } catch (err: any) {
+      console.error('Failed to save prediction:', err);
+      addToast(`Failed to save prediction: ${err.message}`, 'error');
+    }
+  }
+
+  async function deletePrediction(predictionId: string, predictionPath?: string) {
+    if (!confirm('Are you sure you want to delete this prediction?')) return;
+    
+    try {
+      // Use path if available, otherwise just use the ID
+      const urlId = predictionPath || predictionId;
+      
+      const res = await fetch(`/api/admin/over-predictions/${encodeURIComponent(urlId)}`, {
+        method: 'DELETE',
+        headers: {
+          'content-type': 'application/json',
+          'x-internal-token': token,
+        },
+        body: JSON.stringify({
+          _path: predictionPath,
+        }),
+      });
+      
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+        throw new Error(errorData.error || errorData.message || 'Failed to delete prediction');
+      }
+      
+      addToast('Prediction deleted successfully', 'success');
+      await loadPredictions();
+    } catch (err: any) {
+      console.error('Failed to delete prediction:', err);
+      addToast(`Failed to delete prediction: ${err.message}`, 'error');
+    }
+  }
+
+  function handleEditPrediction(pred: any) {
+    setEditPrediction(pred);
+    setShowPredictionForm(true);
+  }
+
+  function handleNewPrediction() {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const defaultDate = `${yyyy}-${mm}-${dd}`;
+    
+    setEditPrediction({
+      home: '',
+      away: '',
+      league: '',
+      timeLabel: '',
+      matchDate: defaultDate,
+      predictedScoreDisplay: '',
+      msbs: 'Over 1.5',
+      actualScore: '',
+      status: null,
+    });
+    setShowPredictionForm(true);
+  }
+
   function toggleAllPredictions(checked: boolean) {
     const next: Record<string, boolean> = {};
     if (checked) {
@@ -365,6 +612,8 @@ function AdminPageContent() {
   useEffect(() => {
     if (activeTab === 'predictions') {
       loadPredictions();
+    } else if (activeTab === 'highlights' || activeTab === 'approved-highlights') {
+      loadHighlights();
     } else {
       loadStore();
     }
@@ -386,22 +635,38 @@ function AdminPageContent() {
 
   const storeMatchIds = useMemo(() => new Set(storeMatches.map(m => m.id)), [storeMatches]);
   const approvedMatches = useMemo(() => storeMatches.filter(m => m.approved), [storeMatches]);
+  const unapprovedMatches = useMemo(() => {
+    const approvedIds = new Set(approvedMatches.map(m => m.id));
+    return storeMatches.filter(m => !approvedIds.has(m.id) && m.status !== 'ended');
+  }, [storeMatches, approvedMatches]);
+  const approvedHighlights = useMemo(() => highlights.filter(h => h.approved === true), [highlights]);
+  // In Store highlights: All highlights from Firestore for the selected date (regardless of approval)
+  const inStoreHighlights = useMemo(() => highlights, [highlights]);
   // Trending matches: Use directly from Firestore API (only matches with isTrending == true)
-  const trendingMatches = useMemo(() => trendingRows.filter((m: any) => m && m.id), [trendingRows]);
+  // Filter out ended matches - only show upcoming or live trending matches
+  const trendingMatches = useMemo(() => trendingRows.filter((m: any) => m && m.id && m.status !== 'ended'), [trendingRows]);
 
   const matchesByTab = useMemo(() => {
+    let matches: any[] = [];
     switch (activeTab) {
       case 'store':
-        return storeMatches;
+        // Show all store matches, but prioritize unapproved ones at the top
+        matches = [...unapprovedMatches, ...approvedMatches.filter(m => !unapprovedMatches.some(u => u.id === m.id))];
+        break;
       case 'approved':
-        return approvedMatches;
+        matches = approvedMatches;
+        break;
       case 'trending':
         // Only show matches that are explicitly marked as trending in Firestore
-        return trendingMatches;
+        matches = trendingMatches;
+        break;
       default:
-        return storeMatches;
+        matches = storeMatches;
     }
-  }, [activeTab, storeMatches, approvedMatches, trendingMatches]);
+    
+    // Filter out ended matches - only show upcoming or live matches for approval
+    return matches.filter(m => m.status !== 'ended');
+  }, [activeTab, storeMatches, approvedMatches, trendingMatches, unapprovedMatches]);
 
   const filtered = useMemo(() => {
     const needle = q.toLowerCase().trim();
@@ -550,10 +815,10 @@ function AdminPageContent() {
                 </div>
                 <button
                   onClick={handleFetchForDate}
-                  disabled={loading || loadingPredictions}
+                  disabled={loading || loadingPredictions || loadingHighlights}
                   className="pill pill-active disabled:opacity-50 whitespace-nowrap"
                 >
-                  {loading || loadingPredictions ? (
+                  {loading || loadingPredictions || loadingHighlights ? (
                     <>
                       <span className="inline-block animate-spin mr-2">⏳</span>
                       Loading...
@@ -569,6 +834,8 @@ function AdminPageContent() {
                       setSelectedDate(today);
                       if (activeTab === 'predictions') {
                         loadPredictions(today);
+                      } else if (activeTab === 'highlights') {
+                        loadHighlights(today);
                       } else {
                         loadStore(today);
                       }
@@ -612,20 +879,69 @@ function AdminPageContent() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="surface p-4">
-            <div className="text-sm text-white/60 mb-1">In Store</div>
-            <div className="text-2xl font-bold text-blue-400">{storeMatches.length}</div>
+            <div className="text-sm text-white/60 mb-1">In Store (Upcoming/Live)</div>
+            <div className="text-2xl font-bold text-blue-400">{storeMatches.filter(m => m.status !== 'ended').length}</div>
           </div>
           <div className="surface p-4">
-            <div className="text-sm text-white/60 mb-1">Approved</div>
-            <div className="text-2xl font-bold text-green-400">{approvedMatches.length}</div>
+            <div className="text-sm text-white/60 mb-1">Approved (On Web)</div>
+            <div className="text-2xl font-bold text-green-400">{approvedMatches.filter(m => m.status !== 'ended').length}</div>
+          </div>
+          <div className="surface p-4">
+            <div className="text-sm text-white/60 mb-1">Pending Approval</div>
+            <div className={`text-2xl font-bold ${unapprovedMatches.length > 0 ? 'text-orange-400' : 'text-white/40'}`}>
+              {unapprovedMatches.length}
+            </div>
           </div>
           <div className="surface p-4">
             <div className="text-sm text-white/60 mb-1">Trending</div>
-            <div className="text-2xl font-bold text-purple-400">{trendingMatches.length}</div>
+            <div className="text-2xl font-bold text-purple-400">{trendingMatches.filter((m: any) => m && m.id && m.status !== 'ended').length}</div>
           </div>
         </div>
+
+        {/* Pending Approval Banner - Show if there are unapproved matches */}
+        {unapprovedMatches.length > 0 && (
+          <div className="surface p-6 border-l-4 border-orange-400 bg-orange-400/5">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-orange-400 text-xl">⚠️</span>
+                  <h3 className="text-lg font-semibold text-white">
+                    {unapprovedMatches.length} Match{unapprovedMatches.length !== 1 ? 'es' : ''} Need Approval
+                  </h3>
+                </div>
+                <p className="text-sm text-white/70 mb-3">
+                  These matches are in the store but not yet approved. Approve them to make them visible on the website.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    onClick={() => {
+                      const unapprovedIds = unapprovedMatches.map(m => m.id);
+                      updateStatus(unapprovedIds, true);
+                    }}
+                    className="pill pill-active"
+                  >
+                    Approve All ({unapprovedMatches.length})
+                  </button>
+                  <button
+                    onClick={() => {
+                      setActiveTab('store');
+                      setQ(''); // Clear search to show all
+                      // Scroll to table
+                      setTimeout(() => {
+                        document.querySelector('.surface.overflow-hidden')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                      }, 100);
+                    }}
+                    className="pill pill-muted"
+                  >
+                    View in Store Tab
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Team Logo Upload */}
         {showTeamLogo && (
@@ -670,13 +986,18 @@ function AdminPageContent() {
         <div className="flex items-center gap-2 border-b border-white/10">
           <button
             onClick={() => setActiveTab('store')}
-            className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+            className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 relative ${
               activeTab === 'store'
                 ? 'border-blue-400 text-blue-400'
                 : 'border-transparent text-white/60 hover:text-white/80'
             }`}
           >
-            In Store ({storeMatches.length})
+            In Store ({storeMatches.filter(m => m.status !== 'ended').length})
+            {unapprovedMatches.length > 0 && (
+              <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-orange-400 text-xs font-bold text-white">
+                {unapprovedMatches.length}
+              </span>
+            )}
           </button>
           <button
             onClick={() => setActiveTab('approved')}
@@ -686,7 +1007,7 @@ function AdminPageContent() {
                 : 'border-transparent text-white/60 hover:text-white/80'
             }`}
           >
-            On Web ({approvedMatches.length})
+            On Web ({approvedMatches.filter(m => m.status !== 'ended').length})
           </button>
           <button
             onClick={() => setActiveTab('trending')}
@@ -708,10 +1029,30 @@ function AdminPageContent() {
           >
             Predictions ({predictions.length})
           </button>
+          <button
+            onClick={() => setActiveTab('highlights')}
+            className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+              activeTab === 'highlights'
+                ? 'border-yellow-400 text-yellow-400'
+                : 'border-transparent text-white/60 hover:text-white/80'
+            }`}
+          >
+            Highlights In Store ({inStoreHighlights.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('approved-highlights')}
+            className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+              activeTab === 'approved-highlights'
+                ? 'border-yellow-400 text-yellow-400'
+                : 'border-transparent text-white/60 hover:text-white/80'
+            }`}
+          >
+            Highlights On Web ({approvedHighlights.length})
+          </button>
       </div>
 
         {/* Search and Bulk Actions - Only show for matches tabs */}
-        {activeTab !== 'predictions' && (
+        {activeTab !== 'predictions' && activeTab !== 'highlights' && activeTab !== 'approved-highlights' && (
           <div className="flex flex-wrap items-center gap-4">
         <input
           value={q}
@@ -752,7 +1093,7 @@ function AdminPageContent() {
         )}
 
         {/* Matches Table - Only show for store, approved, and trending tabs */}
-        {activeTab !== 'predictions' && (
+        {activeTab !== 'predictions' && activeTab !== 'highlights' && activeTab !== 'approved-highlights' && (
           <div className="surface overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full">
@@ -852,12 +1193,15 @@ function AdminPageContent() {
                     const inStore = storeMatchIds.has(match.id);
                     const storeMatch = storeMatches.find(m => m.id === match.id);
                     const approved = storeMatch?.approved || false;
+                    const isUnapproved = inStore && !approved;
                     // Check if match is trending: either in trendingRows (from Firestore API) or has isTrending flag
                     const trending = trendingMatches.some((m: any) => m.id === match.id) || storeMatch?.isTrending === true || storeMatch?.trending === true;
                     return (
                       <tr
                         key={match.id}
-                        className="border-t border-white/10 hover:bg-white/5 transition-colors"
+                        className={`border-t border-white/10 hover:bg-white/5 transition-colors ${
+                          isUnapproved ? 'bg-orange-400/5 border-l-2 border-l-orange-400' : ''
+                        }`}
                       >
                         <td className="p-4">
                           <input
@@ -903,7 +1247,9 @@ function AdminPageContent() {
                           {approved ? (
                             <span className="pill pill-active !text-xs">Yes</span>
                           ) : (
-                            <span className="pill pill-muted !text-xs">No</span>
+                            <span className={`pill !text-xs ${isUnapproved ? 'pill-active bg-orange-400/20 border-orange-400/50 text-orange-300' : 'pill-muted'}`}>
+                              {isUnapproved ? '⚠️ Needs Approval' : 'No'}
+                            </span>
                           )}
                 </td>
                         <td className="p-4 text-center">
@@ -962,24 +1308,338 @@ function AdminPageContent() {
       </div>
         )}
 
+      {/* Highlights Tab Content */}
+      {(activeTab === 'highlights' || activeTab === 'approved-highlights') && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-semibold">
+                {activeTab === 'approved-highlights' ? 'On Web (Approved Highlights)' : 'In Store (All Highlights)'}
+              </h2>
+              <p className="text-sm text-white/60 mt-1">
+                {activeTab === 'approved-highlights' 
+                  ? 'Highlights that are currently visible on the website (approved matches)' 
+                  : 'All highlights stored in Firestore for the selected date (regardless of approval status)'}
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => loadHighlights('all')}
+                disabled={loadingHighlights}
+                className="pill pill-muted hover:pill-active disabled:opacity-50 whitespace-nowrap"
+              >
+                Show All Dates
+              </button>
+              <button
+                onClick={() => loadHighlights()}
+                disabled={loadingHighlights}
+                className="pill pill-active disabled:opacity-50"
+              >
+                {loadingHighlights ? 'Loading...' : 'Refresh'}
+              </button>
+            </div>
+          </div>
+
+          {/* Search Filter for Highlights */}
+          <div className="flex flex-wrap items-center gap-4">
+            <input
+              value={q}
+              onChange={e => setQ(e.target.value)}
+              placeholder="Search by team name, league, or match ID..."
+              className="flex-1 min-w-[300px] px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[rgb(255,212,0)]"
+            />
+            {Object.keys(selectedHighlights).filter(id => selectedHighlights[id]).length > 0 && (
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-white/70">
+                  {Object.keys(selectedHighlights).filter(id => selectedHighlights[id]).length} selected
+                </span>
+                <button
+                  onClick={() => {
+                    const selectedIds = Object.keys(selectedHighlights).filter(id => selectedHighlights[id]);
+                    updateHighlightApproval(selectedIds, true);
+                  }}
+                  className="pill pill-active text-xs"
+                >
+                  Approve Selected
+                </button>
+                <button
+                  onClick={() => {
+                    const selectedIds = Object.keys(selectedHighlights).filter(id => selectedHighlights[id]);
+                    updateHighlightApproval(selectedIds, false);
+                  }}
+                  className="pill pill-muted text-xs"
+                >
+                  Unapprove Selected
+                </button>
+              </div>
+            )}
+            {selectedDate !== todayId() && (
+              <button
+                onClick={() => {
+                  const today = todayId();
+                  setSelectedDate(today);
+                  loadHighlights(today);
+                }}
+                className="pill pill-muted hover:pill-active transition-all whitespace-nowrap"
+                title="Reset to today"
+              >
+                ← Today
+              </button>
+            )}
+          </div>
+
+          {loadingHighlights ? (
+            <div className="surface p-12 text-center">
+              <div className="text-white/60">Loading highlights...</div>
+            </div>
+          ) : highlights.length === 0 ? (
+            <div className="surface p-12 text-center">
+              <div className="w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold text-white/80 mb-2">
+                {activeTab === 'approved-highlights' ? 'No approved highlights' : 'No highlights in store'}
+              </h3>
+              <p className="text-sm text-white/50 max-w-md mx-auto">
+                {activeTab === 'approved-highlights'
+                  ? 'Approved highlights will appear here. These are the highlights currently visible on the website. Go to "In Store" tab to approve highlights.'
+                  : 'All highlights stored in Firestore for this date will appear here. Approve them to make them visible on the website.'}
+              </p>
+            </div>
+          ) : (activeTab === 'highlights' ? inStoreHighlights : approvedHighlights).filter((h: any) => {
+            if (!q.trim()) return true;
+            const needle = q.toLowerCase().trim();
+            const homeTeam = (h.homeTeam || '').toLowerCase();
+            const awayTeam = (h.awayTeam || '').toLowerCase();
+            const league = (h.league || h.category || '').toLowerCase();
+            const id = (h.id || '').toLowerCase();
+            return (
+              homeTeam.includes(needle) ||
+              awayTeam.includes(needle) ||
+              league.includes(needle) ||
+              id.includes(needle)
+            );
+          }).length === 0 ? (
+            <div className="surface p-12 text-center">
+              <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold text-white/80 mb-2">No highlights found</h3>
+              <p className="text-sm text-white/50 max-w-md mx-auto">
+                No highlights match your search query &quot;<span className="text-[rgb(255,212,0)]">{q}</span>&quot;. Try a different search term.
+              </p>
+              <button
+                onClick={() => setQ('')}
+                className="mt-4 pill pill-muted"
+              >
+                Clear Search
+              </button>
+            </div>
+          ) : (
+            <div className="surface overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="min-w-full">
+                  <thead className="bg-white/5 border-b border-white/10">
+                    <tr>
+                      <th className="text-left p-4 w-12">
+                        <input
+                          type="checkbox"
+                          checked={highlights.filter((h: any) => {
+                            if (!q.trim()) return true;
+                            const needle = q.toLowerCase().trim();
+                            const homeTeam = (h.homeTeam || '').toLowerCase();
+                            const awayTeam = (h.awayTeam || '').toLowerCase();
+                            const league = (h.league || h.category || '').toLowerCase();
+                            const id = (h.id || '').toLowerCase();
+                            return (
+                              homeTeam.includes(needle) ||
+                              awayTeam.includes(needle) ||
+                              league.includes(needle) ||
+                              id.includes(needle)
+                            );
+                          }).length > 0 && highlights.filter((h: any) => {
+                            if (!q.trim()) return true;
+                            const needle = q.toLowerCase().trim();
+                            const homeTeam = (h.homeTeam || '').toLowerCase();
+                            const awayTeam = (h.awayTeam || '').toLowerCase();
+                            const league = (h.league || h.category || '').toLowerCase();
+                            const id = (h.id || '').toLowerCase();
+                            return (
+                              homeTeam.includes(needle) ||
+                              awayTeam.includes(needle) ||
+                              league.includes(needle) ||
+                              id.includes(needle)
+                            );
+                          }).every(h => selectedHighlights[h.id])}
+                          onChange={e => toggleAllHighlights(e.currentTarget.checked)}
+                          className="rounded border-white/20"
+                        />
+                      </th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">Date</th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">Match</th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">League</th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">Video Source</th>
+                      <th className="text-center p-4 text-sm font-semibold text-white/80">Approved</th>
+                      <th className="text-center p-4 text-sm font-semibold text-white/80">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(activeTab === 'highlights' ? inStoreHighlights : approvedHighlights)
+                      .filter((h: any) => {
+                        // Filter by search query
+                        if (!q.trim()) return true;
+                        const needle = q.toLowerCase().trim();
+                        const homeTeam = (h.homeTeam || '').toLowerCase();
+                        const awayTeam = (h.awayTeam || '').toLowerCase();
+                        const league = (h.league || h.category || '').toLowerCase();
+                        const id = (h.id || '').toLowerCase();
+                        return (
+                          homeTeam.includes(needle) ||
+                          awayTeam.includes(needle) ||
+                          league.includes(needle) ||
+                          id.includes(needle)
+                        );
+                      })
+                      .map((highlight: any) => (
+                      <tr
+                        key={highlight.id}
+                        className="border-t border-white/10 hover:bg-white/5 transition-colors"
+                      >
+                        <td className="p-4">
+                          <input
+                            type="checkbox"
+                            checked={!!selectedHighlights[highlight.id]}
+                            onChange={e => toggleHighlightSelection(highlight.id, e.currentTarget.checked)}
+                            className="rounded border-white/20"
+                          />
+                        </td>
+                        <td className="p-4 text-sm text-white/70">
+                          {highlight.date || '—'}
+                        </td>
+                        <td className="p-4">
+                          <div className="font-semibold">
+                            {highlight.homeTeam || '—'} <span className="text-white/40 text-xs">vs</span>{' '}
+                            {highlight.awayTeam || '—'}
+                          </div>
+                          {highlight.score && (
+                            <div className="text-xs text-white/50 mt-1">{highlight.score}</div>
+                          )}
+                        </td>
+                        <td className="p-4 text-sm text-white/70">
+                          {highlight.league || highlight.category || '—'}
+                        </td>
+                        <td className="p-4">
+                          <div className="max-w-md">
+                            <div className="text-xs font-mono text-white/60 break-all">
+                              {highlight.videoSrc ? (
+                                highlight.videoSrc.substring(0, 60) + (highlight.videoSrc.length > 60 ? '...' : '')
+                              ) : (
+                                <span className="text-red-400">No video source</span>
+                              )}
+                            </div>
+                            {highlight.videoSrc && (
+                              <div className="mt-1">
+                                <span className={`pill !text-xs ${
+                                  highlight.videoSrc.toLowerCase().includes('cdn') 
+                                    ? 'pill-active' 
+                                    : 'pill-muted'
+                                }`}>
+                                  {highlight.videoSrc.toLowerCase().includes('cdn') ? 'CDN ✓' : 'Other'}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        </td>
+                        <td className="p-4 text-center">
+                          {highlight.approved === true ? (
+                            <span className="pill pill-active !text-xs">Yes</span>
+                          ) : (
+                            <span className="pill pill-muted !text-xs">No</span>
+                          )}
+                        </td>
+                        <td className="p-4">
+                          <div className="flex flex-wrap gap-2">
+                            <button
+                              onClick={() => {
+                                const docDate = highlight._documentDate || selectedDate;
+                                updateHighlightApproval([highlight.id], !highlight.approved, docDate);
+                              }}
+                              className={`pill text-xs ${highlight.approved ? 'pill-muted' : 'pill-active'}`}
+                            >
+                              {highlight.approved ? 'Unapprove' : 'Approve'}
+                            </button>
+                            <button
+                              onClick={() => {
+                                // Use the document date if available (from API), otherwise try to extract from highlight.date
+                                const docDate = highlight._documentDate || highlight.date || selectedDate;
+                                // Try to parse the date to get YYYY-MM-DD format
+                                let dateStr = docDate;
+                                try {
+                                  // If it's already in YYYY-MM-DD format, use it directly
+                                  if (/^\d{4}-\d{2}-\d{2}$/.test(docDate)) {
+                                    dateStr = docDate;
+                                  } else {
+                                    // Otherwise try to parse it
+                                    const dateObj = new Date(docDate);
+                                    if (!isNaN(dateObj.getTime())) {
+                                      const yyyy = dateObj.getFullYear();
+                                      const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+                                      const dd = String(dateObj.getDate()).padStart(2, '0');
+                                      dateStr = `${yyyy}-${mm}-${dd}`;
+                                    }
+                                  }
+                                } catch {
+                                  dateStr = selectedDate;
+                                }
+                                setEditHighlight({
+                                  id: highlight.id,
+                                  videoSrc: highlight.videoSrc || '',
+                                  date: dateStr,
+                                });
+                              }}
+                              className="pill pill-muted text-xs"
+                            >
+                              Edit Video
+                            </button>
+                            {highlight.videoSrc && (
+                              <button
+                                onClick={() => setPreviewHighlight(highlight.id)}
+                                className="pill pill-muted text-xs"
+                              >
+                                Preview Video
+                              </button>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Predictions Tab Content */}
       {activeTab === 'predictions' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-xl font-semibold">Predictions Management</h2>
-              <p className="text-sm text-white/60 mt-1">Manage prediction outcomes and status</p>
+              <h2 className="text-xl font-semibold">Over Predictions Management</h2>
+              <p className="text-sm text-white/60 mt-1">Manually add and manage over predictions</p>
             </div>
             <div className="flex items-center gap-2">
-              {Object.keys(selectedPredictions).filter(id => selectedPredictions[id]).length > 0 && (
-                <button
-                  onClick={approveSelectedPredictions}
-                  disabled={loadingPredictions}
-                  className="pill pill-active disabled:opacity-50"
-                >
-                  Approve All Selected ({Object.keys(selectedPredictions).filter(id => selectedPredictions[id]).length})
-                </button>
-              )}
+              <button
+                onClick={handleNewPrediction}
+                className="pill pill-active"
+              >
+                + Add Prediction
+              </button>
               <button
                 onClick={() => loadPredictions()}
                 disabled={loadingPredictions}
@@ -990,13 +1650,65 @@ function AdminPageContent() {
             </div>
           </div>
 
+          {/* Date Filter */}
+          <div className="surface p-4 rounded-lg border border-white/10">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <label htmlFor="prediction-date-picker" className="text-sm font-medium text-white/80 whitespace-nowrap">
+                    Filter by Date:
+                  </label>
+                  <input
+                    id="prediction-date-picker"
+                    type="date"
+                    value={selectedDate}
+                    onChange={(e) => {
+                      handleDateChange(e.target.value);
+                      loadPredictions(e.target.value);
+                    }}
+                    className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-[rgb(255,212,0)] focus:border-transparent transition-all"
+                  />
+                </div>
+                <button
+                  onClick={() => loadPredictions('all')}
+                  className="pill pill-muted whitespace-nowrap"
+                >
+                  Show All Dates
+                </button>
+                {selectedDate !== todayId() && (
+                  <button
+                    onClick={() => {
+                      const today = todayId();
+                      setSelectedDate(today);
+                      loadPredictions(today);
+                    }}
+                    className="pill pill-muted whitespace-nowrap"
+                  >
+                    Show Today
+                  </button>
+                )}
+              </div>
+              <div className="text-right">
+                <div className="text-xs text-white/50 uppercase tracking-wide mb-1">Current View</div>
+                <div className="text-lg font-semibold text-white/90">
+                  {selectedDate === todayId() ? (
+                    <span className="text-[rgb(var(--brand-yellow))]">Today</span>
+                  ) : (
+                    <span>{selectedDate}</span>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
           {loadingPredictions ? (
             <div className="surface p-12 text-center">
               <div className="text-white/60">Loading predictions...</div>
             </div>
           ) : predictions.length === 0 ? (
             <div className="surface p-12 text-center">
-              <div className="text-white/60">No predictions found for today</div>
+              <div className="text-white/60">No predictions found for {selectedDate === todayId() ? 'today' : selectedDate}</div>
+              <div className="text-white/40 text-sm mt-2">Use the date filter above to view predictions for other dates</div>
             </div>
           ) : (
             <div className="surface overflow-hidden">
@@ -1012,12 +1724,13 @@ function AdminPageContent() {
                           className="rounded border-white/20"
                         />
                       </th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">Date</th>
                       <th className="text-left p-4 text-sm font-semibold text-white/80">Time</th>
                       <th className="text-left p-4 text-sm font-semibold text-white/80">Match</th>
                       <th className="text-left p-4 text-sm font-semibold text-white/80">League</th>
-                      <th className="text-left p-4 text-sm font-semibold text-white/80">Prediction</th>
-                      <th className="text-left p-4 text-sm font-semibold text-white/80">MSBS</th>
-                      <th className="text-center p-4 text-sm font-semibold text-white/80">Approved</th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">Predicted Score</th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">Over Type</th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">Actual Score</th>
                       <th className="text-center p-4 text-sm font-semibold text-white/80">Status</th>
                       <th className="text-center p-4 text-sm font-semibold text-white/80">Actions</th>
                     </tr>
@@ -1027,7 +1740,6 @@ function AdminPageContent() {
                       const status = pred.status || 'pending';
                       const isWon = status === 'won';
                       const isFailed = status === 'failed';
-                      const isApproved = pred.approved === true;
                       
                       return (
                         <tr
@@ -1044,6 +1756,9 @@ function AdminPageContent() {
                               className="rounded border-white/20"
                             />
                           </td>
+                          <td className="p-4 text-sm text-white/70">
+                            {pred.matchDate || '—'}
+                          </td>
                           <td className="p-4 text-sm text-white/70 font-mono">
                             {pred.timeLabel || '—'}
                           </td>
@@ -1056,23 +1771,14 @@ function AdminPageContent() {
                           <td className="p-4 text-sm text-white/70">
                             {pred.league || '—'}
                           </td>
-                          <td className="p-4 text-sm">
-                            <div className="space-y-1">
-                              <div className="text-white/80">{pred.msbs || '—'}</div>
-                              <div className="text-white/60 text-xs">
-                                Winner: {pred.msbsWinner || '—'}
-                              </div>
-                            </div>
+                          <td className="p-4 text-sm text-white/70 font-mono">
+                            {pred.predictedScoreDisplay || '—'}
                           </td>
                           <td className="p-4 text-sm text-white/70">
-                            {pred.msbs || '—'}
+                            {pred.msbs || 'Over 1.5'}
                           </td>
-                          <td className="p-4 text-center">
-                            {isApproved ? (
-                              <span className="pill pill-active !text-xs bg-green-500/20 text-green-400 border-green-500/40">Yes</span>
-                            ) : (
-                              <span className="pill pill-muted !text-xs">No</span>
-                            )}
+                          <td className="p-4 text-sm text-white/70 font-mono">
+                            {pred.actualScore || '—'}
                           </td>
                           <td className="p-4 text-center">
                             <span
@@ -1090,31 +1796,17 @@ function AdminPageContent() {
                           <td className="p-4">
                             <div className="flex items-center justify-center gap-2 flex-wrap">
                               <button
-                                onClick={() => updatePredictionApproval(pred.id, !isApproved)}
-                                className={`pill text-xs ${
-                                  isApproved
-                                    ? 'pill-active bg-green-500/20 text-green-400 border-green-500/40'
-                                    : 'pill-muted hover:bg-green-500/10 hover:border-green-500/30'
-                                }`}
+                                onClick={() => handleEditPrediction(pred)}
+                                className="pill pill-muted text-xs hover:bg-white/10"
                               >
-                                {isApproved ? '✓ Approved' : 'Approve'}
+                                Edit
                               </button>
-                              {/* Status is automatically updated by results scraper every 30 minutes */}
-                              {pred.result && (
-                                <span className="text-xs text-white/60">
-                                  Result: {pred.result} 
-                                  {pred.status && (
-                                    <span className={`ml-2 ${pred.status === 'won' ? 'text-green-400' : 'text-red-400'}`}>
-                                      ({pred.status})
-                                    </span>
-                                  )}
-                                </span>
-                              )}
-                              {!pred.result && pred.status && (
-                                <span className={`text-xs ${pred.status === 'won' ? 'text-green-400' : 'text-red-400'}`}>
-                                  {pred.status}
-                                </span>
-                              )}
+                              <button
+                                onClick={() => deletePrediction(pred.id, pred._path)}
+                                className="pill text-xs bg-red-500/20 text-red-400 border-red-500/40 hover:bg-red-500/30"
+                              >
+                                Delete
+                              </button>
                             </div>
                           </td>
                         </tr>
@@ -1128,7 +1820,199 @@ function AdminPageContent() {
         </div>
       )}
 
-        {/* Edit VideoSrc Modal */}
+      {/* Prediction Form Modal */}
+      {showPredictionForm && editPrediction && (
+        <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            onClick={() => {
+              setShowPredictionForm(false);
+              setEditPrediction(null);
+            }}
+          />
+          <div className="relative w-full max-w-2xl bg-[rgb(15,15,18)] border border-white/20 rounded-xl p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <h2 className="text-xl font-semibold">
+              {editPrediction && editPrediction.id ? 'Edit Prediction' : 'Add New Prediction'}
+            </h2>
+            
+            <form
+              onSubmit={e => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                const predictionData = {
+                  home: formData.get('home')?.toString().trim() || '',
+                  away: formData.get('away')?.toString().trim() || '',
+                  league: formData.get('league')?.toString().trim() || '',
+                  timeLabel: formData.get('timeLabel')?.toString().trim() || '',
+                  matchDate: formData.get('matchDate')?.toString().trim() || '',
+                  predictedScoreDisplay: formData.get('predictedScoreDisplay')?.toString().trim() || '',
+                  msbs: formData.get('msbs')?.toString().trim() || 'Over 1.5',
+                  actualScore: formData.get('actualScore')?.toString().trim() || '',
+                  status: formData.get('status')?.toString() || null,
+                };
+                
+                // Validate required fields
+                if (!predictionData.home || !predictionData.away || !predictionData.league || !predictionData.timeLabel || !predictionData.matchDate) {
+                  addToast('Please fill in all required fields (home, away, league, time, date)', 'error');
+                  return;
+                }
+                
+                savePrediction(predictionData);
+              }}
+              className="space-y-4"
+            >
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-white/80 mb-1">
+                    Home Team <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="home"
+                    defaultValue={editPrediction.home}
+                    required
+                    className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[rgb(255,212,0)]"
+                    placeholder="Home team name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-white/80 mb-1">
+                    Away Team <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="away"
+                    defaultValue={editPrediction.away}
+                    required
+                    className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[rgb(255,212,0)]"
+                    placeholder="Away team name"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-white/80 mb-1">
+                    League <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="league"
+                    defaultValue={editPrediction.league}
+                    required
+                    className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[rgb(255,212,0)]"
+                    placeholder="League name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-white/80 mb-1">
+                    Match Date <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    type="date"
+                    name="matchDate"
+                    defaultValue={editPrediction.matchDate}
+                    required
+                    className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[rgb(255,212,0)]"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-white/80 mb-1">
+                    Time <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    type="time"
+                    name="timeLabel"
+                    defaultValue={editPrediction.timeLabel}
+                    required
+                    className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[rgb(255,212,0)]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-white/80 mb-1">
+                    Over Type
+                  </label>
+                  <select
+                    name="msbs"
+                    defaultValue={editPrediction.msbs || 'Over 1.5'}
+                    className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[rgb(255,212,0)]"
+                  >
+                    <option value="Over 1.5">Over 1.5</option>
+                    <option value="Over 2.5">Over 2.5</option>
+                    <option value="Over 3.5">Over 3.5</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-white/80 mb-1">
+                  Predicted Score (e.g., "3-1")
+                </label>
+                <input
+                  type="text"
+                  name="predictedScoreDisplay"
+                  defaultValue={editPrediction.predictedScoreDisplay}
+                  className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[rgb(255,212,0)] font-mono"
+                  placeholder="3-1"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-white/80 mb-1">
+                    Actual Score (e.g., "2-0")
+                  </label>
+                  <input
+                    type="text"
+                    name="actualScore"
+                    defaultValue={editPrediction.actualScore}
+                    className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[rgb(255,212,0)] font-mono"
+                    placeholder="2-0"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-white/80 mb-1">
+                    Status
+                  </label>
+                  <select
+                    name="status"
+                    defaultValue={editPrediction.status || ''}
+                    className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[rgb(255,212,0)]"
+                  >
+                    <option value="">Pending</option>
+                    <option value="won">Won</option>
+                    <option value="failed">Failed</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-3 pt-4">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowPredictionForm(false);
+                    setEditPrediction(null);
+                  }}
+                  className="pill pill-muted"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="pill pill-active"
+                >
+                  {editPrediction && editPrediction.id ? 'Update' : 'Create'} Prediction
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+        {/* Edit VideoSrc Modal for Matches */}
         {editMatch && (
           <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4">
             <div
@@ -1162,7 +2046,59 @@ function AdminPageContent() {
           </div>
         )}
 
-        {/* Preview Modal */}
+        {/* Edit VideoSrc Modal for Highlights */}
+        {editHighlight && (
+          <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4">
+            <div
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+              onClick={() => setEditHighlight(null)}
+            />
+            <div className="relative w-full max-w-2xl bg-[rgb(15,15,18)] border border-white/20 rounded-xl p-6 space-y-4 shadow-2xl">
+              <h2 className="text-xl font-semibold">Edit Highlight Video Source</h2>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-white/80">Highlight ID</label>
+                <div className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 font-mono text-sm text-white/60">
+                  {editHighlight.id}
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-white/80">Date Document</label>
+                <div className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 font-mono text-sm text-white/60">
+                  {editHighlight.date}
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-white/80">Video Source URL</label>
+                <input
+                  type="text"
+                  value={editHighlight.videoSrc}
+                  onChange={e => setEditHighlight({ ...editHighlight, videoSrc: e.target.value })}
+                  placeholder="https://cdn-cf-east.streamable.com/video/mp4/..."
+                  className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[rgb(255,212,0)] font-mono text-sm"
+                />
+                <p className="text-xs text-white/50">
+                  Make sure the URL contains &quot;cdn&quot; for optimal performance
+                </p>
+              </div>
+              <div className="flex items-center justify-end gap-3">
+                <button
+                  onClick={() => setEditHighlight(null)}
+                  className="pill pill-muted"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => updateHighlightVideoSrc(editHighlight.id, editHighlight.videoSrc.trim(), editHighlight.date)}
+                  className="pill pill-active"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Preview Modal for Matches */}
         {previewMatch && (
           <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4">
             <div
@@ -1213,6 +2149,110 @@ function AdminPageContent() {
           </div>
         </div>
       )}
+
+        {/* Preview Modal for Highlights */}
+        {previewHighlight && (
+          <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4">
+            <div
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+              onClick={() => setPreviewHighlight(null)}
+            />
+            <div className="relative w-full max-w-4xl bg-[rgb(15,15,18)] border border-white/20 rounded-xl p-6 space-y-4 shadow-2xl">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-xl font-semibold">Highlight Video Preview</h2>
+                  <p className="text-sm text-white/60 mt-1">
+                    Verify the video plays correctly before approving
+                  </p>
+                </div>
+                <button
+                  onClick={() => setPreviewHighlight(null)}
+                  className="text-white/70 hover:text-white text-2xl"
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="aspect-video bg-gradient-to-br from-white/10 via-white/5 to-white/10 rounded-lg overflow-hidden border border-white/10 relative">
+                {(() => {
+                  const highlight = highlights.find(h => h.id === previewHighlight);
+                  const src = highlight?.videoSrc || '';
+                  if (!src) {
+                    return (
+                      <div className="w-full h-full flex items-center justify-center text-white/50">
+                        No video source available
+                      </div>
+                    );
+                  }
+                  
+                  // Determine if it's a direct video URL or needs iframe
+                  const isDirectVideo = src.includes('.mp4') || src.includes('.m3u8') || src.includes('cdn-cf-east.streamable.com');
+                  
+                  return (
+                    <>
+                      {/* Default background pattern */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-[rgb(255,212,0)]/5 via-transparent to-blue-500/5 pointer-events-none" />
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,212,0,0.1),transparent_50%)] pointer-events-none" />
+                      
+                      {isDirectVideo ? (
+                        <video
+                          src={src}
+                          controls
+                          className="w-full h-full relative z-10 bg-black"
+                          autoPlay
+                          playsInline
+                        />
+                      ) : (
+                        <iframe
+                          src={src}
+                          className="w-full h-full relative z-10 bg-white/5"
+                          allowFullScreen
+                          allow="autoplay; encrypted-media; picture-in-picture"
+                          title="Highlight video preview"
+                        />
+                      )}
+                    </>
+                  );
+                })()}
+              </div>
+              <div className="space-y-2">
+                <div className="text-sm text-white/60 font-mono break-all">
+                  {highlights.find(h => h.id === previewHighlight)?.videoSrc || 'No URL'}
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="text-xs text-white/50">
+                    Match: {highlights.find(h => h.id === previewHighlight)?.homeTeam || '—'} vs {highlights.find(h => h.id === previewHighlight)?.awayTeam || '—'}
+                  </div>
+                  <div className="text-xs text-white/50">
+                    League: {highlights.find(h => h.id === previewHighlight)?.league || highlights.find(h => h.id === previewHighlight)?.category || '—'}
+                  </div>
+                </div>
+                <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/10">
+                  <button
+                    onClick={() => setPreviewHighlight(null)}
+                    className="pill pill-muted text-sm"
+                  >
+                    Close
+                  </button>
+                  {highlights.find(h => h.id === previewHighlight)?.approved !== true && (
+                    <button
+                      onClick={() => {
+                        const highlight = highlights.find(h => h.id === previewHighlight);
+                        if (highlight) {
+                          const docDate = highlight._documentDate || selectedDate;
+                          updateHighlightApproval([highlight.id], true, docDate);
+                          setPreviewHighlight(null);
+                        }
+                      }}
+                      className="pill pill-active text-sm"
+                    >
+                      Approve This Video
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

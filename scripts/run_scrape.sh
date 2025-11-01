@@ -33,29 +33,17 @@ if command -v npx >/dev/null 2>&1; then
 fi
 
 # 1) Run Selenium scraper to produce unified_matches.json and attempt videoSrc posts
-echo "[1/3] Running Selenium scraper → data/unified_matches.json"
+echo "[1/2] Running Selenium scraper → data/unified_matches.json"
 python3 "$ROOT_DIR/scripts/selenium_rojadirecta.py" --out "$ROOT_DIR/data/unified_matches.json" || true
 
 # 2) Import matches JSON into Firestore moderation collection (requires server running)
-echo "[2/3] Importing matches into moderation collection"
+echo "[2/2] Importing matches into moderation collection"
 curl -sS -X POST \
   -H "x-internal-token: ${NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN}" \
   "$API_BASE/api/admin/moderate/matches" || true
 echo ""
 
-# 3) Import predictions JSON if present
-if [[ -f "$ROOT_DIR/data/predictions.json" ]]; then
-  echo "[3/3] Importing predictions into moderation collection"
-  curl -sS -X POST \
-    -H "x-internal-token: ${NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN}" \
-    "$API_BASE/api/admin/moderate/predictions" || true
-  echo ""
-else
-  echo "[3/3] Skipped predictions import (data/predictions.json not found)"
-fi
-
 echo "Done. Review and approve at:"
 echo "  $API_BASE/admin/moderate (matches)"
-echo "  $API_BASE/admin/predictions (predictions)"
 
 

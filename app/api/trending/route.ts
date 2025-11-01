@@ -30,9 +30,11 @@ export async function GET() {
     if (todayDoc.exists) {
       const data = todayDoc.data();
       const matches = Array.isArray(data?.matches) ? data.matches : [];
-      // Filter only matches with isTrending == true and approved == true
+      // Filter only matches with isTrending == true, approved == true, and status != 'ended'
       const trending = matches.filter((m: any) => 
-        m?.approved === true && (m?.isTrending === true || m?.trending === true)
+        m?.approved === true && 
+        (m?.isTrending === true || m?.trending === true) &&
+        m?.status !== 'ended'
       );
       return NextResponse.json(trending);
     }
