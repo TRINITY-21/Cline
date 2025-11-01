@@ -427,41 +427,8 @@ def main():
       json.dump(data, f, ensure_ascii=False, indent=2)
     print(f"Wrote {len(data)} matches to {args.out}")
 
-    # Post discovered videoSrc values to Next API for storage (idempotent upsert)
-    API_BASE = os.getenv('API_BASE', 'http://localhost:3000')
-    TOKEN = os.getenv('NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN', '')
-    ttl_ms = 60 * 60 * 1000
-    if TOKEN:
-      posted = 0
-      for m in data:
-        try:
-          vid = (m.get('videoSrc') or '').strip()
-          if not vid:
-            continue
-          mid = m.get('id')
-          if not mid:
-            continue
-          r = requests.post(
-            f"{API_BASE}/api/videosrc/{mid}",
-            headers={
-              'x-internal-token': TOKEN,
-              'content-type': 'application/json',
-            },
-            json={
-              'videoSrc': vid,
-              'source': 'freeonlinek',
-              'status': 'ready',
-              'ttlMs': ttl_ms,
-            },
-            timeout=20,
-          )
-          r.raise_for_status()
-          posted += 1
-        except Exception as e:
-          print(f"POST failed for {m.get('id')}: {e}")
-      print(f"Posted videoSrc for {posted} matches to API_BASE={API_BASE}")
-    else:
-      print("NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN not set; skipping videoSrc POST to API")
+    # videoSrc is now stored directly in matches via daily_matches collection
+    # No need to post to separate videosrc API - it will be handled by compare-and-update endpoint
   finally:
     driver.quit()
 

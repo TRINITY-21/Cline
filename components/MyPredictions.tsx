@@ -109,13 +109,37 @@ export default function MyPredictions() {
   const gamesWithPredictions = useMemo(() => {
     return enrichedGames.map((game, idx) => {
       const src = entries[idx];
-      return { game, prediction: { gameId: src?.id, predictedWinner: 'home', confidence: 0 } as any, msbs: src?.msbs, msbsWinner: src?.msbsWinner };
+      return {
+        game,
+        prediction: {
+          gameId: src?.id,
+          predictedWinner: 'home',
+          confidence: 0,
+          status: src?.status || null, // Include status from API
+        } as any,
+        msbs: src?.msbs,
+        msbsWinner: src?.msbsWinner,
+      };
     });
   }, [enrichedGames, entries]);
 
   const totalPoints = useMemo(() => {
     return MOCK_PREDICTIONS.filter(p => p.points).reduce((sum, p) => sum + (p.points || 0), 0);
   }, []);
+
+  // Calculate stats from actual predictions data
+  const stats = useMemo(() => {
+    const totalMatches = entries.length;
+    const played = entries.filter((e: any) => e.status === 'won' || e.status === 'failed').length;
+    const won = entries.filter((e: any) => e.status === 'won').length;
+    const successRate = played > 0 ? Math.round((won / played) * 100) : 0;
+    
+    return {
+      totalMatches,
+      played,
+      successRate,
+    };
+  }, [entries]);
 
   // Group predictions by league for accordion
   const groupedByLeague = useMemo(() => {
@@ -157,15 +181,15 @@ export default function MyPredictions() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="surface p-4">
           <div className="text-xs text-white/60 uppercase tracking-wide mb-1">Number of Matches</div>
-          <div className="text-2xl font-bold">193</div>
+          <div className="text-2xl font-bold">{stats.totalMatches}</div>
         </div>
         <div className="surface p-4">
           <div className="text-xs text-white/60 uppercase tracking-wide mb-1">Played</div>
-          <div className="text-2xl font-bold text-[rgb(var(--brand-yellow))]">4</div>
+          <div className="text-2xl font-bold text-[rgb(var(--brand-yellow))]">{stats.played}</div>
         </div>
         <div className="surface p-4">
           <div className="text-xs text-white/60 uppercase tracking-wide mb-1">Success</div>
-          <div className="text-2xl font-bold">50%</div>
+          <div className="text-2xl font-bold">{stats.successRate}%</div>
         </div>
       </div>
 
@@ -225,44 +249,75 @@ export default function MyPredictions() {
             const predictedTeamLogo = prediction.predictedWinner === 'home' ? game.home.logo : game.away.logo;
             const predictedTeamName = prediction.predictedWinner === 'home' ? game.home.name : game.away.name;
             
+            // Determine status colors
+            const predictionStatus = prediction?.status;
+            const isWon = predictionStatus === 'won';
+            const isFailed = predictionStatus === 'failed';
+            
+            // Get winner name for display
+            const winnerName = msbsWinner || (isWon ? predictedTeamName : '');
+            
             return (
               <div
                 key={game.sport + '-' + game.home.name}
-                className="text-left group rounded-lg overflow-hidden border border-white/10 bg-white/5 transition-all"
+                className={`text-left group rounded-lg overflow-hidden transition-all ${
+                  isWon
+                    ? 'border-2 border-green-500 bg-green-500/10'
+                    : isFailed
+                    ? 'border-2 border-red-500 bg-red-500/10'
+                    : 'border border-white/10 bg-white/5'
+                }`}
               >
-                <div className="p-3 space-y-2">
-                  <div className="text-[10px] text-white/50 uppercase tracking-wide">{game.league}</div>
+                <div className="p-2 space-y-1.5 relative">
+                  {/* Start time at top right - plain text */}
+                  {game.time && (
+                    <div className="absolute top-2 right-2">
+                      <span className="text-[10px] text-white/60 font-mono">
+                        {game.time}
+                      </span>
+                    </div>
+                  )}
+                  <div className="text-[9px] text-white/50 uppercase tracking-wide leading-tight">{game.league}</div>
 
                   {/* Match Info */}
-                  <div className="flex items-center gap-3">
-                    <div className="flex-1 flex flex-col items-center gap-1 min-w-0">
-                      <div className="duel-pedestal w-10 h-10 grid place-items-center overflow-hidden shrink-0">
-                        <TeamLogo logo={game.home.logo} name={game.home.name} size={36} />
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 flex flex-col items-center gap-0.5 min-w-0">
+                      <div className="duel-pedestal w-8 h-8 grid place-items-center overflow-hidden shrink-0">
+                        <TeamLogo logo={game.home.logo} name={game.home.name} size={28} />
                         <div className="duel-gloss" />
                       </div>
-                      <div className="font-semibold text-[11px] truncate max-w-[6rem] text-center" title={game.home.name}>{getDisplayName(game.home.name)}</div>
+                      <div className="font-semibold text-[10px] truncate max-w-[5rem] text-center leading-tight" title={game.home.name}>{getDisplayName(game.home.name)}</div>
                     </div>
 
-                    <span className="text-white/40 text-[10px] font-bold">VS</span>
+                    <span className="text-white/40 text-[9px] font-bold">VS</span>
 
-                    <div className="flex-1 flex flex-col items-center gap-1 min-w-0">
-                      <div className="duel-pedestal w-10 h-10 grid place-items-center overflow-hidden shrink-0">
-                        <TeamLogo logo={game.away.logo} name={game.away.name} size={36} />
+                    <div className="flex-1 flex flex-col items-center gap-0.5 min-w-0">
+                      <div className="duel-pedestal w-8 h-8 grid place-items-center overflow-hidden shrink-0">
+                        <TeamLogo logo={game.away.logo} name={game.away.name} size={28} />
                         <div className="duel-gloss" />
                       </div>
-                      <div className="font-semibold text-[11px] truncate max-w-[6rem] text-center" title={game.away.name}>{getDisplayName(game.away.name)}</div>
+                      <div className="font-semibold text-[10px] truncate max-w-[5rem] text-center leading-tight" title={game.away.name}>{getDisplayName(game.away.name)}</div>
                     </div>
                   </div>
 
                   {/* MSBS from Betistuta */}
-                  <div className="pt-1 border-t border-white/10">
-                    <div className="flex items-center justify-center gap-2">
-                      <span className="pill pill-active !text-[10px] !px-2 !py-0.5" title="Prediction">
-                        {msbs ? `Pred: ${msbs}` : '(Pred—)'}
-                      </span>
-                      <span className="pill pill-muted !text-[10px] !px-2 !py-0.5" title="Predicted Winner">
-                        {msbsWinner ? `Winner: ${getDisplayName(msbsWinner)}` : 'Winner: —'}
-                      </span>
+                  <div className="pt-0.5 border-t border-white/10">
+                    <div className="flex flex-col items-center gap-1">
+                      <div className="flex items-center justify-center gap-2">
+                        <span className="pill pill-active !text-[10px] !px-2 !py-0.5" title="Prediction">
+                          {msbs ? `Pred: ${msbs}` : '(Pred—)'}
+                        </span>
+                      </div>
+                      {isWon && winnerName && (
+                        <div className="text-[11px] font-semibold text-green-400 bg-green-500/20 px-2 py-0.5 rounded">
+                          {getDisplayName(winnerName)} wins ✓
+                        </div>
+                      )}
+                      {isFailed && (
+                        <div className="text-[11px] font-semibold text-red-400 bg-red-500/20 px-2 py-0.5 rounded">
+                          Prediction failed ✗
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

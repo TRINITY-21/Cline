@@ -11,13 +11,27 @@ import argparse
 import json
 import re
 import tempfile
+from datetime import datetime, timedelta, timezone
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 
-URL = 'https://www.betistuta.net/Futbol.aspx'
+def get_betistuta_url():
+  """
+  Get betistuta URL with current date parameter using server's local time.
+  Format: https://www.betistuta.net/Futbol.aspx?D=M/D/YYYY
+  """
+  # Use server's local time
+  now = datetime.now()
+  # Format as M/D/YYYY (e.g., 11/1/2025) - remove leading zeros
+  month = str(now.month)
+  day = str(now.day)
+  year = str(now.year)
+  date_str = f'{month}/{day}/{year}'
+  return f'https://www.betistuta.net/Futbol.aspx?D={date_str}'
+  
 
 
 def normalize(s: str) -> str:
@@ -64,7 +78,9 @@ def main():
   driver = webdriver.Chrome(options=opts)
   predictions = []
   try:
-    driver.get(URL)
+    url = get_betistuta_url()
+    print(f'📅 Fetching predictions for date: {url}')
+    driver.get(url)
     # pick the first table that contains MSBS string anywhere
     tables = driver.find_elements(By.TAG_NAME, 'table')
     target = None

@@ -1,0 +1,7962 @@
+[
+  {
+    "home": "Real Tomayapo",
+    "away": "Independiente Petrolero",
+    "league": "Bolivya",
+    "timeLabel": "01:00",
+    "result": "3 - 6",
+    "homeScore": 3,
+    "awayScore": 6,
+    "winner": "Independiente Petrolero"
+  },
+  {
+    "home": "Universidad O&M",
+    "away": "Cibao",
+    "league": "CFU Kulüpl",
+    "timeLabel": "01:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Lanus",
+    "away": "Universidad Chile",
+    "league": "Copa Sudamerica",
+    "timeLabel": "01:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Lanus"
+  },
+  {
+    "home": "Dinamo Minsk",
+    "away": "Slutsk",
+    "league": "Belarus",
+    "timeLabel": "03:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "The Strongest",
+    "away": "Oriente Petrolero",
+    "league": "Bolivya",
+    "timeLabel": "03:30",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Oriente Petrolero"
+  },
+  {
+    "home": "Palmeiras",
+    "away": "LDU Quito",
+    "league": "Copa Libertador",
+    "timeLabel": "03:30",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "Palmeiras"
+  },
+  {
+    "home": "Llaneros",
+    "away": "Atletico Nacional",
+    "league": "Kolombiya",
+    "timeLabel": "04:20",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Atletico Nacional"
+  },
+  {
+    "home": "CD Olimpia",
+    "away": "Alajuelense",
+    "league": "CONCACAF Orta A",
+    "timeLabel": "05:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "PSIS Semarang",
+    "away": "Persela Lamongan",
+    "league": "Endonezya",
+    "timeLabel": "11:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "PSIM Yogyakarta",
+    "away": "Persik Kediri",
+    "league": "Endonezya",
+    "timeLabel": "11:30",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "PSIM Yogyakarta"
+  },
+  {
+    "home": "Brisbane Roar",
+    "away": "Melbourne City",
+    "league": "Avustralya",
+    "timeLabel": "11:35",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Marconi Stallions",
+    "away": "Heidelberg United",
+    "league": "Avustralya",
+    "timeLabel": "11:35",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Altyn Asyr",
+    "away": "Al Shabab",
+    "league": "AFC Challenge L",
+    "timeLabel": "12:00",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Al Shabab"
+  },
+  {
+    "home": "Kuzey Irlanda U17",
+    "away": "Güney Kibris U17",
+    "league": "Avrupa U17 Samp",
+    "timeLabel": "12:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Finlandiya U17",
+    "away": "Ermenistan U17",
+    "league": "Avrupa U17 Samp",
+    "timeLabel": "12:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Finlandiya U17"
+  },
+  {
+    "home": "Krasnodar (K)",
+    "away": "Ryazan (K)",
+    "league": "Rusya",
+    "timeLabel": "12:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Krasnodar (K)"
+  },
+  {
+    "home": "W. Sydney Wanderers (K)",
+    "away": "Perth Glory (K)",
+    "league": "Avustralya",
+    "timeLabel": "12:15",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Perth Glory (K)"
+  },
+  {
+    "home": "Regar-TadAZ",
+    "away": "Safa",
+    "league": "AFC Challenge L",
+    "timeLabel": "13:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Safa"
+  },
+  {
+    "home": "Viktoria Plzen U19",
+    "away": "Pardubice U19",
+    "league": "Çek Cumhur",
+    "timeLabel": "13:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Shanghai Port",
+    "away": "Zhejiang G. FC",
+    "league": "Çin Halk C",
+    "timeLabel": "13:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Shanghai Port"
+  },
+  {
+    "home": "Arkonia Szczecin U19",
+    "away": "Wisla Krakow U19",
+    "league": "Polonya",
+    "timeLabel": "13:00",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Wisla Krakow U19"
+  },
+  {
+    "home": "Vojvodina U19",
+    "away": "Crvena Zvezda U19",
+    "league": "Sirbistan",
+    "timeLabel": "13:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Hoang Anh Gia Lai",
+    "away": "Nam Dinh FC",
+    "league": "Vietnam",
+    "timeLabel": "13:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Perth Glory",
+    "away": "Melbourne Victory",
+    "league": "Avustralya",
+    "timeLabel": "13:45",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Melbourne Victory"
+  },
+  {
+    "home": "Ingiltere U17",
+    "away": "Litvanya U17",
+    "league": "Avrupa U17 Samp",
+    "timeLabel": "14:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Litvanya U17"
+  },
+  {
+    "home": "Dukla Praha U19",
+    "away": "Slavia Prag U19",
+    "league": "Çek Cumhur",
+    "timeLabel": "14:00",
+    "result": "2 - 5",
+    "homeScore": 2,
+    "awayScore": 5,
+    "winner": "Slavia Prag U19"
+  },
+  {
+    "home": "Dempo SC",
+    "away": "Chennaiyin FC",
+    "league": "Hindistan",
+    "timeLabel": "14:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Gornik Zabrze II",
+    "away": "LKS Goczalkowice Zdroj",
+    "league": "Polonya",
+    "timeLabel": "14:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Zaglebie Lubin II",
+    "away": "Warta Gorzow",
+    "league": "Polonya",
+    "timeLabel": "14:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Zaglebie Lubin II"
+  },
+  {
+    "home": "Wisla Krakow II",
+    "away": "Siarka Tarnobrzeg",
+    "league": "Polonya",
+    "timeLabel": "14:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Lech Pozna? UAM (K)",
+    "away": "Lechia Gdansk (K)",
+    "league": "Polonya",
+    "timeLabel": "14:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Lech Pozna? UAM (K)"
+  },
+  {
+    "home": "Hong Linh Ha Tinh",
+    "away": "Ha Noi T&T",
+    "league": "Vietnam",
+    "timeLabel": "14:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Hong Linh Ha Tinh"
+  },
+  {
+    "home": "Chengdu Rongcheng",
+    "away": "Henan Jianye",
+    "league": "Çin Halk C",
+    "timeLabel": "14:35",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Henan Jianye"
+  },
+  {
+    "home": "Paro",
+    "away": "Abdish-Ata",
+    "league": "AFC Challenge L",
+    "timeLabel": "15:00",
+    "result": "3 - 3",
+    "homeScore": 3,
+    "awayScore": 3,
+    "winner": "Draw"
+  },
+  {
+    "home": "Isviçre U17",
+    "away": "Bulgaristan U17",
+    "league": "Avrupa U17 Samp",
+    "timeLabel": "15:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Uni Minsk",
+    "away": "Lida",
+    "league": "Belarus",
+    "timeLabel": "15:00",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Lida"
+  },
+  {
+    "home": "Shanghai Shenhua",
+    "away": "Shenzhen Peng City",
+    "league": "Çin Halk C",
+    "timeLabel": "15:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Shanghai Shenhua"
+  },
+  {
+    "home": "Persija Jakarta",
+    "away": "PSBS Biak Numfor",
+    "league": "Endonezya",
+    "timeLabel": "15:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Persija Jakarta"
+  },
+  {
+    "home": "Sokol Kleczew",
+    "away": "Podbeskidzie Bielsko",
+    "league": "Polonya",
+    "timeLabel": "15:00",
+    "result": "5 - 2",
+    "homeScore": 5,
+    "awayScore": 2,
+    "winner": "Sokol Kleczew"
+  },
+  {
+    "home": "Zabkovia Zabki",
+    "away": "Znicz Biala Piska",
+    "league": "Polonya",
+    "timeLabel": "15:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Zabkovia Zabki"
+  },
+  {
+    "home": "Luzino",
+    "away": "Lipno Steszew",
+    "league": "Polonya",
+    "timeLabel": "15:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Lipno Steszew"
+  },
+  {
+    "home": "Tluchowia Tluchowo",
+    "away": "Wda Swiecie",
+    "league": "Polonya",
+    "timeLabel": "15:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Wda Swiecie"
+  },
+  {
+    "home": "Stal Krasnik",
+    "away": "Podlasie Biala Podlaska",
+    "league": "Polonya",
+    "timeLabel": "15:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Podlasie Biala Podlaska"
+  },
+  {
+    "home": "Stepojevac Vaga",
+    "away": "Kabel Novi Sad",
+    "league": "Sirbistan",
+    "timeLabel": "15:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Kabel Novi Sad"
+  },
+  {
+    "home": "Al Mabarrah",
+    "away": "Racing Beirut",
+    "league": "Lübnan",
+    "timeLabel": "15:15",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Cong An Nhan Dan",
+    "away": "Pho Hien",
+    "league": "Vietnam",
+    "timeLabel": "15:15",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Cong An Nhan Dan"
+  },
+  {
+    "home": "Zob Ahan",
+    "away": "Malavan FC",
+    "league": "Iran",
+    "timeLabel": "15:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Akademija Pandev",
+    "away": "KF Shkendija",
+    "league": "Kuzey Makedonya",
+    "timeLabel": "15:30",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "KF Shkendija"
+  },
+  {
+    "home": "Panevezys II",
+    "away": "Babrungas",
+    "league": "Litvanya",
+    "timeLabel": "15:30",
+    "result": "3 - 7",
+    "homeScore": 3,
+    "awayScore": 7,
+    "winner": "Babrungas"
+  },
+  {
+    "home": "Proxy",
+    "away": "Tanta FC",
+    "league": "Misir",
+    "timeLabel": "15:30",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Proxy"
+  },
+  {
+    "home": "Telecom Egypt",
+    "away": "El Mansura",
+    "league": "Misir",
+    "timeLabel": "15:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Troszyn",
+    "away": "Jagiellonia II",
+    "league": "Polonya",
+    "timeLabel": "15:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "SKRA Czestochowa",
+    "away": "Sparta Katowice",
+    "league": "Polonya",
+    "timeLabel": "15:30",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Sparta Katowice"
+  },
+  {
+    "home": "Rekord Bielsko-Biala",
+    "away": "Jastrzebie Zdroj",
+    "league": "Polonya",
+    "timeLabel": "15:45",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Al Ahli U21",
+    "away": "Al Orooba U21",
+    "league": "Birlesik Arap E",
+    "timeLabel": "15:50",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Al Ahli U21"
+  },
+  {
+    "home": "Al Jazira U21",
+    "away": "Gulf United U21",
+    "league": "Birlesik Arap E",
+    "timeLabel": "15:55",
+    "result": "5 - 0",
+    "homeScore": 5,
+    "awayScore": 0,
+    "winner": "Al Jazira U21"
+  },
+  {
+    "home": "Al Seeb",
+    "away": "Al Ansar",
+    "league": "AFC Challenge L",
+    "timeLabel": "16:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Al Ansar"
+  },
+  {
+    "home": "Drochtersen / Assel",
+    "away": "Jeddeloh",
+    "league": "Almanya",
+    "timeLabel": "16:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Drochtersen / Assel"
+  },
+  {
+    "home": "Carl Zeiss Jena",
+    "away": "Magdeburg II",
+    "league": "Almanya",
+    "timeLabel": "16:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Carl Zeiss Jena"
+  },
+  {
+    "home": "Aumund-Vegesack",
+    "away": "Werder Bremen III",
+    "league": "Almanya",
+    "timeLabel": "16:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Aumund-Vegesack"
+  },
+  {
+    "home": "Victoria Hamburg",
+    "away": "Eimsbütteler TV",
+    "league": "Almanya",
+    "timeLabel": "16:00",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "Eimsbütteler TV"
+  },
+  {
+    "home": "ETSV Hamburg",
+    "away": "Paloma",
+    "league": "Almanya",
+    "timeLabel": "16:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "SC Freital",
+    "away": "Budissa Bautzen",
+    "league": "Almanya",
+    "timeLabel": "16:00",
+    "result": "4 - 1",
+    "homeScore": 4,
+    "awayScore": 1,
+    "winner": "SC Freital"
+  },
+  {
+    "home": "Karabag",
+    "away": "Imisli FK",
+    "league": "Azerbaycan",
+    "timeLabel": "16:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Karabag"
+  },
+  {
+    "home": "Baniyas SC",
+    "away": "Dibba Al Fujairah",
+    "league": "Birlesik Arap E",
+    "timeLabel": "16:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Al Nasr U23",
+    "away": "Al Wahda U23",
+    "league": "Birlesik Arap E",
+    "timeLabel": "16:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Al Nasr U23"
+  },
+  {
+    "home": "Bjelovar",
+    "away": "Trnje",
+    "league": "Hirvatistan",
+    "timeLabel": "16:00",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Trnje"
+  },
+  {
+    "home": "Segesta Sisak",
+    "away": "Uljanik",
+    "league": "Hirvatistan",
+    "timeLabel": "16:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Segesta Sisak"
+  },
+  {
+    "home": "Dakovo-Croatia",
+    "away": "Solin",
+    "league": "Hirvatistan",
+    "timeLabel": "16:00",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Solin"
+  },
+  {
+    "home": "Kustosija",
+    "away": "Grobnican Cavle",
+    "league": "Hirvatistan",
+    "timeLabel": "16:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Uskok Klis",
+    "away": "Dugo Selo",
+    "league": "Hirvatistan",
+    "timeLabel": "16:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Uskok Klis"
+  },
+  {
+    "home": "Jadran LP",
+    "away": "Hrvatski Dragovoljac",
+    "league": "Hirvatistan",
+    "timeLabel": "16:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Jadran LP"
+  },
+  {
+    "home": "Dugopolje",
+    "away": "Jarun",
+    "league": "Hirvatistan",
+    "timeLabel": "16:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Dugopolje"
+  },
+  {
+    "home": "Opatija",
+    "away": "Croatia Zmijavci",
+    "league": "Hirvatistan",
+    "timeLabel": "16:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Opatija"
+  },
+  {
+    "home": "Mes Rafsanjan",
+    "away": "Chadormalu SC",
+    "league": "Iran",
+    "timeLabel": "16:00",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Chadormalu SC"
+  },
+  {
+    "home": "Esteghlal FC",
+    "away": "Aluminium Arak",
+    "league": "Iran",
+    "timeLabel": "16:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Esteghlal FC"
+  },
+  {
+    "home": "Terengganu",
+    "away": "Johor DT",
+    "league": "Malezya",
+    "timeLabel": "16:00",
+    "result": "0 - 5",
+    "homeScore": 0,
+    "awayScore": 5,
+    "winner": "Johor DT"
+  },
+  {
+    "home": "Chingale De Tete",
+    "away": "Costa do Sol",
+    "league": "Mozambik",
+    "timeLabel": "16:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Slask Wroclaw II",
+    "away": "Swit Skolwin",
+    "league": "Polonya",
+    "timeLabel": "16:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Pawlowice Slaskie",
+    "away": "Miedz Legnica II",
+    "league": "Polonya",
+    "timeLabel": "16:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Pawlowice Slaskie"
+  },
+  {
+    "home": "Blejoi Vispesti",
+    "away": "Sporting Liesti",
+    "league": "Romanya",
+    "timeLabel": "16:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Sporting Liesti"
+  },
+  {
+    "home": "FCSB II",
+    "away": "Dinamo Bucarest II",
+    "league": "Romanya",
+    "timeLabel": "16:00",
+    "result": "4 - 2",
+    "homeScore": 4,
+    "awayScore": 2,
+    "winner": "FCSB II"
+  },
+  {
+    "home": "Voluntari II",
+    "away": "Agigea",
+    "league": "Romanya",
+    "timeLabel": "16:00",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Agigea"
+  },
+  {
+    "home": "Kids Tâmpa Brasov",
+    "away": "Aninoasa",
+    "league": "Romanya",
+    "timeLabel": "16:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Kids Tâmpa Brasov"
+  },
+  {
+    "home": "LPS HD Clinceni",
+    "away": "Academica Bals",
+    "league": "Romanya",
+    "timeLabel": "16:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Inter Stars",
+    "away": "Pausesti-Otasau",
+    "league": "Romanya",
+    "timeLabel": "16:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Gorilla",
+    "away": "Bugesera",
+    "league": "Ruanda",
+    "timeLabel": "16:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Gorilla"
+  },
+  {
+    "home": "Ljutomer",
+    "away": "Dobrovce",
+    "league": "Slovenya",
+    "timeLabel": "16:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Hajdina",
+    "away": "Videm",
+    "league": "Slovenya",
+    "timeLabel": "16:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Videm"
+  },
+  {
+    "home": "Basaksehir U19",
+    "away": "Kocaelispor U19",
+    "league": "Türkiye",
+    "timeLabel": "16:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Basaksehir U19"
+  },
+  {
+    "home": "Buhimba United Saints",
+    "away": "SC Villa",
+    "league": "Uganda",
+    "timeLabel": "16:00",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "SC Villa"
+  },
+  {
+    "home": "Al Najma",
+    "away": "Al Shabab Manama",
+    "league": "Bahreyn",
+    "timeLabel": "16:25",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Al Najma"
+  },
+  {
+    "home": "Charlton Athletic U21",
+    "away": "Queens Park Rangers U21",
+    "league": "Ingiltere",
+    "timeLabel": "16:30",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Kheybar Khorramabad",
+    "away": "Gol Gohar Sirjan",
+    "league": "Iran",
+    "timeLabel": "16:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Shortan Guzor",
+    "away": "AGMK",
+    "league": "Özbekistan",
+    "timeLabel": "16:30",
+    "result": "4 - 3",
+    "homeScore": 4,
+    "awayScore": 3,
+    "winner": "Shortan Guzor"
+  },
+  {
+    "home": "Wybrzeze Rewalskie Rewal",
+    "away": "Polonia Sroda",
+    "league": "Polonya",
+    "timeLabel": "16:30",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Polonia Sroda"
+  },
+  {
+    "home": "Al Akhdoud",
+    "away": "Al Najma",
+    "league": "Suudi Arabistan",
+    "timeLabel": "16:40",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Al Akhdoud"
+  },
+  {
+    "home": "Al Arabi",
+    "away": "Muras United",
+    "league": "AFC Challenge L",
+    "timeLabel": "17:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "FC Minsk II",
+    "away": "ABFF U19",
+    "league": "Belarus",
+    "timeLabel": "17:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "ABFF U19"
+  },
+  {
+    "home": "Temouchent",
+    "away": "Kolea",
+    "league": "Cezayir",
+    "timeLabel": "17:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "WA Mostaganem",
+    "away": "RC Arbaa",
+    "league": "Cezayir",
+    "timeLabel": "17:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "ASM Oran",
+    "away": "Tixeraine",
+    "league": "Cezayir",
+    "timeLabel": "17:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "ASM Oran"
+  },
+  {
+    "home": "Saida",
+    "away": "NA Hussein Dey",
+    "league": "Cezayir",
+    "timeLabel": "17:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "USM El Harrach",
+    "away": "WA Tlemcen",
+    "league": "Cezayir",
+    "timeLabel": "17:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "USM El Harrach"
+  },
+  {
+    "home": "RC Kouba",
+    "away": "JS El Biar",
+    "league": "Cezayir",
+    "timeLabel": "17:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "RC Kouba"
+  },
+  {
+    "home": "GC Mascara",
+    "away": "JSM Tiaret",
+    "league": "Cezayir",
+    "timeLabel": "17:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "GC Mascara"
+  },
+  {
+    "home": "CRB Adrar",
+    "away": "Bechar Djedid",
+    "league": "Cezayir",
+    "timeLabel": "17:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "CRB Adrar"
+  },
+  {
+    "home": "Biskra",
+    "away": "JS Bordj Menaiel",
+    "league": "Cezayir",
+    "timeLabel": "17:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "MSP Batna",
+    "away": "US Chaouia",
+    "league": "Cezayir",
+    "timeLabel": "17:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "US Chaouia"
+  },
+  {
+    "home": "MO Bejaia",
+    "away": "MC Magra",
+    "league": "Cezayir",
+    "timeLabel": "17:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "MC Magra"
+  },
+  {
+    "home": "HB Chelghoum Laid",
+    "away": "Annaba",
+    "league": "Cezayir",
+    "timeLabel": "17:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "IB Khemis El Khechna",
+    "away": "Beni Oulbane",
+    "league": "Cezayir",
+    "timeLabel": "17:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "IB Khemis El Khechna"
+  },
+  {
+    "home": "Mohun Bagan Super Giant",
+    "away": "East Bengal",
+    "league": "Hindistan",
+    "timeLabel": "17:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Sheffield Wednesday U21",
+    "away": "Hull City U21",
+    "league": "Ingiltere",
+    "timeLabel": "17:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Hull City U21"
+  },
+  {
+    "home": "Krka",
+    "away": "Krsko",
+    "league": "Slovenya",
+    "timeLabel": "17:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Krsko"
+  },
+  {
+    "home": "Sama Al Sarhan",
+    "away": "Al Buqaa",
+    "league": "Ürdün",
+    "timeLabel": "17:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "JS Djijel",
+    "away": "CA Batna",
+    "league": "Cezayir",
+    "timeLabel": "17:06",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "JS Djijel"
+  },
+  {
+    "home": "Shams Azar Qazvin",
+    "away": "Sepahan",
+    "league": "Iran",
+    "timeLabel": "17:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Sepahan"
+  },
+  {
+    "home": "Esteghlal Khuzestan",
+    "away": "Foolad Khuzestan",
+    "league": "Iran",
+    "timeLabel": "17:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Al Arabi",
+    "away": "Al Shahaniya",
+    "league": "Katar",
+    "timeLabel": "17:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Al Arabi"
+  },
+  {
+    "home": "Al Qadsia",
+    "away": "Al Tadhamon",
+    "league": "Kuveyt",
+    "timeLabel": "17:30",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Al Qadsia"
+  },
+  {
+    "home": "Rudar Velenje",
+    "away": "Jesenice",
+    "league": "Slovenya",
+    "timeLabel": "17:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Al Hilal Riyadh",
+    "away": "Al Shabab Riyadh",
+    "league": "Suudi Arabistan",
+    "timeLabel": "17:50",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Al Hilal Riyadh"
+  },
+  {
+    "home": "Guelson",
+    "away": "Kabuscorp",
+    "league": "Angola",
+    "timeLabel": "18:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Guelson"
+  },
+  {
+    "home": "Kawkab Marrakech",
+    "away": "UTS Rabat",
+    "league": "Fas",
+    "timeLabel": "18:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Kawkab Marrakech"
+  },
+  {
+    "home": "Olympique Dcheira",
+    "away": "CODM Meknes",
+    "league": "Fas",
+    "timeLabel": "18:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Attram de Visser",
+    "away": "Great Olympics",
+    "league": "Gana",
+    "timeLabel": "18:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Attram de Visser"
+  },
+  {
+    "home": "FC Iberia 1999",
+    "away": "Dinamo Batumi",
+    "league": "Gürcistan",
+    "timeLabel": "18:00",
+    "result": "5 - 1",
+    "homeScore": 5,
+    "awayScore": 1,
+    "winner": "FC Iberia 1999"
+  },
+  {
+    "home": "HNK Gorica U19",
+    "away": "Dinamo Zagreb U19",
+    "league": "Hirvatistan",
+    "timeLabel": "18:00",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Dinamo Zagreb U19"
+  },
+  {
+    "home": "Al Minaa Basra",
+    "away": "Al-Qasim",
+    "league": "Irak",
+    "timeLabel": "18:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Al Minaa Basra"
+  },
+  {
+    "home": "Minija",
+    "away": "TransINVEST Vilnius",
+    "league": "Litvanya",
+    "timeLabel": "18:00",
+    "result": "0 - 5",
+    "homeScore": 0,
+    "awayScore": 5,
+    "winner": "TransINVEST Vilnius"
+  },
+  {
+    "home": "Bicskei",
+    "away": "Puskas FC II",
+    "league": "Macaristan",
+    "timeLabel": "18:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Bicskei"
+  },
+  {
+    "home": "Isveç U17",
+    "away": "Iskoçya U17",
+    "league": "Avrupa U17 Samp",
+    "timeLabel": "18:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Isveç U17"
+  },
+  {
+    "home": "Dinamo Brest",
+    "away": "FC Molodechno",
+    "league": "Belarus",
+    "timeLabel": "18:30",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Dinamo Brest"
+  },
+  {
+    "home": "Fratria",
+    "away": "Vihren Sandanski",
+    "league": "Bulgaristan",
+    "timeLabel": "18:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Fratria"
+  },
+  {
+    "home": "Bechem United",
+    "away": "Nations",
+    "league": "Gana",
+    "timeLabel": "18:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "CSMS Iasi",
+    "away": "Bihor Oradea",
+    "league": "Romanya",
+    "timeLabel": "18:30",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "CSMS Iasi"
+  },
+  {
+    "home": "Khorfakkan",
+    "away": "Al Wasl Dubai",
+    "league": "Birlesik Arap E",
+    "timeLabel": "18:45",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Al Kuwait",
+    "away": "Bashundhara Kings",
+    "league": "AFC Challenge L",
+    "timeLabel": "19:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Al Kuwait"
+  },
+  {
+    "home": "Slovakya U17",
+    "away": "San Marino U17",
+    "league": "Avrupa U17 Samp",
+    "timeLabel": "19:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Slovakya U17"
+  },
+  {
+    "home": "Al Hadd",
+    "away": "Budaiya",
+    "league": "Bahreyn",
+    "timeLabel": "19:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Budaiya"
+  },
+  {
+    "home": "Karlovac 1919",
+    "away": "Dubrava Zagreb",
+    "league": "Hirvatistan",
+    "timeLabel": "19:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Karlovac 1919"
+  },
+  {
+    "home": "Vardar Skopje",
+    "away": "Sileks",
+    "league": "Kuzey Makedonya",
+    "timeLabel": "19:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Vardar Skopje"
+  },
+  {
+    "home": "Zalgiris II",
+    "away": "Lietava Jonava",
+    "league": "Litvanya",
+    "timeLabel": "19:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Be1 NFA",
+    "away": "FA Siauliai II",
+    "league": "Litvanya",
+    "timeLabel": "19:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Be1 NFA"
+  },
+  {
+    "home": "Hegelmann II",
+    "away": "Neptüna Klaipeda",
+    "league": "Litvanya",
+    "timeLabel": "19:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Neptüna Klaipeda"
+  },
+  {
+    "home": "Kauno Zalgiris II",
+    "away": "Tauras Taurage",
+    "league": "Litvanya",
+    "timeLabel": "19:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Tauras Taurage"
+  },
+  {
+    "home": "CSKA Moskova",
+    "away": "Pari Nizhny Novgorod",
+    "league": "Rusya",
+    "timeLabel": "19:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "CSKA Moskova"
+  },
+  {
+    "home": "Dukla Banska Bystrica",
+    "away": "Inter Bratislava",
+    "league": "Slovakya",
+    "timeLabel": "19:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Dukla Banska Bystrica"
+  },
+  {
+    "home": "Kudrivka",
+    "away": "Obolon Kyiv",
+    "league": "Ukrayna",
+    "timeLabel": "19:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Kudrivka"
+  },
+  {
+    "home": "Al Wakrah",
+    "away": "Qatar SC",
+    "league": "Katar",
+    "timeLabel": "19:30",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Al Wakrah"
+  },
+  {
+    "home": "Al Jazeera",
+    "away": "Al Faisaly",
+    "league": "Ürdün",
+    "timeLabel": "19:30",
+    "result": "1 - 6",
+    "homeScore": 1,
+    "awayScore": 6,
+    "winner": "Al Faisaly"
+  },
+  {
+    "home": "Stal Stalowa Wola",
+    "away": "Resovia Rzeszow",
+    "league": "Polonya",
+    "timeLabel": "19:45",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Stripfing",
+    "away": "Rapid Wien II",
+    "league": "Avusturya",
+    "timeLabel": "20:00",
+    "result": "0 - 4",
+    "homeScore": 0,
+    "awayScore": 4,
+    "winner": "Rapid Wien II"
+  },
+  {
+    "home": "Schwaz",
+    "away": "Bischofshofen",
+    "league": "Avusturya",
+    "timeLabel": "20:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Schwaz"
+  },
+  {
+    "home": "Radnik Bijeljina",
+    "away": "Rudar Prijedor",
+    "league": "Bosna",
+    "timeLabel": "20:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Radnik Bijeljina"
+  },
+  {
+    "home": "Santa Green",
+    "away": "Galaxy FC",
+    "league": "Botsvana",
+    "timeLabel": "20:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Galaxy FC"
+  },
+  {
+    "home": "Karlovy Vary",
+    "away": "Banik Sokolov",
+    "league": "Çek Cumhur",
+    "timeLabel": "20:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Jihlava",
+    "away": "Sparta Prag II",
+    "league": "Çek Cumhur",
+    "timeLabel": "20:00",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "Jihlava"
+  },
+  {
+    "home": "Prostejov",
+    "away": "Pribram",
+    "league": "Çek Cumhur",
+    "timeLabel": "20:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Häcken II (K)",
+    "away": "Elfsborg (K)",
+    "league": "Isveç",
+    "timeLabel": "20:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Elfsborg (K)"
+  },
+  {
+    "home": "Aris Limassol",
+    "away": "Akritas Chlorakas",
+    "league": "Kibris Rum Kesi",
+    "timeLabel": "20:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Aris Limassol"
+  },
+  {
+    "home": "Tersana Giza",
+    "away": "Baladiyyat Al Mehalla",
+    "league": "Misir",
+    "timeLabel": "20:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Tersana Giza"
+  },
+  {
+    "home": "Gornik Leczna",
+    "away": "Polonia Warszawa",
+    "league": "Polonya",
+    "timeLabel": "20:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Polonia Warszawa"
+  },
+  {
+    "home": "Star Starachowice",
+    "away": "Czarni Polaniec",
+    "league": "Polonya",
+    "timeLabel": "20:00",
+    "result": "3 - 2",
+    "homeScore": 3,
+    "awayScore": 2,
+    "winner": "Star Starachowice"
+  },
+  {
+    "home": "Nieciecza",
+    "away": "Katowice",
+    "league": "Polonya",
+    "timeLabel": "20:00",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Katowice"
+  },
+  {
+    "home": "Zlate Moravce",
+    "away": "Banik Lehota p.Vtacnikom",
+    "league": "Slovakya",
+    "timeLabel": "20:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Spartak Myjava",
+    "away": "Komárno II",
+    "league": "Slovakya",
+    "timeLabel": "20:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Spartak Myjava"
+  },
+  {
+    "home": "Basaksehir FK",
+    "away": "Kocaelispor",
+    "league": "Türkiye",
+    "timeLabel": "20:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Basaksehir FK"
+  },
+  {
+    "home": "Hatayspor",
+    "away": "Erzurumspor FK",
+    "league": "Türkiye",
+    "timeLabel": "20:00",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Erzurumspor FK"
+  },
+  {
+    "home": "Kampala City",
+    "away": "Calvary",
+    "league": "Uganda",
+    "timeLabel": "20:00",
+    "result": "4 - 2",
+    "homeScore": 4,
+    "awayScore": 2,
+    "winner": "Kampala City"
+  },
+  {
+    "home": "Preussen Münster",
+    "away": "Holstein Kiel",
+    "league": "Almanya",
+    "timeLabel": "20:30",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Preussen Münster"
+  },
+  {
+    "home": "Elversberg",
+    "away": "Hannover 96",
+    "league": "Almanya",
+    "timeLabel": "20:30",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Schalke 04 II",
+    "away": "Rödinghausen",
+    "league": "Almanya",
+    "timeLabel": "20:30",
+    "result": "3 - 2",
+    "homeScore": 3,
+    "awayScore": 2,
+    "winner": "Schalke 04 II"
+  },
+  {
+    "home": "Köln (K)",
+    "away": "Nürnberg (K)",
+    "league": "Almanya",
+    "timeLabel": "20:30",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Köln (K)"
+  },
+  {
+    "home": "Kuchl",
+    "away": "Lauterach",
+    "league": "Avusturya",
+    "timeLabel": "20:30",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "Lauterach"
+  },
+  {
+    "home": "Batov",
+    "away": "Holesov",
+    "league": "Çek Cumhur",
+    "timeLabel": "20:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Durban City",
+    "away": "Kaizer Chiefs",
+    "league": "Güney Afri",
+    "timeLabel": "20:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Kaizer Chiefs"
+  },
+  {
+    "home": "Al Mosul",
+    "away": "Al Zawraa",
+    "league": "Irak",
+    "timeLabel": "20:30",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Al Zawraa"
+  },
+  {
+    "home": "Al Talaba",
+    "away": "Naft Maysan",
+    "league": "Irak",
+    "timeLabel": "20:30",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Al Talaba"
+  },
+  {
+    "home": "Al Ettifaq",
+    "away": "Al Hazm",
+    "league": "Suudi Arabistan",
+    "timeLabel": "20:30",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Viktoria Köln",
+    "away": "Ingolstadt",
+    "league": "Almanya",
+    "timeLabel": "21:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Viktoria Köln"
+  },
+  {
+    "home": "Vilzing",
+    "away": "Memmingen",
+    "league": "Almanya",
+    "timeLabel": "21:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Unterhaching",
+    "away": "Würzburger Kickers",
+    "league": "Almanya",
+    "timeLabel": "21:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Würzburger Kickers"
+  },
+  {
+    "home": "Viktoria Aschaffenburg",
+    "away": "Buchbach",
+    "league": "Almanya",
+    "timeLabel": "21:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Buchbach"
+  },
+  {
+    "home": "Ansbach 09",
+    "away": "Wacker Burghausen",
+    "league": "Almanya",
+    "timeLabel": "21:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Ansbach 09"
+  },
+  {
+    "home": "Babelsberg",
+    "away": "BFC Preussen",
+    "league": "Almanya",
+    "timeLabel": "21:00",
+    "result": "2 - 5",
+    "homeScore": 2,
+    "awayScore": 5,
+    "winner": "BFC Preussen"
+  },
+  {
+    "home": "Reichenau",
+    "away": "FC Dornbirn 1913",
+    "league": "Avusturya",
+    "timeLabel": "21:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Reichenau"
+  },
+  {
+    "home": "Marchfeld Donauauen",
+    "away": "Wiener Viktoria",
+    "league": "Avusturya",
+    "timeLabel": "21:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Marchfeld Donauauen"
+  },
+  {
+    "home": "Neusiedl",
+    "away": "Favoritner AC",
+    "league": "Avusturya",
+    "timeLabel": "21:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Neusiedl"
+  },
+  {
+    "home": "Treibach",
+    "away": "Lafnitz",
+    "league": "Avusturya",
+    "timeLabel": "21:00",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Lafnitz"
+  },
+  {
+    "home": "Gurten",
+    "away": "Wallern / Marienkirchen",
+    "league": "Avusturya",
+    "timeLabel": "21:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Gurten"
+  },
+  {
+    "home": "St. Anna",
+    "away": "LASK Juniors",
+    "league": "Avusturya",
+    "timeLabel": "21:00",
+    "result": "0 - 5",
+    "homeScore": 0,
+    "awayScore": 5,
+    "winner": "LASK Juniors"
+  },
+  {
+    "home": "Ried II",
+    "away": "Gleisdorf",
+    "league": "Avusturya",
+    "timeLabel": "21:00",
+    "result": "3 - 2",
+    "homeScore": 3,
+    "awayScore": 2,
+    "winner": "Ried II"
+  },
+  {
+    "home": "Oedt",
+    "away": "SC Weiz",
+    "league": "Avusturya",
+    "timeLabel": "21:00",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "Oedt"
+  },
+  {
+    "home": "Velden",
+    "away": "Deutschlandsberger SC",
+    "league": "Avusturya",
+    "timeLabel": "21:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "AC Horsens",
+    "away": "HB Koge",
+    "league": "Danimarka",
+    "timeLabel": "21:00",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "HB Koge"
+  },
+  {
+    "home": "Fremad Amager",
+    "away": "AB Gladsaxe",
+    "league": "Danimarka",
+    "timeLabel": "21:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Fremad Amager"
+  },
+  {
+    "home": "Lugo",
+    "away": "Barakaldo",
+    "league": "Ispanya",
+    "timeLabel": "21:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "BFA",
+    "away": "Nevezis",
+    "league": "Litvanya",
+    "timeLabel": "21:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "BFA"
+  },
+  {
+    "home": "Warta Poznan",
+    "away": "Kalisz",
+    "league": "Polonya",
+    "timeLabel": "21:00",
+    "result": "4 - 2",
+    "homeScore": 4,
+    "awayScore": 2,
+    "winner": "Warta Poznan"
+  },
+  {
+    "home": "Audax Italiano",
+    "away": "Cobresal",
+    "league": "Sili",
+    "timeLabel": "21:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Cobresal"
+  },
+  {
+    "home": "Deportes Temuco",
+    "away": "Recoleta",
+    "league": "Sili",
+    "timeLabel": "21:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Deportes Temuco"
+  },
+  {
+    "home": "Dekani U19",
+    "away": "Brezice U19",
+    "league": "Slovenya",
+    "timeLabel": "21:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Wuppertaler SV",
+    "away": "Rot-Weiss Oberhausen",
+    "league": "Almanya",
+    "timeLabel": "21:30",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Rot-Weiss Oberhausen"
+  },
+  {
+    "home": "Sportfreunde Lotte",
+    "away": "Gütersloh",
+    "league": "Almanya",
+    "timeLabel": "21:30",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Oberwart",
+    "away": "Wiener SC",
+    "league": "Avusturya",
+    "timeLabel": "21:30",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "Oberwart"
+  },
+  {
+    "home": "Team Wiener Linien",
+    "away": "Krems / Rehberg",
+    "league": "Avusturya",
+    "timeLabel": "21:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Krems / Rehberg"
+  },
+  {
+    "home": "Traiskirchen",
+    "away": "Donau",
+    "league": "Avusturya",
+    "timeLabel": "21:30",
+    "result": "4 - 2",
+    "homeScore": 4,
+    "awayScore": 2,
+    "winner": "Traiskirchen"
+  },
+  {
+    "home": "Puuma Tallinn",
+    "away": "Vaprus II",
+    "league": "Estonya",
+    "timeLabel": "21:30",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Puuma Tallinn"
+  },
+  {
+    "home": "Le Puy",
+    "away": "Concarneau",
+    "league": "Fransa",
+    "timeLabel": "21:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Stade Briochin",
+    "away": "Caen",
+    "league": "Fransa",
+    "timeLabel": "21:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Chateauroux",
+    "away": "Aubagne",
+    "league": "Fransa",
+    "timeLabel": "21:30",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Aubagne"
+  },
+  {
+    "home": "Sochaux",
+    "away": "Versailles",
+    "league": "Fransa",
+    "timeLabel": "21:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Sochaux"
+  },
+  {
+    "home": "Dijon",
+    "away": "FC Fleury 91",
+    "league": "Fransa",
+    "timeLabel": "21:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "FC Fleury 91"
+  },
+  {
+    "home": "Valenciennes",
+    "away": "Quevilly",
+    "league": "Fransa",
+    "timeLabel": "21:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Valenciennes"
+  },
+  {
+    "home": "Paris 13 Atletico",
+    "away": "Bourg en Bresse 01",
+    "league": "Fransa",
+    "timeLabel": "21:30",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Paris 13 Atletico"
+  },
+  {
+    "home": "Andrezieux",
+    "away": "Frejus St-Raphael",
+    "league": "Fransa",
+    "timeLabel": "21:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Siwelele",
+    "away": "Sekhukhune United",
+    "league": "Güney Afri",
+    "timeLabel": "21:30",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Siwelele"
+  },
+  {
+    "home": "UJ Krakow (K)",
+    "away": "Rekord Bielsko-Biala (K)",
+    "league": "Polonya",
+    "timeLabel": "21:30",
+    "result": "4 - 4",
+    "homeScore": 4,
+    "awayScore": 4,
+    "winner": "Draw"
+  },
+  {
+    "home": "Dinamo Bucarest",
+    "away": "CFR Cluj",
+    "league": "Romanya",
+    "timeLabel": "21:30",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Dinamo Bucarest"
+  },
+  {
+    "home": "Unia Skierniewice",
+    "away": "LKS Lodz II",
+    "league": "Polonya",
+    "timeLabel": "21:45",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Unia Skierniewice"
+  },
+  {
+    "home": "Lierse Kempenzonen",
+    "away": "Lommel United",
+    "league": "Belçika",
+    "timeLabel": "22:00",
+    "result": "4 - 4",
+    "homeScore": 4,
+    "awayScore": 4,
+    "winner": "Draw"
+  },
+  {
+    "home": "Lokeren-Temse",
+    "away": "Royal Francs Borains",
+    "league": "Belçika",
+    "timeLabel": "22:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "RWDM U21",
+    "away": "Olympic Charleroi U21",
+    "league": "Belçika",
+    "timeLabel": "22:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "RWDM U21"
+  },
+  {
+    "home": "Lierse Kempenzonen U21",
+    "away": "RFC de Liege U21",
+    "league": "Belçika",
+    "timeLabel": "22:00",
+    "result": "5 - 0",
+    "homeScore": 5,
+    "awayScore": 0,
+    "winner": "Lierse Kempenzonen U21"
+  },
+  {
+    "home": "Always Ready",
+    "away": "Guabira",
+    "league": "Bolivya",
+    "timeLabel": "22:00",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "Always Ready"
+  },
+  {
+    "home": "KI Klaksvik",
+    "away": "Vikingur Gota",
+    "league": "Faroe Adalari",
+    "timeLabel": "22:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "KI Klaksvik"
+  },
+  {
+    "home": "Guingamp",
+    "away": "Stade Lavallois",
+    "league": "Fransa",
+    "timeLabel": "22:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Guingamp"
+  },
+  {
+    "home": "Bastia",
+    "away": "Clermont",
+    "league": "Fransa",
+    "timeLabel": "22:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Bastia"
+  },
+  {
+    "home": "Montpellier",
+    "away": "Rodez",
+    "league": "Fransa",
+    "timeLabel": "22:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Montpellier"
+  },
+  {
+    "home": "Le Mans FC",
+    "away": "Nancy",
+    "league": "Fransa",
+    "timeLabel": "22:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Le Mans FC"
+  },
+  {
+    "home": "Annecy",
+    "away": "Boulogne",
+    "league": "Fransa",
+    "timeLabel": "22:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "FC Oss",
+    "away": "Helmond Sport",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Helmond Sport"
+  },
+  {
+    "home": "VVV-Venlo",
+    "away": "Vitesse",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Vitesse"
+  },
+  {
+    "home": "Den Bosch",
+    "away": "De Graafschap",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "De Graafschap"
+  },
+  {
+    "home": "PSV Eindhoven",
+    "away": "Fortuna Sittard",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "5 - 2",
+    "homeScore": 5,
+    "awayScore": 2,
+    "winner": "PSV Eindhoven"
+  },
+  {
+    "home": "Burnley U21",
+    "away": "Birmingham City U21",
+    "league": "Ingiltere",
+    "timeLabel": "22:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Birmingham City U21"
+  },
+  {
+    "home": "Manchester United U21",
+    "away": "Blackburn Rovers U21",
+    "league": "Ingiltere",
+    "timeLabel": "22:00",
+    "result": "0 - 4",
+    "homeScore": 0,
+    "awayScore": 4,
+    "winner": "Blackburn Rovers U21"
+  },
+  {
+    "home": "Aston Villa U21",
+    "away": "Crystal Palace U21",
+    "league": "Ingiltere",
+    "timeLabel": "22:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Crystal Palace U21"
+  },
+  {
+    "home": "Derby County U21",
+    "away": "Norwich City U21",
+    "league": "Ingiltere",
+    "timeLabel": "22:00",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Norwich City U21"
+  },
+  {
+    "home": "Everton U21",
+    "away": "Chelsea U21",
+    "league": "Ingiltere",
+    "timeLabel": "22:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Everton U21"
+  },
+  {
+    "home": "Ipswich Town U21",
+    "away": "Newcastle United U21",
+    "league": "Ingiltere",
+    "timeLabel": "22:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Ipswich Town U21"
+  },
+  {
+    "home": "Manchester City U21",
+    "away": "Leicester City U21",
+    "league": "Ingiltere",
+    "timeLabel": "22:00",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "Manchester City U21"
+  },
+  {
+    "home": "Al Karkh",
+    "away": "Al Kahrabaa",
+    "league": "Irak",
+    "timeLabel": "22:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Rodange",
+    "away": "Progres Niedercorn",
+    "league": "Lüksemburg",
+    "timeLabel": "22:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Kisvarda",
+    "away": "Nyiregyhaza Spartacus",
+    "league": "Macaristan",
+    "timeLabel": "22:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Yverdon",
+    "away": "Vaduz",
+    "league": "Isviçre",
+    "timeLabel": "22:15",
+    "result": "3 - 4",
+    "homeScore": 3,
+    "awayScore": 4,
+    "winner": "Vaduz"
+  },
+  {
+    "home": "Etoile Carouge",
+    "away": "Bellinzona",
+    "league": "Isviçre",
+    "timeLabel": "22:15",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Etoile Carouge"
+  },
+  {
+    "home": "Augsburg",
+    "away": "Borussia Dortmund",
+    "league": "Almanya",
+    "timeLabel": "22:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Borussia Dortmund"
+  },
+  {
+    "home": "Kapfenberger SV",
+    "away": "Austria Salzburg",
+    "league": "Avusturya",
+    "timeLabel": "22:30",
+    "result": "4 - 1",
+    "homeScore": 4,
+    "awayScore": 1,
+    "winner": "Kapfenberger SV"
+  },
+  {
+    "home": "RAAL La Louviere U21",
+    "away": "Kortrijk U21",
+    "league": "Belçika",
+    "timeLabel": "22:30",
+    "result": "4 - 2",
+    "homeScore": 4,
+    "awayScore": 2,
+    "winner": "RAAL La Louviere U21"
+  },
+  {
+    "home": "Afan Lido",
+    "away": "Caerau (Ely)",
+    "league": "Galler",
+    "timeLabel": "22:30",
+    "result": "3 - 2",
+    "homeScore": 3,
+    "awayScore": 2,
+    "winner": "Afan Lido"
+  },
+  {
+    "home": "Cwmbran Celtic",
+    "away": "Baglan Dragons",
+    "league": "Galler",
+    "timeLabel": "22:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Baglan Dragons"
+  },
+  {
+    "home": "Luton Town",
+    "away": "Forest Green Rovers",
+    "league": "Ingiltere",
+    "timeLabel": "22:30",
+    "result": "4 - 3",
+    "homeScore": 4,
+    "awayScore": 3,
+    "winner": "Luton Town"
+  },
+  {
+    "home": "Racing Santander",
+    "away": "Real Sociedad II",
+    "league": "Ispanya",
+    "timeLabel": "22:30",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Racing Santander"
+  },
+  {
+    "home": "Casertana",
+    "away": "Catania",
+    "league": "Italya",
+    "timeLabel": "22:30",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Picerno",
+    "away": "Cavese",
+    "league": "Italya",
+    "timeLabel": "22:30",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Ruch Chorzow",
+    "away": "Tychy 71",
+    "league": "Polonya",
+    "timeLabel": "22:30",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Ruch Chorzow"
+  },
+  {
+    "home": "Zaglebie Sosnowiec",
+    "away": "Chojniczanka Chojnice",
+    "league": "Polonya",
+    "timeLabel": "22:30",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Chojniczanka Chojnice"
+  },
+  {
+    "home": "Piast Gliwice",
+    "away": "Korona Kielce",
+    "league": "Polonya",
+    "timeLabel": "22:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Standard Liege",
+    "away": "Sporting Charleroi",
+    "league": "Belçika",
+    "timeLabel": "22:45",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Standard Liege"
+  },
+  {
+    "home": "Ruthin Town",
+    "away": "Mold Alexandra",
+    "league": "Galler",
+    "timeLabel": "22:45",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Mold Alexandra"
+  },
+  {
+    "home": "Llandudno FC",
+    "away": "Airbus UK",
+    "league": "Galler",
+    "timeLabel": "22:45",
+    "result": "5 - 0",
+    "homeScore": 5,
+    "awayScore": 0,
+    "winner": "Llandudno FC"
+  },
+  {
+    "home": "Bala Town",
+    "away": "Llanelli Town",
+    "league": "Galler",
+    "timeLabel": "22:45",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Bala Town"
+  },
+  {
+    "home": "Ayr United",
+    "away": "Dunfermline Athletic",
+    "league": "Iskoçya",
+    "timeLabel": "22:45",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Dunfermline Athletic"
+  },
+  {
+    "home": "Glentoran FC",
+    "away": "Portadown FC",
+    "league": "Kuzey Irlanda",
+    "timeLabel": "22:45",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Glentoran FC"
+  },
+  {
+    "home": "Bangor FC",
+    "away": "Carrick Rangers",
+    "league": "Kuzey Irlanda",
+    "timeLabel": "22:45",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Carrick Rangers"
+  },
+  {
+    "home": "Lions Gibraltar",
+    "away": "Glacis United",
+    "league": "Cebelitarik",
+    "timeLabel": "23:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Lions Gibraltar"
+  },
+  {
+    "home": "Marsilya (K)",
+    "away": "Strasbourg (K)",
+    "league": "Fransa",
+    "timeLabel": "23:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Gresford Athletic",
+    "away": "Newtown",
+    "league": "Galler",
+    "timeLabel": "23:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Newtown"
+  },
+  {
+    "home": "Wrexham",
+    "away": "Coventry",
+    "league": "Ingiltere",
+    "timeLabel": "23:00",
+    "result": "3 - 2",
+    "homeScore": 3,
+    "awayScore": 2,
+    "winner": "Wrexham"
+  },
+  {
+    "home": "Hamilton Academical (K)",
+    "away": "Celtic (K)",
+    "league": "Iskoçya",
+    "timeLabel": "23:00",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Celtic (K)"
+  },
+  {
+    "home": "Getafe",
+    "away": "Girona",
+    "league": "Ispanya",
+    "timeLabel": "23:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Getafe"
+  },
+  {
+    "home": "Ballinamallard United",
+    "away": "Ards FC",
+    "league": "Kuzey Irlanda",
+    "timeLabel": "23:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Ballinamallard United"
+  },
+  {
+    "home": "Alcorcon",
+    "away": "Sevilla II",
+    "league": "Ispanya",
+    "timeLabel": "23:15",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Sporting CP",
+    "away": "Alverca",
+    "league": "Portekiz",
+    "timeLabel": "23:15",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Sporting CP"
+  },
+  {
+    "home": "Cosmos",
+    "away": "Murata",
+    "league": "San Marino",
+    "timeLabel": "23:15",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Faetano",
+    "away": "La Fiorita",
+    "league": "San Marino",
+    "timeLabel": "23:15",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "La Fiorita"
+  },
+  {
+    "home": "General Caballero JLM",
+    "away": "Deportivo Recoleta",
+    "league": "Paraguay",
+    "timeLabel": "23:30",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Deportivo Recoleta"
+  },
+  {
+    "home": "Deportes Iquique",
+    "away": "La Serena",
+    "league": "Sili",
+    "timeLabel": "23:30",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "La Serena"
+  },
+  {
+    "home": "Concepcion",
+    "away": "Union San Felipe",
+    "league": "Sili",
+    "timeLabel": "23:30",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Concepcion"
+  },
+  {
+    "home": "La Equidad",
+    "away": "Fortaleza CEIF",
+    "league": "Kolombiya",
+    "timeLabel": "00:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Fortaleza CEIF"
+  },
+  {
+    "home": "Aguila",
+    "away": "Fuerte San Francisco",
+    "league": "El Salvador",
+    "timeLabel": "00:15",
+    "result": "3 - 3",
+    "homeScore": 3,
+    "awayScore": 3,
+    "winner": "Draw"
+  },
+  {
+    "home": "Nacional Potosi",
+    "away": "ABB",
+    "league": "Bolivya",
+    "timeLabel": "00:30",
+    "result": "4 - 2",
+    "homeScore": 4,
+    "awayScore": 2,
+    "winner": "Nacional Potosi"
+  },
+  {
+    "home": "Fluminense",
+    "away": "Ceara",
+    "league": "Brezilya",
+    "timeLabel": "01:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Fluminense"
+  },
+  {
+    "home": "Junior",
+    "away": "Santa Fe",
+    "league": "Kolombiya",
+    "timeLabel": "02:10",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Santa Fe"
+  },
+  {
+    "home": "Independiente Medellin",
+    "away": "Atletico Bucaramanga",
+    "league": "Kolombiya",
+    "timeLabel": "02:10",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Independiente Medellin"
+  },
+  {
+    "home": "CA Penarol",
+    "away": "Plaza Colonia",
+    "league": "Uruguay",
+    "timeLabel": "02:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "CA Penarol"
+  },
+  {
+    "home": "Plaza Amador",
+    "away": "Sporting San Miguelito",
+    "league": "CONCACAF Orta A",
+    "timeLabel": "02:45",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Sporting San Miguelito"
+  },
+  {
+    "home": "Wilstermann",
+    "away": "Gualberto Villarroel SJ",
+    "league": "Bolivya",
+    "timeLabel": "03:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Wilstermann"
+  },
+  {
+    "home": "Racing Club",
+    "away": "Flamengo",
+    "league": "Copa Libertador",
+    "timeLabel": "03:50",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Millonarios",
+    "away": "Once Caldas",
+    "league": "Kolombiya",
+    "timeLabel": "04:20",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Los Angeles FC",
+    "away": "Austin",
+    "league": "ABD",
+    "timeLabel": "05:30",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Los Angeles FC"
+  },
+  {
+    "home": "Xelaju MC",
+    "away": "Real Espana",
+    "league": "CONCACAF Orta A",
+    "timeLabel": "05:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Tuv Azarganuud",
+    "away": "FC Deren",
+    "league": "Mogolistan",
+    "timeLabel": "07:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Tuv Azarganuud"
+  },
+  {
+    "home": "Khoromkhon",
+    "away": "FC Ulaanbaatar",
+    "league": "Mogolistan",
+    "timeLabel": "10:00",
+    "result": "0 - 10",
+    "homeScore": 0,
+    "awayScore": 10,
+    "winner": "FC Ulaanbaatar"
+  },
+  {
+    "home": "Marines Maptaphut",
+    "away": "Sisaket United",
+    "league": "Tayland",
+    "timeLabel": "11:00",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Sisaket United"
+  },
+  {
+    "home": "Prime Bangkok",
+    "away": "Khonkaen",
+    "league": "Tayland",
+    "timeLabel": "11:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Bankhai United",
+    "away": "Nakhon Nayok",
+    "league": "Tayland",
+    "timeLabel": "11:00",
+    "result": "5 - 0",
+    "homeScore": 5,
+    "awayScore": 0,
+    "winner": "Bankhai United"
+  },
+  {
+    "home": "Surin Khongcheemool",
+    "away": "Ubonkids City",
+    "league": "Tayland",
+    "timeLabel": "11:00",
+    "result": "2 - 9",
+    "homeScore": 2,
+    "awayScore": 9,
+    "winner": "Ubonkids City"
+  },
+  {
+    "home": "Nong Khai",
+    "away": "Khonkaen Utd",
+    "league": "Tayland",
+    "timeLabel": "11:00",
+    "result": "0 - 5",
+    "homeScore": 0,
+    "awayScore": 5,
+    "winner": "Khonkaen Utd"
+  },
+  {
+    "home": "Royal Thai Fleet",
+    "away": "ACDC",
+    "league": "Tayland",
+    "timeLabel": "11:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Royal Thai Fleet"
+  },
+  {
+    "home": "Kopoon Warrior",
+    "away": "Phitsanulok",
+    "league": "Tayland",
+    "timeLabel": "11:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Phitsanulok"
+  },
+  {
+    "home": "Bosna-Hersek U17 (K)",
+    "away": "Gürcistan U17 (K)",
+    "league": "Avrupa U17 Samp",
+    "timeLabel": "12:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Bosna-Hersek U17 (K)"
+  },
+  {
+    "home": "Kazakistan U17 (K)",
+    "away": "Letonya U17 (K)",
+    "league": "Avrupa U17 Samp",
+    "timeLabel": "12:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Letonya U17 (K)"
+  },
+  {
+    "home": "Samtredia",
+    "away": "Dila Gori",
+    "league": "Gürcistan",
+    "timeLabel": "13:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Posta Rangers",
+    "away": "Muranga All Stars",
+    "league": "Kenya",
+    "timeLabel": "13:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Chiangmai United",
+    "away": "Prachuap",
+    "league": "Tayland",
+    "timeLabel": "13:00",
+    "result": "2 - 6",
+    "homeScore": 2,
+    "awayScore": 6,
+    "winner": "Prachuap"
+  },
+  {
+    "home": "Esenler Erokspor",
+    "away": "Agri 1970 Spor",
+    "league": "Türkiye",
+    "timeLabel": "13:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Esenler Erokspor"
+  },
+  {
+    "home": "Karaköprü Belediyespor",
+    "away": "Çaykur Rizespor",
+    "league": "Türkiye",
+    "timeLabel": "13:00",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Çaykur Rizespor"
+  },
+  {
+    "home": "Agrotekh Tyshkivka",
+    "away": "Yarud Mariupol",
+    "league": "Ukrayna",
+    "timeLabel": "13:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Roi Et 2018",
+    "away": "Samut Songkhram City",
+    "league": "Tayland",
+    "timeLabel": "13:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Roi Et 2018"
+  },
+  {
+    "home": "1926 Bulancakspor",
+    "away": "Igdir FK",
+    "league": "Türkiye",
+    "timeLabel": "13:30",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Igdir FK"
+  },
+  {
+    "home": "Azerbaycan U17 (K)",
+    "away": "Moldova U17 (K)",
+    "league": "Avrupa U17 Samp",
+    "timeLabel": "14:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Kosovo U17 (K)",
+    "away": "Galler U17 (K)",
+    "league": "Avrupa U17 Samp",
+    "timeLabel": "14:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Sardarapat",
+    "away": "Ararat Yerevan",
+    "league": "Ermenistan",
+    "timeLabel": "14:00",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Ararat Yerevan"
+  },
+  {
+    "home": "Gandzasar",
+    "away": "Cilicia",
+    "league": "Ermenistan",
+    "timeLabel": "14:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Gandzasar"
+  },
+  {
+    "home": "Rajasthan United",
+    "away": "Kerala Blasters",
+    "league": "Hindistan",
+    "timeLabel": "14:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Kerala Blasters"
+  },
+  {
+    "home": "Pogon Tczew (K)",
+    "away": "Stomilanki Olsztyn (K)",
+    "league": "Polonya",
+    "timeLabel": "14:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Pogon Tczew (K)"
+  },
+  {
+    "home": "Gryf Slupsk",
+    "away": "Lech Poznan",
+    "league": "Polonya",
+    "timeLabel": "14:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Lech Poznan"
+  },
+  {
+    "home": "Znicz Pruszków U19",
+    "away": "Legia Warszawa U19",
+    "league": "Polonya",
+    "timeLabel": "14:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Lech Poznan U19",
+    "away": "Zaglebie Lubin U19",
+    "league": "Polonya",
+    "timeLabel": "14:00",
+    "result": "4 - 2",
+    "homeScore": 4,
+    "awayScore": 2,
+    "winner": "Lech Poznan U19"
+  },
+  {
+    "home": "Odra Opole U19",
+    "away": "Gornik Zabrze U19",
+    "league": "Polonya",
+    "timeLabel": "14:00",
+    "result": "1 - 5",
+    "homeScore": 1,
+    "awayScore": 5,
+    "winner": "Gornik Zabrze U19"
+  },
+  {
+    "home": "Sporting CP U23",
+    "away": "Estrela U23",
+    "league": "Portekiz",
+    "timeLabel": "14:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Phichit United",
+    "away": "Udon Thani City",
+    "league": "Tayland",
+    "timeLabel": "14:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Uthai Thani",
+    "away": "Kasem Bundit University",
+    "league": "Tayland",
+    "timeLabel": "14:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Uthai Thani"
+  },
+  {
+    "home": "Siwilai",
+    "away": "Uttaradit",
+    "league": "Tayland",
+    "timeLabel": "14:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Uttaradit"
+  },
+  {
+    "home": "Chernomorets 1919 Burgas",
+    "away": "Ludogorets Razgrad",
+    "league": "Bulgaristan",
+    "timeLabel": "14:30",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Ludogorets Razgrad"
+  },
+  {
+    "home": "III. Kerületi TUE",
+    "away": "Soroksar",
+    "league": "Macaristan",
+    "timeLabel": "14:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Soroksar"
+  },
+  {
+    "home": "Jagiellonia U19",
+    "away": "Lechia Gdansk U19",
+    "league": "Polonya",
+    "timeLabel": "14:30",
+    "result": "4 - 1",
+    "homeScore": 4,
+    "awayScore": 1,
+    "winner": "Jagiellonia U19"
+  },
+  {
+    "home": "Muang Thong United",
+    "away": "Romklao United",
+    "league": "Tayland",
+    "timeLabel": "14:30",
+    "result": "10 - 0",
+    "homeScore": 10,
+    "awayScore": 0,
+    "winner": "Muang Thong United"
+  },
+  {
+    "home": "Bangkok United",
+    "away": "Samut Sakhon City",
+    "league": "Tayland",
+    "timeLabel": "14:30",
+    "result": "7 - 0",
+    "homeScore": 7,
+    "awayScore": 0,
+    "winner": "Bangkok United"
+  },
+  {
+    "home": "Zonguldakspor FK",
+    "away": "Bodrum FK",
+    "league": "Türkiye",
+    "timeLabel": "14:45",
+    "result": "0 - 5",
+    "homeScore": 0,
+    "awayScore": 5,
+    "winner": "Bodrum FK"
+  },
+  {
+    "home": "Adama City",
+    "away": "Hadiya Hosaena",
+    "league": "Etiyopya",
+    "timeLabel": "15:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Molde U19",
+    "away": "Viking U19",
+    "league": "Norveç",
+    "timeLabel": "15:00",
+    "result": "4 - 3",
+    "homeScore": 4,
+    "awayScore": 3,
+    "winner": "Molde U19"
+  },
+  {
+    "home": "OFK Vrsac",
+    "away": "Tekstilac Odzaci",
+    "league": "Sirbistan",
+    "timeLabel": "15:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Dubocica",
+    "away": "Mladost Lucani",
+    "league": "Sirbistan",
+    "timeLabel": "15:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Shkupi",
+    "away": "Struga",
+    "league": "Kuzey Makedonya",
+    "timeLabel": "15:30",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Struga"
+  },
+  {
+    "home": "Derot",
+    "away": "Asyut Petroleum",
+    "league": "Misir",
+    "timeLabel": "15:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Asyut Petroleum"
+  },
+  {
+    "home": "Al Qanah",
+    "away": "Masar",
+    "league": "Misir",
+    "timeLabel": "15:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Aswan FC",
+    "away": "Abu Qair Semad",
+    "league": "Misir",
+    "timeLabel": "15:30",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Abu Qair Semad"
+  },
+  {
+    "home": "El Daklyeh",
+    "away": "El Seka El Hadid",
+    "league": "Misir",
+    "timeLabel": "15:30",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Maleyet Kafr El Zayat",
+    "away": "El Entag El Harby",
+    "league": "Misir",
+    "timeLabel": "15:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Maleyet Kafr El Zayat"
+  },
+  {
+    "home": "La Viena FC",
+    "away": "Ghazl Kafr El Dawar",
+    "league": "Misir",
+    "timeLabel": "15:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Al Wahda",
+    "away": "Al Nasr",
+    "league": "Birlesik Arap E",
+    "timeLabel": "16:00",
+    "result": "3 - 2",
+    "homeScore": 3,
+    "awayScore": 2,
+    "winner": "Al Wahda"
+  },
+  {
+    "home": "Mathare United",
+    "away": "Gor Mahia",
+    "league": "Kenya",
+    "timeLabel": "16:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Gor Mahia"
+  },
+  {
+    "home": "Concordia Chiajna",
+    "away": "Hermannstadt",
+    "league": "Romanya",
+    "timeLabel": "16:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Hermannstadt"
+  },
+  {
+    "home": "Gasogi United",
+    "away": "Muhanga",
+    "league": "Ruanda",
+    "timeLabel": "16:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Gasogi United"
+  },
+  {
+    "home": "ND Slovan Ljubljana",
+    "away": "Jadran Dekani",
+    "league": "Slovenya",
+    "timeLabel": "16:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "ND Slovan Ljubljana"
+  },
+  {
+    "home": "Dravinja",
+    "away": "Mura",
+    "league": "Slovenya",
+    "timeLabel": "16:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Mura"
+  },
+  {
+    "home": "BUL",
+    "away": "Express",
+    "league": "Uganda",
+    "timeLabel": "16:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Kitara",
+    "away": "Lugazi Municipal",
+    "league": "Uganda",
+    "timeLabel": "16:00",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "Kitara"
+  },
+  {
+    "home": "NAPSA Stars",
+    "away": "ZESCO United",
+    "league": "Zambiya",
+    "timeLabel": "16:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "NAPSA Stars"
+  },
+  {
+    "home": "Dire Dawa Kenema",
+    "away": "Mekelle Kenema",
+    "league": "Etiyopya",
+    "timeLabel": "16:04",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Dire Dawa Kenema"
+  },
+  {
+    "home": "Dhofar SCSC",
+    "away": "Smail",
+    "league": "Umman",
+    "timeLabel": "16:15",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Dinamo Samarqand",
+    "away": "Xorazm Urganch",
+    "league": "Özbekistan",
+    "timeLabel": "16:30",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Dinamo Samarqand"
+  },
+  {
+    "home": "Navbahor Namangan",
+    "away": "Nasaf Qarshi",
+    "league": "Özbekistan",
+    "timeLabel": "16:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "ES Tunis",
+    "away": "CA Bizertin",
+    "league": "Tunus",
+    "timeLabel": "16:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "ES Tunis"
+  },
+  {
+    "home": "Gürcistan U17",
+    "away": "Yunanistan U17",
+    "league": "Avrupa U17 Samp",
+    "timeLabel": "17:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Yunanistan U17"
+  },
+  {
+    "home": "USM Khenchela",
+    "away": "MC Alger",
+    "league": "Cezayir",
+    "timeLabel": "17:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "MC Alger"
+  },
+  {
+    "home": "Bengaluru",
+    "away": "Mohammedan",
+    "league": "Hindistan",
+    "timeLabel": "17:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Bengaluru"
+  },
+  {
+    "home": "Miedz Legnica",
+    "away": "Jagiellonia Bialystok",
+    "league": "Polonya",
+    "timeLabel": "17:00",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Jagiellonia Bialystok"
+  },
+  {
+    "home": "FK Ufa",
+    "away": "Neftekhimik",
+    "league": "Rusya",
+    "timeLabel": "17:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Shabab Al Ordon",
+    "away": "Al Salt",
+    "league": "Ürdün",
+    "timeLabel": "17:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Al Salt"
+  },
+  {
+    "home": "Ibri",
+    "away": "Sohar",
+    "league": "Umman",
+    "timeLabel": "17:05",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Sohar"
+  },
+  {
+    "home": "Yantra 1919",
+    "away": "CSKA 1948 Sofia",
+    "league": "Bulgaristan",
+    "timeLabel": "17:30",
+    "result": "0 - 4",
+    "homeScore": 0,
+    "awayScore": 4,
+    "winner": "CSKA 1948 Sofia"
+  },
+  {
+    "home": "Tractor FC",
+    "away": "Persepolis",
+    "league": "Iran",
+    "timeLabel": "17:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Al Gharafa",
+    "away": "Al Duhail SC",
+    "league": "Katar",
+    "timeLabel": "17:30",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Al Gharafa"
+  },
+  {
+    "home": "Sloboda Uzice",
+    "away": "Radnicki Nis",
+    "league": "Sirbistan",
+    "timeLabel": "17:30",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Radnicki Nis"
+  },
+  {
+    "home": "Baghdad",
+    "away": "Al Najaf",
+    "league": "Irak",
+    "timeLabel": "18:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Al Najaf"
+  },
+  {
+    "home": "Al Gharraf",
+    "away": "Zakho",
+    "league": "Irak",
+    "timeLabel": "18:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Stabaek U19",
+    "away": "Brann U19",
+    "league": "Norveç",
+    "timeLabel": "18:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Brann U19"
+  },
+  {
+    "home": "UTA Arad",
+    "away": "Petrolul 52",
+    "league": "Romanya",
+    "timeLabel": "18:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Gaziantep FK",
+    "away": "Karabük Idmanyurdu Spor",
+    "league": "Türkiye",
+    "timeLabel": "18:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Gaziantep FK"
+  },
+  {
+    "home": "Metalist 1925 Kharkiv",
+    "away": "Ahrobiznes Volochysk",
+    "league": "Ukrayna",
+    "timeLabel": "18:00",
+    "result": "4 - 3",
+    "homeScore": 4,
+    "awayScore": 3,
+    "winner": "Metalist 1925 Kharkiv"
+  },
+  {
+    "home": "Damac FC",
+    "away": "Al Fateh",
+    "league": "Suudi Arabistan",
+    "timeLabel": "18:15",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Al Rustaq",
+    "away": "Saham",
+    "league": "Umman",
+    "timeLabel": "18:30",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Saham"
+  },
+  {
+    "home": "Ajman",
+    "away": "Al Ain",
+    "league": "Birlesik Arap E",
+    "timeLabel": "18:45",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Al Ain"
+  },
+  {
+    "home": "Shabab Al Ahli",
+    "away": "Al Sharjah",
+    "league": "Birlesik Arap E",
+    "timeLabel": "18:45",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Shabab Al Ahli"
+  },
+  {
+    "home": "Bahrain SC",
+    "away": "AAli FC",
+    "league": "Bahreyn",
+    "timeLabel": "19:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Bahrain SC"
+  },
+  {
+    "home": "Malkiya",
+    "away": "Al Ahli Manama",
+    "league": "Bahreyn",
+    "timeLabel": "19:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Pyramids",
+    "away": "Ethiopian Insurance",
+    "league": "CAF Sampiyonlar",
+    "timeLabel": "19:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Pyramids"
+  },
+  {
+    "home": "Nomme JK Kalju",
+    "away": "Viimsi MRJK",
+    "league": "Estonya",
+    "timeLabel": "19:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Viimsi MRJK"
+  },
+  {
+    "home": "Harju Jalgpallikool",
+    "away": "Nomme United",
+    "league": "Estonya",
+    "timeLabel": "19:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Nomme United"
+  },
+  {
+    "home": "Inter Turku",
+    "away": "SJK Seinajoki",
+    "league": "Finlandiya",
+    "timeLabel": "19:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "KuPS Kuopio",
+    "away": "Gnistan",
+    "league": "Finlandiya",
+    "timeLabel": "19:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Pelister",
+    "away": "Tikves",
+    "league": "Kuzey Makedonya",
+    "timeLabel": "19:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Wigry Suwalki",
+    "away": "Wasilkow",
+    "league": "Polonya",
+    "timeLabel": "19:00",
+    "result": "4 - 1",
+    "homeScore": 4,
+    "awayScore": 1,
+    "winner": "Wigry Suwalki"
+  },
+  {
+    "home": "Aluminij U19",
+    "away": "Brinje Grosuplje U19",
+    "league": "Slovenya",
+    "timeLabel": "19:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Aluminij U19"
+  },
+  {
+    "home": "Al Sadd",
+    "away": "Al Rayyan",
+    "league": "Katar",
+    "timeLabel": "19:30",
+    "result": "5 - 1",
+    "homeScore": 5,
+    "awayScore": 1,
+    "winner": "Al Sadd"
+  },
+  {
+    "home": "Fakel",
+    "away": "Arsenal Tula",
+    "league": "Rusya",
+    "timeLabel": "19:30",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Arsenal Tula"
+  },
+  {
+    "home": "Al Ahli",
+    "away": "Al Hussein",
+    "league": "Ürdün",
+    "timeLabel": "19:30",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Al Hussein"
+  },
+  {
+    "home": "Midtjylland",
+    "away": "Silkeborg IF",
+    "league": "Danimarka",
+    "timeLabel": "19:45",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "Midtjylland"
+  },
+  {
+    "home": "Bravo U19",
+    "away": "Rudar U19",
+    "league": "Slovenya",
+    "timeLabel": "19:45",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Bravo U19"
+  },
+  {
+    "home": "Trans Narva",
+    "away": "FC Tallinn",
+    "league": "Estonya",
+    "timeLabel": "20:00",
+    "result": "6 - 0",
+    "homeScore": 6,
+    "awayScore": 0,
+    "winner": "Trans Narva"
+  },
+  {
+    "home": "Ilves Tampere",
+    "away": "HJK Helsinki",
+    "league": "Finlandiya",
+    "timeLabel": "20:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Ilves Tampere"
+  },
+  {
+    "home": "Pafos FC",
+    "away": "AEK Larnaca",
+    "league": "Kibris Rum Kesi",
+    "timeLabel": "20:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Zalaegerszegi TE",
+    "away": "Budafoki MTE",
+    "league": "Macaristan",
+    "timeLabel": "20:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Zalaegerszegi TE"
+  },
+  {
+    "home": "National Bank of Egypt",
+    "away": "Zamalek",
+    "league": "Misir",
+    "timeLabel": "20:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Arka Gdynia",
+    "away": "Gornik Zabrze",
+    "league": "Polonya",
+    "timeLabel": "20:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Gornik Zabrze"
+  },
+  {
+    "home": "Botosani",
+    "away": "SSC Farul",
+    "league": "Romanya",
+    "timeLabel": "20:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Vozdovac",
+    "away": "Jedinstvo Ub",
+    "league": "Sirbistan",
+    "timeLabel": "20:00",
+    "result": "2 - 4",
+    "homeScore": 2,
+    "awayScore": 4,
+    "winner": "Jedinstvo Ub"
+  },
+  {
+    "home": "Vojvodina",
+    "away": "Kizilyildiz",
+    "league": "Sirbistan",
+    "timeLabel": "20:00",
+    "result": "3 - 2",
+    "homeScore": 3,
+    "awayScore": 2,
+    "winner": "Vojvodina"
+  },
+  {
+    "home": "Nomme United II",
+    "away": "FC Maardu",
+    "league": "Estonya",
+    "timeLabel": "20:30",
+    "result": "3 - 3",
+    "homeScore": 3,
+    "awayScore": 3,
+    "winner": "Draw"
+  },
+  {
+    "home": "FC Elva",
+    "away": "Tallinna Kalev",
+    "league": "Estonya",
+    "timeLabel": "20:30",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Tallinna Kalev"
+  },
+  {
+    "home": "Al Quwa Al Jawiya",
+    "away": "Diala",
+    "league": "Irak",
+    "timeLabel": "20:30",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Al Quwa Al Jawiya"
+  },
+  {
+    "home": "Duhok",
+    "away": "Naft",
+    "league": "Irak",
+    "timeLabel": "20:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Cagliari",
+    "away": "Sassuolo",
+    "league": "Italya",
+    "timeLabel": "20:30",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Sassuolo"
+  },
+  {
+    "home": "Al Ahli Jeddah",
+    "away": "Al Riyadh",
+    "league": "Suudi Arabistan",
+    "timeLabel": "20:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Al Kholood",
+    "away": "Neom SC",
+    "league": "Suudi Arabistan",
+    "timeLabel": "20:30",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Neom SC"
+  },
+  {
+    "home": "Konyaspor",
+    "away": "12 Bingölspor",
+    "league": "Türkiye",
+    "timeLabel": "20:30",
+    "result": "4 - 2",
+    "homeScore": 4,
+    "awayScore": 2,
+    "winner": "Konyaspor"
+  },
+  {
+    "home": "Rijnsburgse Boys",
+    "away": "NEC Nijmegen",
+    "league": "Hollanda",
+    "timeLabel": "20:45",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "NEC Nijmegen"
+  },
+  {
+    "home": "Salzburg",
+    "away": "WSG Tirol",
+    "league": "Avusturya",
+    "timeLabel": "21:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Kalsdorf",
+    "away": "Wolfsberger AC II",
+    "league": "Avusturya",
+    "timeLabel": "21:00",
+    "result": "3 - 2",
+    "homeScore": 3,
+    "awayScore": 2,
+    "winner": "Kalsdorf"
+  },
+  {
+    "home": "Vargas Torres",
+    "away": "Cumbaya",
+    "league": "Ekvador",
+    "timeLabel": "21:00",
+    "result": "4 - 1",
+    "homeScore": 4,
+    "awayScore": 1,
+    "winner": "Vargas Torres"
+  },
+  {
+    "home": "Atletico Vinotinto",
+    "away": "22 de Julio",
+    "league": "Ekvador",
+    "timeLabel": "21:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Atletico Vinotinto"
+  },
+  {
+    "home": "Puerto de Vega",
+    "away": "Celta Vigo",
+    "league": "Ispanya",
+    "timeLabel": "21:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Celta Vigo"
+  },
+  {
+    "home": "Orihuela",
+    "away": "Levante",
+    "league": "Ispanya",
+    "timeLabel": "21:00",
+    "result": "3 - 4",
+    "homeScore": 3,
+    "awayScore": 4,
+    "winner": "Levante"
+  },
+  {
+    "home": "Portimonense",
+    "away": "Torreense",
+    "league": "Portekiz",
+    "timeLabel": "21:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Torreense"
+  },
+  {
+    "home": "Benfica II",
+    "away": "Paços De Ferreira",
+    "league": "Portekiz",
+    "timeLabel": "21:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Benfica II"
+  },
+  {
+    "home": "Valle Egües",
+    "away": "FC Andorra",
+    "league": "Ispanya",
+    "timeLabel": "21:30",
+    "result": "1 - 5",
+    "homeScore": 1,
+    "awayScore": 5,
+    "winner": "FC Andorra"
+  },
+  {
+    "home": "Spelle-Venhaus",
+    "away": "Wetschen",
+    "league": "Almanya",
+    "timeLabel": "22:00",
+    "result": "6 - 1",
+    "homeScore": 6,
+    "awayScore": 1,
+    "winner": "Spelle-Venhaus"
+  },
+  {
+    "home": "FUS Rabat",
+    "away": "Olympic Safi",
+    "league": "Fas",
+    "timeLabel": "22:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "FUS Rabat"
+  },
+  {
+    "home": "SV Spakenburg",
+    "away": "DOVO Veenendaal",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "5 - 1",
+    "homeScore": 5,
+    "awayScore": 1,
+    "winner": "SV Spakenburg"
+  },
+  {
+    "home": "Eemdijk",
+    "away": "AFC Amsterdamsche",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "AFC Amsterdamsche"
+  },
+  {
+    "home": "Sportlust 46",
+    "away": "BVV Barendrecht",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "De Treffers",
+    "away": "MVV Maastricht",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "De Treffers"
+  },
+  {
+    "home": "Sparta Rotterdam",
+    "away": "Groningen",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "5 - 2",
+    "homeScore": 5,
+    "awayScore": 2,
+    "winner": "Sparta Rotterdam"
+  },
+  {
+    "home": "Willem II",
+    "away": "Dordrecht",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "7 - 0",
+    "homeScore": 7,
+    "awayScore": 0,
+    "winner": "Willem II"
+  },
+  {
+    "home": "UD Logrones",
+    "away": "Ponferradina",
+    "league": "Ispanya",
+    "timeLabel": "22:00",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Ponferradina"
+  },
+  {
+    "home": "Real Avila",
+    "away": "Real Aviles",
+    "league": "Ispanya",
+    "timeLabel": "22:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "CD Getxo",
+    "away": "Deportivo Alaves",
+    "league": "Ispanya",
+    "timeLabel": "22:00",
+    "result": "0 - 7",
+    "homeScore": 0,
+    "awayScore": 7,
+    "winner": "Deportivo Alaves"
+  },
+  {
+    "home": "Atletico Baleares",
+    "away": "Gimnastic Tarragona",
+    "league": "Ispanya",
+    "timeLabel": "22:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Atletico Baleares"
+  },
+  {
+    "home": "Debrecen",
+    "away": "Budapest Honved",
+    "league": "Macaristan",
+    "timeLabel": "22:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Dumbravita",
+    "away": "Rapid Bucarest",
+    "league": "Romanya",
+    "timeLabel": "22:00",
+    "result": "0 - 4",
+    "homeScore": 0,
+    "awayScore": 4,
+    "winner": "Rapid Bucarest"
+  },
+  {
+    "home": "Gent",
+    "away": "Patro Eisden",
+    "league": "Belçika",
+    "timeLabel": "22:30",
+    "result": "5 - 0",
+    "homeScore": 5,
+    "awayScore": 0,
+    "winner": "Gent"
+  },
+  {
+    "home": "Cercle Brugge",
+    "away": "Kortrijk",
+    "league": "Belçika",
+    "timeLabel": "22:30",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Cercle Brugge"
+  },
+  {
+    "home": "RFC Seraing",
+    "away": "OH Leuven",
+    "league": "Belçika",
+    "timeLabel": "22:30",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "OH Leuven"
+  },
+  {
+    "home": "Beerschot VA",
+    "away": "Westerlo",
+    "league": "Belçika",
+    "timeLabel": "22:30",
+    "result": "3 - 2",
+    "homeScore": 3,
+    "awayScore": 2,
+    "winner": "Beerschot VA"
+  },
+  {
+    "home": "Royal Knokke",
+    "away": "St. Truidense",
+    "league": "Belçika",
+    "timeLabel": "22:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "St. Truidense"
+  },
+  {
+    "home": "Lugano",
+    "away": "Luzern",
+    "league": "Isviçre",
+    "timeLabel": "22:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Lugano"
+  },
+  {
+    "home": "Grasshoppers",
+    "away": "Young Boys",
+    "league": "Isviçre",
+    "timeLabel": "22:30",
+    "result": "3 - 3",
+    "homeScore": 3,
+    "awayScore": 3,
+    "winner": "Draw"
+  },
+  {
+    "home": "US Latina",
+    "away": "Perugia",
+    "league": "Italya",
+    "timeLabel": "22:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Ospitaletto",
+    "away": "Internazionale II",
+    "league": "Italya",
+    "timeLabel": "22:30",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Internazionale II"
+  },
+  {
+    "home": "FC Nordsjaelland",
+    "away": "Brondby",
+    "league": "Danimarka",
+    "timeLabel": "22:45",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Pisa",
+    "away": "Lazio",
+    "league": "Italya",
+    "timeLabel": "22:45",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Imbabura",
+    "away": "Chacaritas",
+    "league": "Ekvador",
+    "timeLabel": "23:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Imbabura"
+  },
+  {
+    "home": "ROHDA Raalte",
+    "away": "Twente",
+    "league": "Hollanda",
+    "timeLabel": "23:00",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "Twente"
+  },
+  {
+    "home": "Antoniano",
+    "away": "CD Castellon",
+    "league": "Ispanya",
+    "timeLabel": "23:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Antoniano"
+  },
+  {
+    "home": "Real Murcia",
+    "away": "Antequera",
+    "league": "Ispanya",
+    "timeLabel": "23:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Palma del Rio",
+    "away": "Real Betis",
+    "league": "Ispanya",
+    "timeLabel": "23:00",
+    "result": "1 - 7",
+    "homeScore": 1,
+    "awayScore": 7,
+    "winner": "Real Betis"
+  },
+  {
+    "home": "Atletic Lleida",
+    "away": "Espanyol",
+    "league": "Ispanya",
+    "timeLabel": "23:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Espanyol"
+  },
+  {
+    "home": "Estepona",
+    "away": "Malaga",
+    "league": "Ispanya",
+    "timeLabel": "23:00",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Malaga"
+  },
+  {
+    "home": "Samano",
+    "away": "Deportivo La Coruna",
+    "league": "Ispanya",
+    "timeLabel": "23:00",
+    "result": "1 - 5",
+    "homeScore": 1,
+    "awayScore": 5,
+    "winner": "Deportivo La Coruna"
+  },
+  {
+    "home": "Legia Varsova",
+    "away": "Pogon Szczecin",
+    "league": "Polonya",
+    "timeLabel": "23:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Maritimo",
+    "away": "Uniao De Leiria",
+    "league": "Portekiz",
+    "timeLabel": "23:15",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Uniao De Leiria"
+  },
+  {
+    "home": "Leixoes",
+    "away": "Academico Viseu",
+    "league": "Portekiz",
+    "timeLabel": "23:15",
+    "result": "1 - 5",
+    "homeScore": 1,
+    "awayScore": 5,
+    "winner": "Academico Viseu"
+  },
+  {
+    "home": "Aguilas Doradas",
+    "away": "Envigado",
+    "league": "Kolombiya",
+    "timeLabel": "00:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Aguilas Doradas"
+  },
+  {
+    "home": "Aurora",
+    "away": "Guabira",
+    "league": "Bolivya",
+    "timeLabel": "01:00",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "Aurora"
+  },
+  {
+    "home": "Charlotte",
+    "away": "New York City FC",
+    "league": "ABD",
+    "timeLabel": "01:45",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "New York City FC"
+  },
+  {
+    "home": "Deportivo Cali",
+    "away": "Alianza Petrolera",
+    "league": "Kolombiya",
+    "timeLabel": "02:10",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Alianza Petrolera"
+  },
+  {
+    "home": "Blooming",
+    "away": "Always Ready",
+    "league": "Bolivya",
+    "timeLabel": "03:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Always Ready"
+  },
+  {
+    "home": "Atletico Mineiro",
+    "away": "Independiente Del Valle",
+    "league": "Copa Sudamerica",
+    "timeLabel": "03:30",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Atletico Mineiro"
+  },
+  {
+    "home": "Motagua",
+    "away": "CS Cartagines",
+    "league": "CONCACAF Orta A",
+    "timeLabel": "05:00",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "CS Cartagines"
+  },
+  {
+    "home": "Khovd Western",
+    "away": "Ulaangom City",
+    "league": "Mogolistan",
+    "timeLabel": "07:00",
+    "result": "6 - 0",
+    "homeScore": 6,
+    "awayScore": 0,
+    "winner": "Khovd Western"
+  },
+  {
+    "home": "Eastern District",
+    "away": "Kowloon City",
+    "league": "Hong Kong",
+    "timeLabel": "10:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Kowloon City"
+  },
+  {
+    "home": "Khovd",
+    "away": "Hunters",
+    "league": "Mogolistan",
+    "timeLabel": "10:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Khovd"
+  },
+  {
+    "home": "Phnom Penh Crown",
+    "away": "Shan United",
+    "league": "AFC Challenge L",
+    "timeLabel": "11:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Phnom Penh Crown"
+  },
+  {
+    "home": "Lopburi City",
+    "away": "Ratchaburi",
+    "league": "Tayland",
+    "timeLabel": "11:00",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Ratchaburi"
+  },
+  {
+    "home": "Thonburi Forest",
+    "away": "Nong Bua Pitchaya",
+    "league": "Tayland",
+    "timeLabel": "11:00",
+    "result": "0 - 7",
+    "homeScore": 0,
+    "awayScore": 7,
+    "winner": "Nong Bua Pitchaya"
+  },
+  {
+    "home": "Surat Thani City",
+    "away": "Lamphun Warrior",
+    "league": "Tayland",
+    "timeLabel": "11:00",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "Lamphun Warrior"
+  },
+  {
+    "home": "See Kwae",
+    "away": "Pattani",
+    "league": "Tayland",
+    "timeLabel": "11:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Pattani"
+  },
+  {
+    "home": "Samui United",
+    "away": "Sa Kaeo Ban Kaeng",
+    "league": "Tayland",
+    "timeLabel": "11:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Samui United"
+  },
+  {
+    "home": "SP Falcons",
+    "away": "Manila Digger",
+    "league": "AFC Challenge L",
+    "timeLabel": "12:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Manila Digger"
+  },
+  {
+    "home": "Burapha United",
+    "away": "Thai Port FC",
+    "league": "Tayland",
+    "timeLabel": "12:00",
+    "result": "0 - 4",
+    "homeScore": 0,
+    "awayScore": 4,
+    "winner": "Thai Port FC"
+  },
+  {
+    "home": "Isparta 32 Spor",
+    "away": "Beyoglu Yeniçarsispor",
+    "league": "Türkiye",
+    "timeLabel": "12:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Beyoglu Yeniçarsispor"
+  },
+  {
+    "home": "Atletic Club DEscaldes",
+    "away": "Carroi",
+    "league": "Andorra",
+    "timeLabel": "13:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Atletic Club DEscaldes"
+  },
+  {
+    "home": "Zaqatala",
+    "away": "Sumqayit",
+    "league": "Azerbaycan",
+    "timeLabel": "13:00",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Sumqayit"
+  },
+  {
+    "home": "Simal",
+    "away": "Sahdag",
+    "league": "Azerbaycan",
+    "timeLabel": "13:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "FK Minyor Pernik",
+    "away": "Cherno More Varna",
+    "league": "Bulgaristan",
+    "timeLabel": "13:00",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Cherno More Varna"
+  },
+  {
+    "home": "Ceske Budejovice U19",
+    "away": "Zlin U19",
+    "league": "Çek Cumhur",
+    "timeLabel": "13:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Genoa U20",
+    "away": "Nuova Cosenza U19",
+    "league": "Italya",
+    "timeLabel": "13:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Lazio U20",
+    "away": "Vicenza U19",
+    "league": "Italya",
+    "timeLabel": "13:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Lazio U20"
+  },
+  {
+    "home": "Lecce U20",
+    "away": "Avellino U19",
+    "league": "Italya",
+    "timeLabel": "13:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Lecce U20"
+  },
+  {
+    "home": "Virtus Entella U19",
+    "away": "Palermo U19",
+    "league": "Italya",
+    "timeLabel": "13:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Virtus Entella U19"
+  },
+  {
+    "home": "Sampdoria U19",
+    "away": "Südtirol U19",
+    "league": "Italya",
+    "timeLabel": "13:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Customs United",
+    "away": "Nonthaburi",
+    "league": "Tayland",
+    "timeLabel": "13:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Customs United"
+  },
+  {
+    "home": "Kahta 02 Spor",
+    "away": "Kasimpasa",
+    "league": "Türkiye",
+    "timeLabel": "13:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Kahta 02 Spor"
+  },
+  {
+    "home": "Viktoriya Mykolaivka",
+    "away": "Inhulets",
+    "league": "Ukrayna",
+    "timeLabel": "13:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Inhulets"
+  },
+  {
+    "home": "Monza U20",
+    "away": "Catanzaro U19",
+    "league": "Italya",
+    "timeLabel": "13:30",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Monza U20"
+  },
+  {
+    "home": "Udinese U19",
+    "away": "Benevento U19",
+    "league": "Italya",
+    "timeLabel": "13:30",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Udinese U19"
+  },
+  {
+    "home": "Torino U20",
+    "away": "Pescara U19",
+    "league": "Italya",
+    "timeLabel": "13:30",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Torino U20"
+  },
+  {
+    "home": "Mus Spor Kulübü",
+    "away": "Menemen FK",
+    "league": "Türkiye",
+    "timeLabel": "13:30",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Mus Spor Kulübü"
+  },
+  {
+    "home": "Çankaya SK",
+    "away": "1461 Trabzon FK",
+    "league": "Türkiye",
+    "timeLabel": "13:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Çankaya SK"
+  },
+  {
+    "home": "Silifke Belediye Spor",
+    "away": "Amed SK",
+    "league": "Türkiye",
+    "timeLabel": "13:30",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Silifke Belediye Spor"
+  },
+  {
+    "home": "Beykoz Anadolu",
+    "away": "Yesil Yalova FK",
+    "league": "Türkiye",
+    "timeLabel": "13:30",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Yesil Yalova FK"
+  },
+  {
+    "home": "Erciyes 38 FSK",
+    "away": "Keçiörengücü",
+    "league": "Türkiye",
+    "timeLabel": "13:30",
+    "result": "2 - 5",
+    "homeScore": 2,
+    "awayScore": 5,
+    "winner": "Keçiörengücü"
+  },
+  {
+    "home": "Karacabey Belediye Spor",
+    "away": "Yesilyurt Belediyespor",
+    "league": "Türkiye",
+    "timeLabel": "13:30",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Karacabey Belediye Spor"
+  },
+  {
+    "home": "Andranik",
+    "away": "BKMA",
+    "league": "Ermenistan",
+    "timeLabel": "14:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Andranik"
+  },
+  {
+    "home": "Jamshedpur",
+    "away": "NorthEast United",
+    "league": "Hindistan",
+    "timeLabel": "14:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Shabana",
+    "away": "Leopards SC",
+    "league": "Kenya",
+    "timeLabel": "14:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Leopards SC"
+  },
+  {
+    "home": "APS Bomet",
+    "away": "Homeboyz",
+    "league": "Kenya",
+    "timeLabel": "14:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Homeboyz"
+  },
+  {
+    "home": "Politeh Chisinau",
+    "away": "Sireti",
+    "league": "Moldova",
+    "timeLabel": "14:00",
+    "result": "6 - 1",
+    "homeScore": 6,
+    "awayScore": 1,
+    "winner": "Politeh Chisinau"
+  },
+  {
+    "home": "Milsami",
+    "away": "Floresti",
+    "league": "Moldova",
+    "timeLabel": "14:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Milsami"
+  },
+  {
+    "home": "Avia Swidnik",
+    "away": "Flota Swinoujscie",
+    "league": "Polonya",
+    "timeLabel": "14:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Avia Swidnik"
+  },
+  {
+    "home": "Estoril U23",
+    "away": "Santa Clara U23",
+    "league": "Portekiz",
+    "timeLabel": "14:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Santa Clara U23"
+  },
+  {
+    "home": "Pattaya City",
+    "away": "Chiangmai",
+    "league": "Tayland",
+    "timeLabel": "14:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Pattaya City"
+  },
+  {
+    "home": "Cha Choeng Sao",
+    "away": "Nakhon Ratchasima",
+    "league": "Tayland",
+    "timeLabel": "14:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Nakhon Ratchasima"
+  },
+  {
+    "home": "Sukhothai",
+    "away": "Jalor City",
+    "league": "Tayland",
+    "timeLabel": "14:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Sukhothai"
+  },
+  {
+    "home": "Kasetsart",
+    "away": "Nakhon Pathom",
+    "league": "Tayland",
+    "timeLabel": "14:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Nakhon Pathom"
+  },
+  {
+    "home": "Chiangrai United",
+    "away": "Pathum Thani",
+    "league": "Tayland",
+    "timeLabel": "14:00",
+    "result": "19 - 0",
+    "homeScore": 19,
+    "awayScore": 0,
+    "winner": "Chiangrai United"
+  },
+  {
+    "home": "Kuzey Makedonya U17 (K)",
+    "away": "Hirvatistan U17 (K)",
+    "league": "Avrupa U17 Samp",
+    "timeLabel": "14:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Hirvatistan U17 (K)"
+  },
+  {
+    "home": "Finlandiya U17 (K)",
+    "away": "Italya U17 (K)",
+    "league": "Avrupa U17 Samp",
+    "timeLabel": "14:30",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Finlandiya U17 (K)"
+  },
+  {
+    "home": "Sevlievo",
+    "away": "CSKA Sofia",
+    "league": "Bulgaristan",
+    "timeLabel": "14:30",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "CSKA Sofia"
+  },
+  {
+    "home": "Zagorets",
+    "away": "Botev Vratsa",
+    "league": "Bulgaristan",
+    "timeLabel": "14:30",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "Botev Vratsa"
+  },
+  {
+    "home": "Vitosha Bistritsa",
+    "away": "PFC Beroe",
+    "league": "Bulgaristan",
+    "timeLabel": "14:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Sportist Svoge",
+    "away": "Septemvri Sofia",
+    "league": "Bulgaristan",
+    "timeLabel": "14:30",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Septemvri Sofia"
+  },
+  {
+    "home": "Spartak Plovdiv",
+    "away": "Slavia Sofia",
+    "league": "Bulgaristan",
+    "timeLabel": "14:30",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Slavia Sofia"
+  },
+  {
+    "home": "Marek Dupnitza",
+    "away": "Montana",
+    "league": "Bulgaristan",
+    "timeLabel": "14:30",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "Montana"
+  },
+  {
+    "home": "Achyronas / Onisilos",
+    "away": "APEA",
+    "league": "Kibris Rum Kesi",
+    "timeLabel": "14:30",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "APEA"
+  },
+  {
+    "home": "Martfüi LSE",
+    "away": "Paksi SE",
+    "league": "Macaristan",
+    "timeLabel": "14:30",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "Paksi SE"
+  },
+  {
+    "home": "Kelen",
+    "away": "Kazincbarcika",
+    "league": "Macaristan",
+    "timeLabel": "14:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Kazincbarcika"
+  },
+  {
+    "home": "Majosi",
+    "away": "MOL Fehervar",
+    "league": "Macaristan",
+    "timeLabel": "14:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "MOL Fehervar"
+  },
+  {
+    "home": "Karcag SE",
+    "away": "Csakvari TK",
+    "league": "Macaristan",
+    "timeLabel": "14:30",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "DEAC",
+    "away": "BVSC",
+    "league": "Macaristan",
+    "timeLabel": "14:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Mahasarakham United",
+    "away": "Rayong FC",
+    "league": "Tayland",
+    "timeLabel": "14:30",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "Rayong FC"
+  },
+  {
+    "home": "Ayutthaya United",
+    "away": "Udon United",
+    "league": "Tayland",
+    "timeLabel": "14:30",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Ayutthaya United"
+  },
+  {
+    "home": "Buriram United",
+    "away": "Warin Chamrap",
+    "league": "Tayland",
+    "timeLabel": "14:30",
+    "result": "12 - 0",
+    "homeScore": 12,
+    "awayScore": 0,
+    "winner": "Buriram United"
+  },
+  {
+    "home": "Ezra",
+    "away": "PKR Svay Rieng",
+    "league": "AFC Challenge L",
+    "timeLabel": "15:00",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "PKR Svay Rieng"
+  },
+  {
+    "home": "Tainan City",
+    "away": "Dewa United",
+    "league": "AFC Challenge L",
+    "timeLabel": "15:00",
+    "result": "0 - 4",
+    "homeScore": 0,
+    "awayScore": 4,
+    "winner": "Dewa United"
+  },
+  {
+    "home": "Belçika U17 (K)",
+    "away": "Fransa U17 (K)",
+    "league": "Avrupa U17 Samp",
+    "timeLabel": "15:00",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Fransa U17 (K)"
+  },
+  {
+    "home": "Irlanda Cumhuriyeti U17 (K)",
+    "away": "Almanya U17 (K)",
+    "league": "Avrupa U17 Samp",
+    "timeLabel": "15:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Almanya U17 (K)"
+  },
+  {
+    "home": "Sabail",
+    "away": "Shamakhi",
+    "league": "Azerbaycan",
+    "timeLabel": "15:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Shamakhi"
+  },
+  {
+    "home": "Qabala",
+    "away": "Mingeçevir FK",
+    "league": "Azerbaycan",
+    "timeLabel": "15:00",
+    "result": "5 - 1",
+    "homeScore": 5,
+    "awayScore": 1,
+    "winner": "Qabala"
+  },
+  {
+    "home": "FK Romanija Pale",
+    "away": "Zrinjski Mostar",
+    "league": "Bosna",
+    "timeLabel": "15:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Zrinjski Mostar"
+  },
+  {
+    "home": "Awassa Kenema",
+    "away": "Welayta Dicha",
+    "league": "Etiyopya",
+    "timeLabel": "15:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Awassa Kenema"
+  },
+  {
+    "home": "Rudes",
+    "away": "HNK Gorica",
+    "league": "Hirvatistan",
+    "timeLabel": "15:00",
+    "result": "0 - 6",
+    "homeScore": 0,
+    "awayScore": 6,
+    "winner": "HNK Gorica"
+  },
+  {
+    "home": "Al Fahad",
+    "away": "Al Bahri",
+    "league": "Irak",
+    "timeLabel": "15:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Tusker",
+    "away": "Kariobangi Sharks",
+    "league": "Kenya",
+    "timeLabel": "15:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Tusker"
+  },
+  {
+    "home": "Legia Warszawa II",
+    "away": "Lomza",
+    "league": "Polonya",
+    "timeLabel": "15:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Hutnik Krakow",
+    "away": "Wisla Krakow",
+    "league": "Polonya",
+    "timeLabel": "15:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Wisla Krakow"
+  },
+  {
+    "home": "Mokra Gora",
+    "away": "Spartak Subotica",
+    "league": "Sirbistan",
+    "timeLabel": "15:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Spartak Subotica"
+  },
+  {
+    "home": "Buducnost Dobanovci",
+    "away": "OFK Beograd",
+    "league": "Sirbistan",
+    "timeLabel": "15:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Graficar",
+    "away": "Backa Topola",
+    "league": "Sirbistan",
+    "timeLabel": "15:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Graficar"
+  },
+  {
+    "home": "Zemun",
+    "away": "Radnicki 1923 Kragujevac",
+    "league": "Sirbistan",
+    "timeLabel": "15:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Zemun"
+  },
+  {
+    "home": "Borac Cacak",
+    "away": "Cukaricki Stankom",
+    "league": "Sirbistan",
+    "timeLabel": "15:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Naftagas",
+    "away": "Novi Pazar",
+    "league": "Sirbistan",
+    "timeLabel": "15:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Novi Pazar"
+  },
+  {
+    "home": "Pohronie U19",
+    "away": "Presov U19",
+    "league": "Slovakya",
+    "timeLabel": "15:00",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Presov U19"
+  },
+  {
+    "home": "Petrzalka U19",
+    "away": "Zilina U19",
+    "league": "Slovakya",
+    "timeLabel": "15:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "DAC U19",
+    "away": "Ruzomberok U19",
+    "league": "Slovakya",
+    "timeLabel": "15:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "DAC U19"
+  },
+  {
+    "home": "Podbrezova U19",
+    "away": "Spartak Trnava U19",
+    "league": "Slovakya",
+    "timeLabel": "15:00",
+    "result": "4 - 1",
+    "homeScore": 4,
+    "awayScore": 1,
+    "winner": "Podbrezova U19"
+  },
+  {
+    "home": "Zemplin Michalovce U19",
+    "away": "Trencin U19",
+    "league": "Slovakya",
+    "timeLabel": "15:00",
+    "result": "3 - 2",
+    "homeScore": 3,
+    "awayScore": 2,
+    "winner": "Zemplin Michalovce U19"
+  },
+  {
+    "home": "Dukla U19",
+    "away": "FC Kosice U19",
+    "league": "Slovakya",
+    "timeLabel": "15:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Dukla U19"
+  },
+  {
+    "home": "Chonburi",
+    "away": "Police Tero",
+    "league": "Tayland",
+    "timeLabel": "15:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "BG Pathum United",
+    "away": "Kamphaeng Phet",
+    "league": "Tayland",
+    "timeLabel": "15:00",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "BG Pathum United"
+  },
+  {
+    "home": "Kanchanaburi",
+    "away": "Nara United",
+    "league": "Tayland",
+    "timeLabel": "15:00",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "Kanchanaburi"
+  },
+  {
+    "home": "Bursa Yildirimspor",
+    "away": "Alanyaspor",
+    "league": "Türkiye",
+    "timeLabel": "15:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Alanyaspor"
+  },
+  {
+    "home": "Sabah",
+    "away": "Kelantan United",
+    "league": "Malezya",
+    "timeLabel": "15:15",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Sabah"
+  },
+  {
+    "home": "Makedonija GjP",
+    "away": "Bashkimi Kumanovo",
+    "league": "Kuzey Makedonya",
+    "timeLabel": "15:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Aresimi",
+    "away": "Rabotnicki",
+    "league": "Kuzey Makedonya",
+    "timeLabel": "15:30",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "BE Forward Wanderers",
+    "away": "Songwe Border United",
+    "league": "Malavi",
+    "timeLabel": "15:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "BE Forward Wanderers"
+  },
+  {
+    "home": "Kamuzu Barracks",
+    "away": "Ekwendeni Hammers",
+    "league": "Malavi",
+    "timeLabel": "15:30",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Kamuzu Barracks"
+  },
+  {
+    "home": "Partizan Bardejov",
+    "away": "Zemplin Michalovce",
+    "league": "Slovakya",
+    "timeLabel": "15:30",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Zemplin Michalovce"
+  },
+  {
+    "home": "Çorum FK",
+    "away": "Belediye Kütahyaspor",
+    "league": "Türkiye",
+    "timeLabel": "15:30",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Çorum FK"
+  },
+  {
+    "home": "Pendikspor",
+    "away": "Çorluspor 1947",
+    "league": "Türkiye",
+    "timeLabel": "15:30",
+    "result": "3 - 2",
+    "homeScore": 3,
+    "awayScore": 2,
+    "winner": "Pendikspor"
+  },
+  {
+    "home": "Orduspor 1967 SK",
+    "away": "Erbaaspor",
+    "league": "Türkiye",
+    "timeLabel": "15:30",
+    "result": "4 - 2",
+    "homeScore": 4,
+    "awayScore": 2,
+    "winner": "Orduspor 1967 SK"
+  },
+  {
+    "home": "LNZ Cherkasy",
+    "away": "Rukh Vynnyky",
+    "league": "Ukrayna",
+    "timeLabel": "15:30",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "LNZ Cherkasy"
+  },
+  {
+    "home": "Stupcanica Olovo",
+    "away": "Leotar Trebinje",
+    "league": "Bosna",
+    "timeLabel": "16:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Stupcanica Olovo"
+  },
+  {
+    "home": "Krusevo",
+    "away": "Borac Banja Luka",
+    "league": "Bosna",
+    "timeLabel": "16:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "FK Famos Hrasnica",
+    "away": "Jedinstvo Bihac",
+    "league": "Bosna",
+    "timeLabel": "16:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "FK Famos Hrasnica"
+  },
+  {
+    "home": "NK Slatina Basigovci",
+    "away": "Slavija Sarajevo",
+    "league": "Bosna",
+    "timeLabel": "16:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "HNK Grude",
+    "away": "Sloga Doboj",
+    "league": "Bosna",
+    "timeLabel": "16:00",
+    "result": "0 - 7",
+    "homeScore": 0,
+    "awayScore": 7,
+    "winner": "Sloga Doboj"
+  },
+  {
+    "home": "Tekstilac Derventa",
+    "away": "SD Napredak Matici",
+    "league": "Bosna",
+    "timeLabel": "16:00",
+    "result": "4 - 1",
+    "homeScore": 4,
+    "awayScore": 1,
+    "winner": "Tekstilac Derventa"
+  },
+  {
+    "home": "Frydek-Mistek",
+    "away": "Sigma Olomouc II",
+    "league": "Çek Cumhur",
+    "timeLabel": "16:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Frydek-Mistek"
+  },
+  {
+    "home": "Nove Sady",
+    "away": "Viktoria Plzen",
+    "league": "Çek Cumhur",
+    "timeLabel": "16:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Viktoria Plzen"
+  },
+  {
+    "home": "Negele Arsi Ketema",
+    "away": "Kedus Giorgis",
+    "league": "Etiyopya",
+    "timeLabel": "16:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Kedus Giorgis"
+  },
+  {
+    "home": "TS Galaxy Queens (K)",
+    "away": "Copperbelt Ladies (K)",
+    "league": "Güney Afri",
+    "timeLabel": "16:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "TS Galaxy Queens (K)"
+  },
+  {
+    "home": "Bijelo Brdo",
+    "away": "Slaven Belupo",
+    "league": "Hirvatistan",
+    "timeLabel": "16:00",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Slaven Belupo"
+  },
+  {
+    "home": "Ulinzi Stars",
+    "away": "Bidco United",
+    "league": "Kenya",
+    "timeLabel": "16:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Bidco United"
+  },
+  {
+    "home": "Selangor FA",
+    "away": "Negeri Sembilan",
+    "league": "Malezya",
+    "timeLabel": "16:00",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Negeri Sembilan"
+  },
+  {
+    "home": "Metaloglobus",
+    "away": "FC Arges",
+    "league": "Romanya",
+    "timeLabel": "16:00",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "FC Arges"
+  },
+  {
+    "home": "Metalul Buzau",
+    "away": "Universitatea Cluj",
+    "league": "Romanya",
+    "timeLabel": "16:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Universitatea Cluj"
+  },
+  {
+    "home": "Makole",
+    "away": "Celje",
+    "league": "Slovenya",
+    "timeLabel": "16:00",
+    "result": "0 - 4",
+    "homeScore": 0,
+    "awayScore": 4,
+    "winner": "Celje"
+  },
+  {
+    "home": "Beltinci",
+    "away": "Radomlje",
+    "league": "Slovenya",
+    "timeLabel": "16:00",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Radomlje"
+  },
+  {
+    "home": "Police",
+    "away": "Maroons",
+    "league": "Uganda",
+    "timeLabel": "16:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Police"
+  },
+  {
+    "home": "Al Nahda",
+    "away": "Sur",
+    "league": "Umman",
+    "timeLabel": "16:00",
+    "result": "4 - 2",
+    "homeScore": 4,
+    "awayScore": 2,
+    "winner": "Al Nahda"
+  },
+  {
+    "home": "Egaleo",
+    "away": "Aris Saloniki",
+    "league": "Yunanistan",
+    "timeLabel": "16:00",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Aris Saloniki"
+  },
+  {
+    "home": "Nchanga Rangers",
+    "away": "Power Dynamos",
+    "league": "Zambiya",
+    "timeLabel": "16:05",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Power Dynamos"
+  },
+  {
+    "home": "Inter Club",
+    "away": "FC Rangers",
+    "league": "Andorra",
+    "timeLabel": "16:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Black Leopards FC",
+    "away": "Midlands Wanderers",
+    "league": "Güney Afri",
+    "timeLabel": "16:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Milford",
+    "away": "Kruger United",
+    "league": "Güney Afri",
+    "timeLabel": "16:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Kruger United"
+  },
+  {
+    "home": "Casric Stars",
+    "away": "Venda FC",
+    "league": "Güney Afri",
+    "timeLabel": "16:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Hungry Lions",
+    "away": "Highbury",
+    "league": "Güney Afri",
+    "timeLabel": "16:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Hungry Lions"
+  },
+  {
+    "home": "Cesena U20",
+    "away": "Modena U19",
+    "league": "Italya",
+    "timeLabel": "16:30",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Cesena U20"
+  },
+  {
+    "home": "Milan II",
+    "away": "Varesina",
+    "league": "Italya",
+    "timeLabel": "16:30",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Varesina"
+  },
+  {
+    "home": "FK Arsenal Tivat",
+    "away": "Petrovac",
+    "league": "Karadag",
+    "timeLabel": "16:30",
+    "result": "3 - 2",
+    "homeScore": 3,
+    "awayScore": 2,
+    "winner": "FK Arsenal Tivat"
+  },
+  {
+    "home": "Monastir",
+    "away": "Ben Guerdane",
+    "league": "Tunus",
+    "timeLabel": "16:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Stade Tunisien",
+    "away": "CS Sfaxien",
+    "league": "Tunus",
+    "timeLabel": "16:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "AS Marsa",
+    "away": "Etoile Du Sahel",
+    "league": "Tunus",
+    "timeLabel": "16:30",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Etoile Du Sahel"
+  },
+  {
+    "home": "Ilioupoli",
+    "away": "AEK Atina",
+    "league": "Yunanistan",
+    "timeLabel": "16:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "AEK Atina"
+  },
+  {
+    "home": "Sao Salvador",
+    "away": "Petro De Luanda",
+    "league": "Angola",
+    "timeLabel": "17:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Sao Salvador"
+  },
+  {
+    "home": "Morupule Wanderers",
+    "away": "Gaborone United",
+    "league": "Botsvana",
+    "timeLabel": "17:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Gaborone United"
+  },
+  {
+    "home": "Tatran Brno Bohunice",
+    "away": "Pelhrimov",
+    "league": "Çek Cumhur",
+    "timeLabel": "17:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Tatran Brno Bohunice"
+  },
+  {
+    "home": "FC Goa",
+    "away": "Inter Kashi",
+    "league": "Hindistan",
+    "timeLabel": "17:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "FC Goa"
+  },
+  {
+    "home": "Empoli U19",
+    "away": "Pisa U19",
+    "league": "Italya",
+    "timeLabel": "17:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Empoli U19"
+  },
+  {
+    "home": "Renate",
+    "away": "Juventus II",
+    "league": "Italya",
+    "timeLabel": "17:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Sambenedettese",
+    "away": "Ascoli",
+    "league": "Italya",
+    "timeLabel": "17:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Sambenedettese"
+  },
+  {
+    "home": "Atalanta II",
+    "away": "Alcione",
+    "league": "Italya",
+    "timeLabel": "17:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Atalanta II"
+  },
+  {
+    "home": "FC Sheriff",
+    "away": "FCM Ungheni",
+    "league": "Moldova",
+    "timeLabel": "17:00",
+    "result": "7 - 0",
+    "homeScore": 7,
+    "awayScore": 0,
+    "winner": "FC Sheriff"
+  },
+  {
+    "home": "Petrocub",
+    "away": "Olimp Comrat",
+    "league": "Moldova",
+    "timeLabel": "17:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Petrocub"
+  },
+  {
+    "home": "Hebar 1918",
+    "away": "Levski Sofia",
+    "league": "Bulgaristan",
+    "timeLabel": "17:30",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Levski Sofia"
+  },
+  {
+    "home": "HNK Cibalia",
+    "away": "Hajduk Split",
+    "league": "Hirvatistan",
+    "timeLabel": "17:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Al Sailiya",
+    "away": "Al Bidda",
+    "league": "Katar",
+    "timeLabel": "17:30",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Al Bidda"
+  },
+  {
+    "home": "Trajal Krusevac",
+    "away": "Napredak Krusevac",
+    "league": "Sirbistan",
+    "timeLabel": "17:30",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Trajal Krusevac"
+  },
+  {
+    "home": "Hannover 96 II",
+    "away": "Phönix Lübeck",
+    "league": "Almanya",
+    "timeLabel": "18:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Phönix Lübeck"
+  },
+  {
+    "home": "Neftçi PFK",
+    "away": "MOIK",
+    "league": "Azerbaycan",
+    "timeLabel": "18:00",
+    "result": "6 - 2",
+    "homeScore": 6,
+    "awayScore": 2,
+    "winner": "Neftçi PFK"
+  },
+  {
+    "home": "Torpedo Zhodino",
+    "away": "Gomel",
+    "league": "Belarus",
+    "timeLabel": "18:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Gomel"
+  },
+  {
+    "home": "JS Saoura",
+    "away": "JS Kabylie",
+    "league": "Cezayir",
+    "timeLabel": "18:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Pyunik",
+    "away": "Gandzasar",
+    "league": "Ermenistan",
+    "timeLabel": "18:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Pyunik"
+  },
+  {
+    "home": "Fasil Kenema",
+    "away": "Sidama Bunna",
+    "league": "Etiyopya",
+    "timeLabel": "18:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Fasil Kenema"
+  },
+  {
+    "home": "Al Shorta",
+    "away": "Al Karma",
+    "league": "Irak",
+    "timeLabel": "18:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Al Shorta"
+  },
+  {
+    "home": "Asn Nigelec",
+    "away": "Espoir",
+    "league": "Nijer",
+    "timeLabel": "18:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Asn Nigelec"
+  },
+  {
+    "home": "Rivers United",
+    "away": "Ikorodu City",
+    "league": "Nijerya",
+    "timeLabel": "18:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Torreense U23",
+    "away": "Portimonense U23",
+    "league": "Portekiz",
+    "timeLabel": "18:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Torreense U23"
+  },
+  {
+    "home": "Radnik Surdulica",
+    "away": "IMT Novi Beograd",
+    "league": "Sirbistan",
+    "timeLabel": "18:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "IMT Novi Beograd"
+  },
+  {
+    "home": "Sencur",
+    "away": "Olimpija Ljubljana",
+    "league": "Slovenya",
+    "timeLabel": "18:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Olimpija Ljubljana"
+  },
+  {
+    "home": "Manisa FK",
+    "away": "Muglaspor",
+    "league": "Türkiye",
+    "timeLabel": "18:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Muglaspor"
+  },
+  {
+    "home": "Al Jabalain",
+    "away": "Al Anwar",
+    "league": "Suudi Arabistan",
+    "timeLabel": "18:10",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Al-Khabourah",
+    "away": "Oman FC",
+    "league": "Umman",
+    "timeLabel": "18:20",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "FC Fastav Zlin",
+    "away": "Slavia Prag",
+    "league": "Çek Cumhur",
+    "timeLabel": "18:30",
+    "result": "0 - 4",
+    "homeScore": 0,
+    "awayScore": 4,
+    "winner": "Slavia Prag"
+  },
+  {
+    "home": "MSK Senec",
+    "away": "Zilina",
+    "league": "Slovakya",
+    "timeLabel": "18:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Zilina"
+  },
+  {
+    "home": "Olympiakos",
+    "away": "Volos NFC",
+    "league": "Yunanistan",
+    "timeLabel": "18:30",
+    "result": "5 - 0",
+    "homeScore": 5,
+    "awayScore": 0,
+    "winner": "Olympiakos"
+  },
+  {
+    "home": "Khalidiya",
+    "away": "Al Ahli",
+    "league": "AFC Sampiyonlar",
+    "timeLabel": "19:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Al Ahli"
+  },
+  {
+    "home": "Flamurtari Vlore",
+    "away": "Vllaznia Shkoder",
+    "league": "Arnavutluk",
+    "timeLabel": "19:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Flamurtari Vlore"
+  },
+  {
+    "home": "ASO Chlef",
+    "away": "Belouizdad",
+    "league": "Cezayir",
+    "timeLabel": "19:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Belouizdad"
+  },
+  {
+    "home": "FC Flora Tallinn",
+    "away": "FC Levadia",
+    "league": "Estonya",
+    "timeLabel": "19:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Paide Linnameeskond",
+    "away": "JK Tammeka Tartu",
+    "league": "Estonya",
+    "timeLabel": "19:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Paide Linnameeskond"
+  },
+  {
+    "home": "Lokomotiva Zagreb",
+    "away": "Varteks Varazdin",
+    "league": "Hirvatistan",
+    "timeLabel": "19:00",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "Lokomotiva Zagreb"
+  },
+  {
+    "home": "Kecskemeti TE",
+    "away": "Tiszafuredi VSE",
+    "league": "Macaristan",
+    "timeLabel": "19:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Kecskemeti TE"
+  },
+  {
+    "home": "Ajka",
+    "away": "Tiszakecske",
+    "league": "Macaristan",
+    "timeLabel": "19:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Tabor Sezana",
+    "away": "ND Primorje",
+    "league": "Slovenya",
+    "timeLabel": "19:00",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "ND Primorje"
+  },
+  {
+    "home": "URA",
+    "away": "UPDF",
+    "league": "Uganda",
+    "timeLabel": "19:00",
+    "result": "3 - 2",
+    "homeScore": 3,
+    "awayScore": 2,
+    "winner": "URA"
+  },
+  {
+    "home": "Dynamo Kiev",
+    "away": "Shakhtar Donetsk",
+    "league": "Ukrayna",
+    "timeLabel": "19:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Dynamo Kiev"
+  },
+  {
+    "home": "Budapest Vasas",
+    "away": "Mezoors",
+    "league": "Macaristan",
+    "timeLabel": "19:15",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Budapest Vasas"
+  },
+  {
+    "home": "Umm Salal",
+    "away": "Al Muaidar",
+    "league": "Katar",
+    "timeLabel": "19:30",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Al Muaidar"
+  },
+  {
+    "home": "Al Markhiya",
+    "away": "Al Khor",
+    "league": "Katar",
+    "timeLabel": "19:30",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Al Markhiya"
+  },
+  {
+    "home": "Kozarmisleny",
+    "away": "ESMTK",
+    "league": "Macaristan",
+    "timeLabel": "19:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Widzew Lodz",
+    "away": "Zaglebie Lubin",
+    "league": "Polonya",
+    "timeLabel": "19:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Sanatatea Cluj",
+    "away": "Universitatea Craiova",
+    "league": "Romanya",
+    "timeLabel": "19:30",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "Universitatea Craiova"
+  },
+  {
+    "home": "Torpedo Moscow",
+    "away": "Kuban Kholding",
+    "league": "Rusya",
+    "timeLabel": "19:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Levadiakos",
+    "away": "Asteras Tripolis",
+    "league": "Yunanistan",
+    "timeLabel": "19:30",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Levadiakos"
+  },
+  {
+    "home": "Hobro IK",
+    "away": "Kopenhag",
+    "league": "Danimarka",
+    "timeLabel": "19:45",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "Kopenhag"
+  },
+  {
+    "home": "Paderborn",
+    "away": "Bayer Leverkusen",
+    "league": "Almanya",
+    "timeLabel": "20:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Mainz 05",
+    "away": "Stuttgart",
+    "league": "Almanya",
+    "timeLabel": "20:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Stuttgart"
+  },
+  {
+    "home": "Greuther Fürth",
+    "away": "Kaiserslautern",
+    "league": "Almanya",
+    "timeLabel": "20:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Kaiserslautern"
+  },
+  {
+    "home": "Illertissen",
+    "away": "Magdeburg",
+    "league": "Almanya",
+    "timeLabel": "20:00",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Magdeburg"
+  },
+  {
+    "home": "Admira Wacker",
+    "away": "Sturm Graz",
+    "league": "Avusturya",
+    "timeLabel": "20:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Neman Grodno",
+    "away": "Dinamo Minsk",
+    "league": "Belarus",
+    "timeLabel": "20:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Celik Zenica",
+    "away": "Posusje",
+    "league": "Bosna",
+    "timeLabel": "20:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Celik Zenica"
+  },
+  {
+    "home": "ES Setif",
+    "away": "USM Alger",
+    "league": "Cezayir",
+    "timeLabel": "20:00",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "USM Alger"
+  },
+  {
+    "home": "FC Fredericia",
+    "away": "Viborg",
+    "league": "Danimarka",
+    "timeLabel": "20:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Lyseng",
+    "away": "Vejle",
+    "league": "Danimarka",
+    "timeLabel": "20:00",
+    "result": "0 - 4",
+    "homeScore": 0,
+    "awayScore": 4,
+    "winner": "Vejle"
+  },
+  {
+    "home": "JK Poseidon",
+    "away": "Hiiumaa",
+    "league": "Estonya",
+    "timeLabel": "20:00",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Hiiumaa"
+  },
+  {
+    "home": "Tallinna FC Zapoos",
+    "away": "Parnu JK Vaprus",
+    "league": "Estonya",
+    "timeLabel": "20:00",
+    "result": "2 - 4",
+    "homeScore": 2,
+    "awayScore": 4,
+    "winner": "Parnu JK Vaprus"
+  },
+  {
+    "home": "FAR Rabat",
+    "away": "Hassania Agadir",
+    "league": "Fas",
+    "timeLabel": "20:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "FAR Rabat"
+  },
+  {
+    "home": "Marumo Gallants",
+    "away": "Stellenbosch FC",
+    "league": "Güney Afri",
+    "timeLabel": "20:00",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "Marumo Gallants"
+  },
+  {
+    "home": "Poblense",
+    "away": "Sabadell",
+    "league": "Ispanya",
+    "timeLabel": "20:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "MEAP Nisou",
+    "away": "Apollon Limassol",
+    "league": "Kibris Rum Kesi",
+    "timeLabel": "20:00",
+    "result": "1 - 5",
+    "homeScore": 1,
+    "awayScore": 5,
+    "winner": "Apollon Limassol"
+  },
+  {
+    "home": "Györi ETO",
+    "away": "Pilisi LK",
+    "league": "Macaristan",
+    "timeLabel": "20:00",
+    "result": "9 - 0",
+    "homeScore": 9,
+    "awayScore": 0,
+    "winner": "Györi ETO"
+  },
+  {
+    "home": "Petrojet",
+    "away": "Al Ahly",
+    "league": "Misir",
+    "timeLabel": "20:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Spartak Trnava",
+    "away": "FK Kosice",
+    "league": "Slovakya",
+    "timeLabel": "20:00",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Spartak Trnava"
+  },
+  {
+    "home": "KFC Komarno",
+    "away": "Slovan Bratislava",
+    "league": "Slovakya",
+    "timeLabel": "20:00",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Slovan Bratislava"
+  },
+  {
+    "home": "Al Raed",
+    "away": "Al-Jandal",
+    "league": "Suudi Arabistan",
+    "timeLabel": "20:00",
+    "result": "4 - 1",
+    "homeScore": 4,
+    "awayScore": 1,
+    "winner": "Al Raed"
+  },
+  {
+    "home": "Izlanda (K)",
+    "away": "Kuzey Irlanda (K)",
+    "league": "UEFA Kadinlar U",
+    "timeLabel": "20:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Izlanda (K)"
+  },
+  {
+    "home": "Hibernians FC",
+    "away": "Sliema Wanderers",
+    "league": "Malta",
+    "timeLabel": "20:15",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Sliema Wanderers"
+  },
+  {
+    "home": "Lusitania FC Lourosa",
+    "away": "Vizela",
+    "league": "Portekiz",
+    "timeLabel": "20:15",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Newroz",
+    "away": "Erbil",
+    "league": "Irak",
+    "timeLabel": "20:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Erbil"
+  },
+  {
+    "home": "Juventus",
+    "away": "Udinese",
+    "league": "Italya",
+    "timeLabel": "20:30",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Juventus"
+  },
+  {
+    "home": "Roma",
+    "away": "Parma",
+    "league": "Italya",
+    "timeLabel": "20:30",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Roma"
+  },
+  {
+    "home": "Como",
+    "away": "Hellas Verona",
+    "league": "Italya",
+    "timeLabel": "20:30",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Como"
+  },
+  {
+    "home": "Arezzo",
+    "away": "Sassari Torres",
+    "league": "Italya",
+    "timeLabel": "20:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Arezzo"
+  },
+  {
+    "home": "Rimini",
+    "away": "Ravenna",
+    "league": "Italya",
+    "timeLabel": "20:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Rimini"
+  },
+  {
+    "home": "Ravenna",
+    "away": "Rimini",
+    "league": "Italya",
+    "timeLabel": "20:30",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Ravenna"
+  },
+  {
+    "home": "Sorrento Calcio",
+    "away": "Trapani 1905",
+    "league": "Italya",
+    "timeLabel": "20:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Antalyaspor",
+    "away": "Bursaspor",
+    "league": "Türkiye",
+    "timeLabel": "20:30",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Antalyaspor"
+  },
+  {
+    "home": "Atromitos",
+    "away": "Panathinaikos",
+    "league": "Yunanistan",
+    "timeLabel": "20:30",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Panathinaikos"
+  },
+  {
+    "home": "Quick Boys",
+    "away": "Volendam",
+    "league": "Hollanda",
+    "timeLabel": "20:45",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Volendam"
+  },
+  {
+    "home": "Riga FC",
+    "away": "Auda",
+    "league": "Letonya",
+    "timeLabel": "20:45",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Auda"
+  },
+  {
+    "home": "Floriana",
+    "away": "Hamrun Spartans",
+    "league": "Malta",
+    "timeLabel": "20:45",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Hamrun Spartans"
+  },
+  {
+    "home": "Amstetten",
+    "away": "Wolfsberger AC",
+    "league": "Avusturya",
+    "timeLabel": "21:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Bregenz",
+    "away": "Ried",
+    "league": "Avusturya",
+    "timeLabel": "21:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Esbjerg",
+    "away": "Randers FC",
+    "league": "Danimarka",
+    "timeLabel": "21:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Gualaceo",
+    "away": "9 de Octubre",
+    "league": "Ekvador",
+    "timeLabel": "21:00",
+    "result": "1 - 5",
+    "homeScore": 1,
+    "awayScore": 5,
+    "winner": "9 de Octubre"
+  },
+  {
+    "home": "Independiente Juniors",
+    "away": "San Antonio",
+    "league": "Ekvador",
+    "timeLabel": "21:00",
+    "result": "6 - 2",
+    "homeScore": 6,
+    "awayScore": 2,
+    "winner": "Independiente Juniors"
+  },
+  {
+    "home": "Nice",
+    "away": "Lille",
+    "league": "Fransa",
+    "timeLabel": "21:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Nice"
+  },
+  {
+    "home": "Le Havre",
+    "away": "Brest",
+    "league": "Fransa",
+    "timeLabel": "21:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Le Havre"
+  },
+  {
+    "home": "Lorient",
+    "away": "PSG",
+    "league": "Fransa",
+    "timeLabel": "21:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Metz",
+    "away": "Lens",
+    "league": "Fransa",
+    "timeLabel": "21:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Metz"
+  },
+  {
+    "home": "Los Garres",
+    "away": "Elche",
+    "league": "Ispanya",
+    "timeLabel": "21:00",
+    "result": "0 - 4",
+    "homeScore": 0,
+    "awayScore": 4,
+    "winner": "Elche"
+  },
+  {
+    "home": "Ebro",
+    "away": "Tarazona",
+    "league": "Ispanya",
+    "timeLabel": "21:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Mutilvera",
+    "away": "Real Zaragoza",
+    "league": "Ispanya",
+    "timeLabel": "21:00",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Real Zaragoza"
+  },
+  {
+    "home": "CE Sant Jordi",
+    "away": "Osasuna",
+    "league": "Ispanya",
+    "timeLabel": "21:00",
+    "result": "0 - 5",
+    "homeScore": 0,
+    "awayScore": 5,
+    "winner": "Osasuna"
+  },
+  {
+    "home": "Mjondalen",
+    "away": "Stabaek",
+    "league": "Norveç",
+    "timeLabel": "21:00",
+    "result": "3 - 2",
+    "homeScore": 3,
+    "awayScore": 2,
+    "winner": "Mjondalen"
+  },
+  {
+    "home": "Brann",
+    "away": "Bodo/Glimt",
+    "league": "Norveç",
+    "timeLabel": "21:00",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "Bodo/Glimt"
+  },
+  {
+    "home": "Al Wihdat",
+    "away": "Muharraq",
+    "league": "AFC Sampiyonlar",
+    "timeLabel": "21:15",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Al Wihdat"
+  },
+  {
+    "home": "Puszcza Niepolomice",
+    "away": "Lechia Gdansk",
+    "league": "Polonya",
+    "timeLabel": "21:15",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Dinamo Tirana",
+    "away": "Partizani Tirana",
+    "league": "Arnavutluk",
+    "timeLabel": "21:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Dinamo Tirana"
+  },
+  {
+    "home": "KF Tirana",
+    "away": "AF Elbasani",
+    "league": "Arnavutluk",
+    "timeLabel": "21:30",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "AF Elbasani"
+  },
+  {
+    "home": "La Union Atletico",
+    "away": "Ceuta",
+    "league": "Ispanya",
+    "timeLabel": "21:30",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Ceuta"
+  },
+  {
+    "home": "Differdange 03",
+    "away": "Racing FC",
+    "league": "Lüksemburg",
+    "timeLabel": "21:30",
+    "result": "5 - 1",
+    "homeScore": 5,
+    "awayScore": 1,
+    "winner": "Differdange 03"
+  },
+  {
+    "home": "Real Oruro",
+    "away": "Universitario de Vinto",
+    "league": "Bolivya",
+    "timeLabel": "22:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Real Oruro"
+  },
+  {
+    "home": "Wydad Casablanca",
+    "away": "Raja Casablanca",
+    "league": "Fas",
+    "timeLabel": "22:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "HSC 21",
+    "away": "Koninklijke HFC",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "HSC 21"
+  },
+  {
+    "home": "Genemuiden",
+    "away": "Halsteren",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Genemuiden"
+  },
+  {
+    "home": "Lisse",
+    "away": "Telstar",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "0 - 5",
+    "homeScore": 0,
+    "awayScore": 5,
+    "winner": "Telstar"
+  },
+  {
+    "home": "NAC Breda",
+    "away": "Heracles",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "Heracles"
+  },
+  {
+    "home": "RKC Waalwijk",
+    "away": "Cambuur",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "3 - 2",
+    "homeScore": 3,
+    "awayScore": 2,
+    "winner": "RKC Waalwijk"
+  },
+  {
+    "home": "Hoek",
+    "away": "FC Eindhoven",
+    "league": "Hollanda",
+    "timeLabel": "22:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Naxara",
+    "away": "Eibar",
+    "league": "Ispanya",
+    "timeLabel": "22:00",
+    "result": "2 - 4",
+    "homeScore": 2,
+    "awayScore": 4,
+    "winner": "Eibar"
+  },
+  {
+    "home": "Atletico Astorga",
+    "away": "Mirandes",
+    "league": "Ispanya",
+    "timeLabel": "22:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Lorca Deportiva",
+    "away": "Almeria",
+    "league": "Ispanya",
+    "timeLabel": "22:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Almeria"
+  },
+  {
+    "home": "Navalcarnero",
+    "away": "Merida AD",
+    "league": "Ispanya",
+    "timeLabel": "22:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Navalcarnero"
+  },
+  {
+    "home": "Azuaga",
+    "away": "Leganes",
+    "league": "Ispanya",
+    "timeLabel": "22:00",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "Leganes"
+  },
+  {
+    "home": "Cieza",
+    "away": "Cordoba",
+    "league": "Ispanya",
+    "timeLabel": "22:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Cieza"
+  },
+  {
+    "home": "Numancia",
+    "away": "Arenas de Getxo",
+    "league": "Ispanya",
+    "timeLabel": "22:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Numancia"
+  },
+  {
+    "home": "Caudal Deportivo",
+    "away": "Sporting Gijon",
+    "league": "Ispanya",
+    "timeLabel": "22:00",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Sporting Gijon"
+  },
+  {
+    "home": "Sant Andreu",
+    "away": "Teruel",
+    "league": "Ispanya",
+    "timeLabel": "22:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Portugalete",
+    "away": "Valladolid",
+    "league": "Ispanya",
+    "timeLabel": "22:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Portugalete"
+  },
+  {
+    "home": "Atletic Sant Just",
+    "away": "Mallorca",
+    "league": "Ispanya",
+    "timeLabel": "22:00",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Mallorca"
+  },
+  {
+    "home": "Echallens",
+    "away": "Portalban / Gletterens",
+    "league": "Isviçre",
+    "timeLabel": "22:00",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "Echallens"
+  },
+  {
+    "home": "Luzern II",
+    "away": "Kriens",
+    "league": "Isviçre",
+    "timeLabel": "22:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "MTK Budapest",
+    "away": "Mezokövesd-Zsory",
+    "league": "Macaristan",
+    "timeLabel": "22:00",
+    "result": "5 - 1",
+    "homeScore": 5,
+    "awayScore": 1,
+    "winner": "MTK Budapest"
+  },
+  {
+    "home": "Ferencvaros",
+    "away": "Bekescsaba",
+    "league": "Macaristan",
+    "timeLabel": "22:00",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "Ferencvaros"
+  },
+  {
+    "home": "Southampton U21",
+    "away": "Real Madrid U21",
+    "league": "Premier Lig Ulu",
+    "timeLabel": "22:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "West Bromwich Albion U21",
+    "away": "Mönchengladbach U21",
+    "league": "Premier Lig Ulu",
+    "timeLabel": "22:00",
+    "result": "2 - 3",
+    "homeScore": 2,
+    "awayScore": 3,
+    "winner": "Mönchengladbach U21"
+  },
+  {
+    "home": "Sunderland U21",
+    "away": "Anderlecht U21",
+    "league": "Premier Lig Ulu",
+    "timeLabel": "22:00",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "ACS Gloria Bistrita",
+    "away": "FCSB",
+    "league": "Romanya",
+    "timeLabel": "22:00",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "FCSB"
+  },
+  {
+    "home": "NK Brinje",
+    "away": "Maribor",
+    "league": "Slovenya",
+    "timeLabel": "22:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Sloboda Tuzla",
+    "away": "Zeljeznicar",
+    "league": "Bosna",
+    "timeLabel": "22:15",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Zeljeznicar"
+  },
+  {
+    "home": "UD Oliveirense",
+    "away": "Porto II",
+    "league": "Portekiz",
+    "timeLabel": "22:15",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "UD Oliveirense"
+  },
+  {
+    "home": "Sporting Braga",
+    "away": "Santa Clara",
+    "league": "Portekiz",
+    "timeLabel": "22:15",
+    "result": "5 - 0",
+    "homeScore": 5,
+    "awayScore": 0,
+    "winner": "Sporting Braga"
+  },
+  {
+    "home": "St. Pölten",
+    "away": "Rapid Wien",
+    "league": "Avusturya",
+    "timeLabel": "22:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Rapid Wien"
+  },
+  {
+    "home": "Tubize",
+    "away": "Union Saint-Gilloise",
+    "league": "Belçika",
+    "timeLabel": "22:30",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Union Saint-Gilloise"
+  },
+  {
+    "home": "Club Brugge",
+    "away": "Jong Lede",
+    "league": "Belçika",
+    "timeLabel": "22:30",
+    "result": "6 - 1",
+    "homeScore": 6,
+    "awayScore": 1,
+    "winner": "Club Brugge"
+  },
+  {
+    "home": "Genk",
+    "away": "RWDM Brussels",
+    "league": "Belçika",
+    "timeLabel": "22:30",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Genk"
+  },
+  {
+    "home": "Royal Antwerp",
+    "away": "AS Eupen",
+    "league": "Belçika",
+    "timeLabel": "22:30",
+    "result": "3 - 1",
+    "homeScore": 3,
+    "awayScore": 1,
+    "winner": "Royal Antwerp"
+  },
+  {
+    "home": "Spouwen-Mopertingen",
+    "away": "SV Zulte Waregem",
+    "league": "Belçika",
+    "timeLabel": "22:30",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "SV Zulte Waregem"
+  },
+  {
+    "home": "Heist",
+    "away": "La Louvière",
+    "league": "Belçika",
+    "timeLabel": "22:30",
+    "result": "1 - 2",
+    "homeScore": 1,
+    "awayScore": 2,
+    "winner": "La Louvière"
+  },
+  {
+    "home": "UD Ourense",
+    "away": "Pontevedra",
+    "league": "Ispanya",
+    "timeLabel": "22:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Puente Genil",
+    "away": "Cartagena",
+    "league": "Ispanya",
+    "timeLabel": "22:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Cartagena"
+  },
+  {
+    "home": "Basel",
+    "away": "Zürich",
+    "league": "Isviçre",
+    "timeLabel": "22:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Basel"
+  },
+  {
+    "home": "Lausanne Sports",
+    "away": "Servette",
+    "league": "Isviçre",
+    "timeLabel": "22:30",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Servette"
+  },
+  {
+    "home": "Mantova",
+    "away": "Catanzaro",
+    "league": "Italya",
+    "timeLabel": "22:30",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Catanzaro"
+  },
+  {
+    "home": "Spezia",
+    "away": "Padova Calcio",
+    "league": "Italya",
+    "timeLabel": "22:30",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Venezia",
+    "away": "Südtirol",
+    "league": "Italya",
+    "timeLabel": "22:30",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Venezia"
+  },
+  {
+    "home": "Vicenza",
+    "away": "Pro Vercelli",
+    "league": "Italya",
+    "timeLabel": "22:30",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Pro Vercelli"
+  },
+  {
+    "home": "SS Monopoli",
+    "away": "Rossoblu Potenza",
+    "league": "Italya",
+    "timeLabel": "22:30",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "SSC Giugliano",
+    "away": "Benevento",
+    "league": "Italya",
+    "timeLabel": "22:30",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "SSC Giugliano"
+  },
+  {
+    "home": "Rakow Czestochowa",
+    "away": "Cracovia Krakow",
+    "league": "Polonya",
+    "timeLabel": "22:30",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Rakow Czestochowa"
+  },
+  {
+    "home": "PAOK",
+    "away": "AE Larissa",
+    "league": "Yunanistan",
+    "timeLabel": "22:30",
+    "result": "4 - 1",
+    "homeScore": 4,
+    "awayScore": 1,
+    "winner": "PAOK"
+  },
+  {
+    "home": "Köln",
+    "away": "Bayern Münih",
+    "league": "Almanya",
+    "timeLabel": "22:45",
+    "result": "1 - 4",
+    "homeScore": 1,
+    "awayScore": 4,
+    "winner": "Bayern Münih"
+  },
+  {
+    "home": "Union Berlin",
+    "away": "Arminia Bielefeld",
+    "league": "Almanya",
+    "timeLabel": "22:45",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Fortuna Düsseldorf",
+    "away": "Freiburg",
+    "league": "Almanya",
+    "timeLabel": "22:45",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Freiburg"
+  },
+  {
+    "home": "Darmstadt 98",
+    "away": "Schalke 04",
+    "league": "Almanya",
+    "timeLabel": "22:45",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "Darmstadt 98"
+  },
+  {
+    "home": "AGF Aarhus",
+    "away": "SonderjyskE",
+    "league": "Danimarka",
+    "timeLabel": "22:45",
+    "result": "2 - 1",
+    "homeScore": 2,
+    "awayScore": 1,
+    "winner": "AGF Aarhus"
+  },
+  {
+    "home": "Swansea City",
+    "away": "Manchester City",
+    "league": "Ingiltere",
+    "timeLabel": "22:45",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Manchester City"
+  },
+  {
+    "home": "Arsenal",
+    "away": "Brighton & Hove Albion",
+    "league": "Ingiltere",
+    "timeLabel": "22:45",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Arsenal"
+  },
+  {
+    "home": "Liverpool",
+    "away": "Crystal Palace",
+    "league": "Ingiltere",
+    "timeLabel": "22:45",
+    "result": "0 - 3",
+    "homeScore": 0,
+    "awayScore": 3,
+    "winner": "Crystal Palace"
+  },
+  {
+    "home": "Wolverhampton",
+    "away": "Chelsea",
+    "league": "Ingiltere",
+    "timeLabel": "22:45",
+    "result": "3 - 4",
+    "homeScore": 3,
+    "awayScore": 4,
+    "winner": "Chelsea"
+  },
+  {
+    "home": "Wayside Celtic",
+    "away": "Bangor Celtic",
+    "league": "Irlanda",
+    "timeLabel": "22:45",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Celtic",
+    "away": "Falkirk",
+    "league": "Iskoçya",
+    "timeLabel": "22:45",
+    "result": "4 - 0",
+    "homeScore": 4,
+    "awayScore": 0,
+    "winner": "Celtic"
+  },
+  {
+    "home": "Hibernian",
+    "away": "Rangers",
+    "league": "Iskoçya",
+    "timeLabel": "22:45",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Rangers"
+  },
+  {
+    "home": "Kilmarnock",
+    "away": "Aberdeen",
+    "league": "Iskoçya",
+    "timeLabel": "22:45",
+    "result": "0 - 1",
+    "homeScore": 0,
+    "awayScore": 1,
+    "winner": "Aberdeen"
+  },
+  {
+    "home": "Motherwell",
+    "away": "Dundee United",
+    "league": "Iskoçya",
+    "timeLabel": "22:45",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Motherwell"
+  },
+  {
+    "home": "St. Mirren",
+    "away": "Hearts",
+    "league": "Iskoçya",
+    "timeLabel": "22:45",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Inter",
+    "away": "Fiorentina",
+    "league": "Italya",
+    "timeLabel": "22:45",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Inter"
+  },
+  {
+    "home": "Genoa",
+    "away": "Cremonese",
+    "league": "Italya",
+    "timeLabel": "22:45",
+    "result": "0 - 2",
+    "homeScore": 0,
+    "awayScore": 2,
+    "winner": "Cremonese"
+  },
+  {
+    "home": "Bologna",
+    "away": "Torino",
+    "league": "Italya",
+    "timeLabel": "22:45",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Leones del Norte",
+    "away": "Guayaquil City",
+    "league": "Ekvador",
+    "timeLabel": "23:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Excelsior Maassluis",
+    "away": "Excelsior",
+    "league": "Hollanda",
+    "timeLabel": "23:00",
+    "result": "0 - 0",
+    "homeScore": 0,
+    "awayScore": 0,
+    "winner": "Draw"
+  },
+  {
+    "home": "Newcastle United",
+    "away": "Tottenham",
+    "league": "Ingiltere",
+    "timeLabel": "23:00",
+    "result": "2 - 0",
+    "homeScore": 2,
+    "awayScore": 0,
+    "winner": "Newcastle United"
+  },
+  {
+    "home": "Shamrock Rovers",
+    "away": "Galway United",
+    "league": "Irlanda",
+    "timeLabel": "23:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Shamrock Rovers"
+  },
+  {
+    "home": "Real Jaen",
+    "away": "Eldense",
+    "league": "Ispanya",
+    "timeLabel": "23:00",
+    "result": "1 - 3",
+    "homeScore": 1,
+    "awayScore": 3,
+    "winner": "Eldense"
+  },
+  {
+    "home": "Lucena",
+    "away": "Villarreal",
+    "league": "Ispanya",
+    "timeLabel": "23:00",
+    "result": "0 - 6",
+    "homeScore": 0,
+    "awayScore": 6,
+    "winner": "Villarreal"
+  },
+  {
+    "home": "Quintanar del Rey",
+    "away": "UD Ibiza",
+    "league": "Ispanya",
+    "timeLabel": "23:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Yuncos",
+    "away": "Rayo Vallecano",
+    "league": "Ispanya",
+    "timeLabel": "23:00",
+    "result": "1 - 6",
+    "homeScore": 1,
+    "awayScore": 6,
+    "winner": "Rayo Vallecano"
+  },
+  {
+    "home": "Marsaxlokk FC",
+    "away": "Zabbar St. Patrick",
+    "league": "Malta",
+    "timeLabel": "23:00",
+    "result": "1 - 0",
+    "homeScore": 1,
+    "awayScore": 0,
+    "winner": "Marsaxlokk FC"
+  },
+  {
+    "home": "Mosta",
+    "away": "Naxxar Lions",
+    "league": "Malta",
+    "timeLabel": "23:00",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Mosta"
+  },
+  {
+    "home": "Rosenborg",
+    "away": "Sandefjord",
+    "league": "Norveç",
+    "timeLabel": "23:00",
+    "result": "1 - 1",
+    "homeScore": 1,
+    "awayScore": 1,
+    "winner": "Draw"
+  },
+  {
+    "home": "Toulouse",
+    "away": "Rennes",
+    "league": "Fransa",
+    "timeLabel": "23:05",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "Marsilya",
+    "away": "Angers",
+    "league": "Fransa",
+    "timeLabel": "23:05",
+    "result": "2 - 2",
+    "homeScore": 2,
+    "awayScore": 2,
+    "winner": "Draw"
+  },
+  {
+    "home": "RC Strasbourg",
+    "away": "Auxerre",
+    "league": "Fransa",
+    "timeLabel": "23:05",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "RC Strasbourg"
+  },
+  {
+    "home": "Nantes",
+    "away": "Monaco",
+    "league": "Fransa",
+    "timeLabel": "23:05",
+    "result": "3 - 5",
+    "homeScore": 3,
+    "awayScore": 5,
+    "winner": "Monaco"
+  },
+  {
+    "home": "Paris FC",
+    "away": "Lyon",
+    "league": "Fransa",
+    "timeLabel": "23:05",
+    "result": "3 - 3",
+    "homeScore": 3,
+    "awayScore": 3,
+    "winner": "Draw"
+  },
+  {
+    "home": "Benfica",
+    "away": "Tondela",
+    "league": "Portekiz",
+    "timeLabel": "23:45",
+    "result": "3 - 0",
+    "homeScore": 3,
+    "awayScore": 0,
+    "winner": "Benfica"
+  }
+]

@@ -1,0 +1,105 @@
+name: Scrape Predictions Daily
+
+on:
+  schedule:
+    # Runs once per day at 1:00 AM UTC
+    - cron: '0 1 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  scrape-predictions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dependencies
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Check if API URL is configured
+        run: |
+          if [ -z "${{ secrets.API_BASE_URL }}" ]; then
+            echo "⚠️  API_BASE_URL secret is not set. Skipping cron job."
+            echo "💡 Set up your deployment and add the API_BASE_URL secret to enable automatic updates."
+            exit 0
+          fi
+
+      - name: Scrape Predictions
+        run: |
+          echo "Scraping predictions from betistuta.net..."
+          echo "Note: Only high-probability predictions (2+ goal difference) will be stored"
+          python3 scripts/parse_betistuta.py --out data/predictions.json
+          
+          if [ ! -f data/predictions.json ]; then
+            echo "Error: Predictions file not created."
+            exit 1
+          fi
+          
+          # Check if predictions.json has content
+          PREDICTIONS_COUNT=$(jq 'length' data/predictions.json 2>/dev/null || echo "0")
+          
+          # Also check file size to catch issues
+          FILE_SIZE=$(wc -c < data/predictions.json 2>/dev/null || echo "0")
+          echo "📊 Predictions file size: $FILE_SIZE bytes"
+          
+          if [ "$PREDICTIONS_COUNT" = "0" ] || [ -z "$PREDICTIONS_COUNT" ]; then
+            echo "⚠️  Warning: No predictions found or predictions.json is empty"
+            echo "This might happen if:"
+            echo "  1. No predictions available for today's date"
+            echo "  2. No predictions met the high-probability filter (2+ goal difference)"
+            echo "  3. The scraping target structure changed"
+            echo "Skipping import to avoid API error..."
+            exit 0
+          fi
+          
+          echo "✅ Found $PREDICTIONS_COUNT filtered prediction(s) in data/predictions.json"
+          echo "   (Only high-probability predictions with 2+ goal difference are included)"
+
+      - name: Import Predictions to Firestore
+        env:
+          API_BASE_URL: ${{ secrets.API_BASE_URL }}
+          NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN: ${{ secrets.INTERNAL_UPDATE_TOKEN }}
+        run: |
+          if [ -z "${{ secrets.API_BASE_URL }}" ]; then
+            echo "⚠️  API_BASE_URL secret is not set. Skipping API import."
+            exit 0
+          fi
+          
+          # Validate predictions.json exists and has content
+          if [ ! -f data/predictions.json ]; then
+            echo "⚠️  predictions.json not found. Skipping import."
+            exit 0
+          fi
+          
+          PREDICTIONS_COUNT=$(jq 'length' data/predictions.json 2>/dev/null || echo "0")
+          if [ "$PREDICTIONS_COUNT" = "0" ] || [ -z "$PREDICTIONS_COUNT" ]; then
+            echo "⚠️  No predictions to import. predictions.json is empty."
+            exit 0
+          fi
+          
+          echo "Importing $PREDICTIONS_COUNT prediction(s) to daily_predictions collection..."
+          
+          # Use --data-binary to send file directly (avoids "Argument list too long" error)
+          RESPONSE=$(curl -sS -w "\nHTTP_STATUS:%{http_code}" -X POST "${{ env.API_BASE_URL }}/api/admin/moderate/predictions" \
+            -H "x-internal-token: ${{ env.NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data-binary "@data/predictions.json")
+          
+          HTTP_STATUS=$(echo "$RESPONSE" | grep -oP 'HTTP_STATUS:\K\d+' || echo "000")
+          BODY=$(echo "$RESPONSE" | sed 's/HTTP_STATUS:[0-9]*$//')
+          
+          echo "$BODY"
+          echo "HTTP Status: $HTTP_STATUS"
+          
+          if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 300 ]; then
+            echo "✅ Predictions imported successfully"
+          else
+            echo "⚠️  Import failed with HTTP $HTTP_STATUS"
+            exit 1
+          fi

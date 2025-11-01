@@ -177,10 +177,8 @@ function ToastContainer({ toasts, removeToast }: { toasts: Toast[]; removeToast:
 }
 
 function AdminPageContent() {
-  const [jsonMatches, setJsonMatches] = useState<MatchWithMeta[]>([]);
   const [storeMatches, setStoreMatches] = useState<MatchWithMeta[]>([]);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState<string | null>(null);
   const [q, setQ] = useState('');
   const [selected, setSelected] = useState<Record<string, boolean>>({});
   const [editMatch, setEditMatch] = useState<{ id: string; videoSrc: string } | null>(null);
@@ -188,8 +186,18 @@ function AdminPageContent() {
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [showTeamLogo, setShowTeamLogo] = useState(false);
   const [teamLogoData, setTeamLogoData] = useState({ name: '', sport: 'Football', file: null as File | null });
-  const [activeTab, setActiveTab] = useState<'all' | 'store' | 'approved' | 'trending'>('all');
+  const [activeTab, setActiveTab] = useState<'store' | 'approved' | 'trending' | 'predictions'>('store');
   const [trendingRows, setTrendingRows] = useState<any[]>([]);
+  const [predictions, setPredictions] = useState<any[]>([]);
+  const [loadingPredictions, setLoadingPredictions] = useState(false);
+  const [selectedPredictions, setSelectedPredictions] = useState<Record<string, boolean>>({});
+  const [selectedDate, setSelectedDate] = useState<string>(() => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  });
 
   const token = process.env.NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN || '';
 
@@ -203,28 +211,19 @@ function AdminPageContent() {
     setToasts(prev => prev.filter(t => t.id !== id));
   }
 
-  async function loadJson() {
-    try {
-      const res = await fetch('/api/admin/raw/matches', { cache: 'no-store' });
-      const data = await res.json();
-      const matches = Array.isArray(data) ? data : [];
-      setJsonMatches(matches);
-    } catch (err) {
-      console.error('Failed to load JSON:', err);
-      addToast('Failed to load JSON matches', 'error');
-    }
-  }
 
-  async function loadStore() {
+  async function loadStore(date?: string) {
+    const targetDate = date || selectedDate;
     setLoading(true);
     try {
-      const res = await fetch(`/api/admin/moderate/matches?date=${encodeURIComponent(todayId())}`, {
+      const res = await fetch(`/api/admin/moderate/matches?date=${encodeURIComponent(targetDate)}`, {
         cache: 'no-store',
         headers: { 'x-internal-token': token },
       });
       const data = await res.json();
       const matches = Array.isArray(data.rows) ? data.rows : [];
       setStoreMatches(matches);
+      addToast(`Loaded ${matches.length} match(es) for ${targetDate}`, 'success');
     } catch (err) {
       console.error('Failed to load store:', err);
       addToast('Failed to load stored matches', 'error');
@@ -261,11 +260,116 @@ function AdminPageContent() {
     }
   }
 
+  async function loadPredictions(date?: string) {
+    const targetDate = date || selectedDate;
+    setLoadingPredictions(true);
+    try {
+      const res = await fetch(`/api/admin/moderate/predictions?date=${encodeURIComponent(targetDate)}`, {
+        cache: 'no-store',
+        headers: { 'x-internal-token': token },
+      });
+      const data = await res.json();
+      const predictionsData = Array.isArray(data.rows) ? data.rows : [];
+      setPredictions(predictionsData);
+      addToast(`Loaded ${predictionsData.length} prediction(s) for ${targetDate}`, 'success');
+    } catch (err) {
+      console.error('Failed to load predictions:', err);
+      addToast('Failed to load predictions', 'error');
+      setPredictions([]);
+    } finally {
+      setLoadingPredictions(false);
+    }
+  }
+  
+  function handleDateChange(date: string) {
+    setSelectedDate(date);
+  }
+  
+  function handleFetchForDate() {
+    if (activeTab === 'predictions') {
+      loadPredictions(selectedDate);
+    } else {
+      loadStore(selectedDate);
+    }
+  }
+
+  // Status updates are now automatic via results scraper - no manual updates needed
+
+  async function updatePredictionApproval(predictionId: string, approved: boolean, reload: boolean = true) {
+    try {
+      const res = await fetch(`/api/admin/moderate/predictions/${encodeURIComponent(predictionId)}`, {
+        method: 'PATCH',
+        headers: {
+          'content-type': 'application/json',
+          'x-internal-token': token,
+        },
+        body: JSON.stringify({ approved }),
+      });
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+        console.error('Approval failed:', { predictionId, status: res.status, error: errorData });
+        throw new Error(errorData.message || errorData.error || `Failed to update (${res.status})`);
+      }
+      
+      if (reload) {
+        addToast(`Prediction ${approved ? 'approved' : 'unapproved'}`, 'success');
+        await loadPredictions();
+      }
+    } catch (err: any) {
+      console.error('updatePredictionApproval error:', err);
+      addToast(`Failed to update prediction: ${err.message}`, 'error');
+      throw err;
+    }
+  }
+
+  async function approveSelectedPredictions() {
+    const selectedIds = Object.keys(selectedPredictions).filter(id => selectedPredictions[id]);
+    if (selectedIds.length === 0) {
+      addToast('No predictions selected', 'info');
+      return;
+    }
+    
+    setLoadingPredictions(true);
+    try {
+      // Approve each prediction (without reloading individually)
+      const promises = selectedIds.map(id => 
+        updatePredictionApproval(id, true, false).catch(err => {
+          console.error(`Failed to approve prediction ${id}:`, err);
+          return null;
+        })
+      );
+      
+      await Promise.all(promises);
+      addToast(`Approved ${selectedIds.length} prediction(s)`, 'success');
+      setSelectedPredictions({});
+      await loadPredictions();
+    } catch (err: any) {
+      addToast(`Failed to approve predictions: ${err.message}`, 'error');
+    } finally {
+      setLoadingPredictions(false);
+    }
+  }
+
+  function togglePredictionSelection(id: string, checked?: boolean) {
+    setSelectedPredictions(prev => ({ ...prev, [id]: checked ?? !prev[id] }));
+  }
+
+  function toggleAllPredictions(checked: boolean) {
+    const next: Record<string, boolean> = {};
+    if (checked) {
+      predictions.forEach(p => { next[p.id] = true; });
+    }
+    setSelectedPredictions(next);
+  }
+
   useEffect(() => {
-    loadJson();
-    loadStore();
+    if (activeTab === 'predictions') {
+      loadPredictions();
+    } else {
+      loadStore();
+    }
     loadTrending();
-  }, []);
+  }, [activeTab]);
 
   // Auto-update match statuses every 5 minutes
   useEffect(() => {
@@ -295,9 +399,9 @@ function AdminPageContent() {
         // Only show matches that are explicitly marked as trending in Firestore
         return trendingMatches;
       default:
-        return jsonMatches;
+        return storeMatches;
     }
-  }, [activeTab, jsonMatches, storeMatches, approvedMatches, trendingMatches]);
+  }, [activeTab, storeMatches, approvedMatches, trendingMatches]);
 
   const filtered = useMemo(() => {
     const needle = q.toLowerCase().trim();
@@ -315,29 +419,6 @@ function AdminPageContent() {
     });
   }, [matchesByTab, q]);
 
-  async function saveMatch(match: UnifiedMatch) {
-    setSaving(match.id);
-    try {
-      const res = await fetch('/api/admin/matches/save', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          'x-internal-token': token,
-        },
-        body: JSON.stringify({ match }),
-      });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.message || 'Failed to save');
-      }
-      addToast(`Match "${match.home.name} vs ${match.away.name}" saved to Firestore`, 'success');
-      await loadStore();
-    } catch (err: any) {
-      addToast(`Failed to save match: ${err.message}`, 'error');
-    } finally {
-      setSaving(null);
-    }
-  }
 
   async function updateStatus(matchIds: string[], approved?: boolean, trending?: boolean) {
     setLoading(true);
@@ -366,28 +447,16 @@ function AdminPageContent() {
 
   async function saveVideoSrc(matchId: string, videoSrc: string) {
     try {
-      const res = await fetch(`/api/videosrc/${encodeURIComponent(matchId)}`, {
-        method: 'POST',
+      // Update directly in daily_matches via API
+      const res = await fetch(`/api/admin/moderate/matches/${encodeURIComponent(matchId)}`, {
+        method: 'PATCH',
         headers: {
           'content-type': 'application/json',
           'x-internal-token': token,
         },
-        body: JSON.stringify({
-          status: videoSrc ? 'ready' : 'pending',
-          videoSrc,
-          source: 'admin',
-          ttlMs: 60 * 60 * 1000,
-        }),
+        body: JSON.stringify({ override: { videoSrc } }),
       });
-      if (!res.ok) throw new Error('Failed to save');
-      
-      // Also update in daily_matches
-      const match = storeMatches.find(m => m.id === matchId);
-      if (match) {
-        const updatedMatch = { ...match, videoSrc };
-        await saveMatch(updatedMatch);
-      }
-      
+      if (!res.ok) throw new Error('Failed to update');
       addToast('Video source updated', 'success');
       setEditMatch(null);
       await loadStore();
@@ -440,50 +509,110 @@ function AdminPageContent() {
 
       <div className="container mx-auto px-4 py-8 space-y-6">
         {/* Header */}
-      <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-[rgb(255,212,0)] to-[rgb(255,244,180)] bg-clip-text text-transparent">
-              Admin Dashboard
-            </h1>
-            <p className="text-white/60 mt-1">Today&apos;s Matches Management</p>
+        <div className="space-y-4">
+          {/* Title Section */}
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-[rgb(255,212,0)] to-[rgb(255,244,180)] bg-clip-text text-transparent">
+                Admin Dashboard
+              </h1>
+              <p className="text-white/60 mt-1">Matches & Predictions Management</p>
+            </div>
+            <div className="text-right">
+              <div className="text-xs text-white/50 uppercase tracking-wide mb-1">Current View</div>
+              <div className="text-lg font-semibold text-white/90">
+                {selectedDate === todayId() ? (
+                  <span className="text-[rgb(var(--brand-yellow))]">Today</span>
+                ) : (
+                  <span>{selectedDate}</span>
+                )}
+              </div>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setShowTeamLogo(!showTeamLogo)}
-              className="pill pill-muted hover:pill-active transition-all"
-            >
-              {showTeamLogo ? 'Hide' : 'Manage'} Team Logos
-            </button>
-            <button
-              onClick={loadJson}
-              className="pill pill-muted hover:pill-active transition-all"
-            >
-              Reload JSON
-            </button>
-            <button
-              onClick={loadStore}
-              disabled={loading}
-              className="pill pill-muted hover:pill-active transition-all disabled:opacity-50"
-            >
-              {loading ? 'Loading...' : 'Refresh Store'}
-            </button>
-            <button
-              onClick={updateMatchStatuses}
-              disabled={loading}
-              className="pill pill-active disabled:opacity-50"
-              title="Update match statuses based on time (ended matches)"
-            >
-              Update Statuses
-            </button>
+
+          {/* Action Bar */}
+          <div className="surface p-4 rounded-lg border border-white/10">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              {/* Date Controls */}
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <label htmlFor="date-picker" className="text-sm font-medium text-white/80 whitespace-nowrap">
+                    Select Date:
+                  </label>
+                  <input
+                    id="date-picker"
+                    type="date"
+                    value={selectedDate}
+                    onChange={(e) => handleDateChange(e.target.value)}
+                    className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-[rgb(255,212,0)] focus:border-transparent transition-all"
+                    max={todayId()}
+                  />
+                </div>
+                <button
+                  onClick={handleFetchForDate}
+                  disabled={loading || loadingPredictions}
+                  className="pill pill-active disabled:opacity-50 whitespace-nowrap"
+                >
+                  {loading || loadingPredictions ? (
+                    <>
+                      <span className="inline-block animate-spin mr-2">⏳</span>
+                      Loading...
+                    </>
+                  ) : (
+                    'Fetch Data'
+                  )}
+                </button>
+                {selectedDate !== todayId() && (
+                  <button
+                    onClick={() => {
+                      const today = todayId();
+                      setSelectedDate(today);
+                      if (activeTab === 'predictions') {
+                        loadPredictions(today);
+                      } else {
+                        loadStore(today);
+                      }
+                    }}
+                    className="pill pill-muted hover:pill-active transition-all whitespace-nowrap"
+                    title="Reset to today"
+                  >
+                    ← Today
+                  </button>
+                )}
+              </div>
+
+              {/* Utility Buttons */}
+              <div className="flex items-center gap-2 flex-wrap">
+                <button
+                  onClick={() => setShowTeamLogo(!showTeamLogo)}
+                  className={`pill transition-all whitespace-nowrap ${
+                    showTeamLogo ? 'pill-active' : 'pill-muted hover:pill-active'
+                  }`}
+                >
+                  {showTeamLogo ? '✓' : ''} Team Logos
+                </button>
+                <button
+                  onClick={() => loadStore()}
+                  disabled={loading}
+                  className="pill pill-muted hover:pill-active transition-all disabled:opacity-50 whitespace-nowrap"
+                >
+                  {loading ? '⏳' : '↻'} Refresh
+                </button>
+                <button
+                  onClick={updateMatchStatuses}
+                  disabled={loading}
+                  className="pill pill-active disabled:opacity-50 whitespace-nowrap"
+                  title="Update match statuses based on time (ended matches)"
+                >
+                  ⚡ Update Statuses
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="surface p-4">
-            <div className="text-sm text-white/60 mb-1">JSON Matches</div>
-            <div className="text-2xl font-bold text-[rgb(255,212,0)]">{jsonMatches.length}</div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="surface p-4">
             <div className="text-sm text-white/60 mb-1">In Store</div>
             <div className="text-2xl font-bold text-blue-400">{storeMatches.length}</div>
@@ -540,16 +669,6 @@ function AdminPageContent() {
         {/* Tabs */}
         <div className="flex items-center gap-2 border-b border-white/10">
           <button
-            onClick={() => setActiveTab('all')}
-            className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-              activeTab === 'all'
-                ? 'border-[rgb(255,212,0)] text-[rgb(255,212,0)]'
-                : 'border-transparent text-white/60 hover:text-white/80'
-            }`}
-          >
-            All JSON ({jsonMatches.length})
-          </button>
-          <button
             onClick={() => setActiveTab('store')}
             className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
               activeTab === 'store'
@@ -579,10 +698,21 @@ function AdminPageContent() {
           >
             Trending ({trendingMatches.length})
           </button>
+          <button
+            onClick={() => setActiveTab('predictions')}
+            className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
+              activeTab === 'predictions'
+                ? 'border-orange-400 text-orange-400'
+                : 'border-transparent text-white/60 hover:text-white/80'
+            }`}
+          >
+            Predictions ({predictions.length})
+          </button>
       </div>
 
-        {/* Search and Bulk Actions */}
-        <div className="flex flex-wrap items-center gap-4">
+        {/* Search and Bulk Actions - Only show for matches tabs */}
+        {activeTab !== 'predictions' && (
+          <div className="flex flex-wrap items-center gap-4">
         <input
           value={q}
           onChange={e => setQ(e.target.value)}
@@ -619,9 +749,11 @@ function AdminPageContent() {
         </div>
           )}
       </div>
+        )}
 
-        {/* Matches Table */}
-        <div className="surface overflow-hidden">
+        {/* Matches Table - Only show for store, approved, and trending tabs */}
+        {activeTab !== 'predictions' && (
+          <div className="surface overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full">
               <thead className="bg-white/5 border-b border-white/10">
@@ -649,27 +781,7 @@ function AdminPageContent() {
                   <tr>
                     <td colSpan={9} className="p-12">
                       <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                        {activeTab === 'all' && !q ? (
-                          <>
-                            <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-                              <svg className="w-8 h-8 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                              </svg>
-                            </div>
-                            <div className="space-y-2">
-                              <h3 className="text-lg font-semibold text-white/80">No matches in JSON</h3>
-                              <p className="text-sm text-white/50 max-w-md">
-                                Load matches from <code className="px-2 py-1 rounded bg-white/5 text-[rgb(255,212,0)]">data/unified_matches.json</code> to get started.
-                              </p>
-                              <button
-                                onClick={loadJson}
-                                className="mt-4 pill pill-active"
-                              >
-                                Reload JSON File
-                              </button>
-                            </div>
-                          </>
-                        ) : activeTab === 'store' && !q ? (
+                        {activeTab === 'store' && !q ? (
                           <>
                             <div className="w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
                               <svg className="w-8 h-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -679,7 +791,7 @@ function AdminPageContent() {
                             <div className="space-y-2">
                               <h3 className="text-lg font-semibold text-white/80">No matches in store</h3>
                               <p className="text-sm text-white/50 max-w-md">
-                                Save matches from the JSON file to Firestore&apos;s <code className="px-2 py-1 rounded bg-white/5 text-blue-400">daily_matches</code> collection. Switch to &quot;All JSON&quot; tab to see available matches.
+                                Matches are automatically added to Firestore&apos;s <code className="px-2 py-1 rounded bg-white/5 text-blue-400">daily_matches</code> collection via the hourly scrape-and-update cron job.
                               </p>
                             </div>
                           </>
@@ -742,8 +854,6 @@ function AdminPageContent() {
                     const approved = storeMatch?.approved || false;
                     // Check if match is trending: either in trendingRows (from Firestore API) or has isTrending flag
                     const trending = trendingMatches.some((m: any) => m.id === match.id) || storeMatch?.isTrending === true || storeMatch?.trending === true;
-                    const isSaving = saving === match.id;
-
                     return (
                       <tr
                         key={match.id}
@@ -785,8 +895,6 @@ function AdminPageContent() {
                         <td className="p-4 text-center">
                           {inStore ? (
                             <span className="pill pill-active !text-xs">Yes</span>
-                          ) : activeTab === 'all' ? (
-                            <span className="pill pill-muted !text-xs">No</span>
                           ) : (
                             <span className="pill pill-muted !text-xs">—</span>
                           )}
@@ -807,15 +915,6 @@ function AdminPageContent() {
                 </td>
                         <td className="p-4">
                           <div className="flex flex-wrap gap-2">
-                            {!inStore && (
-                              <button
-                                onClick={() => saveMatch(match)}
-                                disabled={isSaving || loading}
-                                className="pill pill-active disabled:opacity-50 text-xs"
-                              >
-                                {isSaving ? 'Saving...' : 'Save to Store'}
-                              </button>
-                            )}
                             {storeMatch?.videoSrc && (
                               <button
                                 onClick={() => setPreviewMatch(match.id)}
@@ -861,6 +960,173 @@ function AdminPageContent() {
         </table>
           </div>
       </div>
+        )}
+
+      {/* Predictions Tab Content */}
+      {activeTab === 'predictions' && (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-semibold">Predictions Management</h2>
+              <p className="text-sm text-white/60 mt-1">Manage prediction outcomes and status</p>
+            </div>
+            <div className="flex items-center gap-2">
+              {Object.keys(selectedPredictions).filter(id => selectedPredictions[id]).length > 0 && (
+                <button
+                  onClick={approveSelectedPredictions}
+                  disabled={loadingPredictions}
+                  className="pill pill-active disabled:opacity-50"
+                >
+                  Approve All Selected ({Object.keys(selectedPredictions).filter(id => selectedPredictions[id]).length})
+                </button>
+              )}
+              <button
+                onClick={() => loadPredictions()}
+                disabled={loadingPredictions}
+                className="pill pill-active disabled:opacity-50"
+              >
+                {loadingPredictions ? 'Loading...' : 'Refresh'}
+              </button>
+            </div>
+          </div>
+
+          {loadingPredictions ? (
+            <div className="surface p-12 text-center">
+              <div className="text-white/60">Loading predictions...</div>
+            </div>
+          ) : predictions.length === 0 ? (
+            <div className="surface p-12 text-center">
+              <div className="text-white/60">No predictions found for today</div>
+            </div>
+          ) : (
+            <div className="surface overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="min-w-full">
+                  <thead className="bg-white/5 border-b border-white/10">
+                    <tr>
+                      <th className="text-left p-4 w-12">
+                        <input
+                          type="checkbox"
+                          checked={predictions.length > 0 && predictions.every((p: any) => selectedPredictions[p.id])}
+                          onChange={e => toggleAllPredictions(e.currentTarget.checked)}
+                          className="rounded border-white/20"
+                        />
+                      </th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">Time</th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">Match</th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">League</th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">Prediction</th>
+                      <th className="text-left p-4 text-sm font-semibold text-white/80">MSBS</th>
+                      <th className="text-center p-4 text-sm font-semibold text-white/80">Approved</th>
+                      <th className="text-center p-4 text-sm font-semibold text-white/80">Status</th>
+                      <th className="text-center p-4 text-sm font-semibold text-white/80">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {predictions.map((pred: any) => {
+                      const status = pred.status || 'pending';
+                      const isWon = status === 'won';
+                      const isFailed = status === 'failed';
+                      const isApproved = pred.approved === true;
+                      
+                      return (
+                        <tr
+                          key={pred.id}
+                          className={`border-t border-white/10 hover:bg-white/5 transition-colors ${
+                            isWon ? 'bg-green-500/5' : isFailed ? 'bg-red-500/5' : ''
+                          }`}
+                        >
+                          <td className="p-4">
+                            <input
+                              type="checkbox"
+                              checked={!!selectedPredictions[pred.id]}
+                              onChange={e => togglePredictionSelection(pred.id, e.currentTarget.checked)}
+                              className="rounded border-white/20"
+                            />
+                          </td>
+                          <td className="p-4 text-sm text-white/70 font-mono">
+                            {pred.timeLabel || '—'}
+                          </td>
+                          <td className="p-4">
+                            <div className="font-semibold">
+                              {pred.home || '—'} <span className="text-white/40 text-xs">vs</span>{' '}
+                              {pred.away || '—'}
+                            </div>
+                          </td>
+                          <td className="p-4 text-sm text-white/70">
+                            {pred.league || '—'}
+                          </td>
+                          <td className="p-4 text-sm">
+                            <div className="space-y-1">
+                              <div className="text-white/80">{pred.msbs || '—'}</div>
+                              <div className="text-white/60 text-xs">
+                                Winner: {pred.msbsWinner || '—'}
+                              </div>
+                            </div>
+                          </td>
+                          <td className="p-4 text-sm text-white/70">
+                            {pred.msbs || '—'}
+                          </td>
+                          <td className="p-4 text-center">
+                            {isApproved ? (
+                              <span className="pill pill-active !text-xs bg-green-500/20 text-green-400 border-green-500/40">Yes</span>
+                            ) : (
+                              <span className="pill pill-muted !text-xs">No</span>
+                            )}
+                          </td>
+                          <td className="p-4 text-center">
+                            <span
+                              className={`pill !text-xs ${
+                                isWon
+                                  ? 'pill-active bg-green-500/20 text-green-400 border-green-500/40'
+                                  : isFailed
+                                  ? 'bg-red-500/20 text-red-400 border-red-500/40'
+                                  : 'pill-muted'
+                              }`}
+                            >
+                              {isWon ? 'Won' : isFailed ? 'Failed' : 'Pending'}
+                            </span>
+                          </td>
+                          <td className="p-4">
+                            <div className="flex items-center justify-center gap-2 flex-wrap">
+                              <button
+                                onClick={() => updatePredictionApproval(pred.id, !isApproved)}
+                                className={`pill text-xs ${
+                                  isApproved
+                                    ? 'pill-active bg-green-500/20 text-green-400 border-green-500/40'
+                                    : 'pill-muted hover:bg-green-500/10 hover:border-green-500/30'
+                                }`}
+                              >
+                                {isApproved ? '✓ Approved' : 'Approve'}
+                              </button>
+                              {/* Status is automatically updated by results scraper every 30 minutes */}
+                              {pred.result && (
+                                <span className="text-xs text-white/60">
+                                  Result: {pred.result} 
+                                  {pred.status && (
+                                    <span className={`ml-2 ${pred.status === 'won' ? 'text-green-400' : 'text-red-400'}`}>
+                                      ({pred.status})
+                                    </span>
+                                  )}
+                                </span>
+                              )}
+                              {!pred.result && pred.status && (
+                                <span className={`text-xs ${pred.status === 'won' ? 'text-green-400' : 'text-red-400'}`}>
+                                  {pred.status}
+                                </span>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
         {/* Edit VideoSrc Modal */}
         {editMatch && (

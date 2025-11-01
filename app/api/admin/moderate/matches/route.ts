@@ -1,4 +1,5 @@
 import { initFirebaseAdmin } from '@/lib/firebase';
+import { translateMatches } from '@/lib/translate';
 import { promises as fs } from 'fs';
 import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
@@ -118,24 +119,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ total: rows.length, rows });
   }
   
-  // Fallback to main matches collection if daily_matches doesn't have today's data
-  const col = admin.firestore().collection(process.env.NEXT_PUBLIC_MATCHES_COLLECTION || 'matches');
-  const qs = await col.orderBy('updatedAt', 'desc').limit(2000).get();
-  const rows = qs.docs.map(d => ({ id: d.id, ...(d.data() || {}) }));
-  
-  // Filter to only today's matches using createdAt
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const filtered = rows.filter((m: any) => {
-    if (m.createdAt) {
-      const created = new Date(m.createdAt);
-      const createdDate = new Date(created.getFullYear(), created.getMonth(), created.getDate());
-      const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-      return createdDate.getTime() === todayDate.getTime();
-    }
-    return false;
-  });
-  
-  return NextResponse.json({ total: filtered.length, rows: withAutoEndedStatus(filtered) });
+  // No fallback - return empty if daily_matches doesn't have today's data
+  return NextResponse.json({ total: 0, rows: [] });
 }
 
 // POST: import matches either from body { items: [...] } or from data/unified_matches.json
@@ -164,19 +149,61 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No items to import' }, { status: 400 });
     }
     
+    // Translate matches from Turkish to English before saving
+    console.log(`🌐 Translating ${items.length} match(es) from Turkish to English...`);
+    const translatedItems = await translateMatches(items);
+    console.log(`✓ Translation completed`);
+    
     const admin = initFirebaseAdmin();
-    const colName = process.env.MATCHES_COLLECTION || process.env.NEXT_PUBLIC_MATCHES_COLLECTION || 'matches';
-    const col = admin.firestore().collection(colName);
+    const dailyCol = admin.firestore().collection(
+      process.env.DAILY_MATCHES_COLLECTION || process.env.NEXT_PUBLIC_DAILY_MATCHES_COLLECTION || 'daily_matches'
+    );
     
     const now = new Date().toISOString();
-    const batch = admin.firestore().batch();
-    let count = 0;
+    // Use server's local date for Firestore document ID when saving/updating
+    const today = new Date();
+    const dateId = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
     
-    for (const m of items) {
+    // Get existing matches for today
+    const dateRef = dailyCol.doc(dateId);
+    const dateDoc = await dateRef.get();
+    const existing = dateDoc.exists ? (dateDoc.data() || {}) : {};
+    const existingMatches: any[] = Array.isArray(existing.matches) ? existing.matches : [];
+    
+    // Create map of existing matches
+    const existingMap = new Map<string, any>();
+    existingMatches.forEach(m => {
+      if (m && m.id) existingMap.set(m.id, m);
+    });
+    
+    // Add/update imported matches
+    let count = 0;
+    for (const m of translatedItems) {
       const id = String(m.id || '');
       if (!id) continue;
-      const ref = col.doc(id);
-      batch.set(ref, { ...m, approved: false, updatedAt: now }, { merge: true });
+      
+      const existingMatch = existingMap.get(id);
+      if (existingMatch) {
+        // Update existing match, preserve approved/trending flags
+        const idx = existingMatches.findIndex((match: any) => match?.id === id);
+        if (idx >= 0) {
+          existingMatches[idx] = {
+            ...m,
+            approved: existingMatch.approved !== undefined ? existingMatch.approved : false,
+            isTrending: existingMatch.isTrending !== undefined ? existingMatch.isTrending : false,
+            updatedAt: now,
+            createdAt: existingMatch.createdAt || now,
+          };
+        }
+      } else {
+        // New match
+        existingMatches.push({
+          ...m,
+          approved: false,
+          updatedAt: now,
+          createdAt: now,
+        });
+      }
       count++;
     }
     
@@ -184,7 +211,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No valid items to import (all items missing id)' }, { status: 400 });
     }
     
-    await batch.commit();
+    // Save to daily_matches
+    await dateRef.set({
+      id: dateId,
+      matches: existingMatches,
+      updatedAt: now,
+    }, { merge: true });
+    
     return NextResponse.json({ ok: true, imported: count });
   } catch (err: any) {
     console.error('Error importing matches:', err);
