@@ -155,28 +155,24 @@ def main():
   
   all_results: List[Dict[str, Any]] = []
   
-  # Check multiple days starting from today (0) up to max_days
-  # This fetches today, yesterday, 2 days ago, etc.
-  start_day = args.days  # Start from this many days ago (0 = today)
-  for days_ago in range(start_day, start_day + args.max_days):
-    url = get_betistuta_results_url(days_ago)
-    day_label = "today" if days_ago == 0 else f"{days_ago} day(s) ago"
-    print(f'📅 Fetching results from {day_label}: {url}')
-    
-    try:
-      resp = requests.get(url, headers=HEADERS, timeout=30)
-      resp.raise_for_status()
-      
-      doc = BeautifulSoup(resp.text, 'html.parser')
-      results = parse_results(doc)
-      
-      print(f'   Found {len(results)} result(s)')
-      all_results.extend(results)
-    except Exception as e:
-      print(f'   ⚠️  Failed to fetch results for {days_ago} day(s) ago: {e}')
-      continue
+  # Fetch results for today only (days_ago = 0)
+  days_ago = args.days  # Should be 0 for today
+  url = get_betistuta_results_url(days_ago)
+  print(f'📅 Fetching results from today: {url}')
   
-  print(f'\n📊 Total: Found {len(all_results)} match result(s) across {args.max_days} day(s)')
+  try:
+    resp = requests.get(url, headers=HEADERS, timeout=30)
+    resp.raise_for_status()
+    
+    doc = BeautifulSoup(resp.text, 'html.parser')
+    results = parse_results(doc)
+    
+    print(f'   Found {len(results)} result(s)')
+    all_results.extend(results)
+  except Exception as e:
+    print(f'   ⚠️  Failed to fetch results for today: {e}')
+  
+  print(f'\n📊 Total: Found {len(all_results)} match result(s) for today')
   
   with open(args.out_path, 'w', encoding='utf-8') as f:
     json.dump(all_results, f, ensure_ascii=False, indent=2)

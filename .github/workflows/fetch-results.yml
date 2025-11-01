@@ -33,8 +33,8 @@ jobs:
       - name: Fetch Match Results
         run: |
           echo "Fetching match results from betistuta.net..."
-          # Fetch results for today and last 2 days to catch all finished matches
-          python3 scripts/fetch_match_results.py --out data/match_results.json --days 0 --max-days 3
+          # Fetch results for today only
+          python3 scripts/fetch_match_results.py --out data/match_results.json --days 0 --max-days 1
           
           if [ ! -f data/match_results.json ]; then
             echo "Error: Results file not created."
