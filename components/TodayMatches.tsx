@@ -1,10 +1,9 @@
 "use client";
 
-import { enrichGames } from '@/lib/catalog';
 import type { EnrichedGame } from '@/lib/types';
 import { extractTimeLabel, firstNameOf, getDisplayName, isTodayFromGmtMinus1, statusFromLiveWindow } from '@/lib/utils';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import AvatarFallback from './AvatarFallback';
+import DefaultTeamLogo from './DefaultTeamLogo';
 import PlayerOverlay from './PlayerOverlay';
 
 type Sport = 'Football' | 'Hockey' | 'Volleyball' | 'Basketball' | 'Tennis';
@@ -31,7 +30,7 @@ function TeamLogo({ logo, name, size = 48, className = "" }: { logo?: string; na
   const [hasError, setHasError] = useState(false);
   
   if (!logo || hasError) {
-    return <AvatarFallback name={name} size={size} />;
+    return <DefaultTeamLogo name={name} size={size} />;
   }
   
   let imgClassName = "object-contain rounded-full";
@@ -85,6 +84,7 @@ export default function TodayMatches() {
         const data = await res.json();
         if (cancelled) return;
         // Map UnifiedMatch[] -> ScrapedGame[] -> EnrichedGame[]
+        // Preserve logos from API if they exist
         const mapped = (Array.isArray(data) ? data : []).map((m: any) => ({
           sport: m.sport,
           league: m.league?.name,
@@ -94,11 +94,18 @@ export default function TodayMatches() {
           time: m.timeLabel || '',
           matchId: m.id,
           status: m.status || '',
+          // Preserve logos from API
+          homeLogo: m.home?.logo,
+          awayLogo: m.away?.logo,
         }));
+        // Use catalog enrichment - teams.json now contains all logos from enriched data
+        const { enrichGames } = await import('@/lib/catalog');
         const enriched = enrichGames(mapped);
         // Reattach matchId (not part of enrichGames types prior)
         const withIds = enriched.map((g: any, idx: number) => ({ ...g, matchId: mapped[idx]?.matchId, status: (mapped[idx] as any)?.status }));
-        setFetchedGames(withIds);
+        if (!cancelled) {
+          setFetchedGames(withIds);
+        }
       } catch {}
     })();
     return () => { cancelled = true; };
@@ -120,18 +127,49 @@ export default function TodayMatches() {
   const groupedByTime = useMemo(() => {
     const groups: Record<string, EnrichedGame[]> = {};
     todayGames.forEach(game => {
-      const hasVideoSrc = !!game.videoSrc;
       const { time } = extractTimeLabel((game.time || '').trim());
       // If no parseable time, skip grouping (hide "other")
       if (!time) return;
-      // Compute derived status strictly from time window, then fall back to server when missing
+      // Compute derived status - prioritize server status
+      // Never auto-mark as "ended" from time - only server can set that
       const serverStatus = (game as any).status as string | undefined;
-      const windowStatus = statusFromLiveWindow(game.time || '', 120);
-      const derived = windowStatus;
-      const isEnded = derived === 'ended' || serverStatus === 'ended';
-      const isActuallyLive = derived === 'live' || (!derived && serverStatus === 'live');
+      
+      let derived: 'live' | 'upcoming' | 'ended';
+      if (serverStatus === 'ended') {
+        // Server explicitly says ended - trust it
+        derived = 'ended';
+      } else if (serverStatus === 'live') {
+        // Server says live
+        derived = 'live';
+      } else {
+        // No server status or server says "upcoming" - use time calculation
+        // But NEVER mark as "ended" from time - only determine if it's upcoming or live
+        const windowStatus = statusFromLiveWindow(game.time || '', 180);
+        if (windowStatus === 'ended') {
+          // Even if time calculation says ended, keep it as "live" if past kickoff
+          // Only mark as ended if server explicitly says so
+          const now = new Date();
+          const timeStr = extractTimeLabel((game.time || '').trim()).time;
+          const m = timeStr?.match(/^(\d{1,2}):(\d{2})$/);
+          if (m) {
+            const hh = parseInt(m[1], 10);
+            const mm = parseInt(m[2], 10);
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hh, mm, 0, 0);
+            // If past kickoff time, show as "live" (not ended)
+            derived = now.getTime() >= today.getTime() ? 'live' : 'upcoming';
+          } else {
+            derived = 'live'; // Default to live if we can't parse
+          }
+        } else {
+          derived = windowStatus; // Use time calculation (upcoming or live)
+        }
+      }
+      
+      const isEnded = derived === 'ended';
+      const isActuallyLive = derived === 'live' && !isEnded;
 
-      // Group under 'live' or its HH:MM bucket; no 'other' group
+      // Group under 'live' only if actually live and NOT ended
+      // Otherwise group by time (HH:MM bucket)
       const key = isActuallyLive ? 'live' : time;
       if (!groups[key]) groups[key] = [];
       // Attach derived status for rendering

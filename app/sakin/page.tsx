@@ -548,10 +548,9 @@ function AdminPageContent() {
     if (!confirm('Are you sure you want to delete this prediction?')) return;
     
     try {
-      // Use path if available, otherwise just use the ID
-      const urlId = predictionPath || predictionId;
-      
-      const res = await fetch(`/api/admin/over-predictions/${encodeURIComponent(urlId)}`, {
+      // The URL should use the prediction ID, not the path
+      // The path is sent in the request body
+      const res = await fetch(`/api/admin/over-predictions/${encodeURIComponent(predictionId)}`, {
         method: 'DELETE',
         headers: {
           'content-type': 'application/json',
@@ -559,6 +558,8 @@ function AdminPageContent() {
         },
         body: JSON.stringify({
           _path: predictionPath,
+          // Also include matchDate as fallback if path is missing
+          ...(predictionPath ? {} : { matchDate: new Date().toISOString() }),
         }),
       });
       
