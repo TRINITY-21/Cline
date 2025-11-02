@@ -154,6 +154,19 @@ function calculateOver15Status(actualScore: string | null): 'won' | 'failed' | n
 }
 
 /**
+ * GET /api/admin/predictions/update-results-scraped
+ * Debug endpoint to verify route is accessible
+ */
+export async function GET(req: NextRequest) {
+  return NextResponse.json({ 
+    ok: true, 
+    message: 'Update-results-scraped endpoint is accessible',
+    method: 'POST required',
+    endpoint: '/api/admin/predictions/update-results-scraped'
+  });
+}
+
+/**
  * POST /api/admin/predictions/update-results-scraped
  * 
  * Update predictions with scraped actual results (MS column from betistuta).
