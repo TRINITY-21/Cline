@@ -12,21 +12,22 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState<TabView>('trending');
 
   return (
-    <div className="space-y-10">
-      <section className="surface p-5 md:p-6 hero-glow">
-        <div className="flex flex-col md:flex-row md:items-center gap-4">
+    <div className="space-y-6 sm:space-y-8 md:space-y-10">
+      <section className="surface p-4 sm:p-5 md:p-6 hero-glow">
+        <div className="flex flex-col md:flex-row md:items-center gap-3 sm:gap-4">
           <div className="flex-1">
-            <div className="text-[10px] uppercase tracking-[0.2em] text-white/60">Multi‑Sport</div>
-            <h2 className="text-2xl md:text-3xl font-extrabold mt-1">
+            <div className="text-[10px] sm:text-[10px] uppercase tracking-[0.2em] text-white/60">Multi‑Sport</div>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold mt-1">
               <span className="text-[rgb(var(--brand-yellow))]">Live</span> & Schedules
             </h2>
-            <p className="text-white/70 mt-2 max-w-prose">Browse football, hockey, volleyball and more. Click any game to instantly open the embedded player.</p>
+            <p className="text-white/70 mt-2 text-sm sm:text-base max-w-prose">Browse football, hockey, volleyball and more. Click any game to instantly open the embedded player.</p>
           </div>
-          <div className="flex items-center gap-2 flex-wrap">
+          {/* Buttons - Below text on mobile/tablet, to the right on desktop */}
+          <div className="flex flex-col sm:flex-col md:flex-row md:items-center gap-2 sm:gap-2 mt-2 sm:mt-0 md:mt-0 md:ml-auto md:flex-shrink-0">
             <button
               onClick={() => setActiveTab('trending')}
               className={
-                "btn transition-all " +
+                "btn transition-all text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2 touch-manipulation min-h-[44px] sm:min-h-[44px] w-full sm:w-full md:w-auto flex items-center justify-center " +
                 (activeTab === 'trending' 
                   ? 'btn-primary shadow-lg shadow-[rgb(var(--brand-yellow))]/20' 
                   : 'btn-ghost hover:bg-white/10')
@@ -37,7 +38,7 @@ export default function HomePage() {
             <button
               onClick={() => setActiveTab('today')}
               className={
-                "btn transition-all " +
+                "btn transition-all text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2 touch-manipulation min-h-[44px] sm:min-h-[44px] w-full sm:w-full md:w-auto flex items-center justify-center " +
                 (activeTab === 'today' 
                   ? 'btn-primary shadow-lg shadow-[rgb(var(--brand-yellow))]/20' 
                   : 'btn-ghost hover:bg-white/10')
@@ -48,7 +49,7 @@ export default function HomePage() {
             <button
               onClick={() => setActiveTab('scores')}
               className={
-                "btn transition-all " +
+                "btn transition-all text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2 touch-manipulation min-h-[44px] sm:min-h-[44px] w-full sm:w-full md:w-auto flex items-center justify-center " +
                 (activeTab === 'scores' 
                   ? 'btn-primary shadow-lg shadow-[rgb(var(--brand-yellow))]/20' 
                   : 'btn-ghost hover:bg-white/10')
@@ -67,10 +68,10 @@ export default function HomePage() {
 
       {/* Informational Content Section (show only on Trending tab) */}
       {activeTab === 'trending' && (
-      <section className="surface p-5 md:p-8 hero-glow">
-        <div className="max-w-4xl mx-auto space-y-8">
+      <section className="surface p-4 sm:p-5 md:p-8 hero-glow">
+        <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
           <div>
-            <h2 className="text-2xl md:text-3xl font-extrabold mb-4">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold mb-3 sm:mb-4">
               <span className="text-[rgb(var(--brand-yellow))]">Three Two Live</span> - Your Ultimate Sports Streaming Destination
             </h2>
             <p className="text-white/70 leading-relaxed">
@@ -120,10 +121,10 @@ export default function HomePage() {
               <p>
                 <strong className="text-white">Supported Sports:</strong> Our platform covers a diverse range of sports including:
               </p>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2 text-sm sm:text-base">
                 {['Football (Soccer & American)', 'Basketball', 'Baseball', 'Ice Hockey', 'Tennis', 'Volleyball', 'Motorsports', 'Cricket', 'Rugby'].map((sport) => (
                   <li key={sport} className="flex items-start gap-2">
-                    <span className="text-[rgb(var(--brand-yellow))]">•</span>
+                    <span className="text-[rgb(var(--brand-yellow))] flex-shrink-0 mt-0.5">•</span>
                     <span>{sport}</span>
                   </li>
                 ))}

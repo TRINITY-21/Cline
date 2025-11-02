@@ -3,7 +3,7 @@
 import { getCategoryDisplayName } from '@/lib/streamed';
 import type { EnrichedGame } from '@/lib/types';
 import { firstNameOf, getDisplayName } from '@/lib/utils';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import useSWR from 'swr';
 import AvatarFallback from './AvatarFallback';
 import MatchPlayerSlideover from './MatchPlayerSlideover';
@@ -56,6 +56,9 @@ const MOCK_GAMES: GameItem[] = [];
 export default function GameBrowser() {
   const [activeSport, setActiveSport] = useState<Sport>('All');
   const [selected, setSelected] = useState<GameItem | null>(null);
+  const [filtersOpen, setFiltersOpen] = useState<boolean>(true); // Mobile/tablet filter panel
+  const [sportDropdownOpen, setSportDropdownOpen] = useState<boolean>(false);
+  const sportDropdownRef = useRef<HTMLDivElement>(null);
 
   // Fetch function for SWR
   const fetcher = async (url: string) => {
@@ -120,14 +123,14 @@ export default function GameBrowser() {
 
   // Build sports array with category-based filtering
   const sports = useMemo(() => {
-    const baseSports: string[] = [];
+    const baseSports: string[] = ['All'];
     
     availableCategories.forEach(categoryTag => {
       const displayName = getCategoryDisplayName(categoryTag);
       baseSports.push(displayName);
     });
     
-    return baseSports.length > 0 ? baseSports : ['Football', 'Hockey', 'Basketball', 'Tennis'];
+    return baseSports.length > 1 ? baseSports : ['All', 'Football', 'Hockey', 'Basketball', 'Tennis'];
   }, [availableCategories]);
   
   const games = useMemo<EnrichedGame[]>(() => {
@@ -176,32 +179,127 @@ export default function GameBrowser() {
     });
   }, [activeSport, fetched]);
 
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('[data-dropdown]')) {
+        setSportDropdownOpen(false);
+      }
+    };
+
+    if (sportDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [sportDropdownOpen]);
+
   // Live detection: if we have a video source, consider it live
 
   return (
-    <div className="space-y-4 fade-in-up">
-      <div className="flex flex-wrap items-center gap-2">
-        <button
-          onClick={() => setActiveSport('All')}
-          className={
-            "pill sport-filter " + 
-            ('All' === activeSport ? 'pill-active active' : 'pill-muted')
-          }
-        >
-          All Sports
-        </button>
-        {sports.map(s => (
+    <div className="space-y-4 sm:space-y-5 fade-in-up">
+      {/* Mobile/Tablet Filter Panel - Collapsible */}
+      <div className="lg:hidden relative z-10">
+        <div className="bg-white/5 border border-white/10 rounded-xl overflow-visible">
+          {/* Filter Header */}
           <button
-            key={s}
-            onClick={() => setActiveSport(s as Sport)}
-            className={
-              "pill sport-filter " + 
-              (s === activeSport ? 'pill-active active' : 'pill-muted')
-            }
+            onClick={() => setFiltersOpen(!filtersOpen)}
+            className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 transition-colors touch-manipulation rounded-t-xl"
           >
-            {s}
+            <div className="flex items-center gap-2.5">
+              <svg className="w-4 h-4 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              </svg>
+              <span className="text-white font-medium text-sm">Filters</span>
+            </div>
+            <svg 
+              className={`w-4 h-4 text-white/60 transition-transform duration-200 ${filtersOpen ? 'rotate-180' : ''}`} 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor" 
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
           </button>
-        ))}
+
+          {/* Filter Content */}
+          {filtersOpen && (
+            <div className="px-4 pb-4 space-y-3 pt-2 relative">
+              {/* Sport Dropdown */}
+              <div className={`relative ${sportDropdownOpen ? 'z-[1001]' : 'z-10'}`} data-dropdown>
+                <button
+                  onClick={() => setSportDropdownOpen(!sportDropdownOpen)}
+                  className="w-full flex items-center justify-between px-4 py-3 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors touch-manipulation"
+                >
+                  <span className="text-white text-sm font-medium">
+                    {activeSport === 'All' ? 'All Sports' : activeSport}
+                  </span>
+                  <svg 
+                    className={`w-4 h-4 text-white/60 transition-transform duration-200 ${sportDropdownOpen ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor" 
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {sportDropdownOpen && (
+                  <div 
+                    ref={sportDropdownRef}
+                    className="absolute top-full left-0 right-0 mt-1 bg-[rgb(15,15,20)] border border-white/10 rounded-lg shadow-xl z-[1001] max-h-64 overflow-y-auto"
+                  >
+                    {sports.map(s => (
+                      <button
+                        key={s}
+                        onClick={() => {
+                          setActiveSport(s as Sport);
+                          setSportDropdownOpen(false);
+                        }}
+                        className={
+                          "w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors touch-manipulation border-b border-white/5 last:border-b-0 " +
+                          (s === activeSport 
+                            ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))]' 
+                            : 'text-white/80')
+                        }
+                      >
+                        <span className="font-medium text-sm">{s === 'All' ? 'All Sports' : s}</span>
+                        {s === activeSport && (
+                          <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Desktop Filters - Keep original horizontal scrollable design */}
+      <div className="hidden lg:block relative w-full">
+        {/* Scrollable container */}
+        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-2 scroll-x-only no-scrollbar touch-pan-x">
+          {sports.map(s => (
+            <button
+              key={s}
+              onClick={() => setActiveSport(s as Sport)}
+              className={
+                "px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg font-medium text-[11px] sm:text-xs md:text-sm transition-all duration-200 touch-manipulation min-h-[36px] sm:min-h-[40px] whitespace-nowrap flex-shrink-0 " + 
+                (s === activeSport 
+                  ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20' 
+                  : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
+              }
+            >
+              {s === 'All' ? 'All Sports' : s}
+            </button>
+          ))}
+        </div>
       </div>
 
       {error ? (
@@ -223,7 +321,7 @@ export default function GameBrowser() {
           <p className="text-white/50">Check back soon for popular matches</p>
         </div>
       ) : (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
         {games.map((game, i) => {
           const gameSport = game.sport as Sport;
           // Use status from API directly, or fallback to checking if videoSrc exists
@@ -276,14 +374,14 @@ export default function GameBrowser() {
                 )}
               </div>
             </div>
-            <div className="p-4 space-y-3">
+            <div className="p-3 sm:p-4 space-y-2.5 sm:space-y-3">
               {/* Team Names - Separate pill buttons */}
-              <div className="flex items-center justify-center gap-1.5 min-w-0 w-full">
-                <div className="flex-1 min-w-0 inline-flex items-center justify-center rounded-full px-2 py-1 text-xs font-semibold border border-[rgb(var(--brand-yellow))]/40 bg-gradient-to-br from-[rgb(var(--brand-yellow))]/15 via-[rgb(var(--brand-yellow))]/10 to-[rgb(var(--brand-yellow))]/5 text-[rgb(255,244,180)] whitespace-nowrap overflow-hidden text-ellipsis" title={game.home.name}>
+              <div className="flex items-center justify-center gap-1 sm:gap-1.5 min-w-0 w-full">
+                <div className="flex-1 min-w-0 inline-flex items-center justify-center rounded-full px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold border border-[rgb(var(--brand-yellow))]/40 bg-gradient-to-br from-[rgb(var(--brand-yellow))]/15 via-[rgb(var(--brand-yellow))]/10 to-[rgb(var(--brand-yellow))]/5 text-[rgb(255,244,180)] whitespace-nowrap overflow-hidden text-ellipsis" title={game.home.name}>
                   <span className="truncate">{getDisplayName(game.home.name)}</span>
                 </div>
-                <span className="text-[rgb(var(--brand-yellow))]/60 text-xs font-medium flex-shrink-0 px-0.5">vs</span>
-                <div className="flex-1 min-w-0 inline-flex items-center justify-center rounded-full px-2 py-1 text-xs font-semibold border border-[rgb(var(--brand-yellow))]/40 bg-gradient-to-br from-[rgb(var(--brand-yellow))]/15 via-[rgb(var(--brand-yellow))]/10 to-[rgb(var(--brand-yellow))]/5 text-[rgb(255,244,180)] whitespace-nowrap overflow-hidden text-ellipsis" title={game.away.name}>
+                <span className="text-[rgb(var(--brand-yellow))]/60 text-[10px] sm:text-xs font-medium flex-shrink-0 px-0.5">vs</span>
+                <div className="flex-1 min-w-0 inline-flex items-center justify-center rounded-full px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold border border-[rgb(var(--brand-yellow))]/40 bg-gradient-to-br from-[rgb(var(--brand-yellow))]/15 via-[rgb(var(--brand-yellow))]/10 to-[rgb(var(--brand-yellow))]/5 text-[rgb(255,244,180)] whitespace-nowrap overflow-hidden text-ellipsis" title={game.away.name}>
                   <span className="truncate">{getDisplayName(game.away.name)}</span>
                 </div>
               </div>
@@ -291,7 +389,7 @@ export default function GameBrowser() {
                 {isLive ? (
                   <button
                     type="button"
-                    className="btn btn-primary px-4 py-2 text-xs font-bold shadow-lg shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/30 transition-all flex items-center justify-center gap-1.5"
+                    className="btn btn-primary px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold shadow-lg shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/30 transition-all flex items-center justify-center gap-1.5 touch-manipulation min-h-[36px] w-full sm:w-auto"
                     onClick={() =>
                       setSelected({
                         id: Math.random().toString(36).slice(2),

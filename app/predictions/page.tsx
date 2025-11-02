@@ -196,8 +196,11 @@ export default function PredictionsPage() {
   const [isMounted, setIsMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(true); // Track initial loading state
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState<boolean>(true); // Mobile/tablet filter panel
+  const [dayDropdownOpen, setDayDropdownOpen] = useState<boolean>(false);
   const groupRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const loadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const dayDropdownRef = useRef<HTMLDivElement>(null);
 
   // Fetch predictions from Firestore API
   const fetchPredictions = async (showLoading = false) => {
@@ -337,6 +340,20 @@ export default function PredictionsPage() {
     return [...orderedDays, ...remainingDays];
   }, [groupedByDay]);
 
+  // Abbreviate day names for chip display
+  const getDayAbbreviation = (day: string): string => {
+    const abbreviations: Record<string, string> = {
+      'Monday': 'Mon',
+      'Tuesday': 'Tue',
+      'Wednesday': 'Wed',
+      'Thursday': 'Thu',
+      'Friday': 'Fri',
+      'Saturday': 'Sat',
+      'Sunday': 'Sund',
+    };
+    return abbreviations[day] || day.slice(0, 4);
+  };
+
   // Calculate stats
   const stats = useMemo(() => {
     const totalMatches = entries.length;
@@ -373,6 +390,24 @@ export default function PredictionsPage() {
     dayKeys.forEach(k => next[k] = false);
     setExpandedKeys(next);
   }
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('[data-dropdown]')) {
+        setDayDropdownOpen(false);
+      }
+    };
+
+    if (dayDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [dayDropdownOpen]);
+
+  // Get active day filter (first expanded key, or first available day)
+  const activeDayFilter = dayKeys.find(k => expandedKeys[k]) || dayKeys[0] || 'All Days';
 
   // Show loading state until client-side hydration completes AND initial data fetch completes
   if (!isMounted || isLoading) {
@@ -430,7 +465,7 @@ export default function PredictionsPage() {
             <div className="text-center space-y-3 max-w-md">
               <div className="text-xl font-semibold text-white/90">No predictions found</div>
               <div className="text-white/50 text-sm leading-relaxed">
-                Predictions will appear here once they are added and approved. Check back later or add predictions through the admin panel.
+                Predictions will appear here once they are added. Check back later.
               </div>
             </div>
           </div>
@@ -441,7 +476,7 @@ export default function PredictionsPage() {
 
   return (
     <div className="space-y-10">
-      <section className="surface p-5 md:p-6 hero-glow">
+      <section className="surface p-4 sm:p-5 md:p-6 hero-glow">
         {/* Animated background gradient - fixed positioning */}
         <div className="absolute inset-0 opacity-10 pointer-events-none z-0 rounded-xl overflow-hidden">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-[rgb(var(--brand-yellow))] rounded-full blur-3xl" 
@@ -451,60 +486,169 @@ export default function PredictionsPage() {
         </div>
         
         <div className="relative z-10">
-          <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+          <div className="flex flex-col md:flex-row md:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
             <div className="flex-1">
               <div className="text-[10px] uppercase tracking-[0.2em] text-white/60">Football Predictions</div>
-              <h2 className="text-2xl md:text-3xl font-extrabold mt-1">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold mt-1">
                 Weekly <span className="text-[rgb(var(--brand-yellow))]">Predictions</span>
               </h2>
-              <p className="text-white/70 mt-2 max-w-prose">
+              <p className="text-white/70 mt-2 text-sm sm:text-base max-w-prose">
                 View all your predictions organized by day of the week. Track your success rate and see which predictions have been resolved.
               </p>
             </div>
-            <div>
+            <div className="flex-shrink-0 ml-auto lg:ml-0">
               <button
                 onClick={() => fetchPredictions(true)}
                 disabled={isRefreshing}
-                className="pill pill-active disabled:opacity-50 flex items-center gap-2"
+                className="pill pill-active disabled:opacity-50 flex items-center gap-2 touch-manipulation min-h-[40px] text-xs sm:text-sm whitespace-nowrap"
                 title="Refresh predictions"
               >
                 <svg 
-                  className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} 
+                  className={`w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 ${isRefreshing ? 'animate-spin' : ''}`} 
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
-                {isRefreshing ? 'Refreshing...' : 'Refresh'}
+                <span>{isRefreshing ? 'Refreshing...' : 'Refresh'}</span>
               </button>
             </div>
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div className="border border-white/10 bg-white/5 rounded-lg p-5 group hover:border-[rgb(var(--brand-yellow))]/30 transition-all">
-              <div className="text-xs text-white/60 uppercase tracking-wide mb-1">Total Matches</div>
-              <div className="text-3xl font-bold text-[rgb(var(--brand-yellow))]">{stats.totalMatches}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
+            <div className="border border-white/10 bg-white/5 rounded-lg p-4 sm:p-5 group hover:border-[rgb(var(--brand-yellow))]/30 transition-all">
+              <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide mb-1">Total Matches</div>
+              <div className="text-2xl sm:text-3xl font-bold text-[rgb(var(--brand-yellow))]">{stats.totalMatches}</div>
             </div>
-            <div className="border border-white/10 bg-white/5 rounded-lg p-5 group hover:border-[rgb(var(--brand-yellow))]/30 transition-all">
-              <div className="text-xs text-white/60 uppercase tracking-wide mb-1">Played</div>
-              <div className="text-3xl font-bold">{stats.played}</div>
+            <div className="border border-white/10 bg-white/5 rounded-lg p-4 sm:p-5 group hover:border-[rgb(var(--brand-yellow))]/30 transition-all">
+              <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide mb-1">Played</div>
+              <div className="text-2xl sm:text-3xl font-bold">{stats.played}</div>
             </div>
-            <div className="border border-white/10 bg-white/5 rounded-lg p-5 group hover:border-[rgb(var(--brand-yellow))]/30 transition-all">
-              <div className="text-xs text-white/60 uppercase tracking-wide mb-1">Success Rate</div>
-              <div className="text-3xl font-bold">{stats.successRate}%</div>
+            <div className="border border-white/10 bg-white/5 rounded-lg p-4 sm:p-5 group hover:border-[rgb(var(--brand-yellow))]/30 transition-all">
+              <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide mb-1">Success Rate</div>
+              <div className="text-2xl sm:text-3xl font-bold">{stats.successRate}%</div>
             </div>
           </div>
 
-          {/* Sticky chips to jump to days */}
-          <div className="sticky-rail -mx-4 px-4 py-2 relative">
+          {/* Mobile/Tablet Filter Panel - Collapsible */}
+          <div className="lg:hidden relative z-10 mb-4">
+            <div className="bg-white/5 border border-white/10 rounded-xl overflow-visible">
+              {/* Filter Header */}
+              <button
+                onClick={() => setFiltersOpen(!filtersOpen)}
+                className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 transition-colors touch-manipulation rounded-t-xl"
+              >
+                <div className="flex items-center gap-2.5">
+                  <svg className="w-4 h-4 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                  </svg>
+                  <span className="text-white font-medium text-sm">Filters</span>
+                </div>
+                <svg 
+                  className={`w-4 h-4 text-white/60 transition-transform duration-200 ${filtersOpen ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor" 
+                  strokeWidth={2}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {/* Filter Content */}
+              {filtersOpen && (
+                <div className="px-4 pb-4 space-y-3 pt-2 relative">
+                  {/* Day Dropdown */}
+                  <div className={`relative ${dayDropdownOpen ? 'z-[1001]' : 'z-10'}`} data-dropdown>
+                    <button
+                      onClick={() => setDayDropdownOpen(!dayDropdownOpen)}
+                      className="w-full flex items-center justify-between px-4 py-3 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors touch-manipulation"
+                    >
+                      <span className="text-white text-sm font-medium">
+                        {activeDayFilter}
+                      </span>
+                      <svg 
+                        className={`w-4 h-4 text-white/60 transition-transform duration-200 ${dayDropdownOpen ? 'rotate-180' : ''}`} 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke="currentColor" 
+                        strokeWidth={2}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    
+                    {dayDropdownOpen && (
+                      <div 
+                        ref={dayDropdownRef}
+                        className="absolute top-full left-0 right-0 mt-1 bg-[rgb(15,15,20)] border border-white/10 rounded-lg shadow-xl z-[1001] max-h-64 overflow-y-auto"
+                      >
+                        {dayKeys.map(day => (
+                          <button
+                            key={day}
+                            onClick={() => {
+                              const el = groupRefs.current[day];
+                              if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                              toggleKey(day, true);
+                              setDayDropdownOpen(false);
+                            }}
+                            className={
+                              "w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors touch-manipulation border-b border-white/5 last:border-b-0 " +
+                              (expandedKeys[day] 
+                                ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))]' 
+                                : 'text-white/80')
+                            }
+                          >
+                            <span className="font-medium text-sm">{day}</span>
+                            {expandedKeys[day] && (
+                              <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                              </svg>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Expand/Collapse Controls */}
+                  <div className="flex items-center gap-2 pt-1">
+                    <button 
+                      className="flex-1 px-4 py-2.5 rounded-lg bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white text-sm font-medium touch-manipulation transition-all duration-200 inline-flex items-center justify-center gap-2"
+                      onClick={expandAll}
+                      title="Expand all"
+                    >
+                      <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                      <span>Expand</span>
+                    </button>
+                    <button 
+                      className="flex-1 px-4 py-2.5 rounded-lg bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white text-sm font-medium touch-manipulation transition-all duration-200 inline-flex items-center justify-center gap-2"
+                      onClick={collapseAll}
+                      title="Collapse all"
+                    >
+                      <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+                      </svg>
+                      <span>Collapse</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Desktop Sticky chips to jump to days */}
+          <div className="hidden lg:block sticky-rail -mx-3 sm:-mx-4 px-3 sm:px-4 py-2 relative">
             <div className="fade-left"></div>
             <div className="fade-right"></div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               {/* Middle scrollable chips */}
-              <div className="flex-1 scroll-x-only no-scrollbar">
-                <div className="flex items-center gap-2 w-max">
+              <div className="flex-1 scroll-x-only no-scrollbar min-w-0">
+                <div className="flex items-center gap-1.5 sm:gap-2 w-max">
                   {dayKeys.map(day => (
                     <button
                       key={day}
@@ -513,7 +657,7 @@ export default function PredictionsPage() {
                         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
                         toggleKey(day, true); 
                       }}
-                      className={"pill whitespace-nowrap " + (expandedKeys[day] ? 'pill-active' : 'pill-muted')}
+                      className={"pill whitespace-nowrap touch-manipulation min-h-[32px] text-xs " + (expandedKeys[day] ? 'pill-active' : 'pill-muted')}
                     >
                       {day}
                     </button>
@@ -521,9 +665,9 @@ export default function PredictionsPage() {
                 </div>
               </div>
               {/* Right fixed controls */}
-              <div className="ml-2 flex items-center gap-2">
-                <button className="pill pill-muted" onClick={expandAll}>Expand all</button>
-                <button className="pill pill-muted" onClick={collapseAll}>Collapse all</button>
+              <div className="ml-1.5 sm:ml-2 flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                <button className="pill pill-muted touch-manipulation min-h-[32px] text-[10px] sm:text-xs whitespace-nowrap" onClick={expandAll}>Expand</button>
+                <button className="pill pill-muted touch-manipulation min-h-[32px] text-[10px] sm:text-xs whitespace-nowrap" onClick={collapseAll}>Collapse</button>
               </div>
             </div>
           </div>
@@ -566,10 +710,10 @@ export default function PredictionsPage() {
                           key={uniqueKey}
                           className={`group rounded-xl overflow-hidden transition-all duration-300 relative ${
                             isWon
-                              ? 'border-l-4 border-green-500/70 bg-gradient-to-r from-green-500/20 via-green-500/10 to-transparent shadow-lg shadow-green-500/20 hover:shadow-green-500/30'
+                              ? 'border-l-4 border-green-500/70 bg-gradient-to-r from-green-500/20 via-green-500/10 to-transparent shadow-sm shadow-green-500/10 hover:shadow-md hover:shadow-green-500/15'
                               : isFailed
-                              ? 'border-l-4 border-red-500/70 bg-gradient-to-r from-red-500/20 via-red-500/10 to-transparent shadow-lg shadow-red-500/20 hover:shadow-red-500/30'
-                              : 'border-l-4 border-white/20 bg-gradient-to-r from-white/10 via-white/5 to-transparent hover:border-l-[rgb(var(--brand-yellow))]/50 hover:from-white/15 hover:via-white/8 hover:shadow-lg hover:shadow-[rgb(var(--brand-yellow))]/10'
+                              ? 'border-l-4 border-red-500/70 bg-gradient-to-r from-red-500/20 via-red-500/10 to-transparent shadow-sm shadow-red-500/10 hover:shadow-md hover:shadow-red-500/15'
+                              : 'border-l-4 border-white/20 bg-gradient-to-r from-white/10 via-white/5 to-transparent hover:border-l-[rgb(var(--brand-yellow))]/50 hover:from-white/15 hover:via-white/8 hover:shadow-sm hover:shadow-[rgb(var(--brand-yellow))]/5'
                           }`}
                           style={{ transform: 'translateZ(0)', willChange: 'transform' }}
                         >
@@ -578,53 +722,53 @@ export default function PredictionsPage() {
                             <div className="absolute top-0 right-0 w-40 h-40 bg-[rgb(var(--brand-yellow))]/5 rounded-full blur-3xl" />
                           </div>
                           
-                          <div className="p-5 relative z-10">
-                            <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+                          <div className="p-4 sm:p-5 relative z-10">
+                            <div className="flex flex-col lg:flex-row lg:items-center gap-3 sm:gap-4">
                               {/* League & Time Section */}
                               <div className="flex-shrink-0 lg:w-32 space-y-1">
-                                <div className="text-[11px] text-white/70 uppercase tracking-wider font-semibold">{game.league}</div>
+                                <div className="text-[10px] sm:text-[11px] text-white/70 uppercase tracking-wider font-semibold truncate">{game.league}</div>
                                 {game.time && (
                                   <div className="flex items-center gap-1.5 text-white/50">
-                                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
-                                    <span className="text-xs font-mono font-medium">{game.time}</span>
+                                    <span className="text-[10px] sm:text-xs font-mono font-medium">{game.time}</span>
                                   </div>
                                 )}
                               </div>
 
                               {/* Teams & Score Section */}
-                              <div className="flex-1 flex flex-col sm:flex-row items-center gap-3 sm:gap-6 min-w-0">
+                              <div className="flex-1 flex flex-col sm:flex-row items-center gap-2.5 sm:gap-3 lg:gap-6 min-w-0">
                                 {/* Home Team */}
                                 <div className="flex-1 min-w-0 text-center sm:text-left">
-                                  <div className="font-semibold text-sm sm:text-base text-white/95 truncate" title={game.home.name}>
+                                  <div className="font-semibold text-xs sm:text-sm lg:text-base text-white/95 truncate" title={game.home.name}>
                                     {getDisplayName(game.home.name)}
                                   </div>
                                 </div>
 
                                 {/* Score Display */}
-                                <div className="flex items-center gap-3 flex-shrink-0">
+                                <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
                                   {isFinished && prediction.actualScore ? (
-                                    <div className="flex items-center gap-3">
+                                    <div className="flex items-center gap-2 sm:gap-3">
                                       <div className="flex flex-col items-center">
-                                        <span className="text-2xl sm:text-3xl font-black text-[rgb(var(--brand-yellow))] leading-none tracking-tight">
+                                        <span className="text-xl sm:text-2xl lg:text-3xl font-black text-[rgb(var(--brand-yellow))] leading-none tracking-tight">
                                           {prediction.actualScore}
                                         </span>
                                         {prediction?.predictedScoreDisplay && (
-                                          <span className="text-[10px] text-white/50 mt-1">Pred: {prediction.predictedScoreDisplay}</span>
+                                          <span className="text-[9px] sm:text-[10px] text-white/50 mt-0.5 sm:mt-1">Pred: {prediction.predictedScoreDisplay}</span>
                                         )}
                                       </div>
                                     </div>
                                   ) : (
-                                    <div className="flex flex-col items-center gap-2">
-                                      <span className="text-xs text-white/40 font-medium uppercase tracking-wider">VS</span>
+                                    <div className="flex flex-col items-center gap-1.5 sm:gap-2">
+                                      <span className="text-[10px] sm:text-xs text-white/40 font-medium uppercase tracking-wider">VS</span>
                                       {prediction?.predictedScoreDisplay && (
-                                        <div className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[rgb(var(--brand-yellow))]/25 to-[rgb(var(--brand-yellow))]/15 border border-[rgb(var(--brand-yellow))]/50 shadow-md">
-                                          <div className="flex items-center gap-1.5">
-                                            <svg className="w-3.5 h-3.5 text-[rgb(var(--brand-yellow))]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <div className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-gradient-to-r from-[rgb(var(--brand-yellow))]/25 to-[rgb(var(--brand-yellow))]/15 border border-[rgb(var(--brand-yellow))]/50 shadow-sm">
+                                          <div className="flex items-center gap-1 sm:gap-1.5">
+                                            <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[rgb(var(--brand-yellow))]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                                             </svg>
-                                            <span className="text-sm font-black text-[rgb(var(--brand-yellow))] tabular-nums">{prediction.predictedScoreDisplay}</span>
+                                            <span className="text-xs sm:text-sm font-black text-[rgb(var(--brand-yellow))] tabular-nums">{prediction.predictedScoreDisplay}</span>
                                           </div>
                                         </div>
                                       )}
@@ -634,43 +778,43 @@ export default function PredictionsPage() {
 
                                 {/* Away Team */}
                                 <div className="flex-1 min-w-0 text-center sm:text-right">
-                                  <div className="font-semibold text-sm sm:text-base text-white/95 truncate" title={game.away.name}>
+                                  <div className="font-semibold text-xs sm:text-sm lg:text-base text-white/95 truncate" title={game.away.name}>
                                     {getDisplayName(game.away.name)}
                                   </div>
                                 </div>
                               </div>
 
                               {/* Prediction & Status Section */}
-                              <div className="flex flex-wrap items-center gap-2.5 flex-shrink-0 justify-center lg:justify-end">
+                              <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 flex-shrink-0 justify-center lg:justify-end">
                                 {/* Prediction Type Badge */}
-                                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[rgb(var(--brand-yellow))]/15 border border-[rgb(var(--brand-yellow))]/40 text-[rgb(var(--brand-yellow))] text-xs font-semibold backdrop-blur-sm">
-                                  <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                <span className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-[rgb(var(--brand-yellow))]/15 border border-[rgb(var(--brand-yellow))]/40 text-[rgb(var(--brand-yellow))] text-[10px] sm:text-xs font-semibold backdrop-blur-sm whitespace-nowrap">
+                                  <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                                   </svg>
-                                  {prediction?.msbs || 'Over 1.5'}
+                                  <span className="truncate">{prediction?.msbs || 'Over 1.5'}</span>
                                 </span>
                                 
                                 {/* Status Badge */}
                                 {isWon && (
-                                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-green-500/30 to-green-500/15 border border-green-500/40 shadow-md">
-                                    <svg className="w-4 h-4 text-green-300" fill="currentColor" viewBox="0 0 20 20">
+                                  <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-gradient-to-r from-green-500/30 to-green-500/15 border border-green-500/40 shadow-sm whitespace-nowrap">
+                                    <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                                     </svg>
-                                    <span className="text-xs font-bold text-green-200">Won</span>
+                                    <span className="text-[10px] sm:text-xs font-bold text-green-200">Won</span>
                                   </div>
                                 )}
                                 {isFailed && (
-                                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-red-500/30 to-red-500/15 border border-red-500/40 shadow-md">
-                                    <svg className="w-4 h-4 text-red-300" fill="currentColor" viewBox="0 0 20 20">
+                                  <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-gradient-to-r from-red-500/30 to-red-500/15 border border-red-500/40 shadow-sm whitespace-nowrap">
+                                    <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                                     </svg>
-                                    <span className="text-xs font-bold text-red-200">Lost</span>
+                                    <span className="text-[10px] sm:text-xs font-bold text-red-200">Lost</span>
                                   </div>
                                 )}
                                 {!isWon && !isFailed && (
-                                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/8 border border-white/20 backdrop-blur-sm">
-                                    <div className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-pulse shadow-sm shadow-[rgb(var(--brand-yellow))]/50" />
-                                    <span className="text-xs font-medium text-white/70">Pending</span>
+                                  <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-white/8 border border-white/20 backdrop-blur-sm whitespace-nowrap">
+                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-pulse flex-shrink-0" />
+                                    <span className="text-[10px] sm:text-xs font-medium text-white/70">Pending</span>
                                   </div>
                                 )}
                               </div>

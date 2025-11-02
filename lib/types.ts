@@ -44,6 +44,7 @@ export type EnrichedGame = Omit<ScrapedGame, 'home' | 'away'> & {
   home: EnrichedTeam;
   away: EnrichedTeam;
   matchId?: string; // optional, used for API polling for videoSrc
+  poster?: string; // match poster image URL
 };
 
 export type LeagueCatalogItem = {
@@ -81,6 +82,8 @@ export type UnifiedMatch = {
   startTime?: string; // ISO when known or HH:MM when only time-of-day is known
   // Streaming/source info
   videoSrc: string;
+  // Match poster image URL
+  poster?: string;
   // Category tag for display (e.g., "FOOTBALL", "AMERICAN-FOOTBALL")
   categoryTag?: string;
   // Whether this match belongs to today's schedule at scrape time

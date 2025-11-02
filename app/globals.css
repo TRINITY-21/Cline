@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .sticky-rail {
   position: -webkit-sticky; /* Safari */
   position: sticky;
@@ -10,7 +14,12 @@
   border-radius: 12px;
   overflow: hidden; /* clip inner fades and chips to rounded corners */
   box-shadow: 0 10px 30px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.05) inset;
-  margin-bottom: 1.5rem; /* spacing below the rail */
+  margin-bottom: 1rem; /* spacing below the rail */
+}
+@media (min-width: 640px) {
+  .sticky-rail {
+    margin-bottom: 1.5rem;
+  }
 }
 
 .fade-left,
@@ -18,15 +27,18 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 32px;
+  width: 24px;
   pointer-events: none;
   border-radius: inherit; /* follow rail rounding */
 }
+@media (min-width: 640px) {
+  .fade-left,
+  .fade-right {
+    width: 32px;
+  }
+}
 .fade-left { left: 0; background: linear-gradient(90deg, rgb(var(--bg)), transparent); }
 .fade-right { right: 0; background: linear-gradient(270deg, rgb(var(--bg)), transparent); }
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 :root {
   --bg: 11 11 14; /* brand.black */
@@ -40,6 +52,21 @@ html, body, #__next {
   overflow-x: hidden; /* prevent accidental horizontal page scroll */
 }
 
+/* Better touch targets for mobile */
+@media (max-width: 640px) {
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Responsive text sizing */
+@media (max-width: 380px) {
+  body {
+    font-size: 14px;
+  }
+}
+
 body {
   color: rgb(var(--fg));
   background: rgb(var(--bg));
@@ -51,14 +78,25 @@ header {
   top: 0;
   z-index: 200;
   background: rgb(var(--bg));
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
 .container-narrow {
-  @apply max-w-5xl mx-auto px-4;
+  @apply max-w-5xl mx-auto px-3 sm:px-4 md:px-4;
+}
+
+/* Ensure mobile viewport doesn't cause horizontal scroll */
+@media (max-width: 640px) {
+  .container-narrow {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
 }
 
 .btn {
   @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-semibold transition-colors;
+  touch-action: manipulation;
 }
 .btn-primary {
   background: rgb(var(--brand-yellow));
@@ -67,11 +105,18 @@ header {
 .btn-primary:hover {
   box-shadow: 0 0 0 3px rgba(255,212,0,0.2);
 }
+.btn-primary:active {
+  transform: scale(0.98);
+}
 .btn-ghost {
   @apply border border-white/15 text-white/90 bg-white/5;
 }
 .pill {
   @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-medium border;
+  touch-action: manipulation;
+}
+.pill:active {
+  transform: scale(0.95);
 }
 .pill-active {
   background: rgba(255,212,0,0.15);
@@ -165,15 +210,44 @@ header {
 .no-scrollbar::-webkit-scrollbar {
   width: 0px;
   height: 0px;
+  display: none;
+}
+
+/* Touch manipulation for better mobile interactions */
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Ensure horizontal chip bars don't capture vertical scrolling */
 .scroll-x-only {
   overflow-x: auto;
   overflow-y: hidden;
-  touch-action: pan-x; /* Allow only horizontal touch/trackpad pan */
+  touch-action: pan-x pinch-zoom; /* Allow only horizontal touch/trackpad pan */
   overscroll-behavior-x: contain;
   overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  scroll-behavior: smooth;
+}
+
+/* Better touch panning for filters on mobile/tablet */
+.touch-pan-x {
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure match cards are properly contained and responsive */
+.match-card {
+  max-width: 100%;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Prevent grid items from overflowing */
+.grid > * {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Loading shimmer effect */

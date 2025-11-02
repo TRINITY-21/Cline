@@ -321,6 +321,7 @@ async function transformStreamedMatch(match: StreamedMatch): Promise<UnifiedMatc
       timeLabel: timeLabel || undefined, // Ensure timeLabel is set
       startTime: startTime || undefined,
       videoSrc,
+      poster: match.poster, // Include poster from API
       today: true,
       // Store original category for display tags
       categoryTag, // Add this field to UnifiedMatch type

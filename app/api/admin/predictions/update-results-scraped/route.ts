@@ -210,27 +210,39 @@ export async function POST(req: NextRequest) {
     let totalUpdated = 0;
     const errors: string[] = [];
     
-    // Check last 7 days for predictions
-    const checkedDates = new Set<string>();
-    
+    // Group results by date if available, or search recent dates
     for (const result of results) {
       if (!result.home || !result.away || !result.actualScore || !result.timeLabel) {
         continue;
       }
       
-      // Try to find prediction in last 7 days
-      for (let daysBack = 0; daysBack < 7; daysBack++) {
-        const targetDate = new Date();
-        targetDate.setDate(targetDate.getDate() - daysBack);
-        const dateId = getDateId(targetDate);
-        const dateKey = dateId;
-        
-        if (checkedDates.has(dateKey)) {
-          continue; // Already checked this date
+      let found = false;
+      
+      // Determine which dates to check
+      // If result has matchDate, check that date and nearby dates
+      // Otherwise check last 7 days and next 2 days (for predictions imported today)
+      const datesToCheck: Date[] = [];
+      
+      if (result.matchDate) {
+        // If result has a date, check that date and nearby dates
+        const resultDate = parseDate(result.matchDate);
+        for (let offset = -1; offset <= 1; offset++) {
+          const checkDate = new Date(resultDate);
+          checkDate.setDate(checkDate.getDate() + offset);
+          datesToCheck.push(checkDate);
         }
-        
-        checkedDates.add(dateKey);
-        
+      } else {
+        // No date in result - check last 7 days and next 2 days
+        for (let daysOffset = -7; daysOffset <= 2; daysOffset++) {
+          const checkDate = new Date();
+          checkDate.setDate(checkDate.getDate() + daysOffset);
+          datesToCheck.push(checkDate);
+        }
+      }
+      
+      // Try each date
+      for (const targetDate of datesToCheck) {
+        const dateId = getDateId(targetDate);
         const weekId = getWeekId(targetDate);
         const dayOfWeek = getDayOfWeek(targetDate);
         
@@ -248,7 +260,6 @@ export async function POST(req: NextRequest) {
         const predictions = Array.isArray(existingData?.predictions) ? existingData.predictions : [];
         
         // Find matching prediction
-        let found = false;
         for (let i = 0; i < predictions.length; i++) {
           const pred = predictions[i];
           
@@ -264,19 +275,24 @@ export async function POST(req: NextRequest) {
           const teamsMatch = (predHomeNorm === resultHomeNorm && predAwayNorm === resultAwayNorm) ||
                            (predHomeNorm === resultAwayNorm && predAwayNorm === resultHomeNorm);
           
-          // Also check timeLabel for better matching
+          if (!teamsMatch) {
+            continue;
+          }
+          
+          // Also check timeLabel for better matching (allow up to 1 hour difference)
+          const resultTime = result.timeLabel.replace(':', '');
+          const predTime = pred.timeLabel.replace(':', '');
+          const timeDiff = Math.abs(parseInt(resultTime) - parseInt(predTime));
           const timeMatch = !result.timeLabel || !pred.timeLabel || 
                           result.timeLabel === pred.timeLabel ||
-                          Math.abs(parseInt(result.timeLabel.replace(':', '')) - parseInt(pred.timeLabel.replace(':', ''))) < 30;
+                          timeDiff < 100; // Less than 1 hour difference (e.g., 00:00 vs 00:30)
           
           if (teamsMatch && timeMatch) {
             // Found matching prediction - update with result
-            // Note: Only updates existing predictions, never creates new ones
             const actualScore = result.actualScore.replace(/\s/g, '').replace(':', '-');
             const status = result.status || calculateOver15Status(actualScore);
             
             // Only update if result changed or status is new
-            // This endpoint ONLY updates existing predictions, never creates new ones
             const needsUpdate = pred.actualScore !== actualScore || 
                                (pred.status !== status && status !== null);
             
@@ -291,19 +307,23 @@ export async function POST(req: NextRequest) {
               
               totalUpdated++;
               found = true;
+              
+              // Save updated predictions for this date
+              await dateDoc.set({
+                ...existingData,
+                predictions: predictions,
+                updatedAt: now,
+              }, { merge: true });
+              
+              break; // Found match, move to next result
+            } else {
+              found = true; // Already has this result, skip
+              break;
             }
-            break;
           }
         }
         
         if (found) {
-          // Save updated predictions
-          await dateDoc.set({
-            ...existingData,
-            predictions: predictions,
-            updatedAt: now,
-          }, { merge: true });
-          
           break; // Found and updated, move to next result
         }
       }

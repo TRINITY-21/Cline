@@ -6,7 +6,7 @@
       "timeLabel": "00:00",
       "actualScore": "0-1",
       "status": "failed",
-      "msbs": "Over 3.5"
+      "msbs": "Over 1.5"
     },
     {
       "home": "Fuerte San Francisco",
@@ -14,23 +14,23 @@
       "timeLabel": "00:15",
       "actualScore": "0-0",
       "status": "failed",
-      "msbs": "Over 3.5"
+      "msbs": "Over 1.5"
     },
     {
       "home": "Chicago Fire",
       "away": "Philadelphia Union",
       "timeLabel": "00:30",
       "actualScore": "0-3",
-      "status": "failed",
-      "msbs": "Over 3.5"
+      "status": "won",
+      "msbs": "Over 1.5"
     },
     {
       "home": "Avai",
       "away": "Athletic Club",
       "timeLabel": "00:30",
       "actualScore": "2-1",
-      "status": "failed",
-      "msbs": "Over 3.5"
+      "status": "won",
+      "msbs": "Over 1.5"
     },
     {
       "home": "Tepatitlán de Morelos",
@@ -38,15 +38,15 @@
       "timeLabel": "02:00",
       "actualScore": "0-1",
       "status": "failed",
-      "msbs": "Over 3.5"
+      "msbs": "Over 1.5"
     },
     {
       "home": "Nashville SC",
       "away": "Inter Miami",
       "timeLabel": "02:30",
       "actualScore": "2-1",
-      "status": "failed",
-      "msbs": "Over 3.5"
+      "status": "won",
+      "msbs": "Over 1.5"
     },
     {
       "home": "FC Tulsa",
@@ -54,7 +54,7 @@
       "timeLabel": "03:00",
       "actualScore": "0-0",
       "status": "failed",
-      "msbs": "Over 3.5"
+      "msbs": "Over 1.5"
     },
     {
       "home": "Alianza",
@@ -62,15 +62,15 @@
       "timeLabel": "03:00",
       "actualScore": "0-1",
       "status": "failed",
-      "msbs": "Over 3.5"
+      "msbs": "Over 1.5"
     },
     {
       "home": "New Mexico United",
       "away": "San Antonio",
       "timeLabel": "04:00",
       "actualScore": "2-0",
-      "status": "failed",
-      "msbs": "Over 3.5"
+      "status": "won",
+      "msbs": "Over 1.5"
     },
     {
       "home": "Tlaxcala",
@@ -78,49 +78,481 @@
       "timeLabel": "04:00",
       "actualScore": "0-1",
       "status": "failed",
-      "msbs": "Over 3.5"
+      "msbs": "Over 1.5"
     },
     {
       "home": "Monterrey",
       "away": "Tigres UANL",
       "timeLabel": "04:05",
       "actualScore": "1-1",
-      "status": "failed",
-      "msbs": "Over 3.5"
+      "status": "won",
+      "msbs": "Over 1.5"
     },
     {
       "home": "FC Dallas",
       "away": "Vancouver Whitecaps",
       "timeLabel": "04:30",
-      "actualScore": "1-0",
-      "status": "failed",
-      "msbs": "Over 3.5"
+      "actualScore": "1-1",
+      "status": "won",
+      "msbs": "Over 1.5"
     },
     {
       "home": "Portland Timbers",
       "away": "San Diego",
       "timeLabel": "04:30",
-      "actualScore": "1-2",
-      "status": "failed",
-      "msbs": "Over 3.5"
+      "actualScore": "2-2",
+      "status": "won",
+      "msbs": "Over 1.5"
     },
     {
       "home": "El Paso Locomotive",
       "away": "Phoenix Rising",
       "timeLabel": "04:30",
-      "actualScore": "0-0",
+      "actualScore": "0-1",
       "status": "failed",
-      "msbs": "Over 3.5"
+      "msbs": "Over 1.5"
     },
     {
       "home": "Motagua",
       "away": "CD Victoria",
       "timeLabel": "04:30",
       "actualScore": "2-1",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Club America",
+      "away": "Leon",
+      "timeLabel": "06:10",
+      "actualScore": "2-0",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Zweigen Kanazawa",
+      "away": "ThespaKusatsu Gunma",
+      "timeLabel": "07:00",
+      "actualScore": "1-3",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Kamatamare Sanuki",
+      "away": "Gainare Tottori",
+      "timeLabel": "08:00",
+      "actualScore": "0-1",
       "status": "failed",
-      "msbs": "Over 3.5"
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "South China",
+      "away": "Lucky Mile",
+      "timeLabel": "08:30",
+      "actualScore": "6-0",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "3 Sing",
+      "away": "Sham Shui Po",
+      "timeLabel": "08:30",
+      "actualScore": "0-1",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Hoi King",
+      "away": "Tung Sing",
+      "timeLabel": "08:30",
+      "actualScore": "2-1",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Central Coast Mariners",
+      "away": "Wellington Phoenix",
+      "timeLabel": "09:00",
+      "actualScore": "1-1",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Kowloon City",
+      "away": "Kitchee",
+      "timeLabel": "10:00",
+      "actualScore": "0-5",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Qingdao Jonoon",
+      "away": "Wuhan Three Towns",
+      "timeLabel": "10:30",
+      "actualScore": "1-0",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Suwon City",
+      "away": "Daegu",
+      "timeLabel": "10:30",
+      "actualScore": "1-1",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Shatin SA",
+      "away": "Central & Western",
+      "timeLabel": "10:30",
+      "actualScore": "1-1",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Resources Capital FC",
+      "away": "Citizen AA",
+      "timeLabel": "10:30",
+      "actualScore": "6-2",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "WSE",
+      "away": "Supreme FC",
+      "timeLabel": "10:30",
+      "actualScore": "2-3",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Konyaspor U19",
+      "away": "Samsunspor U19",
+      "timeLabel": "11:00",
+      "actualScore": "0-2",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Lopburi City",
+      "away": "Prime Bangkok",
+      "timeLabel": "11:30",
+      "actualScore": "0-1",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "North Bangkok College",
+      "away": "Saraburi United",
+      "timeLabel": "11:30",
+      "actualScore": "4-0",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "CSA Steaua Bucuresti",
+      "away": "Dumbravita",
+      "timeLabel": "12:00",
+      "actualScore": "0-1",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "FK Orenburg",
+      "away": "FC Sochi",
+      "timeLabel": "12:00",
+      "actualScore": "3-1",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Bohemians 1905 II",
+      "away": "Admira Praha",
+      "timeLabel": "12:15",
+      "actualScore": "2-3",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "FK Pardubice II",
+      "away": "Slovan Liberec II",
+      "timeLabel": "12:15",
+      "actualScore": "1-1",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Sigma Olomouc II",
+      "away": "Hranice",
+      "timeLabel": "12:15",
+      "actualScore": "2-0",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Opava II",
+      "away": "Bilovec",
+      "timeLabel": "12:15",
+      "actualScore": "2-5",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Viktoria Plzen II",
+      "away": "Jiskra Domazlice",
+      "timeLabel": "12:30",
+      "actualScore": "1-1",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Malzenice",
+      "away": "Stara Lubovna",
+      "timeLabel": "12:30",
+      "actualScore": "2-1",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Slovan Bratislava II",
+      "away": "Pohronie",
+      "timeLabel": "12:30",
+      "actualScore": "2-2",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Ruzomberok II",
+      "away": "Namestovo",
+      "timeLabel": "12:30",
+      "actualScore": "2-1",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Borussia Mgladbach U19",
+      "away": "Arminia Bielefeld U19",
+      "timeLabel": "13:00",
+      "actualScore": "2-0",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Schalke 04 U19",
+      "away": "Preussen Münster U19",
+      "timeLabel": "13:00",
+      "actualScore": "0-0",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Inter Club",
+      "away": "Carroi",
+      "timeLabel": "13:00",
+      "actualScore": "1-1",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Lyon U19",
+      "away": "Strasbourg U19",
+      "timeLabel": "13:00",
+      "actualScore": "1-0",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Kolkheti 1913 Poti",
+      "away": "Gareji",
+      "timeLabel": "13:00",
+      "actualScore": "1-2",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Györi ETO II",
+      "away": "Komarom",
+      "timeLabel": "13:00",
+      "actualScore": "1-2",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "FC Ko?ice II",
+      "away": "Spisska Nova Ves",
+      "timeLabel": "13:00",
+      "actualScore": "1-2",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Diyarbekir Spor",
+      "away": "Kirikkale FK",
+      "timeLabel": "13:00",
+      "actualScore": "2-1",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Kayserispor U19",
+      "away": "Kasimpasa U19",
+      "timeLabel": "13:00",
+      "actualScore": "0-0",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "FC Tallinn",
+      "away": "Viimsi MRJK",
+      "timeLabel": "13:30",
+      "actualScore": "1-1",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Nomme JK Kalju",
+      "away": "JK Tammeka Tartu",
+      "timeLabel": "13:30",
+      "actualScore": "0-1",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Paide Linnameeskond",
+      "away": "Parnu JK Vaprus",
+      "timeLabel": "13:30",
+      "actualScore": "1-0",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Ming Chuan University",
+      "away": "Taichung Rock",
+      "timeLabel": "13:30",
+      "actualScore": "0-0",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Manisa FK",
+      "away": "Amed SK",
+      "timeLabel": "13:30",
+      "actualScore": "0-1",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Colomiers U19",
+      "away": "Bastia U19",
+      "timeLabel": "14:00",
+      "actualScore": "0-1",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Finglas United",
+      "away": "Killester Utd",
+      "timeLabel": "14:00",
+      "actualScore": "2-0",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Super Nova",
+      "away": "Rigas Skola",
+      "timeLabel": "14:00",
+      "actualScore": "0-1",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "FS Jelgava",
+      "away": "Metta / LU Riga",
+      "timeLabel": "14:00",
+      "actualScore": "1-0",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Stal Rzeszow",
+      "away": "Pogon Siedlce",
+      "timeLabel": "14:00",
+      "actualScore": "0-0",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Olimpia Elblag",
+      "away": "Wisla Plock II",
+      "timeLabel": "14:00",
+      "actualScore": "0-1",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Legia Warszawa II",
+      "away": "Bron Radom",
+      "timeLabel": "14:00",
+      "actualScore": "1-0",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "MKS Korona Kielce II",
+      "away": "Avia Swidnik",
+      "timeLabel": "14:00",
+      "actualScore": "0-2",
+      "status": "won",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Khonkaen Utd",
+      "away": "Esan Pattaya",
+      "timeLabel": "14:00",
+      "actualScore": "0-0",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Bankhai United",
+      "away": "Burapha United",
+      "timeLabel": "14:00",
+      "actualScore": "0-0",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Thanh Hoa",
+      "away": "Viettel",
+      "timeLabel": "14:00",
+      "actualScore": "0-0",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Binh Dinh",
+      "away": "Ba Ria Vung Tau",
+      "timeLabel": "14:00",
+      "actualScore": "1-0",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Heracles",
+      "away": "PEC Zwolle",
+      "timeLabel": "14:15",
+      "actualScore": "0-1",
+      "status": "failed",
+      "msbs": "Over 1.5"
+    },
+    {
+      "home": "Gornik Zabrze",
+      "away": "Arka Gdynia",
+      "timeLabel": "14:15",
+      "actualScore": "0-0",
+      "status": "failed",
+      "msbs": "Over 1.5"
     }
   ],
-  "scrapedAt": "2025-11-02T06:14:27.291526",
-  "count": 15
+  "scrapedAt": "2025-11-02T14:30:12.940465",
+  "count": 69
 }
