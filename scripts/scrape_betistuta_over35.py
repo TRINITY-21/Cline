@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Scrape betistuta for Over 1.5 predictions only (MSBS goals sum >= 2).
+Scrape betistuta for Over 3.5 predictions only (MSBS goals sum >= 4).
 Outputs JSON data that can be saved to Firestore via API endpoint.
 """
 
@@ -38,14 +38,14 @@ def extract_goals(score_str):
     return None, None
 
 def is_over_35(home_score, away_score):
-    """Check if total goals is >= 2 (Over 1.5)"""
+    """Check if total goals is >= 4 (Over 3.5)"""
     if home_score is None or away_score is None:
         return False
-    return (home_score + away_score) >= 2
+    return (home_score + away_score) >= 4
 
 def scrape_betistuta():
     """
-    Scrape betistuta website for Over 1.5 predictions.
+    Scrape betistuta website for Over 3.5 predictions.
     Returns list of prediction objects.
     """
     predictions = []
@@ -131,8 +131,11 @@ def scrape_betistuta():
                     # Parse MSBS to get predicted goals
                     home_pred, away_pred = extract_goals(msbs)
                     
-                    # Only include if Over 1.5 (sum >= 2)
-                    if not is_over_35(home_pred, away_pred):
+                    # Only include if Over 3.5 (sum >= 4)
+                    if home_pred is None or away_pred is None:
+                        continue
+                    total_goals = home_pred + away_pred
+                    if total_goals < 4:  # Over 3.5 means >= 4 goals
                         continue
                     
                     # Get today's date as match date (you may need to parse from page)
@@ -151,7 +154,7 @@ def scrape_betistuta():
                         "timeLabel": saat.strip() if saat else "00:00",
                         "matchDate": match_date,
                         "predictedScoreDisplay": predicted_score_display,
-                        "msbs": "Over 1.5",
+                        "msbs": "Over 3.5",
                         "sport": "Football"
                     }
                     
@@ -175,7 +178,7 @@ def main():
     predictions = scrape_betistuta()
     
     if not predictions:
-        print("No Over 1.5 predictions found", file=sys.stderr)
+        print("No Over 3.5 predictions found", file=sys.stderr)
         sys.exit(1)
     
     # Output JSON
