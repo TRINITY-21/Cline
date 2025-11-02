@@ -43,16 +43,43 @@ def is_over_35(home_score, away_score):
         return False
     return (home_score + away_score) >= 4
 
-def scrape_betistuta():
+def scrape_betistuta(date_str=None):
     """
     Scrape betistuta website for Over 3.5 predictions.
+    Args:
+        date_str: Optional date string in DD-MM-YYYY format (e.g., "03-11-2025")
+                 If None, uses today's date
     Returns list of prediction objects.
     """
     predictions = []
     
     try:
-        # Betistuta URL for Football predictions
-        url = "https://www.betistuta.net/Futbol.aspx"
+        # Parse date and format for URL (MM/DD/YYYY)
+        if date_str:
+            try:
+                # Parse DD-MM-YYYY format
+                parts = date_str.split('-')
+                if len(parts) == 3 and len(parts[2]) == 4:
+                    day, month, year = parts
+                    # Format as MM/DD/YYYY for URL
+                    url_date = f"{month}/{day}/{year}"
+                    # Store match_date as YYYY-MM-DD
+                    match_date = f"{year}-{month.zfill(2)}-{day.zfill(2)}"
+                else:
+                    raise ValueError("Invalid date format")
+            except:
+                # Fallback to today if parsing fails
+                today = datetime.now()
+                url_date = today.strftime("%m/%d/%Y")
+                match_date = today.strftime("%Y-%m-%d")
+        else:
+            # Use today's date
+            today = datetime.now()
+            url_date = today.strftime("%m/%d/%Y")
+            match_date = today.strftime("%Y-%m-%d")
+        
+        # Betistuta URL for Football predictions with date parameter
+        url = f"https://www.betistuta.net/Futbol.aspx?D={url_date}"
         
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
@@ -138,9 +165,6 @@ def scrape_betistuta():
                     if total_goals < 4:  # Over 3.5 means >= 4 goals
                         continue
                     
-                    # Get today's date as match date (you may need to parse from page)
-                    match_date = datetime.now().strftime("%Y-%m-%d")
-                    
                     # Format predicted score display (normalize separators)
                     if home_pred is not None and away_pred is not None:
                         predicted_score_display = f"{home_pred}-{away_pred}"
@@ -175,7 +199,13 @@ def scrape_betistuta():
 
 def main():
     """Main function to scrape and output JSON"""
-    predictions = scrape_betistuta()
+    # Accept date from command line argument (format: DD-MM-YYYY)
+    date_str = None
+    if len(sys.argv) > 1:
+        date_str = sys.argv[1]
+        print(f"Scraping for date: {date_str}", file=sys.stderr)
+    
+    predictions = scrape_betistuta(date_str)
     
     if not predictions:
         print("No Over 3.5 predictions found", file=sys.stderr)
