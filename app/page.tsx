@@ -2,10 +2,11 @@
 
 import AdSense from '@/components/AdSense';
 import GameBrowser from '@/components/GameBrowser';
+import ScoreBatLivescore from '@/components/ScoreBatLivescore';
 import TodayMatches from '@/components/TodayMatches';
 import { useState } from 'react';
 
-type TabView = 'trending' | 'today';
+type TabView = 'trending' | 'today' | 'scores';
 
 export default function HomePage() {
   const [activeTab, setActiveTab] = useState<TabView>('trending');
@@ -21,24 +22,46 @@ export default function HomePage() {
             </h2>
             <p className="text-white/70 mt-2 max-w-prose">Browse football, hockey, volleyball and more. Click any game to instantly open the embedded player.</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <button
               onClick={() => setActiveTab('trending')}
-              className={activeTab === 'trending' ? 'btn btn-primary' : 'btn btn-ghost'}
+              className={
+                "btn transition-all " +
+                (activeTab === 'trending' 
+                  ? 'btn-primary shadow-lg shadow-[rgb(var(--brand-yellow))]/20' 
+                  : 'btn-ghost hover:bg-white/10')
+              }
             >
-              Trending
+              🔥 Trending
             </button>
             <button
               onClick={() => setActiveTab('today')}
-              className={activeTab === 'today' ? 'btn btn-primary' : 'btn btn-ghost'}
+              className={
+                "btn transition-all " +
+                (activeTab === 'today' 
+                  ? 'btn-primary shadow-lg shadow-[rgb(var(--brand-yellow))]/20' 
+                  : 'btn-ghost hover:bg-white/10')
+              }
             >
-              Today&apos;s Matches
+              📅 Today&apos;s Matches
+            </button>
+            <button
+              onClick={() => setActiveTab('scores')}
+              className={
+                "btn transition-all " +
+                (activeTab === 'scores' 
+                  ? 'btn-primary shadow-lg shadow-[rgb(var(--brand-yellow))]/20' 
+                  : 'btn-ghost hover:bg-white/10')
+              }
+            >
+              ⚽ Live Scores
             </button>
           </div>
         </div>
         <div className="mt-6">
           {activeTab === 'trending' && <GameBrowser />}
           {activeTab === 'today' && <TodayMatches />}
+          {activeTab === 'scores' && <ScoreBatLivescore />}
         </div>
       </section>
 

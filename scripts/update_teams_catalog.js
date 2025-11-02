@@ -165,11 +165,9 @@ async function downloadLogoIfPossible(url, idBase) {
   }
 
   if (DRY_RUN) {
-    console.log(`Would add ${added.length} new teams`);
   } else {
     if (added.length > 0) writeJson(TEAMS_PATH, teams);
     writeJson(CACHE_PATH, cache);
-    console.log(`Added ${added.length} new teams. Updated ${path.relative(ROOT, TEAMS_PATH)}.`);
   }
 })();
 

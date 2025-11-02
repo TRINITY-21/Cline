@@ -47,7 +47,6 @@ function isOctoberDate(dateStr: string | undefined): boolean {
 }
 
 function analyzeHighlights() {
-  console.log('🔍 Analyzing October highlights with CDN video sources...\n');
 
   try {
     // Try enriched file first
@@ -57,37 +56,31 @@ function analyzeHighlights() {
     try {
       const fileContent = readFileSync(enrichedPath, 'utf-8');
       allMatches = JSON.parse(fileContent);
-      console.log(`📖 Loaded ${allMatches.length} total matches from enriched file\n`);
     } catch (enrichedError) {
       // Fallback to basic file
       const basicPath = path.join(process.cwd(), 'data', 'scraped-highlights.json');
       try {
         const fileContent = readFileSync(basicPath, 'utf-8');
         allMatches = JSON.parse(fileContent);
-        console.log(`📖 Loaded ${allMatches.length} total matches from basic file\n`);
       } catch (basicError) {
-        console.error('❌ Could not read highlights files');
         return;
       }
     }
 
     // Filter for October
     const octoberMatches = allMatches.filter((match: any) => isOctoberDate(match.date));
-    console.log(`📅 October matches: ${octoberMatches.length}`);
 
     // Filter for those with videoSrc
     const withVideoSrc = octoberMatches.filter((match: any) => {
       const videoSrc = match.videoSrc || '';
       return videoSrc && typeof videoSrc === 'string' && videoSrc.trim().length > 0;
     });
-    console.log(`🎥 October matches with videoSrc: ${withVideoSrc.length}`);
 
     // Filter for those with "cdn" in videoSrc
     const withCdn = octoberMatches.filter((match: any) => {
       const videoSrc = match.videoSrc || '';
       return videoSrc && typeof videoSrc === 'string' && videoSrc.toLowerCase().includes('cdn');
     });
-    console.log(`✅ October matches with "cdn" in videoSrc: ${withCdn.length}\n`);
 
     // Show breakdown by date
     const dateGroups: Record<string, number> = {};
@@ -96,7 +89,6 @@ function analyzeHighlights() {
       dateGroups[date] = (dateGroups[date] || 0) + 1;
     });
 
-    console.log('📊 Breakdown by date:');
     const sortedDates = Object.entries(dateGroups)
       .sort((a, b) => {
         try {
@@ -112,29 +104,15 @@ function analyzeHighlights() {
       });
 
     sortedDates.forEach(([date, count]) => {
-      console.log(`   ${date}: ${count} matches`);
     });
 
     // Show sample matches (first 5)
-    console.log('\n📝 Sample matches (first 5):');
     withCdn.slice(0, 5).forEach((match: any, idx: number) => {
-      console.log(`\n   ${idx + 1}. ${match.homeTeam || 'N/A'} vs ${match.awayTeam || 'N/A'}`);
-      console.log(`      Date: ${match.date || 'N/A'}`);
-      console.log(`      League: ${match.league || 'N/A'}`);
-      console.log(`      VideoSrc: ${(match.videoSrc || '').substring(0, 80)}${(match.videoSrc || '').length > 80 ? '...' : ''}`);
     });
 
     // Show stats
-    console.log('\n📈 Summary:');
-    console.log(`   Total matches: ${allMatches.length}`);
-    console.log(`   October matches: ${octoberMatches.length}`);
-    console.log(`   October with videoSrc: ${withVideoSrc.length}`);
-    console.log(`   October with "cdn" in videoSrc: ${withCdn.length}`);
-    console.log(`   Percentage: ${((withCdn.length / allMatches.length) * 100).toFixed(2)}% of total`);
-    console.log(`\n✅ Ready to save ${withCdn.length} matches to Firestore`);
 
   } catch (error) {
-    console.error('❌ Error analyzing highlights:', error);
   }
 }
 

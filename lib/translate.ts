@@ -41,7 +41,6 @@ export async function translateToEnglish(text: string): Promise<string> {
     CACHE.set(trimmed, trimmed);
     return trimmed;
   } catch (error) {
-    console.warn(`Translation failed for "${trimmed}":`, error);
     // Return original text if translation fails
     CACHE.set(trimmed, trimmed);
     return trimmed;
@@ -86,12 +85,10 @@ async function translateWithGoogleFreeAPI(text: string): Promise<string | null> 
     } catch (fetchError: any) {
       clearTimeout(timeoutId);
       if (fetchError.name === 'AbortError') {
-        console.warn('Translation request timeout');
       }
       throw fetchError;
     }
   } catch (error) {
-    console.warn('Free translation API failed:', error);
     return null;
   }
 }

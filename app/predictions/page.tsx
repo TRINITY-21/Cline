@@ -244,13 +244,10 @@ export default function PredictionsPage() {
       const data = await res.json();
       if (Array.isArray(data)) {
         setEntries(data);
-        console.log(`📊 Loaded ${data.length} prediction(s) from API`);
       } else {
-        console.error('Invalid data format received from API');
         setEntries([]);
       }
     } catch (err) {
-      console.error('Error fetching predictions:', err);
       setEntries([]); // Set empty array instead of mock data
     } finally {
       if (showLoading) setIsRefreshing(false);
@@ -311,7 +308,6 @@ export default function PredictionsPage() {
       
       if (!dayName) {
         // Log skipped entries for debugging
-        console.warn('Skipped entry due to invalid date:', {
           index: idx,
           matchDate: entry.prediction.matchDate,
           createdAt: entry.prediction.createdAt,
@@ -331,12 +327,10 @@ export default function PredictionsPage() {
     });
     
     if (skippedCount > 0) {
-      console.warn(`⚠️ Skipped ${skippedCount} entry(ies) due to invalid dates`);
     }
     
     // Debug: log grouping summary
     const totalGrouped = Object.values(groups).reduce((sum, arr) => sum + arr.length, 0);
-    console.log(`📅 Grouped ${totalGrouped} entries into ${Object.keys(groups).length} day(s):`, 
       Object.entries(groups).map(([day, arr]) => `${day} (${arr.length})`).join(', ')
     );
     

@@ -29,9 +29,7 @@ async function main() {
   const projectRoot = join(__dirname, '..');
   const teamsPath = join(projectRoot, 'data', 'teams.json');
 
-  console.log('📚 Reading teams.json...');
   const teams: TeamCatalogItem[] = JSON.parse(readFileSync(teamsPath, 'utf-8'));
-  console.log(`📖 Found ${teams.length} teams`);
 
   let removedCount = 0;
   let keptCount = 0;
@@ -69,15 +67,8 @@ async function main() {
     };
   });
 
-  console.log(`\n📊 Summary:`);
-  console.log(`   ✅ Kept: ${keptCount} teams with dasfootball.com logos`);
-  console.log(`   🗑️  Removed: ${removedCount} local /logos/ and invalid logos`);
-  console.log(`   📦 No logo: ${noLogoCount} teams (already had no logo)`);
-  console.log(`   📦 Total teams: ${updatedTeams.length}`);
 
-  console.log('\n💾 Writing updated teams.json...');
   writeFileSync(teamsPath, JSON.stringify(updatedTeams, null, 2) + '\n');
-  console.log('✅ Done! All /logos/ entries have been removed. Only dasfootball.com logos remain.');
 }
 
 main().catch(console.error);

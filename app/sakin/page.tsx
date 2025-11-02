@@ -230,7 +230,6 @@ function AdminPageContent() {
       setStoreMatches(matches);
       addToast(`Loaded ${matches.length} match(es) for ${targetDate}`, 'success');
     } catch (err) {
-      console.error('Failed to load store:', err);
       addToast('Failed to load stored matches', 'error');
     } finally {
       setLoading(false);
@@ -295,7 +294,6 @@ function AdminPageContent() {
       setHighlights(loadedHighlights);
       addToast(`Loaded ${loadedHighlights.length} highlight(s)`, 'success');
     } catch (err: any) {
-      console.error('Failed to load highlights:', err);
       addToast(`Failed to load highlights: ${err.message}`, 'error');
       setHighlights([]);
     } finally {
@@ -323,7 +321,6 @@ function AdminPageContent() {
       setEditHighlight(null);
       await loadHighlights(selectedDate);
     } catch (err: any) {
-      console.error('Failed to update highlight:', err);
       addToast(`Failed to update highlight: ${err.message}`, 'error');
     }
   }
@@ -368,7 +365,6 @@ function AdminPageContent() {
       setSelectedHighlights({});
       await loadHighlights(selectedDate);
     } catch (err: any) {
-      console.error('Failed to update highlight approval:', err);
       addToast(`Failed to update approval: ${err.message}`, 'error');
     } finally {
       setLoadingHighlights(false);
@@ -418,7 +414,6 @@ function AdminPageContent() {
         : `Loaded ${predictionsData.length} prediction(s) from all dates`;
       addToast(message, 'success');
     } catch (err) {
-      console.error('Failed to load predictions:', err);
       addToast('Failed to load predictions', 'error');
       setPredictions([]);
     } finally {
@@ -454,7 +449,6 @@ function AdminPageContent() {
       });
       if (!res.ok) {
         const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
-        console.error('Approval failed:', { predictionId, status: res.status, error: errorData });
         throw new Error(errorData.message || errorData.error || `Failed to update (${res.status})`);
       }
       
@@ -463,7 +457,6 @@ function AdminPageContent() {
         await loadPredictions();
       }
     } catch (err: any) {
-      console.error('updatePredictionApproval error:', err);
       addToast(`Failed to update prediction: ${err.message}`, 'error');
       throw err;
     }
@@ -481,7 +474,6 @@ function AdminPageContent() {
       // Approve each prediction (without reloading individually)
       const promises = selectedIds.map(id => 
         updatePredictionApproval(id, true, false).catch(err => {
-          console.error(`Failed to approve prediction ${id}:`, err);
           return null;
         })
       );
@@ -539,7 +531,6 @@ function AdminPageContent() {
       setShowPredictionForm(false);
       await loadPredictions();
     } catch (err: any) {
-      console.error('Failed to save prediction:', err);
       addToast(`Failed to save prediction: ${err.message}`, 'error');
     }
   }
@@ -571,7 +562,6 @@ function AdminPageContent() {
       addToast('Prediction deleted successfully', 'success');
       await loadPredictions();
     } catch (err: any) {
-      console.error('Failed to delete prediction:', err);
       addToast(`Failed to delete prediction: ${err.message}`, 'error');
     }
   }

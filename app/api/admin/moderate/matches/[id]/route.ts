@@ -46,7 +46,6 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
       }
     }
   } catch (err) {
-    console.error('Failed to update daily_matches:', err);
     return NextResponse.json({ error: 'Failed to update match' }, { status: 500 });
   }
   

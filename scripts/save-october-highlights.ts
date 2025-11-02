@@ -103,7 +103,6 @@ function filterValidHighlights(matches: any[]): any[] {
 
 async function saveToFirestore(matches: any[]): Promise<void> {
   if (matches.length === 0) {
-    console.log('⚠️  No matches to save');
     return;
   }
 
@@ -123,9 +122,6 @@ async function saveToFirestore(matches: any[]): Promise<void> {
       return cleaned;
     });
 
-    console.log(`💾 Saving ${cleanedMatches.length} matches to Firestore...`);
-    console.log(`   Collection: highlights`);
-    console.log(`   Document ID: ${today}`);
 
     await highlightsCol.doc(today).set({
       date: today,
@@ -134,16 +130,12 @@ async function saveToFirestore(matches: any[]): Promise<void> {
       updatedAt: new Date().toISOString(),
     }, { merge: true });
 
-    console.log(`✅ Successfully saved ${cleanedMatches.length} highlights to Firestore!`);
-    console.log(`   📍 Path: highlights/${today}`);
   } catch (error: any) {
-    console.error('❌ Error saving to Firestore:', error);
     throw error;
   }
 }
 
 async function main() {
-  console.log('🚀 Saving October highlights with CDN video sources to Firestore...\n');
 
   try {
     // Try enriched file first
@@ -153,16 +145,13 @@ async function main() {
     try {
       const fileContent = readFileSync(enrichedPath, 'utf-8');
       allMatches = JSON.parse(fileContent);
-      console.log(`📖 Loaded ${allMatches.length} total matches\n`);
     } catch (enrichedError) {
       // Fallback to basic file
       const basicPath = path.join(process.cwd(), 'data', 'scraped-highlights.json');
       try {
         const fileContent = readFileSync(basicPath, 'utf-8');
         allMatches = JSON.parse(fileContent);
-        console.log(`📖 Loaded ${allMatches.length} total matches from basic file\n`);
       } catch (basicError) {
-        console.error('❌ Could not read highlights files');
         process.exit(1);
       }
     }
@@ -170,21 +159,15 @@ async function main() {
     // Filter for October matches with CDN video sources
     const validHighlights = filterValidHighlights(allMatches);
     
-    console.log(`📊 Filtered results:`);
-    console.log(`   Total matches: ${allMatches.length}`);
-    console.log(`   October matches with CDN: ${validHighlights.length}\n`);
 
     if (validHighlights.length === 0) {
-      console.log('⚠️  No matches found matching criteria');
       return;
     }
 
     // Save to Firestore
     await saveToFirestore(validHighlights);
 
-    console.log(`\n✅ Done! ${validHighlights.length} highlights saved to Firestore.`);
   } catch (error) {
-    console.error('❌ Fatal error:', error);
     process.exit(1);
   }
 }

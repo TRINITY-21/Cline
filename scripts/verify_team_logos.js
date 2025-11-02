@@ -117,7 +117,6 @@ async function downloadLogo(logoUrl, localNameBase) {
     }
   }
   if (FIX && updated > 0) writeJson(TEAMS_PATH, teams);
-  console.log(`Checked ${teams.length} teams. ${FIX ? 'Updated ' + updated + ' logos.' : 'Run with --fix to update.'}`);
 })();
 
 

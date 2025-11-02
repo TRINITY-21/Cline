@@ -160,7 +160,6 @@ export async function POST(req: NextRequest) {
         const raw = await fs.readFile(file, 'utf-8');
         items = JSON.parse(raw || '[]');
       } catch (err: any) {
-        console.error('Failed to read unified_matches.json:', err);
         items = [];
       }
     }
@@ -170,9 +169,7 @@ export async function POST(req: NextRequest) {
     }
     
     // Translate matches from Turkish to English before saving
-    console.log(`🌐 Translating ${items.length} match(es) from Turkish to English...`);
     const translatedItems = await translateMatches(items);
-    console.log(`✓ Translation completed`);
     
     const admin = initFirebaseAdmin();
     const dailyCol = admin.firestore().collection(
@@ -240,7 +237,6 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json({ ok: true, imported: count });
   } catch (err: any) {
-    console.error('Error importing matches:', err);
     return NextResponse.json({ 
       error: 'Failed to import matches', 
       message: err?.message || String(err) 

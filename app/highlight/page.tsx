@@ -21,21 +21,17 @@ export default function HighlightsPage() {
         const data = await response.json();
         
         // Log response for debugging
-        console.log('Highlights API response:', data);
         
         if (data.error) {
-          console.error('API Error:', data.error, data.code);
           // Still set matches to empty array, but log the error
         }
         
         if (data.matches) {
           setMatches(data.matches);
         } else {
-          console.warn('API response missing matches array');
           setMatches([]);
         }
       } catch (error) {
-        console.error('Error fetching matches:', error);
         setMatches([]);
       } finally {
         setLoading(false);

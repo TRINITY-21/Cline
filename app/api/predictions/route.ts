@@ -189,7 +189,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(allPredictions);
     
   } catch (err: any) {
-    console.error('Failed to fetch over_predictions:', err);
     return NextResponse.json({ 
       error: 'Failed to fetch predictions', 
       details: err?.message || String(err) 

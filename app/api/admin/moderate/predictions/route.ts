@@ -132,16 +132,11 @@ export async function POST(req: NextRequest) {
     const collectionName = process.env.DAILY_PREDICTIONS_COLLECTION || process.env.NEXT_PUBLIC_DAILY_PREDICTIONS_COLLECTION || 'daily_predictions';
     const dailyCol = admin.firestore().collection(collectionName);
     
-    console.log(`🔧 Using Firestore collection: ${collectionName}`);
-    console.log(`🔧 Firebase Admin initialized: ${!!admin}`);
-    console.log(`🔧 Firestore instance: ${!!admin.firestore()}`);
     
     // Test Firestore connection by reading a test document
     try {
       const testDoc = await dailyCol.doc('_test').get();
-      console.log(`✓ Firestore connection test successful`);
     } catch (testErr: any) {
-      console.error(`✗ Firestore connection test failed:`, testErr?.message || String(testErr));
       return NextResponse.json({ 
         error: 'Firestore connection failed', 
         details: testErr?.message || String(testErr) 
@@ -161,7 +156,6 @@ export async function POST(req: NextRequest) {
         items = body.results;
       }
     } catch (err: any) {
-      console.warn('Failed to parse request body as JSON:', err?.message);
     }
     if (!items || items.length === 0) {
       try {
@@ -178,10 +172,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No items to import' }, { status: 400 });
     }
     
-    console.log(`📥 Starting import of ${itemsArray.length} prediction(s)`);
     
     // Translate predictions from Turkish to English
-    console.log(`🌐 Translating ${itemsArray.length} prediction(s) from Turkish to English...`);
     const translatedPredictions = await Promise.all(
       itemsArray.map(async (pred: any) => {
         const translated: any = { ...pred };
@@ -192,11 +184,9 @@ export async function POST(req: NextRequest) {
         return translated;
       })
     );
-    console.log(`✓ Translation completed`);
     
     // For scraping imports, use server's local date
     const todayDateId = todayId();
-    console.log(`📅 Using server date (${todayDateId}) for all scraped predictions`);
     
     const now = new Date().toISOString();
     
@@ -205,7 +195,6 @@ export async function POST(req: NextRequest) {
       [todayDateId]: translatedPredictions
     };
     
-    console.log(`📅 Grouped ${translatedPredictions.length} prediction(s) into date document: ${todayDateId}`);
     
     // Update each date document
     let totalImported = 0;
@@ -273,26 +262,21 @@ export async function POST(req: NextRequest) {
             
             const batchNum = Math.floor(i / BATCH_SIZE) + 1;
             const totalBatches = Math.ceil(predictions.length / BATCH_SIZE);
-            console.log(`  ✓ Saved batch ${batchNum}/${totalBatches} (${batch.length} predictions) for date ${date}`);
           } catch (batchErr: any) {
             const batchErrorMsg = `Error saving batch ${Math.floor(i / BATCH_SIZE) + 1} for date ${date}: ${batchErr?.message || String(batchErr)}`;
             errors.push(batchErrorMsg);
-            console.error(batchErrorMsg, batchErr);
             // Continue with next batch even if one fails
           }
         }
         
         totalImported += dateImported;
-        console.log(`✓ Successfully imported ${dateImported} prediction(s) for date ${date}`);
       } catch (err: any) {
         const errorMsg = `Error updating daily_predictions for date ${date}: ${err?.message || String(err)}`;
-        console.error(errorMsg, err);
         errors.push(errorMsg);
       }
     }
     
     if (errors.length > 0) {
-      console.error(`Import completed with ${errors.length} error(s):`, errors);
       return NextResponse.json({ 
         ok: false, 
         imported: totalImported, 
@@ -303,7 +287,6 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json({ ok: true, imported: totalImported });
   } catch (initErr: any) {
-    console.error('✗ Failed to initialize Firebase Admin:', initErr?.message || String(initErr));
     return NextResponse.json({ 
       error: 'Failed to initialize Firebase Admin', 
       details: initErr?.message || String(initErr) 

@@ -62,13 +62,11 @@ async function findCorrectVideoUrl(pageUrl: string): Promise<string | null> {
     
     return null;
   } catch (error) {
-    console.error(`  ❌ Error fetching ${pageUrl}:`, error instanceof Error ? error.message : error);
     return null;
   }
 }
 
 async function main() {
-  console.log('🔧 Fixing Google video URLs in scraped data...\n');
   
   const enrichedPath = path.join(process.cwd(), 'data', 'scraped-highlights-enriched.json');
   const basicPath = path.join(process.cwd(), 'data', 'scraped-highlights.json');
@@ -79,12 +77,10 @@ async function main() {
   ].filter(f => fs.existsSync(f.path));
 
   if (files.length === 0) {
-    console.error('❌ No files found to process');
     return;
   }
 
   for (const file of files) {
-    console.log(`📖 Processing ${file.name}...`);
     const rawData = fs.readFileSync(file.path, 'utf-8');
     const matches: ScrapedMatch[] = JSON.parse(rawData);
     
@@ -92,10 +88,8 @@ async function main() {
       m.videoSrc && m.videoSrc.startsWith('https://www.google.com/')
     );
     
-    console.log(`  Found ${googleUrlMatches.length} matches with Google URLs\n`);
     
     if (googleUrlMatches.length === 0) {
-      console.log(`  ✅ No Google URLs found in ${file.name}\n`);
       continue;
     }
     
@@ -104,10 +98,8 @@ async function main() {
     
     for (let i = 0; i < googleUrlMatches.length; i++) {
       const match = googleUrlMatches[i];
-      console.log(`  [${i + 1}/${googleUrlMatches.length}] Fixing ${match.id}...`);
       
       if (!match.url) {
-        console.log(`  ⚠️ No URL found for match, skipping`);
         failedCount++;
         continue;
       }
@@ -120,10 +112,8 @@ async function main() {
         if (matchIndex !== -1) {
           matches[matchIndex].videoSrc = correctUrl;
           fixedCount++;
-          console.log(`  ✅ Fixed: ${correctUrl.substring(0, 80)}...`);
         }
       } else {
-        console.log(`  ❌ Could not find correct video URL`);
         failedCount++;
       }
       
@@ -136,12 +126,8 @@ async function main() {
     // Save updated data
     fs.writeFileSync(file.path, JSON.stringify(matches, null, 2), 'utf-8');
     
-    console.log(`\n✅ Fixed ${fixedCount} URLs in ${file.name}`);
-    console.log(`⚠️ Failed to fix ${failedCount} URLs`);
-    console.log(`💾 Saved to ${file.path}\n`);
   }
 
-  console.log(`\n✅ Google URL fixing completed!`);
 }
 
 main().catch(console.error);

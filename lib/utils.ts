@@ -14,10 +14,17 @@ export function firstNameOf(raw: string): string {
   return first.replace(/[^A-Za-z0-9]+/g, '');
 }
 
-export function getDisplayName(name: string, maxLength: number = 12): string {
-  const first = firstNameOf(name);
-  if (first.length <= maxLength) return first;
-  return first.slice(0, maxLength);
+export function getDisplayName(name: string, maxLength: number = 50): string {
+  // Return full team name, only truncate if extremely long
+  const sanitized = sanitizeTeamName(name);
+  // Drop anything after an opening parenthesis for cleaner display
+  const cleaned = sanitized.split('(')[0].trim();
+  
+  // Only truncate if it's extremely long (more than maxLength)
+  if (cleaned.length > maxLength) {
+    return cleaned.slice(0, maxLength - 3) + '...';
+  }
+  return cleaned;
 }
 
 export function extractTimeLabel(timeStr: string): { isLive: boolean; time?: string } {

@@ -253,19 +253,11 @@ function MatchDetailClient({ match }: { match: HighlightMatch }) {
                   /* Video player - supports both MP4 and iframe */
                   <div className="absolute inset-[2px] rounded-lg overflow-hidden">
                     {match.videoSrc.includes('.mp4') || match.videoSrc.includes('streamable.com/video') ? (
-                      <video
-                        controls
-                        autoPlay
-                        className="w-full h-full"
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                      >
-                        <source src={match.videoSrc} type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
+                     <iframe title="Real Madrid vs Valencia Player" marginheight="0" marginwidth="0" src="https://embedsports.top/embed/admin/ppv-real-madrid-vs-valencia-cf/1" scrolling="no" allowfullscreen="yes" allow="encrypted-media; picture-in-picture;" width="100%" height="100%" frameborder="0"></iframe>
                     ) : (
                       <iframe
                         title={`${match.homeTeam} vs ${match.awayTeam} Highlights`}
-                        src={match.videoSrc}
+                        src={"https://main.uxsyplayerbcd362c475.click/index.php?id=stivibuspor-3#watermark=https%3A%2F%2Fwww.sporcafe-782a1a67028f.xyz%2Fassets%2Fuploads%2F43543534.png&reklamResim=https%3A%2F%2Fwww.sporcafe-782a1a67028f.xyz%2Fassets%2Fuploads%2Fbtkmbtypmn.gif&reklamGidis=https%3A%2F%2Fcutt.ly%2F1rIwpRBL"}
                         allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
                         allowFullScreen
                         referrerPolicy="no-referrer"

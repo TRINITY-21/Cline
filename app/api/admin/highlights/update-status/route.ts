@@ -62,7 +62,6 @@ export async function PATCH(req: NextRequest) {
     
     return NextResponse.json({ ok: true, updated });
   } catch (err: any) {
-    console.error('Error updating highlight status:', err);
     return NextResponse.json({ 
       error: 'Failed to update highlight status', 
       message: err?.message || String(err) 

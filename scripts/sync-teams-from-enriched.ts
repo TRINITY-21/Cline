@@ -114,17 +114,13 @@ async function main() {
   const enrichedPath = join(projectRoot, 'data', 'scraped-highlights-enriched.json');
   const teamsPath = join(projectRoot, 'data', 'teams.json');
   
-  console.log('📚 Reading enriched highlights...');
   const enrichedContent = readFileSync(enrichedPath, 'utf-8');
   const enrichedHighlights: EnrichedHighlight[] = JSON.parse(enrichedContent);
   
-  console.log(`📖 Found ${enrichedHighlights.length} enriched highlights`);
   
-  console.log('📚 Reading existing teams catalog...');
   const teamsContent = readFileSync(teamsPath, 'utf-8');
   const existingTeams: TeamCatalogItem[] = JSON.parse(teamsContent);
   
-  console.log(`📖 Found ${existingTeams.length} existing teams in catalog`);
   
   // Create a map of existing teams by normalized name for quick lookup
   const existingTeamsMap = new Map<string, TeamCatalogItem>();
@@ -146,13 +142,11 @@ async function main() {
     normalizedName: string;
   }>();
   
-  console.log('🔍 Extracting teams and logos from enriched data...');
   let processed = 0;
   
   for (const match of enrichedHighlights) {
     processed++;
     if (processed % 1000 === 0) {
-      console.log(`   Processed ${processed}/${enrichedHighlights.length} matches...`);
     }
     
     const sport = determineSport(match.league, match.category);
@@ -196,7 +190,6 @@ async function main() {
     }
   }
   
-  console.log(`✅ Extracted ${teamsFromEnriched.size} unique teams from enriched data`);
   
   // Merge with existing teams
   let added = 0;
@@ -212,7 +205,6 @@ async function main() {
       if (!existing.logo || existing.logo.trim() === '' || existing.logo === '/logos/placeholder.png') {
         existing.logo = enrichedTeam.logo;
         updated++;
-        console.log(`   ✏️  Updated logo for: ${existing.name}`);
       } else {
         skipped++;
       }
@@ -240,7 +232,6 @@ async function main() {
       existingTeamsMap.set(normalized, newTeam);
       existingTeamsById.set(finalId, newTeam);
       added++;
-      console.log(`   ➕ Added new team: ${enrichedTeam.name} (${enrichedTeam.sport})`);
     }
   }
   
@@ -251,21 +242,13 @@ async function main() {
     return a.name.localeCompare(b.name);
   });
   
-  console.log('\n📊 Summary:');
-  console.log(`   ➕ Added: ${added} new teams`);
-  console.log(`   ✏️  Updated: ${updated} existing teams with logos`);
-  console.log(`   ⏭️  Skipped: ${skipped} teams (already have logos)`);
-  console.log(`   📦 Total teams in catalog: ${existingTeams.length}`);
   
   // Write updated teams.json
-  console.log('\n💾 Writing updated teams.json...');
   writeFileSync(teamsPath, JSON.stringify(existingTeams, null, 2) + '\n', 'utf-8');
   
-  console.log('✅ Done! teams.json has been updated.');
 }
 
 main().catch(error => {
-  console.error('❌ Error:', error);
   process.exit(1);
 });
 

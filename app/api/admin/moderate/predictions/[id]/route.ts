@@ -113,8 +113,6 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     
     // If not found after searching 14 days, return 404 with helpful error
     if (!found) {
-      console.warn(`Prediction not found: ${predictionId} (searched last 14 days)`);
-      console.warn(`Searched dates: ${Array.from({ length: 15 }, (_, i) => {
         const d = new Date();
         d.setDate(d.getDate() - i);
         return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -128,7 +126,6 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     
     return NextResponse.json({ ok: true });
   } catch (err: any) {
-    console.error('Failed to update daily_predictions:', err);
     return NextResponse.json({ error: 'Failed to update prediction' }, { status: 500 });
   }
 }

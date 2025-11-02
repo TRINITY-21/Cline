@@ -42,7 +42,6 @@ export async function GET(req: NextRequest) {
       ...data 
     });
   } catch (err: any) {
-    console.error('Cron job error:', err);
     return NextResponse.json({ 
       error: 'Failed to update match statuses', 
       message: err?.message || String(err) 

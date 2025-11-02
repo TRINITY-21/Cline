@@ -113,7 +113,6 @@ async function processBatch<T>(
     
     const processed = Math.min(i + concurrency, items.length);
     if (processed % 50 === 0 || processed === items.length) {
-      console.log(`📊 Progress: ${processed}/${items.length} matches (${((processed / items.length) * 100).toFixed(1)}%)`);
     }
   }
   
@@ -121,21 +120,16 @@ async function processBatch<T>(
 }
 
 async function main() {
-  console.log('🚀 Adding Logos to Enriched Matches\n');
   
   const enrichedPath = path.join(process.cwd(), 'data', 'scraped-highlights-enriched.json');
   
   if (!fs.existsSync(enrichedPath)) {
-    console.error(`❌ File not found: ${enrichedPath}`);
     return;
   }
 
-  console.log(`📖 Reading ${enrichedPath}...`);
   const rawData = fs.readFileSync(enrichedPath, 'utf-8');
   const matches: ScrapedMatch[] = JSON.parse(rawData);
   
-  console.log(`✅ Loaded ${matches.length} matches\n`);
-  console.log(`⚡ Processing with 10 concurrent requests...\n`);
 
   const startTime = Date.now();
   
@@ -151,16 +145,9 @@ async function main() {
   // Count how many got logos
   const withLogos = enrichedMatches.filter(m => m.logos && Object.keys(m.logos).length > 0).length;
 
-  console.log(`\n\n📊 Logo Extraction Summary:`);
-  console.log(`✅ Processed: ${matches.length} matches`);
-  console.log(`🎨 Matches with logos: ${withLogos}`);
-  console.log(`⏱️  Time taken: ${duration} seconds`);
-  console.log(`💾 Saved to ${enrichedPath}`);
   if (fs.existsSync(enrichedPath)) {
     const sizeMB = (fs.statSync(enrichedPath).size / 1024 / 1024).toFixed(2);
-    console.log(`📊 File size: ${sizeMB} MB`);
   }
-  console.log(`\n✅ Logo extraction completed!`);
 }
 
 main().catch(console.error);

@@ -32,7 +32,6 @@ export async function POST(req: NextRequest, { params }: { params: { date: strin
     await ref.set({ id: params.date, matches: items, updatedAt: now }, { merge: true });
     return NextResponse.json({ ok: true, count: items.length });
   } catch (err: any) {
-    console.error(`Error saving matches for date ${params.date}:`, err);
     return NextResponse.json({ 
       error: 'Failed to save matches', 
       message: err?.message || String(err) 
@@ -59,7 +58,6 @@ export async function PATCH(req: NextRequest, { params }: { params: { date: stri
     await ref.set({ id: params.date, matches: list, updatedAt: now }, { merge: true });
     return NextResponse.json({ ok: true, count: list.length });
   } catch (err: any) {
-    console.error(`Error upserting match for date ${params.date}:`, err);
     return NextResponse.json({ 
       error: 'Failed to save match', 
       message: err?.message || String(err) 

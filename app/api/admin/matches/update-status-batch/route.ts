@@ -72,7 +72,6 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json({ ok: true, updated, total: list.length });
   } catch (err: any) {
-    console.error('Error updating match statuses:', err);
     return NextResponse.json({ 
       error: 'Failed to update match statuses', 
       message: err?.message || String(err) 

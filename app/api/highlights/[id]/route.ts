@@ -10,14 +10,12 @@ async function getAllMatches(): Promise<any[]> {
     const fileContent = readFileSync(filePath, 'utf-8');
     return JSON.parse(fileContent);
   } catch (fileError) {
-    console.error('Error reading scraped-highlights-enriched.json:', fileError);
     // Fallback to basic file if enriched doesn't exist
     const fallbackPath = path.join(process.cwd(), 'data', 'scraped-highlights.json');
     try {
       const fileContent = readFileSync(fallbackPath, 'utf-8');
       return JSON.parse(fileContent);
     } catch (fallbackError) {
-      console.error('Error reading scraped-highlights.json:', fallbackError);
       return [];
     }
   }
@@ -47,7 +45,6 @@ export async function GET(
     
     return NextResponse.json({ match });
   } catch (error) {
-    console.error('Error fetching match:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
