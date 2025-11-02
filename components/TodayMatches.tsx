@@ -1,12 +1,14 @@
 "use client";
 
+import { getCategoryDisplayName } from '@/lib/streamed';
 import type { EnrichedGame } from '@/lib/types';
-import { extractTimeLabel, firstNameOf, getDisplayName, isTodayFromGmtMinus1, statusFromLiveWindow } from '@/lib/utils';
+import { extractTimeLabel, firstNameOf, getDisplayName } from '@/lib/utils';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import useSWR from 'swr';
 import DefaultTeamLogo from './DefaultTeamLogo';
-import PlayerOverlay from './PlayerOverlay';
+import MatchPlayerSlideover from './MatchPlayerSlideover';
 
-type Sport = 'Football' | 'Hockey' | 'Volleyball' | 'Basketball' | 'Tennis';
+type Sport = 'Football' | 'Hockey' | 'Volleyball' | 'Basketball' | 'Tennis' | 'NFL';
 
 type GameItem = {
   id: string;
@@ -33,22 +35,17 @@ function TeamLogo({ logo, name, size = 48, className = "" }: { logo?: string; na
     return <DefaultTeamLogo name={name} size={size} />;
   }
   
-  let imgClassName = "object-contain rounded-full";
-  if (size > 40) {
-    // Make logos bigger to fill more of the circular badge (44px fills most of the 48px container)
-    imgClassName = "w-[46px] h-[46px] object-contain rounded-full";
-  } else if (size > 20) {
-    imgClassName = "w-6 h-6 rounded-full object-contain";
-  } else {
-    imgClassName = "w-4 h-4 rounded-full object-contain";
-  }
+  // Calculate logo size to fit within container (leave 4px for padding/border)
+  const logoSize = size - 4;
+  const logoSizePx = `${logoSize}px`;
   
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={logo}
       alt=""
-      className={imgClassName + " " + className}
+      className={`object-contain rounded-full ${className}`}
+      style={{ width: logoSizePx, height: logoSizePx }}
       onError={() => setHasError(true)}
     />
   );
@@ -58,17 +55,23 @@ function TeamLogo({ logo, name, size = 48, className = "" }: { logo?: string; na
 
 export default function TodayMatches() {
   const [selected, setSelected] = useState<GameItem | null>(null);
-  const [activeSport, setActiveSport] = useState<Sport | 'All'>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = window.localStorage.getItem('tm_active_sport');
-      if (saved === 'All' || saved === 'Football' || saved === 'Hockey' || saved === 'Volleyball' || saved === 'Basketball' || saved === 'Tennis') {
-        return saved as Sport | 'All';
-      }
-    }
-    return 'Football';
-  });
+  const [activeSport, setActiveSport] = useState<string>('All');
   const [expandedKeys, setExpandedKeys] = useState<Record<string, boolean>>({});
-  const [fetchedGames, setFetchedGames] = useState<EnrichedGame[]>([]);
+
+  // Fetch function for SWR
+  const fetcher = async (url: string) => {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Failed to fetch');
+    return res.json();
+  };
+
+  // Use SWR for data fetching with caching and revalidation
+  const { data: apiData, error, isLoading } = useSWR('/api/matches-streamed', fetcher, {
+    revalidateOnFocus: true,
+    revalidateOnReconnect: true,
+    refreshInterval: 60000, // Revalidate every 60 seconds for live matches
+    dedupingInterval: 5000, // Dedupe requests within 5 seconds
+  });
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -76,50 +79,112 @@ export default function TodayMatches() {
     }
   }, [activeSport]);
 
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch('/api/matches', { cache: 'no-store' });
-        const data = await res.json();
-        if (cancelled) return;
-        // Map UnifiedMatch[] -> ScrapedGame[] -> EnrichedGame[]
-        // Preserve logos from API if they exist
-        const mapped = (Array.isArray(data) ? data : []).map((m: any) => ({
-          sport: m.sport,
-          league: m.league?.name,
-          home: m.home?.name,
-          away: m.away?.name,
-          videoSrc: m.videoSrc || '',
-          time: m.timeLabel || '',
-          matchId: m.id,
-          status: m.status || '',
-          // Preserve logos from API
-          homeLogo: m.home?.logo,
-          awayLogo: m.away?.logo,
-        }));
-        // Use catalog enrichment - teams.json now contains all logos from enriched data
-        const { enrichGames } = await import('@/lib/catalog');
-        const enriched = enrichGames(mapped);
-        // Reattach matchId (not part of enrichGames types prior)
-        const withIds = enriched.map((g: any, idx: number) => ({ ...g, matchId: mapped[idx]?.matchId, status: (mapped[idx] as any)?.status }));
-        if (!cancelled) {
-          setFetchedGames(withIds);
-        }
-      } catch {}
-    })();
-    return () => { cancelled = true; };
-  }, []);
+  // Transform API data to EnrichedGame format
+  const fetchedGames = useMemo<EnrichedGame[]>(() => {
+    if (!apiData || !Array.isArray(apiData)) return [];
+    
+    // Map UnifiedMatch[] directly to EnrichedGame[] - use API data directly
+    return apiData.map((m: any) => {
+      // Use Streamed API logos directly (from streamed.pk/api/images/badge/)
+      const homeLogo = m.home?.logo || undefined;
+      const awayLogo = m.away?.logo || undefined;
+      
+      return {
+        sport: m.sport,
+        league: m.league?.name || '',
+        videoSrc: m.videoSrc || '',
+        time: m.timeLabel || '', // Use API time directly
+        home: {
+          name: m.home?.name || '',
+          logo: homeLogo,
+          matchedCatalogId: undefined, // Not using catalog
+        },
+        away: {
+          name: m.away?.name || '',
+          logo: awayLogo,
+          matchedCatalogId: undefined, // Not using catalog
+        },
+        matchId: m.id,
+        status: m.status || 'upcoming',
+        categoryTag: m.categoryTag, // Store category tag for filtering (not display)
+      };
+    });
+  }, [apiData]);
 
-  const sports = useMemo(() => ['All', 'Football', 'Hockey', 'Volleyball', 'Basketball', 'Tennis'] as const, []);
+  // Extract available category tags from API data for filters
+  const availableCategories = useMemo(() => {
+    const categorySet = new Set<string>();
+    fetchedGames.forEach((game: any) => {
+      if (game.categoryTag) {
+        categorySet.add(game.categoryTag);
+      }
+    });
+    
+    // Define priority order for popular sports
+    const priorityOrder = [
+      'FOOTBALL',
+      'AMERICAN-FOOTBALL',
+      'BASKETBALL',
+      'HOCKEY',
+      'TENNIS',
+      'BASEBALL',
+      'CRICKET',
+      'RUGBY',
+      'VOLLEYBALL',
+      'GOLF',
+      'FIGHT',
+      'AFL',
+      'MOTOR-SPORTS',
+      'DARTS',
+      'BILLIARDS',
+    ];
+    
+    // Sort categories: priority first, then others alphabetically
+    const categories: string[] = [];
+    priorityOrder.forEach(cat => {
+      if (categorySet.has(cat)) categories.push(cat);
+    });
+    // Add any other categories not in the priority list
+    categorySet.forEach(cat => {
+      if (!categories.includes(cat)) categories.push(cat);
+    });
+    
+    return categories;
+  }, [fetchedGames]);
+
+  // Build sports array with category-based filtering
+  const sports = useMemo(() => {
+    const baseSports: (string | 'All')[] = ['All'];
+    
+    availableCategories.forEach(categoryTag => {
+      const displayName = getCategoryDisplayName(categoryTag);
+      baseSports.push(displayName);
+    });
+    
+    return baseSports;
+  }, [availableCategories]);
   
   const todayGames = useMemo<EnrichedGame[]>(() => {
     const source = fetchedGames;
+    
     const filtered = source.filter(g => {
-      const sportMatch = activeSport === 'All' || g.sport === activeSport;
+      // Filter by category tag when available, fallback to sport
+      let sportMatch = false;
+      if (activeSport === 'All') {
+        sportMatch = true;
+      } else if ((g as any).categoryTag) {
+        // Use categoryTag for precise filtering
+        const categoryTag = (g as any).categoryTag as string;
+        const displayName = getCategoryDisplayName(categoryTag);
+        sportMatch = displayName === activeSport;
+      } else {
+        // Fallback to sport matching
+        sportMatch = g.sport === activeSport;
+      }
       if (!sportMatch) return false;
-      // show if live (videoSrc) or scheduled for today when converting GMT-1 to local
-      return !!g.videoSrc || isTodayFromGmtMinus1(g.time || '');
+      // Show if live (has videoSrc) or has a time (all matches from API are today's matches)
+      // No timezone conversion needed - API provides dates for today
+      return !!g.videoSrc || !!g.time;
     });
     return filtered;
   }, [activeSport, fetchedGames]);
@@ -134,35 +199,16 @@ export default function TodayMatches() {
       // Never auto-mark as "ended" from time - only server can set that
       const serverStatus = (game as any).status as string | undefined;
       
+      // Use API status directly - no timezone conversions or calculations
+      // The API provides the correct status based on the actual match time
       let derived: 'live' | 'upcoming' | 'ended';
       if (serverStatus === 'ended') {
-        // Server explicitly says ended - trust it
         derived = 'ended';
       } else if (serverStatus === 'live') {
-        // Server says live
         derived = 'live';
       } else {
-        // No server status or server says "upcoming" - use time calculation
-        // But NEVER mark as "ended" from time - only determine if it's upcoming or live
-        const windowStatus = statusFromLiveWindow(game.time || '', 180);
-        if (windowStatus === 'ended') {
-          // Even if time calculation says ended, keep it as "live" if past kickoff
-          // Only mark as ended if server explicitly says so
-          const now = new Date();
-          const timeStr = extractTimeLabel((game.time || '').trim()).time;
-          const m = timeStr?.match(/^(\d{1,2}):(\d{2})$/);
-          if (m) {
-            const hh = parseInt(m[1], 10);
-            const mm = parseInt(m[2], 10);
-            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hh, mm, 0, 0);
-            // If past kickoff time, show as "live" (not ended)
-            derived = now.getTime() >= today.getTime() ? 'live' : 'upcoming';
-          } else {
-            derived = 'live'; // Default to live if we can't parse
-          }
-        } else {
-          derived = windowStatus; // Use time calculation (upcoming or live)
-        }
+        // Default to upcoming if no status provided
+        derived = serverStatus === 'upcoming' ? 'upcoming' : 'upcoming';
       }
       
       const isEnded = derived === 'ended';
@@ -245,21 +291,24 @@ export default function TodayMatches() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 fade-in-up">
       <div className="flex flex-wrap items-center gap-2">
         {sports.map(s => (
           <button
             key={s}
-            onClick={() => setActiveSport(s as Sport | 'All')}
-            className={"pill " + (s === activeSport ? 'pill-active' : 'pill-muted')}
+            onClick={() => setActiveSport(s)}
+            className={
+              "pill sport-filter " + 
+              (s === activeSport ? 'pill-active active' : 'pill-muted')
+            }
           >
             {s}
           </button>
         ))}
       </div>
 
-      {/* Sticky jump chips + controls */}
-      <div className="sticky-rail -mx-4 px-4 py-2 relative">
+      {/* Sticky jump chips + controls - Full dark background */}
+      <div className="sticky-rail -mx-4 px-4 py-2 relative bg-[rgb(var(--bg))]">
         <div className="fade-left"></div>
         <div className="fade-right"></div>
         <div className="flex items-center gap-2">
@@ -296,9 +345,23 @@ export default function TodayMatches() {
         </div>
       </div>
 
-      {todayGames.length === 0 ? (
-        <div className="text-center py-12 text-white/60">
-          <p>No matches scheduled for today</p>
+      {error ? (
+        <div className="empty-state text-center py-16 px-8 rounded-xl">
+          <div className="text-6xl mb-4">⚠️</div>
+          <p className="text-white/80 text-lg font-semibold mb-2">Failed to load matches</p>
+          <p className="text-white/50">Please try refreshing the page</p>
+        </div>
+      ) : isLoading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+          {[...Array(10)].map((_, i) => (
+            <div key={i} className="skeleton rounded-lg h-48" />
+          ))}
+        </div>
+      ) : todayGames.length === 0 ? (
+        <div className="empty-state text-center py-16 px-8 rounded-xl">
+          <div className="text-6xl mb-4">⚽</div>
+          <p className="text-white/80 text-lg font-semibold mb-2">No matches scheduled</p>
+          <p className="text-white/50">Check back later for upcoming matches</p>
         </div>
       ) : (
         <div className="space-y-6">
@@ -310,27 +373,29 @@ export default function TodayMatches() {
               <button onClick={() => toggleKey(timeKey)} className="w-full flex items-center gap-3 group">
                 {timeKey === 'live' ? (
                   <>
-                    <span className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-pulse" />
-                    <h3 className="text-sm font-bold text-[rgb(var(--brand-yellow))] uppercase tracking-wide">Live Now</h3>
+                    <span className="live-indicator w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))]" />
+                    <h3 className="text-xs font-medium text-white uppercase tracking-wide">Live Now</h3>
                   </>
                 ) : (
                   <>
-                    <span className="w-2 h-2 rounded-full bg-white/40" />
-                    <h3 className="text-sm font-semibold text-white/80 uppercase tracking-wide">{timeKey}</h3>
+                    <span className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))]" />
+                    <h3 className="text-xs font-medium text-white uppercase tracking-wide">{timeKey}</h3>
                   </>
                 )}
                 <div className="flex-1 h-px bg-gradient-to-r from-white/20 to-transparent" />
-                <span className="text-xs text-white/50 mr-2">{games.length} {games.length === 1 ? 'match' : 'matches'}</span>
+                <span className="text-[10px] text-white/50 font-light mr-2">{games.length} matches</span>
                 <span className={"text-xs text-white/70 transition-transform " + (isOpen ? 'rotate-90' : '')}>›</span>
               </button>
 
               {isOpen && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-                {games.map(game => {
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3">
+                {games.map((game, gameIdx) => {
                   const status = (game as any).status as string | undefined;
                   const derived = (game as any)._derivedStatus as string | undefined;
                   const effectiveStatus = derived || status;
                   const isLive = effectiveStatus === 'live';
+                  const isEnded = effectiveStatus === 'ended';
+                  const isScheduled = effectiveStatus === 'upcoming' || (!isLive && !isEnded);
                   const isClickable = isLive;
                   const Wrapper: any = isClickable ? 'button' : 'div';
                   const wrapperProps = isClickable
@@ -354,68 +419,136 @@ export default function TodayMatches() {
                       {...wrapperProps}
                       title={`${game.home.name} vs ${game.away.name}`}
                       className={
-                        "text-left group rounded-lg overflow-hidden border border-white/10 bg-white/5 transition-all " +
-                        (isClickable ? "hover:bg-white/10 hover:border-white/20 neon-hover" : "opacity-100 cursor-not-allowed pointer-events-none")
+                        "match-card match-grid-item group rounded-lg overflow-hidden border transition-all duration-300 relative " +
+                        (isLive 
+                          ? "live border-[rgb(var(--brand-yellow))]/30 bg-[rgb(20,20,25)]" 
+                          : isEnded
+                          ? "border-white/10 bg-[rgb(20,20,25)]"
+                          : isScheduled
+                          ? "border-[rgb(var(--brand-yellow))]/20 bg-[rgb(20,20,25)]"
+                          : "border-white/10 bg-[rgb(20,20,25)]") +
+                        (isClickable 
+                          ? "hover:border-[rgb(var(--brand-yellow))]/50 cursor-pointer" 
+                          : "cursor-default")
                       }
+                      style={{ animationDelay: `${gameIdx * 0.05}s` }}
                     >
-                      <div className="p-3 space-y-2">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[10px] text-white/50 uppercase tracking-wide">{game.league}</span>
-                          <div className="flex items-center gap-2">
-                            {/* Show timeLabel directly without GMT conversion */}
+                      <div className="relative p-2.5">
+                        {/* Header: League name and Time on same row */}
+                        <div className="absolute top-2 left-2 right-2 z-10 flex items-center justify-between">
+                          {/* League name - Left */}
+                          {game.league && (() => {
+                            // Use categoryTag if available, otherwise check league name
+                            const categoryTag = (game as any).categoryTag as string | undefined;
+                            let displayLeague = game.league;
+                            
+                            if (categoryTag) {
+                              // Use getCategoryDisplayName to convert AMERICAN-FOOTBALL to NFL
+                              displayLeague = getCategoryDisplayName(categoryTag);
+                            } else {
+                              // Fallback: check if league contains American Football and convert
+                              const leagueUpper = game.league.toUpperCase();
+                              if (leagueUpper === 'AMERICAN-FOOTBALL' || leagueUpper.includes('AMERICAN FOOTBALL')) {
+                                displayLeague = 'NFL';
+                              }
+                            }
+                            
+                            return (
+                              <span className="text-[9px] font-light text-white/60 uppercase tracking-wide">
+                                {displayLeague.toUpperCase()}
+                              </span>
+                            );
+                          })()}
+                          
+                          {/* Match time - Right */}
+                          <div className="flex items-center gap-1.5">
                             {game.time && (
-                              <span className="text-[10px] text-white/60 font-mono">
+                              <span className="text-[9px] font-light text-white/60">
                                 {game.time}
                               </span>
                             )}
                             {isLive && (
-                              <span className="inline-flex items-center justify-center">
-                                <span className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-pulse" />
-                              </span>
+                              <span className="live-indicator w-1.5 h-1.5 rounded-full bg-[rgb(var(--brand-yellow))]" />
                             )}
                           </div>
                         </div>
                         
-                        <div className="flex items-center gap-4">
-                          {/* Home block */}
-                          <div className="flex-1 flex flex-col items-center gap-1 min-w-0">
-                            <div className="duel-pedestal w-12 h-12 grid place-items-center overflow-hidden shrink-0">
-                              <TeamLogo logo={game.home.logo} name={firstNameOf(game.home.name)} size={48} />
-                              <div className="duel-gloss" />
+                        {/* Teams Section - Horizontal Layout with Perfect Alignment */}
+                        <div className="pt-5 pb-0.5">
+                          {/* Team A Row: Logo + Name - Consistent structure */}
+                          <div className="flex items-center mb-1" style={{ gap: '8px' }}>
+                            {/* Logo - Fixed width */}
+                            <div className="relative flex-shrink-0" style={{ width: '40px', height: '40px' }}>
+                              <div className="w-full h-full rounded-full border-2 border-[rgb(var(--brand-yellow))] p-0.5 flex items-center justify-center bg-[rgb(20,20,25)]">
+                                <TeamLogo logo={game.home.logo} name={firstNameOf(game.home.name)} size={34} />
+                              </div>
                             </div>
-                            <div className="font-semibold text-xs truncate max-w-[7rem] text-center" title={game.home.name}>{getDisplayName(game.home.name)}</div>
+                            {/* Name - Vertically aligned with Team B */}
+                            <div className="flex-1 min-w-0" style={{ minHeight: '20px', display: 'flex', alignItems: 'center' }}>
+                              <p className="text-[10px] font-light text-white leading-tight line-clamp-2 break-words" title={game.home.name} style={{ lineHeight: '1.3', margin: 0 }}>
+                                {getDisplayName(game.home.name)}
+                              </p>
+                            </div>
                           </div>
 
-                          <span className="text-white/40 text-[10px] font-bold">VS</span>
+                          {/* VS Text - Perfectly Centered */}
+                          <div className="flex items-center justify-center py-0.5">
+                            <span className="text-[9px] font-light text-white/50 uppercase tracking-wider">VS</span>
+                          </div>
 
-                          {/* Away block */}
-                          <div className="flex-1 flex flex-col items-center gap-1 min-w-0">
-                            <div className="duel-pedestal w-12 h-12 grid place-items-center overflow-hidden shrink-0">
-                              <TeamLogo logo={game.away.logo} name={firstNameOf(game.away.name)} size={48} />
-                              <div className="duel-gloss" />
+                          {/* Team B Row: Logo + Name - Same structure for perfect vertical alignment */}
+                          <div className="flex items-center mb-1" style={{ gap: '8px' }}>
+                            {/* Logo - Fixed width (same as Team A) */}
+                            <div className="relative flex-shrink-0" style={{ width: '40px', height: '40px' }}>
+                              <div className="w-full h-full rounded-full border-2 border-[rgb(var(--brand-yellow))] p-0.5 flex items-center justify-center bg-[rgb(20,20,25)]">
+                                <TeamLogo logo={game.away.logo} name={firstNameOf(game.away.name)} size={34} />
+                              </div>
                             </div>
-                            <div className="font-semibold text-xs truncate max-w-[7rem] text-center" title={game.away.name}>{getDisplayName(game.away.name)}</div>
+                            {/* Name - Vertically aligned with Team A (same left position) */}
+                            <div className="flex-1 min-w-0" style={{ minHeight: '20px', display: 'flex', alignItems: 'center' }}>
+                              <p className="text-[10px] font-light text-white leading-tight line-clamp-2 break-words" title={game.away.name} style={{ lineHeight: '1.3', margin: 0 }}>
+                                {getDisplayName(game.away.name)}
+                              </p>
+                            </div>
                           </div>
                         </div>
                         
-                        <div className="pt-1.5 border-t border-white/10">
-                          {(() => {
-                            const status = (game as any).status as string | (undefined);
-                            const derived = (game as any)._derivedStatus as string | undefined;
-                            const effectiveStatus = derived || status;
-                            const isLiveBtn = effectiveStatus === 'live';
-                            if (isLiveBtn) {
-                              return (
-                                <span className="btn btn-primary !text-xs !px-3 !py-1 w-full justify-center">Watch Live</span>
-                              );
-                            }
-                            const label = effectiveStatus === 'ended' ? 'Ended' : 'Not started';
-                            return (
-                              <span className="btn btn-ghost opacity-50 cursor-not-allowed !text-xs !px-3 !py-1 w-full justify-center">
-                                {label}
-                              </span>
-                            );
-                          })()}
+                        {/* Action Button Section - Centered */}
+                        <div className="pt-1.5">
+                          {isLive ? (
+                            <button
+                              className="w-full rounded-lg bg-[rgb(var(--brand-yellow))] text-[rgb(20,20,25)] font-medium text-[10px] px-3 py-1.5 transition-all duration-300 hover:opacity-90 shadow-sm"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelected({
+                                  id: (game as any).matchId || Math.random().toString(36).slice(2),
+                                  sport: game.sport as Sport,
+                                  league: game.league || '',
+                                  home: game.home.name,
+                                  away: game.away.name,
+                                  time: game.time || '',
+                                  videoSrc: game.videoSrc,
+                                  matchId: (game as any).matchId,
+                                });
+                              }}
+                            >
+                              Watch Live
+                            </button>
+                          ) : isEnded ? (
+                            <div className="w-full rounded-lg bg-gradient-to-br from-white/[0.03] to-white/[0.01] border border-white/10 text-white/45 font-medium text-[10px] px-3 py-1.5 text-center flex items-center justify-center gap-1.5 backdrop-blur-sm">
+                              <svg className="w-3 h-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              <span>Ended</span>
+                            </div>
+                          ) : isScheduled ? (
+                            <div className="w-full rounded-lg bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-white/15 text-white/65 font-medium text-[10px] px-3 py-1.5 text-center flex items-center justify-center gap-1.5 backdrop-blur-sm">
+                              <svg className="w-3 h-3 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              <span>Scheduled</span>
+                            </div>
+                          ) : null}
                         </div>
                       </div>
                     </Wrapper>
@@ -428,7 +561,7 @@ export default function TodayMatches() {
         </div>
       )}
 
-      <PlayerOverlay
+      <MatchPlayerSlideover
         open={!!selected}
         onClose={() => setSelected(null)}
         title={selected ? `${selected.home} vs ${selected.away} • ${selected.league}` : ''}
@@ -438,4 +571,5 @@ export default function TodayMatches() {
     </div>
   );
 }
+
 

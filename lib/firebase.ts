@@ -17,7 +17,6 @@ export function initFirebaseAdmin() {
           const parsed = JSON.parse(raw);
           cred = admin.credential.cert(parsed);
         } catch (parseError: any) {
-          console.error('❌ Failed to parse FIREBASE_SERVICE_ACCOUNT_JSON:', parseError?.message);
           throw new Error(`Invalid FIREBASE_SERVICE_ACCOUNT_JSON: ${parseError?.message || 'JSON parse error'}`);
         }
       } else if (filePath) {
@@ -27,7 +26,6 @@ export function initFirebaseAdmin() {
           const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
           cred = admin.credential.cert(data);
         } catch (fileError: any) {
-          console.error(`❌ Failed to read Firebase credentials from ${filePath}:`, fileError?.message);
           throw new Error(`Cannot read Firebase credentials file: ${fileError?.message || 'File read error'}`);
         }
       } else {
@@ -40,7 +38,6 @@ export function initFirebaseAdmin() {
           projectId: process.env.FIREBASE_PROJECT_ID || process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
         });
       } catch (initError: any) {
-        console.error('❌ Failed to initialize Firebase Admin app:', initError?.message);
         throw new Error(`Firebase initialization failed: ${initError?.message || 'Unknown error'}`);
       }
     }

@@ -285,7 +285,6 @@ export async function PATCH(
     });
     
   } catch (err: any) {
-    console.error('Failed to update over_prediction:', err);
     return NextResponse.json({ 
       error: 'Failed to update prediction', 
       details: err?.message || String(err) 
@@ -326,12 +325,10 @@ export async function DELETE(
         dayOfWeek = getDayOfWeek(body.matchDate);
       }
     } catch (parseError: any) {
-      console.error('Error parsing request body:', parseError);
     }
     
     // If we don't have path info, search all predictions to find the one with matching ID
     if (!weekId || !dayOfWeek || !dateId) {
-      console.log('Path info missing, searching all predictions for ID:', predictionId);
       const overPredictionsCol = admin.firestore().collection('over_predictions');
       const weeksSnapshot = await overPredictionsCol.get();
       
@@ -427,7 +424,6 @@ export async function DELETE(
     }
     
   } catch (err: any) {
-    console.error('Failed to delete over_prediction:', err);
     return NextResponse.json({ 
       error: 'Failed to delete prediction', 
       details: err?.message || String(err) 

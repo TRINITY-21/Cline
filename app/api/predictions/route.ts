@@ -140,11 +140,14 @@ export async function GET(req: NextRequest) {
         const predictions = Array.isArray(data?.predictions) ? data.predictions : [];
         
         predictions.forEach((pred: any) => {
-          allPredictions.push({
-            ...pred,
-            id: pred.id || generatePredictionId(pred.home || '', pred.away || '', pred.timeLabel || ''),
-            matchDate: dateId,
-          });
+          // Only include approved predictions (or all if approved field doesn't exist for backward compatibility)
+          if (pred.approved !== false) {
+            allPredictions.push({
+              ...pred,
+              id: pred.id || generatePredictionId(pred.home || '', pred.away || '', pred.timeLabel || ''),
+              matchDate: dateId,
+            });
+          }
         });
       }
       
@@ -168,11 +171,14 @@ export async function GET(req: NextRequest) {
             const predictions = Array.isArray(data?.predictions) ? data.predictions : [];
             
             predictions.forEach((pred: any) => {
-              allPredictions.push({
-                ...pred,
-                id: pred.id || generatePredictionId(pred.home || '', pred.away || '', pred.timeLabel || ''),
-                matchDate: dateId,
-              });
+              // Only include approved predictions (or all if approved field doesn't exist for backward compatibility)
+              if (pred.approved !== false) {
+                allPredictions.push({
+                  ...pred,
+                  id: pred.id || generatePredictionId(pred.home || '', pred.away || '', pred.timeLabel || ''),
+                  matchDate: dateId,
+                });
+              }
             });
           }
         }
@@ -189,7 +195,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(allPredictions);
     
   } catch (err: any) {
-    console.error('Failed to fetch over_predictions:', err);
     return NextResponse.json({ 
       error: 'Failed to fetch predictions', 
       details: err?.message || String(err) 

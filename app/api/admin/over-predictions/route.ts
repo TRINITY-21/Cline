@@ -232,7 +232,6 @@ export async function GET(req: NextRequest) {
     });
     
   } catch (err: any) {
-    console.error('Failed to fetch over_predictions:', err);
     return NextResponse.json({ 
       error: 'Failed to fetch predictions', 
       details: err?.message || String(err) 
@@ -257,7 +256,7 @@ export async function POST(req: NextRequest) {
       timeLabel,
       matchDate,
       predictedScoreDisplay,
-      msbs = 'Over 1.5',
+      msbs = 'Over 3.5',
       actualScore,
       status,
     } = body;
@@ -343,7 +342,6 @@ export async function POST(req: NextRequest) {
     });
     
   } catch (err: any) {
-    console.error('Failed to create over_prediction:', err);
     return NextResponse.json({ 
       error: 'Failed to create prediction', 
       details: err?.message || String(err) 

@@ -52,7 +52,6 @@ export const updateMatchStatuses = functions
       // Get existing document
       const snap = await ref.get();
       if (!snap.exists) {
-        console.log('No matches found for today:', dateId);
         return null;
       }
 
@@ -99,23 +98,18 @@ export const updateMatchStatuses = functions
       if (updated > 0) {
         try {
           await batch.commit();
-          console.log(`Updated ${updated} match(es) status in main collection`);
         } catch (err) {
-          console.error('Failed to update main matches collection:', err);
         }
       }
 
       // Save updated matches back to daily_matches
       if (updated > 0) {
         await ref.set({ id: dateId, matches: list, updatedAt: now }, { merge: true });
-        console.log(`Updated ${updated} match(es) in daily_matches for date: ${dateId}`);
       } else {
-        console.log(`No matches needed updating for date: ${dateId}`);
       }
       
       return null;
     } catch (error) {
-      console.error('Error updating match statuses:', error);
       throw error;
     }
   });

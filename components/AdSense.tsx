@@ -26,7 +26,6 @@ export default function AdSense({
       // Push ad to Google AdSense
       ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
     } catch (err) {
-      console.error('AdSense error:', err);
     }
   }, []);
 

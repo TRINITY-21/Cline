@@ -81,6 +81,8 @@ export type UnifiedMatch = {
   startTime?: string; // ISO when known or HH:MM when only time-of-day is known
   // Streaming/source info
   videoSrc: string;
+  // Category tag for display (e.g., "FOOTBALL", "AMERICAN-FOOTBALL")
+  categoryTag?: string;
   // Whether this match belongs to today's schedule at scrape time
   today?: boolean;
   // Provider/page metadata if available

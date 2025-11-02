@@ -43,7 +43,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No results provided' }, { status: 400 });
     }
     
-    console.log(`🔄 Processing ${results.length} match result(s)`);
     
     // Check predictions for the last 7 days (matches might finish on different days)
     const now = new Date();
@@ -144,9 +143,7 @@ export async function POST(req: NextRequest) {
               totalUpdated++;
               
               const statusEmoji = pred_status === 'won' ? '✅' : pred_status === 'failed' ? '❌' : '⚠️';
-              console.log(`${statusEmoji} Updated (${dateId}): ${pred_home} vs ${pred_away} → ${result_score} (${pred_status || 'no status'})`);
             } else {
-              console.log(`⏭️  Skipped (already updated): ${pred_home} vs ${pred_away}`);
             }
             break;
           }
@@ -174,7 +171,6 @@ export async function POST(req: NextRequest) {
         : 'ℹ️ No predictions were updated (either no matches found or already updated)'
     };
     
-    console.log(`📊 Summary: ${statsSummary.message}`);
     
     return NextResponse.json({ 
       ok: true, 
@@ -184,7 +180,6 @@ export async function POST(req: NextRequest) {
     });
     
   } catch (err: any) {
-    console.error('Failed to update predictions with results:', err);
     return NextResponse.json({ 
       error: 'Failed to update predictions', 
       details: err?.message || String(err) 

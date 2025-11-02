@@ -1,6 +1,5 @@
 "use client";
 
-import type { UnifiedMatch } from '@/lib/types';
 import { useEffect, useMemo, useState } from 'react';
 
 function todayId(): string {
@@ -17,12 +16,6 @@ type Toast = {
   type: 'success' | 'error' | 'info';
 };
 
-type MatchWithMeta = UnifiedMatch & {
-  approved?: boolean;
-  trending?: boolean;
-  isTrending?: boolean;
-  inStore?: boolean;
-};
 
 function AdminLoginGuard({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -177,17 +170,11 @@ function ToastContainer({ toasts, removeToast }: { toasts: Toast[]; removeToast:
 }
 
 function AdminPageContent() {
-  const [storeMatches, setStoreMatches] = useState<MatchWithMeta[]>([]);
   const [loading, setLoading] = useState(true);
-  const [q, setQ] = useState('');
-  const [selected, setSelected] = useState<Record<string, boolean>>({});
-  const [editMatch, setEditMatch] = useState<{ id: string; videoSrc: string } | null>(null);
-  const [previewMatch, setPreviewMatch] = useState<string | null>(null);
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [showTeamLogo, setShowTeamLogo] = useState(false);
   const [teamLogoData, setTeamLogoData] = useState({ name: '', sport: 'Football', file: null as File | null });
-  const [activeTab, setActiveTab] = useState<'store' | 'approved' | 'trending' | 'predictions' | 'highlights' | 'approved-highlights'>('store');
-  const [trendingRows, setTrendingRows] = useState<any[]>([]);
+  const [activeTab, setActiveTab] = useState<'predictions' | 'highlights' | 'approved-highlights'>('predictions');
   const [predictions, setPredictions] = useState<any[]>([]);
   const [loadingPredictions, setLoadingPredictions] = useState(false);
   const [selectedPredictions, setSelectedPredictions] = useState<Record<string, boolean>>({});
@@ -196,6 +183,7 @@ function AdminPageContent() {
   const [editHighlight, setEditHighlight] = useState<{ id: string; videoSrc: string; date: string } | null>(null);
   const [previewHighlight, setPreviewHighlight] = useState<string | null>(null);
   const [selectedHighlights, setSelectedHighlights] = useState<Record<string, boolean>>({});
+  const [q, setQ] = useState('');
   const [selectedDate, setSelectedDate] = useState<string>(() => {
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -217,53 +205,6 @@ function AdminPageContent() {
   }
 
 
-  async function loadStore(date?: string) {
-    const targetDate = date || selectedDate;
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/admin/moderate/matches?date=${encodeURIComponent(targetDate)}`, {
-        cache: 'no-store',
-        headers: { 'x-internal-token': token },
-      });
-      const data = await res.json();
-      const matches = Array.isArray(data.rows) ? data.rows : [];
-      setStoreMatches(matches);
-      addToast(`Loaded ${matches.length} match(es) for ${targetDate}`, 'success');
-    } catch (err) {
-      console.error('Failed to load store:', err);
-      addToast('Failed to load stored matches', 'error');
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function updateMatchStatuses() {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/admin/matches/update-status-batch', {
-        method: 'POST',
-        headers: { 'x-internal-token': token },
-      });
-      if (!res.ok) throw new Error('Failed to update');
-      const data = await res.json();
-      addToast(`Updated ${data.updated || 0} match status(es)`, 'success');
-      await Promise.all([loadStore(), loadTrending()]);
-    } catch (err: any) {
-      addToast(`Failed to update statuses: ${err.message}`, 'error');
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function loadTrending() {
-    try {
-      const res = await fetch('/api/trending', { cache: 'no-store' });
-      const data = await res.json();
-      setTrendingRows(Array.isArray(data) ? data : []);
-    } catch {
-      setTrendingRows([]);
-    }
-  }
 
   async function loadHighlights(date?: string | null) {
     setLoadingHighlights(true);
@@ -295,7 +236,6 @@ function AdminPageContent() {
       setHighlights(loadedHighlights);
       addToast(`Loaded ${loadedHighlights.length} highlight(s)`, 'success');
     } catch (err: any) {
-      console.error('Failed to load highlights:', err);
       addToast(`Failed to load highlights: ${err.message}`, 'error');
       setHighlights([]);
     } finally {
@@ -323,7 +263,6 @@ function AdminPageContent() {
       setEditHighlight(null);
       await loadHighlights(selectedDate);
     } catch (err: any) {
-      console.error('Failed to update highlight:', err);
       addToast(`Failed to update highlight: ${err.message}`, 'error');
     }
   }
@@ -368,7 +307,6 @@ function AdminPageContent() {
       setSelectedHighlights({});
       await loadHighlights(selectedDate);
     } catch (err: any) {
-      console.error('Failed to update highlight approval:', err);
       addToast(`Failed to update approval: ${err.message}`, 'error');
     } finally {
       setLoadingHighlights(false);
@@ -418,7 +356,6 @@ function AdminPageContent() {
         : `Loaded ${predictionsData.length} prediction(s) from all dates`;
       addToast(message, 'success');
     } catch (err) {
-      console.error('Failed to load predictions:', err);
       addToast('Failed to load predictions', 'error');
       setPredictions([]);
     } finally {
@@ -430,16 +367,6 @@ function AdminPageContent() {
     setSelectedDate(date);
   }
   
-  function handleFetchForDate() {
-    if (activeTab === 'predictions') {
-      loadPredictions(selectedDate);
-    } else if (activeTab === 'highlights') {
-      loadHighlights(selectedDate);
-    } else {
-      loadStore(selectedDate);
-    }
-  }
-
   // Status updates are now automatic via results scraper - no manual updates needed
 
   async function updatePredictionApproval(predictionId: string, approved: boolean, reload: boolean = true) {
@@ -454,7 +381,6 @@ function AdminPageContent() {
       });
       if (!res.ok) {
         const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
-        console.error('Approval failed:', { predictionId, status: res.status, error: errorData });
         throw new Error(errorData.message || errorData.error || `Failed to update (${res.status})`);
       }
       
@@ -463,7 +389,6 @@ function AdminPageContent() {
         await loadPredictions();
       }
     } catch (err: any) {
-      console.error('updatePredictionApproval error:', err);
       addToast(`Failed to update prediction: ${err.message}`, 'error');
       throw err;
     }
@@ -481,7 +406,6 @@ function AdminPageContent() {
       // Approve each prediction (without reloading individually)
       const promises = selectedIds.map(id => 
         updatePredictionApproval(id, true, false).catch(err => {
-          console.error(`Failed to approve prediction ${id}:`, err);
           return null;
         })
       );
@@ -539,7 +463,6 @@ function AdminPageContent() {
       setShowPredictionForm(false);
       await loadPredictions();
     } catch (err: any) {
-      console.error('Failed to save prediction:', err);
       addToast(`Failed to save prediction: ${err.message}`, 'error');
     }
   }
@@ -571,7 +494,6 @@ function AdminPageContent() {
       addToast('Prediction deleted successfully', 'success');
       await loadPredictions();
     } catch (err: any) {
-      console.error('Failed to delete prediction:', err);
       addToast(`Failed to delete prediction: ${err.message}`, 'error');
     }
   }
@@ -610,138 +532,25 @@ function AdminPageContent() {
     setSelectedPredictions(next);
   }
 
+  function handleFetchForDate() {
+    if (activeTab === 'predictions') {
+      loadPredictions(selectedDate);
+    } else if (activeTab === 'highlights' || activeTab === 'approved-highlights') {
+      loadHighlights(selectedDate);
+    }
+  }
+
   useEffect(() => {
     if (activeTab === 'predictions') {
       loadPredictions();
     } else if (activeTab === 'highlights' || activeTab === 'approved-highlights') {
       loadHighlights();
-    } else {
-      loadStore();
     }
-    loadTrending();
   }, [activeTab]);
 
-  // Auto-update match statuses every 5 minutes
-  useEffect(() => {
-    // Only run auto-update if admin page is open and token is available
-    if (!token) return;
-    
-    const interval = setInterval(() => {
-      updateMatchStatuses();
-    }, 5 * 60 * 1000); // 5 minutes
-
-    return () => clearInterval(interval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
-
-  const storeMatchIds = useMemo(() => new Set(storeMatches.map(m => m.id)), [storeMatches]);
-  const approvedMatches = useMemo(() => storeMatches.filter(m => m.approved), [storeMatches]);
-  const unapprovedMatches = useMemo(() => {
-    const approvedIds = new Set(approvedMatches.map(m => m.id));
-    return storeMatches.filter(m => !approvedIds.has(m.id) && m.status !== 'ended');
-  }, [storeMatches, approvedMatches]);
   const approvedHighlights = useMemo(() => highlights.filter(h => h.approved === true), [highlights]);
   // In Store highlights: All highlights from Firestore for the selected date (regardless of approval)
   const inStoreHighlights = useMemo(() => highlights, [highlights]);
-  // Trending matches: Use directly from Firestore API (only matches with isTrending == true)
-  // Filter out ended matches - only show upcoming or live trending matches
-  const trendingMatches = useMemo(() => trendingRows.filter((m: any) => m && m.id && m.status !== 'ended'), [trendingRows]);
-
-  const matchesByTab = useMemo(() => {
-    let matches: any[] = [];
-    switch (activeTab) {
-      case 'store':
-        // Show all store matches, but prioritize unapproved ones at the top
-        matches = [...unapprovedMatches, ...approvedMatches.filter(m => !unapprovedMatches.some(u => u.id === m.id))];
-        break;
-      case 'approved':
-        matches = approvedMatches;
-        break;
-      case 'trending':
-        // Only show matches that are explicitly marked as trending in Firestore
-        matches = trendingMatches;
-        break;
-      default:
-        matches = storeMatches;
-    }
-    
-    // Filter out ended matches - only show upcoming or live matches for approval
-    return matches.filter(m => m.status !== 'ended');
-  }, [activeTab, storeMatches, approvedMatches, trendingMatches, unapprovedMatches]);
-
-  const filtered = useMemo(() => {
-    const needle = q.toLowerCase().trim();
-    return matchesByTab.filter(m => {
-      if (!needle) return true;
-      const homeName = m.home?.name || '';
-      const awayName = m.away?.name || '';
-      const leagueName = m.league?.name || '';
-      return (
-        homeName.toLowerCase().includes(needle) ||
-        awayName.toLowerCase().includes(needle) ||
-        leagueName.toLowerCase().includes(needle) ||
-        m.id.toLowerCase().includes(needle)
-      );
-    });
-  }, [matchesByTab, q]);
-
-
-  async function updateStatus(matchIds: string[], approved?: boolean, trending?: boolean) {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/admin/matches/update-status', {
-        method: 'PATCH',
-        headers: {
-          'content-type': 'application/json',
-          'x-internal-token': token,
-        },
-        body: JSON.stringify({ matchIds, approved, isTrending: trending }),
-      });
-      if (!res.ok) throw new Error('Failed to update');
-      const action = approved !== undefined
-        ? (approved ? 'approved' : 'unapproved')
-        : (trending ? 'marked as trending' : 'unmarked from trending');
-      addToast(`${matchIds.length} match(es) ${action}`, 'success');
-      setSelected({});
-      await Promise.all([loadStore(), loadTrending()]);
-    } catch (err: any) {
-      addToast(`Failed to update: ${err.message}`, 'error');
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function saveVideoSrc(matchId: string, videoSrc: string) {
-    try {
-      // Update directly in daily_matches via API
-      const res = await fetch(`/api/admin/moderate/matches/${encodeURIComponent(matchId)}`, {
-        method: 'PATCH',
-        headers: {
-          'content-type': 'application/json',
-          'x-internal-token': token,
-        },
-        body: JSON.stringify({ override: { videoSrc } }),
-      });
-      if (!res.ok) throw new Error('Failed to update');
-      addToast('Video source updated', 'success');
-      setEditMatch(null);
-      await loadStore();
-    } catch (err: any) {
-      addToast(`Failed to save video: ${err.message}`, 'error');
-    }
-  }
-
-  function toggleSelection(id: string, checked?: boolean) {
-    setSelected(prev => ({ ...prev, [id]: checked ?? !prev[id] }));
-  }
-
-  function toggleAll(checked: boolean) {
-    const next: Record<string, boolean> = {};
-    if (checked) {
-      filtered.forEach(m => { next[m.id] = true; });
-    }
-    setSelected(next);
-  }
 
   async function uploadTeamLogo() {
     if (!teamLogoData.name || !teamLogoData.file) return;
@@ -767,7 +576,6 @@ function AdminPageContent() {
     }
   }
 
-  const selectedIds = Object.keys(selected).filter(id => selected[id]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[rgb(11,11,14)] via-[rgb(15,15,18)] to-[rgb(11,11,14)]">
@@ -782,7 +590,7 @@ function AdminPageContent() {
               <h1 className="text-4xl font-bold bg-gradient-to-r from-[rgb(255,212,0)] to-[rgb(255,244,180)] bg-clip-text text-transparent">
                 Admin Dashboard
               </h1>
-              <p className="text-white/60 mt-1">Matches & Predictions Management</p>
+              <p className="text-white/60 mt-1">Predictions & Highlights Management</p>
             </div>
             <div className="text-right">
               <div className="text-xs text-white/50 uppercase tracking-wide mb-1">Current View</div>
@@ -835,10 +643,8 @@ function AdminPageContent() {
                       setSelectedDate(today);
                       if (activeTab === 'predictions') {
                         loadPredictions(today);
-                      } else if (activeTab === 'highlights') {
+                      } else if (activeTab === 'highlights' || activeTab === 'approved-highlights') {
                         loadHighlights(today);
-                      } else {
-                        loadStore(today);
                       }
                     }}
                     className="pill pill-muted hover:pill-active transition-all whitespace-nowrap"
@@ -859,90 +665,11 @@ function AdminPageContent() {
                 >
                   {showTeamLogo ? '✓' : ''} Team Logos
                 </button>
-                <button
-                  onClick={() => loadStore()}
-                  disabled={loading}
-                  className="pill pill-muted hover:pill-active transition-all disabled:opacity-50 whitespace-nowrap"
-                >
-                  {loading ? '⏳' : '↻'} Refresh
-                </button>
-                <button
-                  onClick={updateMatchStatuses}
-                  disabled={loading}
-                  className="pill pill-active disabled:opacity-50 whitespace-nowrap"
-                  title="Update match statuses based on time (ended matches)"
-                >
-                  ⚡ Update Statuses
-                </button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="surface p-4">
-            <div className="text-sm text-white/60 mb-1">In Store (Upcoming/Live)</div>
-            <div className="text-2xl font-bold text-blue-400">{storeMatches.filter(m => m.status !== 'ended').length}</div>
-          </div>
-          <div className="surface p-4">
-            <div className="text-sm text-white/60 mb-1">Approved (On Web)</div>
-            <div className="text-2xl font-bold text-green-400">{approvedMatches.filter(m => m.status !== 'ended').length}</div>
-          </div>
-          <div className="surface p-4">
-            <div className="text-sm text-white/60 mb-1">Pending Approval</div>
-            <div className={`text-2xl font-bold ${unapprovedMatches.length > 0 ? 'text-orange-400' : 'text-white/40'}`}>
-              {unapprovedMatches.length}
-            </div>
-          </div>
-          <div className="surface p-4">
-            <div className="text-sm text-white/60 mb-1">Trending</div>
-            <div className="text-2xl font-bold text-purple-400">{trendingMatches.filter((m: any) => m && m.id && m.status !== 'ended').length}</div>
-          </div>
-        </div>
-
-        {/* Pending Approval Banner - Show if there are unapproved matches */}
-        {unapprovedMatches.length > 0 && (
-          <div className="surface p-6 border-l-4 border-orange-400 bg-orange-400/5">
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-orange-400 text-xl">⚠️</span>
-                  <h3 className="text-lg font-semibold text-white">
-                    {unapprovedMatches.length} Match{unapprovedMatches.length !== 1 ? 'es' : ''} Need Approval
-                  </h3>
-                </div>
-                <p className="text-sm text-white/70 mb-3">
-                  These matches are in the store but not yet approved. Approve them to make them visible on the website.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    onClick={() => {
-                      const unapprovedIds = unapprovedMatches.map(m => m.id);
-                      updateStatus(unapprovedIds, true);
-                    }}
-                    className="pill pill-active"
-                  >
-                    Approve All ({unapprovedMatches.length})
-                  </button>
-                  <button
-                    onClick={() => {
-                      setActiveTab('store');
-                      setQ(''); // Clear search to show all
-                      // Scroll to table
-                      setTimeout(() => {
-                        document.querySelector('.surface.overflow-hidden')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                      }, 100);
-                    }}
-                    className="pill pill-muted"
-                  >
-                    View in Store Tab
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Team Logo Upload */}
         {showTeamLogo && (
@@ -986,41 +713,6 @@ function AdminPageContent() {
         {/* Tabs */}
         <div className="flex items-center gap-2 border-b border-white/10">
           <button
-            onClick={() => setActiveTab('store')}
-            className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 relative ${
-              activeTab === 'store'
-                ? 'border-blue-400 text-blue-400'
-                : 'border-transparent text-white/60 hover:text-white/80'
-            }`}
-          >
-            In Store ({storeMatches.filter(m => m.status !== 'ended').length})
-            {unapprovedMatches.length > 0 && (
-              <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-orange-400 text-xs font-bold text-white">
-                {unapprovedMatches.length}
-              </span>
-            )}
-          </button>
-          <button
-            onClick={() => setActiveTab('approved')}
-            className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-              activeTab === 'approved'
-                ? 'border-green-400 text-green-400'
-                : 'border-transparent text-white/60 hover:text-white/80'
-            }`}
-          >
-            On Web ({approvedMatches.filter(m => m.status !== 'ended').length})
-          </button>
-          <button
-            onClick={() => setActiveTab('trending')}
-            className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
-              activeTab === 'trending'
-                ? 'border-purple-400 text-purple-400'
-                : 'border-transparent text-white/60 hover:text-white/80'
-            }`}
-          >
-            Trending ({trendingMatches.length})
-          </button>
-          <button
             onClick={() => setActiveTab('predictions')}
             className={`px-4 py-2 text-sm font-medium transition-colors border-b-2 ${
               activeTab === 'predictions'
@@ -1051,263 +743,6 @@ function AdminPageContent() {
             Highlights On Web ({approvedHighlights.length})
           </button>
       </div>
-
-        {/* Search and Bulk Actions - Only show for matches tabs */}
-        {activeTab !== 'predictions' && activeTab !== 'highlights' && activeTab !== 'approved-highlights' && (
-          <div className="flex flex-wrap items-center gap-4">
-        <input
-          value={q}
-          onChange={e => setQ(e.target.value)}
-            placeholder="Search by team name, league, or match ID..."
-            className="flex-1 min-w-[300px] px-4 py-2 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[rgb(255,212,0)]"
-          />
-          {selectedIds.length > 0 && (
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-white/70">{selectedIds.length} selected</span>
-              <button
-                onClick={() => updateStatus(selectedIds, true)}
-                className="pill pill-active"
-              >
-                Approve Selected
-              </button>
-              <button
-                onClick={() => updateStatus(selectedIds, false)}
-                className="pill pill-muted"
-              >
-                Unapprove Selected
-              </button>
-              <button
-                onClick={() => updateStatus(selectedIds, undefined, true)}
-                className="pill pill-active"
-              >
-                Mark Trending
-              </button>
-              <button
-                onClick={() => updateStatus(selectedIds, undefined, false)}
-                className="pill pill-muted"
-              >
-                Unmark Trending
-              </button>
-        </div>
-          )}
-      </div>
-        )}
-
-        {/* Matches Table - Only show for store, approved, and trending tabs */}
-        {activeTab !== 'predictions' && activeTab !== 'highlights' && activeTab !== 'approved-highlights' && (
-          <div className="surface overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="min-w-full">
-              <thead className="bg-white/5 border-b border-white/10">
-                <tr>
-                  <th className="text-left p-4 w-12">
-                    <input
-                      type="checkbox"
-                      checked={filtered.length > 0 && filtered.every(m => selected[m.id])}
-                      onChange={e => toggleAll(e.currentTarget.checked)}
-                      className="rounded border-white/20"
-                    />
-                  </th>
-                  <th className="text-left p-4 text-sm font-semibold text-white/80">Time</th>
-                  <th className="text-left p-4 text-sm font-semibold text-white/80">Match</th>
-                  <th className="text-left p-4 text-sm font-semibold text-white/80">League</th>
-                  <th className="text-center p-4 text-sm font-semibold text-white/80">Status</th>
-                  <th className="text-center p-4 text-sm font-semibold text-white/80">In Store</th>
-                  <th className="text-center p-4 text-sm font-semibold text-white/80">Approved</th>
-                  <th className="text-center p-4 text-sm font-semibold text-white/80">Trending</th>
-                  <th className="text-left p-4 text-sm font-semibold text-white/80">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-                {filtered.length === 0 ? (
-                  <tr>
-                    <td colSpan={9} className="p-12">
-                      <div className="flex flex-col items-center justify-center space-y-4 text-center">
-                        {activeTab === 'store' && !q ? (
-                          <>
-                            <div className="w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-                              <svg className="w-8 h-8 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-                              </svg>
-                            </div>
-                            <div className="space-y-2">
-                              <h3 className="text-lg font-semibold text-white/80">No matches in store</h3>
-                              <p className="text-sm text-white/50 max-w-md">
-                                Matches are automatically added to Firestore&apos;s <code className="px-2 py-1 rounded bg-white/5 text-blue-400">daily_matches</code> collection via the hourly scrape-and-update cron job.
-                              </p>
-                            </div>
-                          </>
-                        ) : activeTab === 'approved' && !q ? (
-                          <>
-                            <div className="w-16 h-16 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center">
-                              <svg className="w-8 h-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                            </div>
-                            <div className="space-y-2">
-                              <h3 className="text-lg font-semibold text-white/80">No approved matches</h3>
-                              <p className="text-sm text-white/50 max-w-md">
-                                Approved matches will appear here. These are the matches currently visible on the website. Go to &quot;In Store&quot; tab to approve matches.
-                              </p>
-                            </div>
-                          </>
-                        ) : activeTab === 'trending' && !q ? (
-                          <>
-                            <div className="w-16 h-16 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-                              <svg className="w-8 h-8 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                              </svg>
-                            </div>
-                            <div className="space-y-2">
-                              <h3 className="text-lg font-semibold text-white/80">No trending matches</h3>
-                              <p className="text-sm text-white/50 max-w-md">
-                                Trending matches will appear here. Mark matches as trending to highlight them on the website. Go to &quot;In Store&quot; tab to mark matches as trending.
-                              </p>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-                              <svg className="w-8 h-8 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                              </svg>
-                            </div>
-                            <div className="space-y-2">
-                              <h3 className="text-lg font-semibold text-white/80">No matches found</h3>
-                              <p className="text-sm text-white/50 max-w-md">
-                                No matches match your search query &quot;<span className="text-[rgb(255,212,0)]">{q}</span>&quot;. Try a different search term or clear the search.
-                              </p>
-                              <button
-                                onClick={() => setQ('')}
-                                className="mt-4 pill pill-muted"
-                              >
-                                Clear Search
-                              </button>
-                            </div>
-                          </>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                ) : (
-                  filtered.map(match => {
-                    const inStore = storeMatchIds.has(match.id);
-                    const storeMatch = storeMatches.find(m => m.id === match.id);
-                    const approved = storeMatch?.approved || false;
-                    const isUnapproved = inStore && !approved;
-                    // Check if match is trending: either in trendingRows (from Firestore API) or has isTrending flag
-                    const trending = trendingMatches.some((m: any) => m.id === match.id) || storeMatch?.isTrending === true || storeMatch?.trending === true;
-                    return (
-                      <tr
-                        key={match.id}
-                        className={`border-t border-white/10 hover:bg-white/5 transition-colors ${
-                          isUnapproved ? 'bg-orange-400/5 border-l-2 border-l-orange-400' : ''
-                        }`}
-                      >
-                        <td className="p-4">
-                          <input
-                            type="checkbox"
-                            checked={!!selected[match.id]}
-                            onChange={e => toggleSelection(match.id, e.currentTarget.checked)}
-                            className="rounded border-white/20"
-                          />
-                        </td>
-                        <td className="p-4 text-sm text-white/70 font-mono">
-                          {match.timeLabel || '—'}
-                        </td>
-                        <td className="p-4">
-                          <div className="font-semibold">
-                            {match.home?.name || '—'} <span className="text-white/40 text-xs">vs</span>{' '}
-                            {match.away?.name || '—'}
-                          </div>
-                        </td>
-                        <td className="p-4 text-sm text-white/70">
-                          {match.league?.name || '—'}
-                        </td>
-                        <td className="p-4 text-center">
-                          <span
-                            className={`pill !text-xs ${
-                              match.status === 'live'
-                                ? 'pill-active'
-                                : match.status === 'ended'
-                                ? 'opacity-50'
-                                : 'pill-muted'
-                            }`}
-                          >
-                            {match.status || 'upcoming'}
-                          </span>
-                        </td>
-                        <td className="p-4 text-center">
-                          {inStore ? (
-                            <span className="pill pill-active !text-xs">Yes</span>
-                          ) : (
-                            <span className="pill pill-muted !text-xs">—</span>
-                          )}
-                </td>
-                        <td className="p-4 text-center">
-                          {approved ? (
-                            <span className="pill pill-active !text-xs">Yes</span>
-                          ) : (
-                            <span className={`pill !text-xs ${isUnapproved ? 'pill-active bg-orange-400/20 border-orange-400/50 text-orange-300' : 'pill-muted'}`}>
-                              {isUnapproved ? '⚠️ Needs Approval' : 'No'}
-                            </span>
-                          )}
-                </td>
-                        <td className="p-4 text-center">
-                          {trending ? (
-                            <span className="pill pill-active !text-xs">Yes</span>
-                          ) : (
-                            <span className="pill pill-muted !text-xs">No</span>
-                  )}
-                </td>
-                        <td className="p-4">
-                          <div className="flex flex-wrap gap-2">
-                            {storeMatch?.videoSrc && (
-                              <button
-                                onClick={() => setPreviewMatch(match.id)}
-                                className="pill pill-muted text-xs"
-                              >
-                                Preview
-                              </button>
-                            )}
-                            <button
-                              onClick={() =>
-                                setEditMatch({
-                                  id: match.id,
-                                  videoSrc: storeMatch?.videoSrc || match.videoSrc || '',
-                                })
-                              }
-                              className="pill pill-muted text-xs"
-                            >
-                              Edit Video
-                            </button>
-                            {inStore && (
-                              <>
-                                <button
-                                  onClick={() => updateStatus([match.id], !approved)}
-                                  className={`pill text-xs ${approved ? 'pill-muted' : 'pill-active'}`}
-                                >
-                                  {approved ? 'Unapprove' : 'Approve'}
-                                </button>
-                                <button
-                                  onClick={() => updateStatus([match.id], undefined, !trending)}
-                                  className={`pill text-xs ${trending ? 'pill-active' : 'pill-muted'}`}
-                                >
-                                  {trending ? 'Unmark' : 'Trending'}
-                                </button>
-                              </>
-                    )}
-                  </div>
-                </td>
-              </tr>
-                    );
-                  })
-                )}
-          </tbody>
-        </table>
-          </div>
-      </div>
-        )}
 
       {/* Highlights Tab Content */}
       {(activeTab === 'highlights' || activeTab === 'approved-highlights') && (
@@ -2013,39 +1448,6 @@ function AdminPageContent() {
         </div>
       )}
 
-        {/* Edit VideoSrc Modal for Matches */}
-        {editMatch && (
-          <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4">
-            <div
-              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-              onClick={() => setEditMatch(null)}
-            />
-            <div className="relative w-full max-w-2xl bg-[rgb(15,15,18)] border border-white/20 rounded-xl p-6 space-y-4 shadow-2xl">
-              <h2 className="text-xl font-semibold">Edit Video Source</h2>
-              <input
-                type="text"
-                value={editMatch.videoSrc}
-                onChange={e => setEditMatch({ ...editMatch, videoSrc: e.target.value })}
-                placeholder="https://..."
-                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[rgb(255,212,0)] font-mono text-sm"
-              />
-              <div className="flex items-center justify-end gap-3">
-                <button
-                  onClick={() => setEditMatch(null)}
-                  className="pill pill-muted"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={() => saveVideoSrc(editMatch.id, editMatch.videoSrc.trim())}
-                  className="pill pill-active"
-                >
-                  Save
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Edit VideoSrc Modal for Highlights */}
         {editHighlight && (
@@ -2099,57 +1501,6 @@ function AdminPageContent() {
           </div>
         )}
 
-        {/* Preview Modal for Matches */}
-        {previewMatch && (
-          <div className="fixed inset-0 z-[2000] flex items-center justify-center p-4">
-            <div
-              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-              onClick={() => setPreviewMatch(null)}
-            />
-            <div className="relative w-full max-w-4xl bg-[rgb(15,15,18)] border border-white/20 rounded-xl p-6 space-y-4 shadow-2xl">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Video Preview</h2>
-                <button
-                  onClick={() => setPreviewMatch(null)}
-                  className="text-white/70 hover:text-white"
-                >
-                  ✕
-                </button>
-              </div>
-              <div className="aspect-video bg-gradient-to-br from-white/10 via-white/5 to-white/10 rounded-lg overflow-hidden border border-white/10 relative">
-                {(() => {
-                  const match = storeMatches.find(m => m.id === previewMatch);
-                  const src = match?.videoSrc || '';
-                  if (!src) {
-                    return (
-                      <div className="w-full h-full flex items-center justify-center text-white/50">
-                        No video source available
-                      </div>
-                    );
-                  }
-                  return (
-                    <>
-                      {/* Default background pattern */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-[rgb(255,212,0)]/5 via-transparent to-blue-500/5 pointer-events-none" />
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,212,0,0.1),transparent_50%)] pointer-events-none" />
-                      {/* Iframe */}
-                      <iframe
-                        src={src}
-                        className="w-full h-full relative z-10 bg-white/5"
-                        allowFullScreen
-                        allow="autoplay; encrypted-media"
-                        title="Video preview"
-                      />
-                    </>
-                  );
-                })()}
-              </div>
-              <div className="text-sm text-white/60 font-mono break-all">
-                {storeMatches.find(m => m.id === previewMatch)?.videoSrc || 'No URL'}
-            </div>
-          </div>
-        </div>
-      )}
 
         {/* Preview Modal for Highlights */}
         {previewHighlight && (

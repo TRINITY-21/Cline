@@ -63,7 +63,6 @@ export async function GET(req: NextRequest) {
     
     return NextResponse.json({ total: allHighlights.length, rows: allHighlights });
   } catch (error: any) {
-    console.error('Error fetching highlights:', error);
     return NextResponse.json({ 
       error: 'Failed to fetch highlights', 
       message: error?.message || String(error) 
@@ -119,7 +118,6 @@ export async function PATCH(req: NextRequest) {
       highlight: matches[highlightIndex]
     });
   } catch (error: any) {
-    console.error('Error updating highlight:', error);
     return NextResponse.json({ 
       error: 'Failed to update highlight', 
       message: error?.message || String(error) 
