@@ -551,22 +551,22 @@
       "sport": "Football"
     },
     {
-      "home": "Clermont U19",
-      "away": "Montfermeil U19",
-      "league": "Fransa",
-      "timeLabel": "13:00",
-      "matchDate": "2025-11-02",
-      "predictedScoreDisplay": "3-1",
-      "msbs": "Over 3.5",
-      "sport": "Football"
-    },
-    {
       "home": "Lyon U19",
       "away": "Strasbourg U19",
       "league": "Fransa",
       "timeLabel": "13:00",
       "matchDate": "2025-11-02",
       "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Clermont U19",
+      "away": "Montfermeil U19",
+      "league": "Fransa",
+      "timeLabel": "13:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
       "msbs": "Over 3.5",
       "sport": "Football"
     },
@@ -1331,22 +1331,22 @@
       "sport": "Football"
     },
     {
-      "home": "Illertissen",
-      "away": "Hankofen-Hailing",
-      "league": "Almanya",
-      "timeLabel": "16:00",
-      "matchDate": "2025-11-02",
-      "predictedScoreDisplay": "4-1",
-      "msbs": "Over 3.5",
-      "sport": "Football"
-    },
-    {
       "home": "Augsburg II",
       "away": "Greuther Fürth II",
       "league": "Almanya",
       "timeLabel": "16:00",
       "matchDate": "2025-11-02",
       "predictedScoreDisplay": "3-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Illertissen",
+      "away": "Hankofen-Hailing",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
       "msbs": "Over 3.5",
       "sport": "Football"
     },
@@ -1811,22 +1811,22 @@
       "sport": "Football"
     },
     {
-      "home": "Schwarz-Weiss Essen",
-      "away": "VfB 03 Hilden",
-      "league": "Almanya",
-      "timeLabel": "16:30",
-      "matchDate": "2025-11-02",
-      "predictedScoreDisplay": "4-3",
-      "msbs": "Over 3.5",
-      "sport": "Football"
-    },
-    {
       "home": "Homberg",
       "away": "Monheim",
       "league": "Almanya",
       "timeLabel": "16:30",
       "matchDate": "2025-11-02",
       "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Schwarz-Weiss Essen",
+      "away": "VfB 03 Hilden",
+      "league": "Almanya",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-3",
       "msbs": "Over 3.5",
       "sport": "Football"
     },
@@ -2271,22 +2271,22 @@
       "sport": "Football"
     },
     {
-      "home": "Fortuna Köln II",
-      "away": "Siegburger",
-      "league": "Almanya",
-      "timeLabel": "17:30",
-      "matchDate": "2025-11-02",
-      "predictedScoreDisplay": "1-4",
-      "msbs": "Over 3.5",
-      "sport": "Football"
-    },
-    {
       "home": "TuS BW Königsdorf",
       "away": "SF Düren",
       "league": "Almanya",
       "timeLabel": "17:30",
       "matchDate": "2025-11-02",
       "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Fortuna Köln II",
+      "away": "Siegburger",
+      "league": "Almanya",
+      "timeLabel": "17:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-4",
       "msbs": "Over 3.5",
       "sport": "Football"
     },
@@ -3121,6 +3121,6 @@
       "sport": "Football"
     }
   ],
-  "scrapedAt": "2025-11-02T06:13:20.072691",
+  "scrapedAt": "2025-11-02T14:29:26.900056",
   "count": 312
 }

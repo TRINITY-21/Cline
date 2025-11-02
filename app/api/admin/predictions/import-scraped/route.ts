@@ -139,7 +139,21 @@ export async function GET(req: NextRequest) {
     ok: true, 
     message: 'Import-scraped endpoint is accessible',
     method: 'POST required',
-    endpoint: '/api/admin/predictions/import-scraped'
+    endpoint: '/api/admin/predictions/import-scraped',
+    timestamp: new Date().toISOString()
+  });
+}
+
+/**
+ * OPTIONS handler for CORS/preflight requests
+ */
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, x-internal-token',
+    },
   });
 }
 

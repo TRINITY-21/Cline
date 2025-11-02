@@ -1,3 +1,4 @@
+import Navigation from '@/components/Navigation';
 import type { Metadata } from 'next';
 import './globals.css';
 
@@ -16,10 +17,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        {/* Google Fonts - Inter */}
+        {/* Google Fonts - Inter + Orbitron for brand */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet" />
         {/* Google tag (gtag.js) */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ZS3H6BW5N" />
         <script
@@ -40,87 +41,67 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen antialiased flex flex-col">
-        <header className="relative border-b border-white/10 hero-glow backdrop-blur-sm bg-black/40">
-          {/* Subtle animated background gradient */}
-          <div className="absolute inset-0 opacity-30 pointer-events-none overflow-hidden">
-            <div className="absolute top-0 left-0 w-64 h-64 bg-[rgb(var(--brand-yellow))] rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" 
-                 style={{ animation: 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite' }} />
-          </div>
-          
-          <div className="container-narrow relative z-10 flex items-center gap-3 md:gap-4 py-4 md:py-5">
+        <header className="relative border-b border-white/10 backdrop-blur-sm bg-black/40">
+          <div className="container-narrow relative z-10 flex items-center gap-2 sm:gap-2.5 py-2.5 sm:py-3">
             {/* Logo with enhanced styling */}
-            <a href="/" className="flex items-center gap-3 md:gap-4 group">
+            <a href="/" className="flex items-center gap-2 sm:gap-2.5 group flex-shrink-0">
               <div className="relative">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
                   src="/three-two-logo.svg" 
                   alt="Three Two logo" 
-                  className="w-10 h-10 md:w-12 md:h-12 transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_8px_rgba(255,212,0,0.4)]" 
+                  className="w-7 h-7 sm:w-8 sm:h-8 transition-transform duration-300 group-hover:scale-105" 
                 />
-                {/* Glow effect on hover */}
-                <div className="absolute inset-0 w-10 h-10 md:w-12 md:h-12 bg-[rgb(var(--brand-yellow))] rounded-lg blur-md opacity-0 group-hover:opacity-30 transition-opacity duration-300 -z-10" />
               </div>
               
               {/* Brand name with enhanced styling */}
-              <div className="flex items-center gap-2 md:gap-3">
+              <div className="flex items-baseline gap-1.5 sm:gap-2">
                 <span
-                  className="text-xl md:text-2xl lg:text-3xl font-extrabold tracking-tight bg-gradient-to-r from-[#FFD400] via-[#FFF2A6] to-[#FFD400] bg-clip-text text-transparent bg-[length:200%_auto]"
+                  className="text-base sm:text-lg md:text-xl font-extrabold tracking-tight bg-gradient-to-r from-[#FFD400] via-[#FFF2A6] to-[#FFD400] bg-clip-text text-transparent bg-[length:200%_auto] leading-none"
                   style={{ 
-                    textShadow: '0 0 20px rgba(255,212,0,0.3)',
-                    filter: 'drop-shadow(0 2px 4px rgba(255,212,0,0.2))',
+                    fontFamily: '"Orbitron", sans-serif',
+                    fontWeight: 900,
+                    letterSpacing: '0.05em',
+                    textShadow: '0 0 15px rgba(255,212,0,0.25)',
+                    filter: 'drop-shadow(0 1px 2px rgba(255,212,0,0.15))',
                     animation: 'shimmer-gradient 3s linear infinite'
                   }}
                 >
                   Three Two
                 </span>
-                <span className="relative px-2.5 py-1 md:px-3 md:py-1.5 rounded-full bg-gradient-to-r from-[rgb(var(--brand-yellow))] to-[#FFE066] text-black text-xs md:text-sm font-bold shadow-lg shadow-[rgb(var(--brand-yellow))]/30 hover:shadow-[rgb(var(--brand-yellow))]/50 transition-all duration-300 hover:scale-105">
+                <span className="relative px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full bg-gradient-to-r from-[rgb(var(--brand-yellow))] to-[#FFE066] text-black text-[9px] sm:text-[10px] font-bold shadow-lg shadow-[rgb(var(--brand-yellow))]/30 hover:shadow-[rgb(var(--brand-yellow))]/50 transition-all duration-300 leading-none">
                   <span className="relative z-10">Live</span>
-                  {/* Pulsing animation for Live badge */}
+                  {/* Pulsing/blinking animation */}
                   <span className="absolute inset-0 rounded-full bg-[rgb(var(--brand-yellow))] animate-ping opacity-20" />
                 </span>
               </div>
             </a>
             
             {/* Navigation and controls */}
-            <div className="ml-auto flex items-center gap-3 md:gap-6">
-              <nav className="hidden md:flex items-center gap-1 md:gap-2">
-                <a 
-                  href="/" 
-                  className="relative px-4 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white transition-all duration-200 hover:bg-white/5 group"
-                >
-                  Live
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[rgb(var(--brand-yellow))] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
-                </a>
-                <a 
-                  href="/predictions" 
-                  className="relative px-4 py-2 rounded-lg text-sm font-medium text-white/70 hover:text-white transition-all duration-200 hover:bg-white/5 group"
-                >
-                  Predictions
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[rgb(var(--brand-yellow))] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
-                </a>
-              </nav>
+            <div className="ml-auto flex items-center gap-1.5 sm:gap-2 md:gap-4">
+              <Navigation />
               
-              {/* Language selector with enhanced styling */}
-              <button className="px-3 py-1.5 md:px-4 md:py-2 rounded-lg bg-white/5 border border-white/10 text-xs md:text-sm font-medium text-white/80 hover:bg-white/10 hover:border-white/20 hover:text-white transition-all duration-200 backdrop-blur-sm shadow-sm">
+              {/* Language selector - hidden on mobile */}
+              <button className="hidden lg:flex px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-white/80 hover:bg-white/10 hover:border-white/20 hover:text-white transition-all duration-200">
                 EN
               </button>
             </div>
           </div>
         </header>
-        <main className="container-narrow py-6 flex-1">{children}</main>
+        <main className="container-narrow py-4 sm:py-5 md:py-6 flex-1">{children}</main>
         <footer className="border-t border-white/10 mt-auto">
-          <div className="container-narrow py-6">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-2">
+          <div className="container-narrow py-4 sm:py-5 md:py-6">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
+              <div className="flex items-center gap-2 flex-wrap justify-center md:justify-start">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/three-two-logo.svg" alt="Three Two logo" className="w-8 h-8 opacity-80" />
-                <span className="text-white/60 text-sm">
+                <img src="/three-two-logo.svg" alt="Three Two logo" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 opacity-80" />
+                <span className="text-white/60 text-xs sm:text-sm">
                   Copyright © 2025 Three Two Live
                 </span>
               </div>
-              <div className="text-white/60 text-xs flex items-center gap-4">
-                <span className="text-white/40">Your ultimate sports streaming destination</span>
-                <a href="/legal" className="underline hover:text-white">Legal Notice</a>
+              <div className="text-white/60 text-xs flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center md:text-left">
+                <span className="text-white/40 hidden sm:inline">Your ultimate sports streaming destination</span>
+                <a href="/legal" className="underline hover:text-white transition-colors">Legal Notice</a>
               </div>
             </div>
           </div>

@@ -57,6 +57,11 @@ export default function TodayMatches() {
   const [selected, setSelected] = useState<GameItem | null>(null);
   const [activeSport, setActiveSport] = useState<string>('All');
   const [expandedKeys, setExpandedKeys] = useState<Record<string, boolean>>({});
+  const [filtersOpen, setFiltersOpen] = useState<boolean>(true); // Mobile/tablet filter panel
+  const [sportDropdownOpen, setSportDropdownOpen] = useState<boolean>(false);
+  const [timeDropdownOpen, setTimeDropdownOpen] = useState<boolean>(false);
+  const sportDropdownRef = useRef<HTMLDivElement>(null);
+  const timeDropdownRef = useRef<HTMLDivElement>(null);
 
   // Fetch function for SWR
   const fetcher = async (url: string) => {
@@ -78,6 +83,22 @@ export default function TodayMatches() {
       window.localStorage.setItem('tm_active_sport', String(activeSport));
     }
   }, [activeSport]);
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('[data-dropdown]')) {
+        setSportDropdownOpen(false);
+        setTimeDropdownOpen(false);
+      }
+    };
+
+    if (sportDropdownOpen || timeDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [sportDropdownOpen, timeDropdownOpen]);
 
   // Transform API data to EnrichedGame format
   const fetchedGames = useMemo<EnrichedGame[]>(() => {
@@ -107,6 +128,7 @@ export default function TodayMatches() {
         matchId: m.id,
         status: m.status || 'upcoming',
         categoryTag: m.categoryTag, // Store category tag for filtering (not display)
+        poster: m.poster, // Include poster from API
       };
     });
   }, [apiData]);
@@ -254,20 +276,29 @@ export default function TodayMatches() {
       const keys = timeKeys;
       const hasAny = Object.keys(next).length > 0;
       let changed = false;
+      
+      // Check if mobile/tablet (screen width < 1024px)
+      const isMobileTablet = typeof window !== 'undefined' && window.innerWidth < 1024;
+      
       // Ensure all current keys exist in state
       for (const key of keys) {
         if (!(key in next)) {
-          // On first init, open 'live' and the first upcoming; otherwise default closed
+          // On first init
           if (!hasAny) {
-            if (key === 'live') next[key] = true; else next[key] = false;
+            // Mobile/tablet: only open 'live', desktop: open 'live' and first upcoming
+            if (key === 'live') {
+              next[key] = true;
+            } else {
+              next[key] = false;
+            }
           } else {
             next[key] = false;
           }
           changed = true;
         }
       }
-      // If this is first init, also open the first non-live bucket
-      if (!hasAny) {
+      // If this is first init on desktop, also open the first non-live bucket
+      if (!hasAny && !isMobileTablet) {
         const first = keys.find(k => k !== 'live');
         if (first) { next[first] = true; changed = true; }
       }
@@ -290,46 +321,251 @@ export default function TodayMatches() {
     setExpandedKeys(next);
   }
 
+  // Helper to get display name for time key
+  const getTimeDisplayName = (key: string) => {
+    if (key === 'live') return 'Live Now';
+    return key;
+  };
+
+  // Get active time filter (first expanded key, or 'live' if available)
+  const activeTimeFilter = timeKeys.find(k => expandedKeys[k]) || (timeKeys.includes('live') ? 'live' : timeKeys[0] || 'All Time');
+
   return (
-    <div className="space-y-6 fade-in-up">
-      <div className="flex flex-wrap items-center gap-2">
-        {sports.map(s => (
+    <div className="space-y-4 sm:space-y-6 fade-in-up">
+      {/* Mobile/Tablet Filter Panel - Collapsible */}
+      <div className="lg:hidden relative z-10">
+        <div className="bg-white/5 border border-white/10 rounded-xl overflow-visible">
+          {/* Filter Header */}
           <button
-            key={s}
-            onClick={() => setActiveSport(s)}
-            className={
-              "pill sport-filter " + 
-              (s === activeSport ? 'pill-active active' : 'pill-muted')
-            }
+            onClick={() => setFiltersOpen(!filtersOpen)}
+            className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 transition-colors touch-manipulation rounded-t-xl"
           >
-            {s}
+            <div className="flex items-center gap-2.5">
+              <svg className="w-4 h-4 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              </svg>
+              <span className="text-white font-medium text-sm">Filters</span>
+            </div>
+            <svg 
+              className={`w-4 h-4 text-white/60 transition-transform duration-200 ${filtersOpen ? 'rotate-180' : ''}`} 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor" 
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
           </button>
-        ))}
+
+          {/* Filter Content */}
+          {filtersOpen && (
+            <div className="px-4 pb-4 space-y-3 pt-2 relative">
+              {/* Live Toggle Button */}
+              {timeKeys.includes('live') && (
+                <button
+                  onClick={() => { 
+                    const el = groupRefs.current['live']; 
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
+                    toggleKey('live', true); 
+                  }}
+                  className={
+                    "w-full px-4 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 touch-manipulation flex items-center justify-center gap-2 " +
+                    (expandedKeys['live'] 
+                      ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-md shadow-[rgb(var(--brand-yellow))]/20' 
+                      : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white')
+                  }
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse flex-shrink-0" />
+                  <span>Live Now</span>
+                </button>
+              )}
+
+              {/* Sport Dropdown */}
+              <div className={`relative ${sportDropdownOpen ? 'z-[1001]' : 'z-10'}`} data-dropdown>
+                <button
+                  onClick={() => {
+                    setSportDropdownOpen(!sportDropdownOpen);
+                    setTimeDropdownOpen(false);
+                  }}
+                  className="w-full flex items-center justify-between px-4 py-3 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors touch-manipulation"
+                >
+                  <span className="text-white text-sm font-medium">
+                    {activeSport === 'All' ? 'All Sports' : activeSport}
+                  </span>
+                  <svg 
+                    className={`w-4 h-4 text-white/60 transition-transform duration-200 ${sportDropdownOpen ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor" 
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {sportDropdownOpen && (
+                  <div 
+                    ref={sportDropdownRef}
+                    className="absolute top-full left-0 right-0 mt-1 bg-[rgb(15,15,20)] border border-white/10 rounded-lg shadow-xl z-[1001] max-h-64 overflow-y-auto"
+                  >
+                    {sports.map(s => (
+                      <button
+                        key={s}
+                        onClick={() => {
+                          setActiveSport(s);
+                          setSportDropdownOpen(false);
+                        }}
+                        className={
+                          "w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors touch-manipulation border-b border-white/5 last:border-b-0 " +
+                          (s === activeSport 
+                            ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))]' 
+                            : 'text-white/80')
+                        }
+                      >
+                        <span className="font-medium text-sm">{s === 'All' ? 'All Sports' : s}</span>
+                        {s === activeSport && (
+                          <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Time Filters Dropdown (Sources) */}
+              <div className={`relative ${timeDropdownOpen ? 'z-[1001]' : 'z-10'}`} data-dropdown>
+                <button
+                  onClick={() => {
+                    setTimeDropdownOpen(!timeDropdownOpen);
+                    setSportDropdownOpen(false);
+                  }}
+                  className="w-full flex items-center justify-between px-4 py-3 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors touch-manipulation"
+                >
+                  <span className="text-white text-sm font-medium">
+                    {activeTimeFilter === 'live' ? 'Live Now' : activeTimeFilter === 'All Time' ? 'All Sources' : `${activeTimeFilter}`}
+                  </span>
+                  <svg 
+                    className={`w-4 h-4 text-white/60 transition-transform duration-200 ${timeDropdownOpen ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor" 
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {timeDropdownOpen && (
+                  <div 
+                    ref={timeDropdownRef}
+                    className="absolute top-full left-0 right-0 mt-1 bg-[rgb(15,15,20)] border border-white/10 rounded-lg shadow-xl z-[1001] max-h-64 overflow-y-auto"
+                  >
+                    {timeKeys.map(k => (
+                      <button
+                        key={k}
+                        onClick={() => {
+                          const el = groupRefs.current[k];
+                          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          toggleKey(k, true);
+                          setTimeDropdownOpen(false);
+                        }}
+                        className={
+                          "w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors touch-manipulation border-b border-white/5 last:border-b-0 " +
+                          (expandedKeys[k] 
+                            ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))]' 
+                            : 'text-white/80')
+                        }
+                      >
+                        <span className="font-medium text-sm">{getTimeDisplayName(k)}</span>
+                        {expandedKeys[k] && (
+                          <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Sticky jump chips + controls - Full dark background */}
-      <div className="sticky-rail -mx-4 px-4 py-2 relative bg-[rgb(var(--bg))]">
+      {/* Desktop Filters - Keep original design */}
+      {/* Sport Filters - Desktop only */}
+      <div className="hidden lg:block relative w-full">
+        {/* Scrollable container */}
+        <div className="w-full overflow-x-auto pb-2 scroll-x-only no-scrollbar touch-pan-x">
+          <div className="flex items-center gap-1.5 sm:gap-2 min-w-max">
+            {sports.length > 0 ? (
+              sports.map(s => (
+                <button
+                  key={s}
+                  onClick={() => setActiveSport(s)}
+                  className={
+                    "px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg font-medium text-[11px] sm:text-xs md:text-sm transition-all duration-200 touch-manipulation min-h-[36px] sm:min-h-[40px] whitespace-nowrap flex-shrink-0 " + 
+                    (s === activeSport 
+                      ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20' 
+                      : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
+                  }
+                >
+                  {s}
+                </button>
+              ))
+            ) : (
+              <button
+                className="px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg font-medium text-[11px] sm:text-xs md:text-sm bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20 touch-manipulation min-h-[36px] sm:min-h-[40px] whitespace-nowrap flex-shrink-0"
+                disabled
+              >
+                All
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Sticky jump chips + controls - Desktop only, Full dark background */}
+      <div className="hidden lg:block sticky-rail -mx-2 sm:-mx-3 md:-mx-4 px-2 sm:px-3 md:px-4 py-2 sm:py-2.5 md:py-3 relative bg-[rgb(var(--bg))]">
         <div className="fade-left"></div>
         <div className="fade-right"></div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2">
           {/* Left fixed: Live chip when present */}
           {timeKeys.includes('live') && (
             <button
               onClick={() => { const el = groupRefs.current['live']; if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); toggleKey('live', true); }}
-              className={"pill " + (expandedKeys['live'] ? 'pill-active' : 'pill-muted')}
+              className={
+                "px-2 sm:px-2.5 md:px-3 py-1.5 sm:py-2 rounded-lg font-medium text-[10px] sm:text-[11px] md:text-xs whitespace-nowrap touch-manipulation transition-all duration-200 min-h-[36px] sm:min-h-[38px] md:min-h-[40px] flex items-center flex-shrink-0 " +
+                (expandedKeys['live'] 
+                  ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-md shadow-[rgb(var(--brand-yellow))]/20' 
+                  : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white')
+              }
             >
-              Live Now
+              <span className="w-1.5 h-1.5 rounded-full bg-current inline-block mr-1 sm:mr-1.5 animate-pulse flex-shrink-0" />
+              <span className="hidden sm:inline">Live Now</span>
+              <span className="sm:hidden">Live</span>
             </button>
           )}
 
           {/* Middle: horizontally scrollable time chips (excluding live) */}
-          <div className="flex-1 scroll-x-only no-scrollbar">
-            <div className="flex items-center gap-2 w-max">
+          <div className="flex-1 overflow-x-auto scroll-x-only no-scrollbar min-w-0 touch-pan-x relative">
+            {/* Fade gradients for scrollable area */}
+            <div className="absolute left-0 top-0 bottom-0 w-6 sm:w-8 pointer-events-none z-10 bg-gradient-to-r from-[rgb(var(--bg))] to-transparent"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-6 sm:w-8 pointer-events-none z-10 bg-gradient-to-l from-[rgb(var(--bg))] to-transparent"></div>
+            
+            <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2 w-max px-0.5">
               {timeKeys.filter(k => k !== 'live').map(k => (
                 <button
                   key={k}
                   onClick={() => { const el = groupRefs.current[k]; if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); toggleKey(k, true); }}
-                  className={"pill " + (expandedKeys[k] ? 'pill-active' : 'pill-muted')}
+                  className={
+                    "px-2 sm:px-2.5 md:px-3 py-1.5 sm:py-2 rounded-lg font-medium text-[10px] sm:text-[11px] md:text-xs whitespace-nowrap touch-manipulation transition-all duration-200 min-h-[36px] sm:min-h-[38px] md:min-h-[40px] flex items-center flex-shrink-0 " +
+                    (expandedKeys[k] 
+                      ? 'bg-white/10 text-white border border-white/20' 
+                      : 'bg-white/5 text-white/60 border border-white/10 hover:bg-white/10 hover:text-white/80')
+                  }
                 >
                   {k}
                 </button>
@@ -337,10 +573,28 @@ export default function TodayMatches() {
             </div>
           </div>
 
-          {/* Right fixed: controls */}
-          <div className="ml-2 flex items-center gap-2">
-            <button className="pill pill-muted" onClick={expandAll}>Expand all</button>
-            <button className="pill pill-muted" onClick={collapseAll}>Collapse all</button>
+          {/* Right fixed: controls - Icon only on mobile/tablet, with text on desktop */}
+          <div className="ml-1 sm:ml-2 flex items-center gap-1 sm:gap-1.5 flex-shrink-0">
+            <button 
+              className="px-2 sm:px-2.5 md:px-3 py-1.5 sm:py-2 rounded-lg bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white text-[10px] sm:text-[11px] md:text-xs font-medium touch-manipulation transition-all duration-200 inline-flex items-center gap-1 sm:gap-1.5 min-h-[36px] sm:min-h-[38px] md:min-h-[40px]"
+              onClick={expandAll}
+              title="Expand all"
+            >
+              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+              <span className="hidden lg:inline">Expand</span>
+            </button>
+            <button 
+              className="px-2 sm:px-2.5 md:px-3 py-1.5 sm:py-2 rounded-lg bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white text-[10px] sm:text-[11px] md:text-xs font-medium touch-manipulation transition-all duration-200 inline-flex items-center gap-1 sm:gap-1.5 min-h-[36px] sm:min-h-[38px] md:min-h-[40px]"
+              onClick={collapseAll}
+              title="Collapse all"
+            >
+              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+              </svg>
+              <span className="hidden lg:inline">Collapse</span>
+            </button>
           </div>
         </div>
       </div>
@@ -352,7 +606,7 @@ export default function TodayMatches() {
           <p className="text-white/50">Please try refreshing the page</p>
         </div>
       ) : isLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-3 md:gap-4">
           {[...Array(10)].map((_, i) => (
             <div key={i} className="skeleton rounded-lg h-48" />
           ))}
@@ -370,25 +624,39 @@ export default function TodayMatches() {
             const isOpen = !!expandedKeys[timeKey];
             return (
             <div key={timeKey} className="space-y-3" ref={el => { groupRefs.current[timeKey] = el; }}>
-              <button onClick={() => toggleKey(timeKey)} className="w-full flex items-center gap-3 group">
+              <button 
+                onClick={() => toggleKey(timeKey)} 
+                className="w-full flex items-center gap-2 sm:gap-3 group hover:bg-white/5 px-2 sm:px-3 py-2 sm:py-2.5 rounded-lg transition-colors touch-manipulation min-h-[44px]"
+              >
                 {timeKey === 'live' ? (
                   <>
-                    <span className="live-indicator w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))]" />
-                    <h3 className="text-xs font-medium text-white uppercase tracking-wide">Live Now</h3>
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-pulse shadow-sm shadow-[rgb(var(--brand-yellow))]/50" />
+                      <h3 className="text-xs sm:text-sm font-semibold text-white">Live Now</h3>
+                    </div>
                   </>
                 ) : (
                   <>
-                    <span className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))]" />
-                    <h3 className="text-xs font-medium text-white uppercase tracking-wide">{timeKey}</h3>
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      <span className="w-2 h-2 rounded-full bg-white/30" />
+                      <h3 className="text-xs sm:text-sm font-semibold text-white">{timeKey}</h3>
+                    </div>
                   </>
                 )}
-                <div className="flex-1 h-px bg-gradient-to-r from-white/20 to-transparent" />
-                <span className="text-[10px] text-white/50 font-light mr-2">{games.length} matches</span>
-                <span className={"text-xs text-white/70 transition-transform " + (isOpen ? 'rotate-90' : '')}>›</span>
+                <div className="flex-1 h-px bg-gradient-to-r from-white/10 to-transparent" />
+                <span className="text-[10px] sm:text-xs text-white/50 font-medium">{games.length} {games.length === 1 ? 'match' : 'matches'}</span>
+                <svg 
+                  className={`w-3.5 h-3.5 sm:w-4 sm:h-4 text-white/60 transition-transform ${isOpen ? 'rotate-90' : ''}`} 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </button>
 
               {isOpen && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-3 md:gap-4 lg:gap-5">
                 {games.map((game, gameIdx) => {
                   const status = (game as any).status as string | undefined;
                   const derived = (game as any)._derivedStatus as string | undefined;
@@ -398,6 +666,8 @@ export default function TodayMatches() {
                   const isScheduled = effectiveStatus === 'upcoming' || (!isLive && !isEnded);
                   const isClickable = isLive;
                   const Wrapper: any = isClickable ? 'button' : 'div';
+                  const poster = game.poster;
+                  
                   const wrapperProps = isClickable
                     ? {
                         onClick: () =>
@@ -413,111 +683,98 @@ export default function TodayMatches() {
                           })
                       }
                     : {};
+                  
+                  // Get league display name
+                  const categoryTag = (game as any).categoryTag as string | undefined;
+                  let displayLeague = game.league || '';
+                  if (categoryTag) {
+                    displayLeague = getCategoryDisplayName(categoryTag);
+                  } else {
+                    const leagueUpper = (game.league || '').toUpperCase();
+                    if (leagueUpper === 'AMERICAN-FOOTBALL' || leagueUpper.includes('AMERICAN FOOTBALL')) {
+                      displayLeague = 'NFL';
+                    }
+                  }
+                  
                   return (
                     <Wrapper
                       key={(game.home.matchedCatalogId || game.home.name) + '-' + (game.away.matchedCatalogId || game.away.name) + '-' + game.time}
                       {...wrapperProps}
                       title={`${game.home.name} vs ${game.away.name}`}
                       className={
-                        "match-card match-grid-item group rounded-lg overflow-hidden border transition-all duration-300 relative " +
+                        "match-card match-grid-item group relative bg-[rgb(15,15,20)] border border-white/5 rounded-xl overflow-hidden transition-all duration-300 w-full min-w-0 " +
                         (isLive 
-                          ? "live border-[rgb(var(--brand-yellow))]/30 bg-[rgb(20,20,25)]" 
+                          ? "shadow-xl shadow-[rgb(var(--brand-yellow))]/10 border-[rgb(var(--brand-yellow))]/30" 
                           : isEnded
-                          ? "border-white/10 bg-[rgb(20,20,25)]"
+                          ? "opacity-60 border-white/5"
                           : isScheduled
-                          ? "border-[rgb(var(--brand-yellow))]/20 bg-[rgb(20,20,25)]"
-                          : "border-white/10 bg-[rgb(20,20,25)]") +
+                          ? "border-white/10 hover:border-white/20"
+                          : "border-white/5") +
                         (isClickable 
-                          ? "hover:border-[rgb(var(--brand-yellow))]/50 cursor-pointer" 
+                          ? "hover:bg-[rgb(18,18,24)] hover:border-[rgb(var(--brand-yellow))]/40 hover:shadow-2xl hover:shadow-[rgb(var(--brand-yellow))]/15 cursor-pointer active:scale-[0.98]" 
                           : "cursor-default")
                       }
                       style={{ animationDelay: `${gameIdx * 0.05}s` }}
                     >
-                      <div className="relative p-2.5">
-                        {/* Header: League name and Time on same row */}
-                        <div className="absolute top-2 left-2 right-2 z-10 flex items-center justify-between">
-                          {/* League name - Left */}
-                          {game.league && (() => {
-                            // Use categoryTag if available, otherwise check league name
-                            const categoryTag = (game as any).categoryTag as string | undefined;
-                            let displayLeague = game.league;
-                            
-                            if (categoryTag) {
-                              // Use getCategoryDisplayName to convert AMERICAN-FOOTBALL to NFL
-                              displayLeague = getCategoryDisplayName(categoryTag);
-                            } else {
-                              // Fallback: check if league contains American Football and convert
-                              const leagueUpper = game.league.toUpperCase();
-                              if (leagueUpper === 'AMERICAN-FOOTBALL' || leagueUpper.includes('AMERICAN FOOTBALL')) {
-                                displayLeague = 'NFL';
-                              }
-                            }
-                            
-                            return (
-                              <span className="text-[9px] font-light text-white/60 uppercase tracking-wide">
-                                {displayLeague.toUpperCase()}
+                      {/* Header Section */}
+                      <div className="px-3 sm:px-4 pt-3 sm:pt-4 pb-2.5 sm:pb-3 border-b border-white/5">
+                        <div className="flex items-center justify-between mb-2.5 sm:mb-3 gap-2">
+                          {displayLeague && (
+                            <span className="text-[10px] font-semibold text-white/70 uppercase tracking-wider">
+                              {displayLeague}
                               </span>
-                            );
-                          })()}
-                          
-                          {/* Match time - Right */}
-                          <div className="flex items-center gap-1.5">
+                          )}
+                          <div className="flex items-center gap-2">
                             {game.time && (
-                              <span className="text-[9px] font-light text-white/60">
+                              <span className="text-[10px] font-medium text-white/60 font-mono">
                                 {game.time}
                               </span>
                             )}
                             {isLive && (
-                              <span className="live-indicator w-1.5 h-1.5 rounded-full bg-[rgb(var(--brand-yellow))]" />
+                              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[rgb(var(--brand-yellow))]/15 border border-[rgb(var(--brand-yellow))]/30">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[rgb(var(--brand-yellow))] animate-pulse" />
+                                <span className="text-[9px] font-bold text-[rgb(var(--brand-yellow))] uppercase tracking-wide">
+                                  Live
+                                </span>
+                              </div>
                             )}
                           </div>
                         </div>
                         
-                        {/* Teams Section - Horizontal Layout with Perfect Alignment */}
-                        <div className="pt-5 pb-0.5">
-                          {/* Team A Row: Logo + Name - Consistent structure */}
-                          <div className="flex items-center mb-1" style={{ gap: '8px' }}>
-                            {/* Logo - Fixed width */}
-                            <div className="relative flex-shrink-0" style={{ width: '40px', height: '40px' }}>
-                              <div className="w-full h-full rounded-full border-2 border-[rgb(var(--brand-yellow))] p-0.5 flex items-center justify-center bg-[rgb(20,20,25)]">
-                                <TeamLogo logo={game.home.logo} name={firstNameOf(game.home.name)} size={34} />
-                              </div>
+                        {/* Teams Section */}
+                        <div className="flex items-center gap-2 sm:gap-2.5 md:gap-3">
+                          {/* Home Team */}
+                          <div className="flex-1 min-w-0 flex flex-col items-center gap-1.5 sm:gap-2">
+                            <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-lg bg-white/5 border border-white/10 p-1.5 flex items-center justify-center flex-shrink-0">
+                              <TeamLogo logo={game.home.logo} name={firstNameOf(game.home.name)} size={44} />
                             </div>
-                            {/* Name - Vertically aligned with Team B */}
-                            <div className="flex-1 min-w-0" style={{ minHeight: '20px', display: 'flex', alignItems: 'center' }}>
-                              <p className="text-[10px] font-light text-white leading-tight line-clamp-2 break-words" title={game.home.name} style={{ lineHeight: '1.3', margin: 0 }}>
-                                {getDisplayName(game.home.name)}
-                              </p>
-                            </div>
+                            <p className="text-[10px] sm:text-[11px] font-semibold text-white leading-tight line-clamp-2 w-full text-center min-h-[1.5rem] sm:min-h-[1.75rem]">
+                              {getDisplayName(game.home.name, 25)}
+                            </p>
                           </div>
-
-                          {/* VS Text - Perfectly Centered */}
-                          <div className="flex items-center justify-center py-0.5">
-                            <span className="text-[9px] font-light text-white/50 uppercase tracking-wider">VS</span>
+                          
+                          {/* VS Divider */}
+                          <div className="flex-shrink-0">
+                            <span className="text-[8px] sm:text-[9px] font-medium text-white/40">VS</span>
                           </div>
-
-                          {/* Team B Row: Logo + Name - Same structure for perfect vertical alignment */}
-                          <div className="flex items-center mb-1" style={{ gap: '8px' }}>
-                            {/* Logo - Fixed width (same as Team A) */}
-                            <div className="relative flex-shrink-0" style={{ width: '40px', height: '40px' }}>
-                              <div className="w-full h-full rounded-full border-2 border-[rgb(var(--brand-yellow))] p-0.5 flex items-center justify-center bg-[rgb(20,20,25)]">
-                                <TeamLogo logo={game.away.logo} name={firstNameOf(game.away.name)} size={34} />
-                              </div>
+                          
+                          {/* Away Team */}
+                          <div className="flex-1 min-w-0 flex flex-col items-center gap-1.5 sm:gap-2">
+                            <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-lg bg-white/5 border border-white/10 p-1.5 flex items-center justify-center flex-shrink-0">
+                              <TeamLogo logo={game.away.logo} name={firstNameOf(game.away.name)} size={44} />
                             </div>
-                            {/* Name - Vertically aligned with Team A (same left position) */}
-                            <div className="flex-1 min-w-0" style={{ minHeight: '20px', display: 'flex', alignItems: 'center' }}>
-                              <p className="text-[10px] font-light text-white leading-tight line-clamp-2 break-words" title={game.away.name} style={{ lineHeight: '1.3', margin: 0 }}>
-                                {getDisplayName(game.away.name)}
-                              </p>
-                            </div>
+                            <p className="text-[10px] sm:text-[11px] font-semibold text-white leading-tight line-clamp-2 w-full text-center min-h-[1.5rem] sm:min-h-[1.75rem]">
+                              {getDisplayName(game.away.name, 25)}
+                            </p>
                           </div>
                         </div>
-                        
-                        {/* Action Button Section - Centered */}
-                        <div className="pt-1.5">
+                      </div>
+                      
+                      {/* Action Section */}
+                      <div className="px-3 sm:px-4 py-2.5 sm:py-3.5">
                           {isLive ? (
                             <button
-                              className="w-full rounded-lg bg-[rgb(var(--brand-yellow))] text-[rgb(20,20,25)] font-medium text-[10px] px-3 py-1.5 transition-all duration-300 hover:opacity-90 shadow-sm"
+                            className="w-full rounded-lg bg-gradient-to-r from-[rgb(var(--brand-yellow))] to-[#FFE066] text-black font-bold text-xs px-3 sm:px-4 py-2 transition-all duration-200 hover:from-[#FFE066] hover:to-[rgb(var(--brand-yellow))] hover:shadow-lg hover:shadow-[rgb(var(--brand-yellow))]/30 active:scale-[0.98] flex items-center justify-center gap-1.5 touch-manipulation min-h-[44px]"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 setSelected({
@@ -532,24 +789,26 @@ export default function TodayMatches() {
                                 });
                               }}
                             >
-                              Watch Live
+                            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                            </svg>
+                            <span>Watch Live</span>
                             </button>
-                          ) : isEnded ? (
-                            <div className="w-full rounded-lg bg-gradient-to-br from-white/[0.03] to-white/[0.01] border border-white/10 text-white/45 font-medium text-[10px] px-3 py-1.5 text-center flex items-center justify-center gap-1.5 backdrop-blur-sm">
-                              <svg className="w-3 h-3 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                              <span>Ended</span>
-                            </div>
-                          ) : isScheduled ? (
-                            <div className="w-full rounded-lg bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-white/15 text-white/65 font-medium text-[10px] px-3 py-1.5 text-center flex items-center justify-center gap-1.5 backdrop-blur-sm">
-                              <svg className="w-3 h-3 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                              <span>Scheduled</span>
-                            </div>
+                        ) : isEnded ? (
+                          <div className="w-full rounded-lg bg-white/5 border border-white/10 text-white/50 font-medium text-xs px-3 sm:px-4 py-2 text-center flex items-center justify-center gap-1.5 min-h-[44px]">
+                            <svg className="w-3.5 h-3.5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>Match Ended</span>
+                          </div>
+                        ) : isScheduled ? (
+                          <div className="w-full rounded-lg bg-white/5 border border-white/10 text-white/70 font-medium text-xs px-3 sm:px-4 py-2 text-center flex items-center justify-center gap-1.5 min-h-[44px]">
+                            <svg className="w-3.5 h-3.5 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>Scheduled</span>
+                          </div>
                           ) : null}
-                        </div>
                       </div>
                     </Wrapper>
                   );
