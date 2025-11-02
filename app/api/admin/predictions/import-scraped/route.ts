@@ -131,6 +131,19 @@ function generatePredictionId(home: string, away: string, timeLabel: string): st
 }
 
 /**
+ * GET /api/admin/predictions/import-scraped
+ * Debug endpoint to verify route is accessible
+ */
+export async function GET(req: NextRequest) {
+  return NextResponse.json({ 
+    ok: true, 
+    message: 'Import-scraped endpoint is accessible',
+    method: 'POST required',
+    endpoint: '/api/admin/predictions/import-scraped'
+  });
+}
+
+/**
  * POST /api/admin/predictions/import-scraped
  * 
  * Import scraped predictions from betistuta (Over 3.5 only).
