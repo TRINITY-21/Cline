@@ -113,10 +113,6 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     
     // If not found after searching 14 days, return 404 with helpful error
     if (!found) {
-        const d = new Date();
-        d.setDate(d.getDate() - i);
-        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-      }).join(', ')}`);
       return NextResponse.json({ 
         error: 'Prediction not found',
         searchedId: predictionId,

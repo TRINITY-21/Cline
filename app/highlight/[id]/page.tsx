@@ -253,7 +253,7 @@ function MatchDetailClient({ match }: { match: HighlightMatch }) {
                   /* Video player - supports both MP4 and iframe */
                   <div className="absolute inset-[2px] rounded-lg overflow-hidden">
                     {match.videoSrc.includes('.mp4') || match.videoSrc.includes('streamable.com/video') ? (
-                     <iframe title="Real Madrid vs Valencia Player" marginheight="0" marginwidth="0" src="https://embedsports.top/embed/admin/ppv-real-madrid-vs-valencia-cf/1" scrolling="no" allowfullscreen="yes" allow="encrypted-media; picture-in-picture;" width="100%" height="100%" frameborder="0"></iframe>
+                     <iframe title="Real Madrid vs Valencia Player" marginHeight={0} marginWidth={0} src="https://embedsports.top/embed/admin/ppv-real-madrid-vs-valencia-cf/1" scrolling="no" allowFullScreen allow="encrypted-media; picture-in-picture;" width="100%" height="100%" frameBorder="0"></iframe>
                     ) : (
                       <iframe
                         title={`${match.homeTeam} vs ${match.awayTeam} Highlights`}

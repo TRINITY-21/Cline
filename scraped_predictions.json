@@ -1,0 +1,3126 @@
+{
+  "predictions": [
+    {
+      "home": "Mixco",
+      "away": "Antigua GFC",
+      "league": "Guatemala",
+      "timeLabel": "00:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Fuerte San Francisco",
+      "away": "Platense",
+      "league": "El Salvador",
+      "timeLabel": "00:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Chicago Fire",
+      "away": "Philadelphia Union",
+      "league": "ABD",
+      "timeLabel": "00:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Avai",
+      "away": "Athletic Club",
+      "league": "Brezilya",
+      "timeLabel": "00:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Aguacateros CDU",
+      "away": "Poza Rica",
+      "league": "Meksika",
+      "timeLabel": "00:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Tepatitlán de Morelos",
+      "away": "CA La Paz",
+      "league": "Meksika",
+      "timeLabel": "02:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Deportivo Pereira",
+      "away": "Independiente Medellin",
+      "league": "Kolombiya",
+      "timeLabel": "02:10",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Nashville SC",
+      "away": "Inter Miami",
+      "league": "ABD",
+      "timeLabel": "02:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-5",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "FC Tulsa",
+      "away": "Colorado Springs",
+      "league": "ABD",
+      "timeLabel": "03:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Alianza",
+      "away": "Aguila",
+      "league": "El Salvador",
+      "timeLabel": "03:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Kalamata",
+      "away": "Panargeaikos Agros",
+      "league": "Yunanistan",
+      "timeLabel": "03:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "New Mexico United",
+      "away": "San Antonio",
+      "league": "ABD",
+      "timeLabel": "04:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Tlaxcala",
+      "away": "Monarcas Morelia",
+      "league": "Meksika",
+      "timeLabel": "04:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Monterrey",
+      "away": "Tigres UANL",
+      "league": "Meksika",
+      "timeLabel": "04:05",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "FC Dallas",
+      "away": "Vancouver Whitecaps",
+      "league": "ABD",
+      "timeLabel": "04:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Portland Timbers",
+      "away": "San Diego",
+      "league": "ABD",
+      "timeLabel": "04:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-5",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "El Paso Locomotive",
+      "away": "Phoenix Rising",
+      "league": "ABD",
+      "timeLabel": "04:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Motagua",
+      "away": "CD Victoria",
+      "league": "Honduras",
+      "timeLabel": "04:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Club America",
+      "away": "Leon",
+      "league": "Meksika",
+      "timeLabel": "06:10",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Zweigen Kanazawa",
+      "away": "ThespaKusatsu Gunma",
+      "league": "Japonya",
+      "timeLabel": "07:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Kamatamare Sanuki",
+      "away": "Gainare Tottori",
+      "league": "Japonya",
+      "timeLabel": "08:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "South China",
+      "away": "Lucky Mile",
+      "league": "Hong Kong",
+      "timeLabel": "08:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "6-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "3 Sing",
+      "away": "Sham Shui Po",
+      "league": "Hong Kong",
+      "timeLabel": "08:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Hoi King",
+      "away": "Tung Sing",
+      "league": "Hong Kong",
+      "timeLabel": "08:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Central Coast Mariners",
+      "away": "Wellington Phoenix",
+      "league": "Avustralya",
+      "timeLabel": "09:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Kowloon City",
+      "away": "Kitchee",
+      "league": "Hong Kong",
+      "timeLabel": "10:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Qingdao Jonoon",
+      "away": "Wuhan Three Towns",
+      "league": "Çin Halk C",
+      "timeLabel": "10:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Suwon City",
+      "away": "Daegu",
+      "league": "Güney Kore",
+      "timeLabel": "10:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Shatin SA",
+      "away": "Central & Western",
+      "league": "Hong Kong",
+      "timeLabel": "10:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Resources Capital FC",
+      "away": "Citizen AA",
+      "league": "Hong Kong",
+      "timeLabel": "10:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "WSE",
+      "away": "Supreme FC",
+      "league": "Hong Kong",
+      "timeLabel": "10:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Konyaspor U19",
+      "away": "Samsunspor U19",
+      "league": "Türkiye",
+      "timeLabel": "11:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Lopburi City",
+      "away": "Prime Bangkok",
+      "league": "Tayland",
+      "timeLabel": "11:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "North Bangkok College",
+      "away": "Saraburi United",
+      "league": "Tayland",
+      "timeLabel": "11:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Yadanarbon",
+      "away": "Dagon Port",
+      "league": "Myanmar",
+      "timeLabel": "12:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "CSA Steaua Bucuresti",
+      "away": "Dumbravita",
+      "league": "Romanya",
+      "timeLabel": "12:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "FK Orenburg",
+      "away": "FC Sochi",
+      "league": "Rusya",
+      "timeLabel": "12:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Bohemians 1905 II",
+      "away": "Admira Praha",
+      "league": "Çek Cumhur",
+      "timeLabel": "12:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "FK Pardubice II",
+      "away": "Slovan Liberec II",
+      "league": "Çek Cumhur",
+      "timeLabel": "12:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "5-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Sigma Olomouc II",
+      "away": "Hranice",
+      "league": "Çek Cumhur",
+      "timeLabel": "12:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Unicov",
+      "away": "Unie Hlubina",
+      "league": "Çek Cumhur",
+      "timeLabel": "12:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Opava II",
+      "away": "Bilovec",
+      "league": "Çek Cumhur",
+      "timeLabel": "12:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Viktoria Plzen II",
+      "away": "Jiskra Domazlice",
+      "league": "Çek Cumhur",
+      "timeLabel": "12:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Dagon",
+      "away": "Yangon United",
+      "league": "Myanmar",
+      "timeLabel": "12:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "0-6",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Malzenice",
+      "away": "Stara Lubovna",
+      "league": "Slovakya",
+      "timeLabel": "12:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Slovan Bratislava II",
+      "away": "Pohronie",
+      "league": "Slovakya",
+      "timeLabel": "12:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Ruzomberok II",
+      "away": "Namestovo",
+      "league": "Slovakya",
+      "timeLabel": "12:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Trostianets",
+      "away": "Livyi Bereh II",
+      "league": "Ukrayna",
+      "timeLabel": "12:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Hannover 96 U19",
+      "away": "Holstein Kiel U19",
+      "league": "Almanya",
+      "timeLabel": "13:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "1860 München U19",
+      "away": "Augsburg U19",
+      "league": "Almanya",
+      "timeLabel": "13:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Alemannia Aachen U19",
+      "away": "Mainz 05 U19",
+      "league": "Almanya",
+      "timeLabel": "13:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Fortuna Düsseldorf U19",
+      "away": "MSV Duisburg U19",
+      "league": "Almanya",
+      "timeLabel": "13:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Borussia Mgladbach U19",
+      "away": "Arminia Bielefeld U19",
+      "league": "Almanya",
+      "timeLabel": "13:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Schalke 04 U19",
+      "away": "Preussen Münster U19",
+      "league": "Almanya",
+      "timeLabel": "13:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Inter Club",
+      "away": "Carroi",
+      "league": "Andorra",
+      "timeLabel": "13:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "5-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Clermont U19",
+      "away": "Montfermeil U19",
+      "league": "Fransa",
+      "timeLabel": "13:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Lyon U19",
+      "away": "Strasbourg U19",
+      "league": "Fransa",
+      "timeLabel": "13:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Kolkheti 1913 Poti",
+      "away": "Gareji",
+      "league": "Gürcistan",
+      "timeLabel": "13:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Györi ETO II",
+      "away": "Komarom",
+      "league": "Macaristan",
+      "timeLabel": "13:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "FC Ko?ice II",
+      "away": "Spisska Nova Ves",
+      "league": "Slovakya",
+      "timeLabel": "13:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Diyarbekir Spor",
+      "away": "Kirikkale FK",
+      "league": "Türkiye",
+      "timeLabel": "13:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Kayserispor U19",
+      "away": "Kasimpasa U19",
+      "league": "Türkiye",
+      "timeLabel": "13:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "FC Tallinn",
+      "away": "Viimsi MRJK",
+      "league": "Estonya",
+      "timeLabel": "13:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Nomme JK Kalju",
+      "away": "JK Tammeka Tartu",
+      "league": "Estonya",
+      "timeLabel": "13:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "5-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Paide Linnameeskond",
+      "away": "Parnu JK Vaprus",
+      "league": "Estonya",
+      "timeLabel": "13:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Ming Chuan University",
+      "away": "Taichung Rock",
+      "league": "Tayvan",
+      "timeLabel": "13:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Taipower",
+      "away": "Taipei Tatung",
+      "league": "Tayvan",
+      "timeLabel": "13:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Manisa FK",
+      "away": "Amed SK",
+      "league": "Türkiye",
+      "timeLabel": "13:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Heidenheim U19",
+      "away": "Saarbrücken U19",
+      "league": "Almanya",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "FSV Frankfurt U19",
+      "away": "Wehen Wiesbaden U19",
+      "league": "Almanya",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Green Farmers",
+      "away": "Musongati",
+      "league": "Burundi",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Colomiers U19",
+      "away": "Bastia U19",
+      "league": "Fransa",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Finglas United",
+      "away": "Killester Utd",
+      "league": "Irlanda",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "National Defense Ministry",
+      "away": "Khan Dangkor",
+      "league": "Kamboçya",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Super Nova",
+      "away": "Rigas Skola",
+      "league": "Letonya",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-5",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "FS Jelgava",
+      "away": "Metta / LU Riga",
+      "league": "Letonya",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Stal Rzeszow",
+      "away": "Pogon Siedlce",
+      "league": "Polonya",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Olimpia Elblag",
+      "away": "Wisla Plock II",
+      "league": "Polonya",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Legia Warszawa II",
+      "away": "Bron Radom",
+      "league": "Polonya",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "MKS Korona Kielce II",
+      "away": "Avia Swidnik",
+      "league": "Polonya",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Khonkaen Utd",
+      "away": "Esan Pattaya",
+      "league": "Tayland",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Bankhai United",
+      "away": "Burapha United",
+      "league": "Tayland",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Malatyaspor",
+      "away": "Onikisubatspor",
+      "league": "Türkiye",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-7",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Thanh Hoa",
+      "away": "Viettel",
+      "league": "Vietnam",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Binh Dinh",
+      "away": "Ba Ria Vung Tau",
+      "league": "Vietnam",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Binh Dinh",
+      "away": "Dai Hoc Van Hien",
+      "league": "Vietnam",
+      "timeLabel": "14:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Heracles",
+      "away": "PEC Zwolle",
+      "league": "Hollanda",
+      "timeLabel": "14:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Gornik Zabrze",
+      "away": "Arka Gdynia",
+      "league": "Polonya",
+      "timeLabel": "14:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "5-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Hellas Verona",
+      "away": "Inter",
+      "league": "Italya",
+      "timeLabel": "14:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "0-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Balestier Khalsa",
+      "away": "Tanjong Pagar",
+      "league": "Singapur",
+      "timeLabel": "14:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "7-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Bangkok United",
+      "away": "Uthai Thani",
+      "league": "Tayland",
+      "timeLabel": "14:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Lamphun Warrior",
+      "away": "Thai Port FC",
+      "league": "Tayland",
+      "timeLabel": "14:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Konyaspor",
+      "away": "Samsunspor",
+      "league": "Türkiye",
+      "timeLabel": "14:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Nürnberg II",
+      "away": "Bayreuth",
+      "league": "Almanya",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Ismaning",
+      "away": "1860 München II",
+      "league": "Almanya",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Türkiye Wilhelmsburg",
+      "away": "Teutonia Hamburg",
+      "league": "Almanya",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Greuther Fürth U19",
+      "away": "Kickers Offenbach U19",
+      "league": "Almanya",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Rot-Weiss Essen U19",
+      "away": "Schott Mainz U19",
+      "league": "Almanya",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Meppen U19",
+      "away": "Rot-Weiss Oberhausen U19",
+      "league": "Almanya",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Bumprom",
+      "away": "Orsha",
+      "league": "Belarus",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Naestved",
+      "away": "FC Helsingor",
+      "league": "Danimarka",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Trans Narva",
+      "away": "FC Levadia",
+      "league": "Estonya",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "South Shields",
+      "away": "Shrewsbury",
+      "league": "Ingiltere",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Kauno Zalgiris",
+      "away": "FK Panevezys",
+      "league": "Litvanya",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Nagykanizsai ULE",
+      "away": "Ivancsa",
+      "league": "Macaristan",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Majosi",
+      "away": "Paksi SE II",
+      "league": "Macaristan",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "BKV Elore",
+      "away": "Tiszaföldvar",
+      "league": "Macaristan",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "ESMTK",
+      "away": "III. Kerületi TUE",
+      "league": "Macaristan",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Hodmezovasarhely",
+      "away": "Bekescsaba II",
+      "league": "Macaristan",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Tiszaujvaros",
+      "away": "Debrecen II",
+      "league": "Macaristan",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Tiszafuredi VSE",
+      "away": "Egri FC",
+      "league": "Macaristan",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Oguzsport",
+      "away": "Floresti",
+      "league": "Moldova",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Notec Czarnkow",
+      "away": "Blekitni Stargard",
+      "league": "Polonya",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Adanaspor",
+      "away": "Somaspor",
+      "league": "Türkiye",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "DPMM FC",
+      "away": "Negeri Sembilan",
+      "league": "Malezya",
+      "timeLabel": "15:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Fortuna Düsseldorf",
+      "away": "Kaiserslautern",
+      "league": "Almanya",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Paderborn",
+      "away": "Greuther Fürth",
+      "league": "Almanya",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Hoffenheim II",
+      "away": "Waldhof Mannheim",
+      "league": "Almanya",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Neustrelitz",
+      "away": "Lichtenberg",
+      "league": "Almanya",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Anker Wismar",
+      "away": "Tasmania Berlin",
+      "league": "Almanya",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "5-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Tennis Borussia Berlin",
+      "away": "Eintracht Mahlsdorf",
+      "league": "Almanya",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Makkabi",
+      "away": "Siedenbollentin",
+      "league": "Almanya",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Union Klosterfelde",
+      "away": "Croatia Berlin",
+      "league": "Almanya",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Einheit Wernigerode",
+      "away": "FC Grimma",
+      "league": "Almanya",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Westerlo",
+      "away": "Genk",
+      "league": "Belçika",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Mlawianka Mlawa",
+      "away": "Widzew Lodz II",
+      "league": "Polonya",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Belusa",
+      "away": "Castkovce",
+      "league": "Slovakya",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Spisske Podhradie",
+      "away": "MSK Tesla Stropkov",
+      "league": "Slovakya",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Banik Kalinovo",
+      "away": "Rimavska Sobota",
+      "league": "Slovakya",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Wiedenbrück",
+      "away": "Fortuna Köln",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Borussia Dortmund II",
+      "away": "FC Bocholt",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Sportfreunde Siegen",
+      "away": "Fortuna Düsseldorf II",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Eichstatt",
+      "away": "Bayern München II",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Illertissen",
+      "away": "Hankofen-Hailing",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Augsburg II",
+      "away": "Greuther Fürth II",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Werder Bremen II",
+      "away": "VfB Oldenburg",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "St. Pauli II",
+      "away": "Meppen",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "HSC Hannover",
+      "away": "Eintracht Norderstedt",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Ingolstadt II",
+      "away": "Neudrossenfeld",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "6-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "ASV Neumarkt",
+      "away": "Coburg",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Großschwarzenlohe",
+      "away": "Eltersdorf",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Buchholz",
+      "away": "Halstenbek-Rellingen",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "8-5",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Niendorfer TSV",
+      "away": "Süderelbe",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Lupo-Martini",
+      "away": "Borussia Hildesheim",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "LSK Hansa",
+      "away": "Holthausen-Biene",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Spelle-Venhaus",
+      "away": "Wilhelmshaven",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Oldenburger SV",
+      "away": "Union Neumünster",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Hohenwestedt",
+      "away": "Eutin 08",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Holstein Kiel II",
+      "away": "Rotenhof",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "VfR Neumünster",
+      "away": "Nordmark Satrup",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Unterhaching U19",
+      "away": "Stuttgarter Kickers U19",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Viktoria Köln U19",
+      "away": "Elversberg U19",
+      "league": "Almanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Voitsberg",
+      "away": "Wohnbau Dietach",
+      "league": "Avusturya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "6-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Al Bataeh U23",
+      "away": "Al Jazira U23",
+      "league": "Birlesik Arap E",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Sokol Brozany",
+      "away": "Benatky Nad Jizerou",
+      "league": "Çek Cumhur",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Varnsdorf",
+      "away": "Arsenal Ceska Lipa",
+      "league": "Çek Cumhur",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Polanka nad Odrou",
+      "away": "Start Brno",
+      "league": "Çek Cumhur",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Hluboka nad Vltavou",
+      "away": "Rokycany",
+      "league": "Çek Cumhur",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Milevsko",
+      "away": "Milin",
+      "league": "Çek Cumhur",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Pencin-Turnov",
+      "away": "Svitavy",
+      "league": "Çek Cumhur",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Hanacka Slavia II",
+      "away": "Breclav",
+      "league": "Çek Cumhur",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Kozlovice",
+      "away": "Skastice",
+      "league": "Çek Cumhur",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Frydlant",
+      "away": "Bridlicna",
+      "league": "Çek Cumhur",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Phoenix",
+      "away": "Kuressaare II",
+      "league": "Estonya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "7-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Levante",
+      "away": "Celta Vigo",
+      "league": "Ispanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Elfsborg",
+      "away": "AIK",
+      "league": "Isveç",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Besa Biel/Bienne",
+      "away": "Buochs",
+      "league": "Isviçre",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Lugano",
+      "away": "St. Gallen",
+      "league": "Isviçre",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Dziugas Telsiai",
+      "away": "FK Riteriai",
+      "league": "Litvanya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "HCB Songo",
+      "away": "Vilankulo",
+      "league": "Mozambik",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "5-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "OFK Beograd U19",
+      "away": "IMT Novi Beograd U19",
+      "league": "Sirbistan",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Fuzinar U19",
+      "away": "Krka U19",
+      "league": "Slovenya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "5-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Mura U19",
+      "away": "Domzale U19",
+      "league": "Slovenya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-5",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Zavrc",
+      "away": "Carda Martjanci",
+      "league": "Slovenya",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Boluspor",
+      "away": "Bodrum FK",
+      "league": "Türkiye",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "FC Eintracht Rheine",
+      "away": "Preussen Münster II",
+      "league": "Almanya",
+      "timeLabel": "16:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Nikola Tesla",
+      "away": "HEBC",
+      "league": "Almanya",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-5",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "TuBa Pohlheim",
+      "away": "Darmstadt 98 II",
+      "league": "Almanya",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Hennef 05",
+      "away": "Bergisch Gladbach",
+      "league": "Almanya",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-5",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Sonsbeck",
+      "away": "Kleve",
+      "league": "Almanya",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "SF Baumberg",
+      "away": "Meerbusch",
+      "league": "Almanya",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Schwarz-Weiss Essen",
+      "away": "VfB 03 Hilden",
+      "league": "Almanya",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Homberg",
+      "away": "Monheim",
+      "league": "Almanya",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "FV Eppelborn",
+      "away": "Wormatia Worms",
+      "league": "Almanya",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-5",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Gievenbeck",
+      "away": "Türkspor Dortmund",
+      "league": "Almanya",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Wolfsberger AC",
+      "away": "WSG Tirol",
+      "league": "Avusturya",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Salzburg",
+      "away": "Ried",
+      "league": "Avusturya",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Lille U19",
+      "away": "Paris U19",
+      "league": "Fransa",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Caen U19",
+      "away": "Quevilly U19",
+      "league": "Fransa",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Reims U19",
+      "away": "Troyes U19",
+      "league": "Fransa",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Angers U19",
+      "away": "Saint-Lo Manche U19",
+      "league": "Fransa",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "5-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Emmen",
+      "away": "RKC Waalwijk",
+      "league": "Hollanda",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Groningen",
+      "away": "Twente",
+      "league": "Hollanda",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Sparta Rotterdam",
+      "away": "AZ Alkmaar",
+      "league": "Hollanda",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "La Sarraz-Eclepens",
+      "away": "Sion II",
+      "league": "Isviçre",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Delemont",
+      "away": "Grasshopper II",
+      "league": "Isviçre",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Castellanzese",
+      "away": "Varesina",
+      "league": "Italya",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Olbia 1905",
+      "away": "Ischia",
+      "league": "Italya",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Stromsgodset",
+      "away": "Viking",
+      "league": "Norveç",
+      "timeLabel": "16:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Lech Poznan",
+      "away": "Motor Lublin",
+      "league": "Polonya",
+      "timeLabel": "16:45",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Vorwarts-Wacker 04",
+      "away": "HT16",
+      "league": "Almanya",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "TSV Sasel",
+      "away": "Curslack-Neuengamme",
+      "league": "Almanya",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "8-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Gonsenheim",
+      "away": "Diefflen",
+      "league": "Almanya",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Sprockhövel",
+      "away": "Finnentrop / Bamenohl",
+      "league": "Almanya",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Arminia Bielefeld II",
+      "away": "Wattenscheid 09",
+      "league": "Almanya",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "ASC 09 Dortmund",
+      "away": "Erkenschwick",
+      "league": "Almanya",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "5-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Lyngby",
+      "away": "Hobro IK",
+      "league": "Danimarka",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "KuPS Kuopio",
+      "away": "Inter Turku",
+      "league": "Finlandiya",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Rennes",
+      "away": "RC Strasbourg",
+      "league": "Fransa",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Nantes II",
+      "away": "Chatellerault",
+      "league": "Fransa",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Celtic",
+      "away": "Rangers",
+      "league": "Iskoçya",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Team TG FF",
+      "away": "Sollen Utd",
+      "league": "Isveç",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Örebro",
+      "away": "Utsiktens BK",
+      "league": "Isveç",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Servette II",
+      "away": "Stade Payerne",
+      "league": "Isviçre",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Langenthal",
+      "away": "Old Boys",
+      "league": "Isviçre",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Eschen / Mauren",
+      "away": "YF Juventus",
+      "league": "Isviçre",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "St. Gallen II",
+      "away": "Collina dOro",
+      "league": "Isviçre",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Winterthur II",
+      "away": "Freienbach",
+      "league": "Isviçre",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Fiorentina",
+      "away": "Lecce",
+      "league": "Italya",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Modena",
+      "away": "Juve Stabia",
+      "league": "Italya",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Pro Imperia",
+      "away": "Lavagnese",
+      "league": "Italya",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Buducnost Podgorica",
+      "away": "Mladost DG",
+      "league": "Karadag",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Mamer",
+      "away": "Atert Bissen",
+      "league": "Lüksemburg",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Sencur",
+      "away": "Dren Vrhnika",
+      "league": "Slovenya",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Fama Vipava",
+      "away": "Tolmin",
+      "league": "Slovenya",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Biemenhorst",
+      "away": "Schonnebeck",
+      "league": "Almanya",
+      "timeLabel": "17:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-5",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Eintracht Hohkeppel",
+      "away": "Bornheim",
+      "league": "Almanya",
+      "timeLabel": "17:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Fortuna Köln II",
+      "away": "Siegburger",
+      "league": "Almanya",
+      "timeLabel": "17:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "TuS BW Königsdorf",
+      "away": "SF Düren",
+      "league": "Almanya",
+      "timeLabel": "17:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Karvina",
+      "away": "Sparta Prag",
+      "league": "Çek Cumhur",
+      "timeLabel": "17:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Nardo",
+      "away": "Real Acerrana",
+      "league": "Italya",
+      "timeLabel": "17:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Pesch",
+      "away": "SV Porz 1919",
+      "league": "Almanya",
+      "timeLabel": "17:45",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Inter Türkspor Kiel",
+      "away": "Kilia Kiel",
+      "league": "Almanya",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Verl II",
+      "away": "Vreden",
+      "league": "Almanya",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Pas de la Casa",
+      "away": "UE Santa Coloma",
+      "league": "Andorra",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Patro Eisden",
+      "away": "RSC Anderlecht II",
+      "league": "Belçika",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "OH Leuven",
+      "away": "Gent",
+      "league": "Belçika",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "SonderjyskE",
+      "away": "Vejle",
+      "league": "Danimarka",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Viimsi II",
+      "away": "Hiiumaa",
+      "league": "Estonya",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Tartu Welco II",
+      "away": "Tartu Kalev II",
+      "league": "Estonya",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "5-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Harju Jalgpallikool",
+      "away": "Tallinna Kalev",
+      "league": "Estonya",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Racing De Casablanca",
+      "away": "Raja Beni Mellal",
+      "league": "Fas",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Leeds United U21",
+      "away": "Brighton & Hove Alb. U21",
+      "league": "Ingiltere",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Bray Wanderers",
+      "away": "Treaty United",
+      "league": "Irlanda",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Real Oviedo II",
+      "away": "Rayo Cantabria",
+      "league": "Ispanya",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "BK Olympic",
+      "away": "FC Trollhattan",
+      "league": "Isveç",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Vasalund IF",
+      "away": "Haninge",
+      "league": "Isveç",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "6-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Assyriska",
+      "away": "Gefle",
+      "league": "Isveç",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Differdange 03",
+      "away": "Petange",
+      "league": "Lüksemburg",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Racing FC",
+      "away": "UN Kaerjeng",
+      "league": "Lüksemburg",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Dunaujvaros-Palhalma",
+      "away": "MTK II",
+      "league": "Macaristan",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Sporting Braga U23",
+      "away": "Maritimo U23",
+      "league": "Portekiz",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Al Wahda",
+      "away": "Al Batin",
+      "league": "Suudi Arabistan",
+      "timeLabel": "18:20",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Rot-Weiss Essen",
+      "away": "Schweinfurt",
+      "league": "Almanya",
+      "timeLabel": "18:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Manchester 62 FC",
+      "away": "College 1975",
+      "league": "Cebelitarik",
+      "timeLabel": "18:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "5-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Djurgarden",
+      "away": "Göteborg",
+      "league": "Isveç",
+      "timeLabel": "18:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "GAIS",
+      "away": "Östers",
+      "league": "Isveç",
+      "timeLabel": "18:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Luzern",
+      "away": "Grasshoppers",
+      "league": "Isviçre",
+      "timeLabel": "18:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Young Boys",
+      "away": "Basel",
+      "league": "Isviçre",
+      "timeLabel": "18:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "AE Larissa",
+      "away": "Levadiakos",
+      "league": "Yunanistan",
+      "timeLabel": "18:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "MVV Maastricht",
+      "away": "ADO Den Haag",
+      "league": "Hollanda",
+      "timeLabel": "18:45",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Utrecht",
+      "away": "NEC Nijmegen",
+      "league": "Hollanda",
+      "timeLabel": "18:45",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Rapid Wien",
+      "away": "Sturm Graz",
+      "league": "Avusturya",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Esbjerg",
+      "away": "B93 Kopenhag",
+      "league": "Danimarka",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Samgurali",
+      "away": "Gagra",
+      "league": "Gürcistan",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Bergantinos",
+      "away": "Langreo",
+      "league": "Ispanya",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Atletic Lleida",
+      "away": "Castellon II",
+      "league": "Ispanya",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Tiszakecske",
+      "away": "Kecskemeti TE",
+      "league": "Macaristan",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Ajka",
+      "away": "Mezokövesd-Zsory",
+      "league": "Macaristan",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Stabaek",
+      "away": "Lyn Oslo",
+      "league": "Norveç",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Raufoss",
+      "away": "Mjondalen",
+      "league": "Norveç",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "HamKam",
+      "away": "Sandefjord",
+      "league": "Norveç",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Kizilyildiz",
+      "away": "Radnik Surdulica",
+      "league": "Sirbistan",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "6-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Vojvodina",
+      "away": "IMT Novi Beograd",
+      "league": "Sirbistan",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Triglav",
+      "away": "Tabor Sezana",
+      "league": "Slovenya",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Shakhtar Donetsk",
+      "away": "Dynamo Kiev",
+      "league": "Ukrayna",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Toulouse",
+      "away": "Le Havre",
+      "league": "Fransa",
+      "timeLabel": "19:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Lens",
+      "away": "Lorient",
+      "league": "Fransa",
+      "timeLabel": "19:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Nantes",
+      "away": "Metz",
+      "league": "Fransa",
+      "timeLabel": "19:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Wolfsburg",
+      "away": "Hoffenheim",
+      "league": "Almanya",
+      "timeLabel": "19:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Manchester City",
+      "away": "Bournemouth",
+      "league": "Ingiltere",
+      "timeLabel": "19:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Jagiellonia Bialystok",
+      "away": "Rakow Czestochowa",
+      "league": "Polonya",
+      "timeLabel": "19:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "ND Primorje",
+      "away": "Radomlje",
+      "league": "Slovenya",
+      "timeLabel": "19:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Diriyah",
+      "away": "Jeddah Club",
+      "league": "Suudi Arabistan",
+      "timeLabel": "19:45",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Torpedo Zhodino",
+      "away": "FC Minsk",
+      "league": "Belarus",
+      "timeLabel": "20:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "FC Nordsjaelland",
+      "away": "Odense",
+      "league": "Danimarka",
+      "timeLabel": "20:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Coban Imperial",
+      "away": "Aurora",
+      "league": "Guatemala",
+      "timeLabel": "20:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Pafos FC",
+      "away": "AEL Limassol",
+      "league": "Kibris Rum Kesi",
+      "timeLabel": "20:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "6-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "CS Cartagines",
+      "away": "San Carlos",
+      "league": "Kosta Rika",
+      "timeLabel": "20:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Debrecen",
+      "away": "Zalaegerszegi TE",
+      "league": "Macaristan",
+      "timeLabel": "20:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Pogon Szczecin II",
+      "away": "Flota Swinoujscie",
+      "league": "Polonya",
+      "timeLabel": "20:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Gainsborough Trinity",
+      "away": "Accrington Stanley",
+      "league": "Ingiltere",
+      "timeLabel": "20:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Tarxien Rainbows",
+      "away": "Mosta",
+      "league": "Malta",
+      "timeLabel": "20:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Barcelona",
+      "away": "Elche",
+      "league": "Ispanya",
+      "timeLabel": "20:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Querétaro U19",
+      "away": "Mazatlán U19",
+      "league": "Meksika",
+      "timeLabel": "20:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Panserraikos",
+      "away": "PAOK",
+      "league": "Yunanistan",
+      "timeLabel": "20:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "FC Santa Coloma",
+      "away": "Esperança dAndorra",
+      "league": "Andorra",
+      "timeLabel": "21:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Leones Negros Udeg",
+      "away": "Venados",
+      "league": "Meksika",
+      "timeLabel": "21:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Alianza Universidad",
+      "away": "Cusco FC",
+      "league": "Peru",
+      "timeLabel": "21:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Ironi Kiryat Shmona",
+      "away": "Maccabi Netanya",
+      "league": "Israil",
+      "timeLabel": "21:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Tromsö",
+      "away": "Sarpsborg 08",
+      "league": "Norveç",
+      "timeLabel": "21:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Alemannia Aachen",
+      "away": "Saarbrücken",
+      "league": "Almanya",
+      "timeLabel": "21:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Magpies",
+      "away": "Europa Point",
+      "league": "Cebelitarik",
+      "timeLabel": "21:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Olimpia Grudziadz",
+      "away": "Sandecja Nowy Sacz",
+      "league": "Polonya",
+      "timeLabel": "21:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Borac Banja Luka",
+      "away": "Sloga Doboj",
+      "league": "Bosna",
+      "timeLabel": "22:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Bahia",
+      "away": "RB Bragantino",
+      "league": "Brezilya",
+      "timeLabel": "22:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "4-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Corinthians",
+      "away": "Gremio",
+      "league": "Brezilya",
+      "timeLabel": "22:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Silkeborg IF",
+      "away": "Brondby",
+      "league": "Danimarka",
+      "timeLabel": "22:00",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Miedz Legnica",
+      "away": "KS Wieczysta Krakow",
+      "league": "Polonya",
+      "timeLabel": "22:15",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Lumezzane",
+      "away": "Renate",
+      "league": "Italya",
+      "timeLabel": "22:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Brest",
+      "away": "Lyon",
+      "league": "Fransa",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Coquimbo Unido",
+      "away": "Union La Calera",
+      "league": "Sili",
+      "timeLabel": "23:30",
+      "matchDate": "2025-11-02",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    }
+  ],
+  "scrapedAt": "2025-11-02T06:13:20.072691",
+  "count": 312
+}

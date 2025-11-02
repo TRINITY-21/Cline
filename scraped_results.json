@@ -1,0 +1,126 @@
+{
+  "results": [
+    {
+      "home": "Mixco",
+      "away": "Antigua GFC",
+      "timeLabel": "00:00",
+      "actualScore": "0-1",
+      "status": "failed",
+      "msbs": "Over 3.5"
+    },
+    {
+      "home": "Fuerte San Francisco",
+      "away": "Platense",
+      "timeLabel": "00:15",
+      "actualScore": "0-0",
+      "status": "failed",
+      "msbs": "Over 3.5"
+    },
+    {
+      "home": "Chicago Fire",
+      "away": "Philadelphia Union",
+      "timeLabel": "00:30",
+      "actualScore": "0-3",
+      "status": "failed",
+      "msbs": "Over 3.5"
+    },
+    {
+      "home": "Avai",
+      "away": "Athletic Club",
+      "timeLabel": "00:30",
+      "actualScore": "2-1",
+      "status": "failed",
+      "msbs": "Over 3.5"
+    },
+    {
+      "home": "Tepatitlán de Morelos",
+      "away": "CA La Paz",
+      "timeLabel": "02:00",
+      "actualScore": "0-1",
+      "status": "failed",
+      "msbs": "Over 3.5"
+    },
+    {
+      "home": "Nashville SC",
+      "away": "Inter Miami",
+      "timeLabel": "02:30",
+      "actualScore": "2-1",
+      "status": "failed",
+      "msbs": "Over 3.5"
+    },
+    {
+      "home": "FC Tulsa",
+      "away": "Colorado Springs",
+      "timeLabel": "03:00",
+      "actualScore": "0-0",
+      "status": "failed",
+      "msbs": "Over 3.5"
+    },
+    {
+      "home": "Alianza",
+      "away": "Aguila",
+      "timeLabel": "03:00",
+      "actualScore": "0-1",
+      "status": "failed",
+      "msbs": "Over 3.5"
+    },
+    {
+      "home": "New Mexico United",
+      "away": "San Antonio",
+      "timeLabel": "04:00",
+      "actualScore": "2-0",
+      "status": "failed",
+      "msbs": "Over 3.5"
+    },
+    {
+      "home": "Tlaxcala",
+      "away": "Monarcas Morelia",
+      "timeLabel": "04:00",
+      "actualScore": "0-1",
+      "status": "failed",
+      "msbs": "Over 3.5"
+    },
+    {
+      "home": "Monterrey",
+      "away": "Tigres UANL",
+      "timeLabel": "04:05",
+      "actualScore": "1-1",
+      "status": "failed",
+      "msbs": "Over 3.5"
+    },
+    {
+      "home": "FC Dallas",
+      "away": "Vancouver Whitecaps",
+      "timeLabel": "04:30",
+      "actualScore": "1-0",
+      "status": "failed",
+      "msbs": "Over 3.5"
+    },
+    {
+      "home": "Portland Timbers",
+      "away": "San Diego",
+      "timeLabel": "04:30",
+      "actualScore": "1-2",
+      "status": "failed",
+      "msbs": "Over 3.5"
+    },
+    {
+      "home": "El Paso Locomotive",
+      "away": "Phoenix Rising",
+      "timeLabel": "04:30",
+      "actualScore": "0-0",
+      "status": "failed",
+      "msbs": "Over 3.5"
+    },
+    {
+      "home": "Motagua",
+      "away": "CD Victoria",
+      "timeLabel": "04:30",
+      "actualScore": "2-1",
+      "status": "failed",
+      "msbs": "Over 3.5"
+    }
+  ],
+  "scrapedAt": "2025-11-02T06:14:27.291526",
+  "count": 15
+}

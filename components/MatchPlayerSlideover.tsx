@@ -733,7 +733,7 @@ export default function MatchPlayerSlideover({
     <div className="fixed inset-0 z-[999]">
       {/* Blur backdrop - full screen */}
       <div 
-        className="fixed inset-0 bg-black/60 backdrop-blur-md backdrop-blur-enter transition-opacity duration-300 opacity-100"
+        className="fixed inset-0 bg-black/40 backdrop-blur-xl backdrop-blur-enter transition-opacity duration-300 opacity-100"
         onClick={onClose}
         style={{ zIndex: 998 }}
       />
@@ -743,8 +743,8 @@ export default function MatchPlayerSlideover({
         ref={slideoverRef}
         className={`absolute bottom-0 z-[999] slideover-enter theater-mode-transition ${
             viewMode === 'theater' 
-              ? 'top-0 bg-black/95 rounded-none' 
-              : 'top-[8%] md:top-[12%] bg-gradient-to-b from-black/95 via-black/95 to-black/98 rounded-t-3xl md:rounded-t-3xl shadow-2xl'
+              ? 'top-0 bg-black rounded-none' 
+              : 'top-[8%] md:top-[12%] bg-black rounded-t-3xl md:rounded-t-3xl shadow-2xl'
         } inset-x-0`}
         style={{
           // On desktop: adjust when chat is open (mobile chat is inside, so no adjustment needed)
@@ -753,10 +753,10 @@ export default function MatchPlayerSlideover({
         }}
       >
         {/* Header with controls */}
-        <div className={`relative z-20 border-b border-white/10 theater-mode-transition ${
+          <div className={`relative z-20 border-b border-white/10 theater-mode-transition ${
           viewMode === 'theater' 
-            ? 'bg-black/95 backdrop-blur-md shadow-lg' 
-            : 'bg-black/85 backdrop-blur-sm'
+            ? 'bg-black backdrop-blur-md shadow-lg' 
+            : 'bg-black backdrop-blur-sm'
         }`}>
           <div className="flex items-center justify-between p-3 md:p-4 lg:p-6">
             <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0">
@@ -897,20 +897,20 @@ export default function MatchPlayerSlideover({
           )}
 
           {/* Outer frame container with border and gradient */}
-          <div className={`w-full h-full overflow-hidden bg-gradient-to-br from-black via-black to-gray-900 relative ${
+          <div className={`w-full h-full overflow-hidden bg-gradient-to-br from-[rgb(var(--bg))] via-[rgb(var(--bg))] via-[rgb(var(--bg))] to-gray-900 relative ${
             viewMode === 'theater' 
               ? 'rounded-none' 
               : 'rounded-xl'
           }`}>
-            {/* Subtle inner glow effect */}
+            {/* Beautiful inner glow effect with brand colors */}
             <div className={`absolute inset-[1px] ${
               viewMode === 'theater' ? 'rounded-none' : 'rounded-xl'
-            } bg-gradient-to-br from-[rgb(var(--brand-yellow))]/5 via-transparent to-blue-500/5 opacity-50`} />
+            } bg-gradient-to-br from-[rgb(var(--brand-yellow))]/8 via-[rgb(var(--bg))] to-blue-500/8 opacity-70`} />
             
-            {/* Inner black background with gradient */}
+            {/* Inner background with beautiful gradient matching website theme */}
             <div className={`absolute inset-[2px] ${
               viewMode === 'theater' ? 'rounded-none' : 'rounded-xl'
-            } bg-gradient-to-br from-black via-black to-gray-900`}>
+            } bg-gradient-to-br from-[rgb(var(--bg))] via-gray-950 via-[rgb(var(--bg))]/98 to-[rgb(var(--bg))]`}>
               {/* Loading/Error Overlay */}
               {(isReloading || streamError || isTryingSources) && (
                 <div className="absolute inset-0 bg-black/80 z-20 flex items-center justify-center backdrop-blur-sm">
@@ -979,7 +979,7 @@ export default function MatchPlayerSlideover({
                     className="w-full h-full border-0"
                     key={`${currentSourceIndex}-${computedSrc}`}
                     style={{
-                      backgroundColor: '#000'
+                      backgroundColor: 'rgb(var(--bg))'
                     }}
                     onLoad={() => {
                       // Clear any errors on successful load

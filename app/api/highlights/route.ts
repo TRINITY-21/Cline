@@ -106,13 +106,9 @@ export async function GET() {
       }
     });
     
-    return NextResponse.json({ matches: sortedMatches });
-  } catch (error: any) {
-      message: error?.message,
-      code: error?.code,
-      stack: error?.stack,
-    });
-    return NextResponse.json({ 
+        return NextResponse.json({ matches: sortedMatches });
+      } catch (error: any) {
+        return NextResponse.json({
       matches: [], 
       error: error?.message || 'Unknown error',
       code: error?.code 

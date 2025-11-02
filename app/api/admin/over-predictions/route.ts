@@ -256,7 +256,7 @@ export async function POST(req: NextRequest) {
       timeLabel,
       matchDate,
       predictedScoreDisplay,
-      msbs = 'Over 1.5',
+      msbs = 'Over 3.5',
       actualScore,
       status,
     } = body;

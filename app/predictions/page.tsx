@@ -1,6 +1,5 @@
 "use client";
 
-import AvatarFallback from '@/components/AvatarFallback';
 import PlayerOverlay from '@/components/PlayerOverlay';
 import { enrichGames } from '@/lib/catalog';
 import { getDisplayName } from '@/lib/utils';
@@ -55,7 +54,8 @@ function getWeekDates() {
   return weekDates;
 }
 
-// Calculate if over 1.5 is won (total goals >= 2)
+// Calculate if Over 1.5 is won (total goals >= 2)
+// Note: Predictions are scraped for Over 3.5, but status uses Over 1.5 logic (2+ goals = won)
 function calculateOver15Status(actualScore: string | null): 'won' | 'failed' | null {
   if (!actualScore) return null;
   
@@ -86,7 +86,7 @@ function generateMockPredictions(): any[] {
     ['Real Madrid', 'Barcelona']
   ];
   const times = ['01:00', '02:00', '02:30', '05:00', '07:00', '10:00', '14:00', '16:00', '19:00', '22:00'];
-  const overType = 'Over 1.5'; // Only use Over 1.5 predictions
+        const overType = 'Over 1.5';
   
   const mockData: any[] = [];
   const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -99,9 +99,10 @@ function generateMockPredictions(): any[] {
       const teamIndex = Math.floor(Math.random() * teams.length);
       const timeIndex = Math.floor(Math.random() * times.length);
       
-      // Generate predicted score
-      const predictedHomeGoals = Math.floor(Math.random() * 4) + 1; // 1-4 goals
-      const predictedAwayGoals = Math.floor(Math.random() * 4); // 0-3 goals
+      // Generate predicted score for Over 1.5 (sum >= 2)
+      // Ensure total goals is at least 2
+      const predictedHomeGoals = Math.floor(Math.random() * 3) + 1; // 1-3 goals
+      const predictedAwayGoals = Math.floor(Math.random() * 3) + 1; // 1-3 goals
       const predictedScoreDisplay = `${predictedHomeGoals} - ${predictedAwayGoals}`;
       
       // Generate actual score - sometimes finished, sometimes pending
@@ -135,33 +136,6 @@ function generateMockPredictions(): any[] {
   });
   
   return mockData;
-}
-
-function TeamLogo({ logo, name, size = 40, className = "" }: { logo?: string; name: string; size?: number; className?: string }) {
-  const [hasError, setHasError] = useState(false);
-  
-  if (!logo || hasError) {
-    return <AvatarFallback name={name} size={size} />;
-  }
-  
-  let imgClassName = "object-contain rounded-full";
-  if (size > 30) {
-    imgClassName = "w-10 h-10 object-contain rounded-full";
-  } else if (size > 20) {
-    imgClassName = "w-6 h-6 rounded-full object-contain";
-  } else {
-    imgClassName = "w-4 h-4 rounded-full object-contain";
-  }
-  
-  return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={logo}
-      alt=""
-      className={imgClassName + " " + className}
-      onError={() => setHasError(true)}
-    />
-  );
 }
 
 // Parse date string handling different formats (DD-MM-YYYY or YYYY-MM-DD)
@@ -220,22 +194,43 @@ export default function PredictionsPage() {
   const [expandedKeys, setExpandedKeys] = useState<Record<string, boolean>>({});
   const [entries, setEntries] = useState<any[]>([]);
   const [isMounted, setIsMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Track initial loading state
   const [isRefreshing, setIsRefreshing] = useState(false);
   const groupRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const loadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Fetch predictions from Firestore API
   const fetchPredictions = async (showLoading = false) => {
     if (showLoading) setIsRefreshing(true);
+    
+    // Clear any existing timeout
+    if (loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current);
+    }
+    
+    // Add timeout to prevent stuck loading (10 seconds)
+    loadingTimeoutRef.current = setTimeout(() => {
+      console.warn('Fetch timeout - forcing loading to complete');
+      setIsLoading(false);
+      if (showLoading) setIsRefreshing(false);
+    }, 10000);
+    
     try {
       // Add timestamp to bust cache
       const timestamp = Date.now();
+      const controller = new AbortController();
+      const timeoutAbort = setTimeout(() => controller.abort(), 8000); // 8 second timeout for fetch
+      
       const res = await fetch(`/api/predictions?t=${timestamp}`, { 
         cache: 'no-store',
+        signal: controller.signal,
         headers: {
           'Cache-Control': 'no-cache, no-store, must-revalidate',
           'Pragma': 'no-cache',
         },
       });
+      
+      clearTimeout(timeoutAbort);
       
       if (!res.ok) {
         throw new Error(`Failed to fetch predictions: ${res.status}`);
@@ -247,9 +242,17 @@ export default function PredictionsPage() {
       } else {
         setEntries([]);
       }
-    } catch (err) {
-      setEntries([]); // Set empty array instead of mock data
+    } catch (err: any) {
+      console.error('Error fetching predictions:', err);
+      if (err.name !== 'AbortError') {
+        setEntries([]); // Set empty array instead of mock data
+      }
     } finally {
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+        loadingTimeoutRef.current = null;
+      }
+      setIsLoading(false); // Always set loading to false after first fetch
       if (showLoading) setIsRefreshing(false);
     }
   };
@@ -307,13 +310,6 @@ export default function PredictionsPage() {
       const dayName = getDayOfWeek(entry.prediction.matchDate || entry.prediction.createdAt);
       
       if (!dayName) {
-        // Log skipped entries for debugging
-          index: idx,
-          matchDate: entry.prediction.matchDate,
-          createdAt: entry.prediction.createdAt,
-          home: entry.game?.home?.name,
-          away: entry.game?.away?.name,
-        });
         skippedCount++;
         // Still add to a fallback group instead of skipping completely
         const fallbackDay = 'Unknown';
@@ -328,11 +324,6 @@ export default function PredictionsPage() {
     
     if (skippedCount > 0) {
     }
-    
-    // Debug: log grouping summary
-    const totalGrouped = Object.values(groups).reduce((sum, arr) => sum + arr.length, 0);
-      Object.entries(groups).map(([day, arr]) => `${day} (${arr.length})`).join(', ')
-    );
     
     return groups;
   }, [gamesWithPredictions]);
@@ -383,28 +374,64 @@ export default function PredictionsPage() {
     setExpandedKeys(next);
   }
 
-  // Show loading state until client-side hydration completes
-  if (!isMounted) {
+  // Show loading state until client-side hydration completes AND initial data fetch completes
+  if (!isMounted || isLoading) {
     return (
       <div className="space-y-10">
         <section className="surface p-5 md:p-6 hero-glow relative">
-          <div className="flex items-center justify-center py-20">
-            <div className="text-white/60">Loading predictions...</div>
+          <div className="flex flex-col items-center justify-center py-20 md:py-32">
+            {/* Animated spinner */}
+            <div className="relative mb-6">
+              <div className="w-16 h-16 border-4 border-white/10 rounded-full"></div>
+              <div className="absolute top-0 left-0 w-16 h-16 border-4 border-transparent border-t-[rgb(var(--brand-yellow))] rounded-full animate-spin"></div>
+              {/* Outer glow effect */}
+              <div className="absolute inset-0 w-16 h-16 rounded-full bg-[rgb(var(--brand-yellow))]/20 blur-xl animate-pulse"></div>
+            </div>
+            
+            {/* Loading text with animation */}
+            <div className="text-center space-y-2">
+              <div className="text-lg md:text-xl font-semibold text-white/90 animate-pulse">
+                Loading predictions...
+              </div>
+              <div className="text-sm text-white/50">
+                Fetching your match predictions
+              </div>
+            </div>
+            
+            {/* Progress dots */}
+            <div className="flex items-center gap-2 mt-8">
+              <div className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-bounce" style={{ animationDelay: '0ms' }}></div>
+              <div className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-bounce" style={{ animationDelay: '150ms' }}></div>
+              <div className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-bounce" style={{ animationDelay: '300ms' }}></div>
+            </div>
           </div>
         </section>
       </div>
     );
   }
 
-  // Show empty state if no predictions found
-  if (isMounted && entries.length === 0) {
+  // Show empty state if no predictions found (only after loading completes)
+  if (isMounted && !isLoading && entries.length === 0) {
     return (
       <div className="space-y-10">
         <section className="surface p-5 md:p-6 hero-glow relative">
-          <div className="flex items-center justify-center py-20">
-            <div className="text-center">
-              <div className="text-white/60 mb-2">No predictions found</div>
-              <div className="text-white/40 text-sm">Predictions will appear here once they are added</div>
+          <div className="flex flex-col items-center justify-center py-20 md:py-32">
+            {/* Empty state icon */}
+            <div className="mb-6 relative">
+              <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
+                <svg className="w-10 h-10 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              {/* Subtle glow */}
+              <div className="absolute inset-0 w-20 h-20 rounded-full bg-[rgb(var(--brand-yellow))]/10 blur-xl"></div>
+            </div>
+            
+            <div className="text-center space-y-3 max-w-md">
+              <div className="text-xl font-semibold text-white/90">No predictions found</div>
+              <div className="text-white/50 text-sm leading-relaxed">
+                Predictions will appear here once they are added and approved. Check back later or add predictions through the admin panel.
+              </div>
             </div>
           </div>
         </section>
@@ -414,7 +441,7 @@ export default function PredictionsPage() {
 
   return (
     <div className="space-y-10">
-      <section className="surface p-5 md:p-6 hero-glow relative" style={{ isolation: 'isolate', overflow: 'visible' }}>
+      <section className="surface p-5 md:p-6 hero-glow">
         {/* Animated background gradient - fixed positioning */}
         <div className="absolute inset-0 opacity-10 pointer-events-none z-0 rounded-xl overflow-hidden">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-[rgb(var(--brand-yellow))] rounded-full blur-3xl" 
@@ -423,7 +450,7 @@ export default function PredictionsPage() {
                style={{ animation: 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite', animationDelay: '2s' }} />
         </div>
         
-        <div className="relative z-10" style={{ isolation: 'isolate' }}>
+        <div className="relative z-10">
           <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
             <div className="flex-1">
               <div className="text-[10px] uppercase tracking-[0.2em] text-white/60">Football Predictions</div>
@@ -522,133 +549,128 @@ export default function PredictionsPage() {
                 </button>
 
                 {isOpen && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-                    {entries.map(({ game, prediction }) => {
+                  <div className="space-y-3">
+                    {entries.map(({ game, prediction }, index) => {
                       // Determine status colors
                       const predictionStatus = prediction?.status;
                       const isWon = predictionStatus === 'won';
                       const isFailed = predictionStatus === 'failed';
                       const isFinished = !!prediction?.actualScore;
                       
+                      // Create a unique key using prediction ID if available, or composite key with all unique fields
+                      const uniqueKey = prediction?.gameId || 
+                        `${game.sport}-${game.home.name}-${game.away.name}-${prediction?.timeLabel || ''}-${day}-${index}`;
+                      
                       return (
                         <div
-                          key={game.sport + '-' + game.home.name + '-' + day}
-                          className={`text-left group rounded-xl overflow-hidden transition-all duration-200 relative ${
+                          key={uniqueKey}
+                          className={`group rounded-xl overflow-hidden transition-all duration-300 relative ${
                             isWon
-                              ? 'border-2 border-green-500/60 bg-gradient-to-br from-green-500/15 to-green-500/5 shadow-lg shadow-green-500/20'
+                              ? 'border-l-4 border-green-500/70 bg-gradient-to-r from-green-500/20 via-green-500/10 to-transparent shadow-lg shadow-green-500/20 hover:shadow-green-500/30'
                               : isFailed
-                              ? 'border-2 border-red-500/60 bg-gradient-to-br from-red-500/15 to-red-500/5 shadow-lg shadow-red-500/20'
-                              : 'border border-white/10 bg-gradient-to-br from-white/8 to-white/3 hover:border-[rgb(var(--brand-yellow))]/30 hover:shadow-lg hover:shadow-[rgb(var(--brand-yellow))]/10'
+                              ? 'border-l-4 border-red-500/70 bg-gradient-to-r from-red-500/20 via-red-500/10 to-transparent shadow-lg shadow-red-500/20 hover:shadow-red-500/30'
+                              : 'border-l-4 border-white/20 bg-gradient-to-r from-white/10 via-white/5 to-transparent hover:border-l-[rgb(var(--brand-yellow))]/50 hover:from-white/15 hover:via-white/8 hover:shadow-lg hover:shadow-[rgb(var(--brand-yellow))]/10'
                           }`}
                           style={{ transform: 'translateZ(0)', willChange: 'transform' }}
                         >
-                          {/* Animated glow effect on hover - properly contained */}
+                          {/* Subtle hover glow */}
                           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-0 overflow-hidden rounded-xl">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-[rgb(var(--brand-yellow))]/10 rounded-full blur-2xl" />
+                            <div className="absolute top-0 right-0 w-40 h-40 bg-[rgb(var(--brand-yellow))]/5 rounded-full blur-3xl" />
                           </div>
                           
-                          <div className="p-3 space-y-2 relative z-10" style={{ isolation: 'isolate' }}>
-                            {/* League and Time */}
-                            <div className="flex items-center justify-between">
-                              <div className="text-[10px] text-white/60 uppercase tracking-wide font-semibold">{game.league}</div>
-                              {game.time && (
-                                <div className="flex items-center gap-1">
-                                  <svg className="w-3 h-3 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                  </svg>
-                                  <span className="text-[10px] text-white/60 font-mono">{game.time}</span>
-                                </div>
-                              )}
-                            </div>
-
-                            {/* Match Info */}
-                            <div className="flex items-center gap-2 py-1">
-                              <div className="flex-1 flex flex-col items-center gap-1 min-w-0">
-                                <div className="duel-pedestal w-10 h-10 grid place-items-center overflow-hidden shrink-0 transition-transform duration-200" style={{ transform: 'translateZ(0)' }}>
-                                  <TeamLogo logo={game.home.logo} name={game.home.name} size={32} />
-                                  <div className="duel-gloss" />
-                                </div>
-                                <div className="font-bold text-[11px] truncate max-w-[5rem] text-center leading-tight text-white/90" title={game.home.name}>
-                                  {getDisplayName(game.home.name)}
-                                </div>
-                              </div>
-
-                              <div className="flex flex-col items-center gap-1 min-w-[4rem]">
-                                {isFinished && prediction.actualScore ? (
-                                  <>
-                                    <span className="text-[16px] font-black text-[rgb(var(--brand-yellow))] drop-shadow-lg">
-                                      {prediction.actualScore}
-                                    </span>
-                                    <span className="text-[8px] text-white/40 uppercase">Final</span>
-                                    {prediction?.predictedScoreDisplay && (
-                                      <div className="mt-0.5 inline-flex items-center gap-1 px-1.5 py-1 rounded border-[0.5px] border-white/10 bg-white/5">
-                                        <span className="text-[9px] text-white/50 font-medium leading-none">Pred:</span>
-                                        <span className="text-[11px] font-bold text-white/70 leading-none tabular-nums">{prediction.predictedScoreDisplay}</span>
-                                      </div>
-                                    )}
-                                  </>
-                                ) : (
-                                  <>
-                                    <span className="text-white/40 text-[10px] font-bold mb-1">VS</span>
-                                    {prediction?.predictedScoreDisplay && (
-                                      <div className="px-2.5 py-1 rounded-lg bg-gradient-to-r from-[rgb(var(--brand-yellow))]/20 to-[rgb(var(--brand-yellow))]/10 border border-[rgb(var(--brand-yellow))]/40 shadow-md">
-                                        <div className="flex items-center gap-1.5">
-                                          <svg className="w-3 h-3 text-[rgb(var(--brand-yellow))]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                          </svg>
-                                          <span className="text-[12px] font-black text-[rgb(var(--brand-yellow))] tabular-nums">{prediction.predictedScoreDisplay}</span>
-                                        </div>
-                                      </div>
-                                    )}
-                                  </>
+                          <div className="p-5 relative z-10">
+                            <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+                              {/* League & Time Section */}
+                              <div className="flex-shrink-0 lg:w-32 space-y-1">
+                                <div className="text-[11px] text-white/70 uppercase tracking-wider font-semibold">{game.league}</div>
+                                {game.time && (
+                                  <div className="flex items-center gap-1.5 text-white/50">
+                                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span className="text-xs font-mono font-medium">{game.time}</span>
+                                  </div>
                                 )}
                               </div>
 
-                              <div className="flex-1 flex flex-col items-center gap-1 min-w-0">
-                                <div className="duel-pedestal w-10 h-10 grid place-items-center overflow-hidden shrink-0 transition-transform duration-200" style={{ transform: 'translateZ(0)' }}>
-                                  <TeamLogo logo={game.away.logo} name={game.away.name} size={32} />
-                                  <div className="duel-gloss" />
+                              {/* Teams & Score Section */}
+                              <div className="flex-1 flex flex-col sm:flex-row items-center gap-3 sm:gap-6 min-w-0">
+                                {/* Home Team */}
+                                <div className="flex-1 min-w-0 text-center sm:text-left">
+                                  <div className="font-semibold text-sm sm:text-base text-white/95 truncate" title={game.home.name}>
+                                    {getDisplayName(game.home.name)}
+                                  </div>
                                 </div>
-                                <div className="font-bold text-[11px] truncate max-w-[5rem] text-center leading-tight text-white/90" title={game.away.name}>
-                                  {getDisplayName(game.away.name)}
+
+                                {/* Score Display */}
+                                <div className="flex items-center gap-3 flex-shrink-0">
+                                  {isFinished && prediction.actualScore ? (
+                                    <div className="flex items-center gap-3">
+                                      <div className="flex flex-col items-center">
+                                        <span className="text-2xl sm:text-3xl font-black text-[rgb(var(--brand-yellow))] leading-none tracking-tight">
+                                          {prediction.actualScore}
+                                        </span>
+                                        {prediction?.predictedScoreDisplay && (
+                                          <span className="text-[10px] text-white/50 mt-1">Pred: {prediction.predictedScoreDisplay}</span>
+                                        )}
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    <div className="flex flex-col items-center gap-2">
+                                      <span className="text-xs text-white/40 font-medium uppercase tracking-wider">VS</span>
+                                      {prediction?.predictedScoreDisplay && (
+                                        <div className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[rgb(var(--brand-yellow))]/25 to-[rgb(var(--brand-yellow))]/15 border border-[rgb(var(--brand-yellow))]/50 shadow-md">
+                                          <div className="flex items-center gap-1.5">
+                                            <svg className="w-3.5 h-3.5 text-[rgb(var(--brand-yellow))]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                            </svg>
+                                            <span className="text-sm font-black text-[rgb(var(--brand-yellow))] tabular-nums">{prediction.predictedScoreDisplay}</span>
+                                          </div>
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+
+                                {/* Away Team */}
+                                <div className="flex-1 min-w-0 text-center sm:text-right">
+                                  <div className="font-semibold text-sm sm:text-base text-white/95 truncate" title={game.away.name}>
+                                    {getDisplayName(game.away.name)}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
 
-                            {/* Over Prediction & Status */}
-                            <div className="pt-2 border-t border-white/10">
-                              <div className="flex flex-col items-center gap-2">
-                                {/* Prediction Badge */}
-                                <div className="flex items-center justify-center gap-2">
-                                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[rgb(var(--brand-yellow))]/20 border border-[rgb(var(--brand-yellow))]/40 text-[rgb(var(--brand-yellow))] text-[11px] font-bold">
-                                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                    </svg>
-                                    Over 1.5
-                                  </span>
-                                </div>
+                              {/* Prediction & Status Section */}
+                              <div className="flex flex-wrap items-center gap-2.5 flex-shrink-0 justify-center lg:justify-end">
+                                {/* Prediction Type Badge */}
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[rgb(var(--brand-yellow))]/15 border border-[rgb(var(--brand-yellow))]/40 text-[rgb(var(--brand-yellow))] text-xs font-semibold backdrop-blur-sm">
+                                  <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                  </svg>
+                                  {prediction?.msbs || 'Over 1.5'}
+                                </span>
                                 
-                                {/* Status Indicator */}
+                                {/* Status Badge */}
                                 {isWon && (
-                                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-green-500/25 to-green-500/10 border border-green-500/30 w-full justify-center">
-                                    <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-green-500/30 to-green-500/15 border border-green-500/40 shadow-md">
+                                    <svg className="w-4 h-4 text-green-300" fill="currentColor" viewBox="0 0 20 20">
                                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                                     </svg>
-                                    <span className="text-[11px] font-bold text-green-300">Won</span>
+                                    <span className="text-xs font-bold text-green-200">Won</span>
                                   </div>
                                 )}
                                 {isFailed && (
-                                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-red-500/25 to-red-500/10 border border-red-500/30 w-full justify-center">
-                                    <svg className="w-4 h-4 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-red-500/30 to-red-500/15 border border-red-500/40 shadow-md">
+                                    <svg className="w-4 h-4 text-red-300" fill="currentColor" viewBox="0 0 20 20">
                                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                                     </svg>
-                                    <span className="text-[11px] font-bold text-red-300">Lost</span>
+                                    <span className="text-xs font-bold text-red-200">Lost</span>
                                   </div>
                                 )}
                                 {!isWon && !isFailed && (
-                                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 w-full justify-center">
-                                    <div className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-pulse" />
-                                    <span className="text-[11px] font-medium text-white/60">Pending</span>
+                                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/8 border border-white/20 backdrop-blur-sm">
+                                    <div className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-pulse shadow-sm shadow-[rgb(var(--brand-yellow))]/50" />
+                                    <span className="text-xs font-medium text-white/70">Pending</span>
                                   </div>
                                 )}
                               </div>

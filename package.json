@@ -8,17 +8,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "update:teams": "node scripts/update_teams_catalog.js",
     "verify:logos": "node scripts/verify_team_logos.js",
     "fix:logos": "node scripts/verify_team_logos.js --fix",
-    "scrape:highlights": "tsx scripts/scrape-dasfootball-highlights.ts",
-    "sync:teams": "tsx scripts/sync-teams-from-enriched.ts",
-    "update:dasfootball-logos": "tsx scripts/update-teams-dasfootball-logos.ts",
-    "remove:local-logos": "tsx scripts/remove-local-logos.ts",
-    "test:count-today": "tsx scripts/test-count-today.ts"
+    "remove:local-logos": "tsx scripts/remove-local-logos.ts"
   },
   "dependencies": {
-    "cheerio": "^1.1.2",
     "firebase-admin": "^12.7.0",
     "next": "14.2.5",
     "react": "18.3.1",
@@ -29,7 +23,6 @@
     "@types/node": "20.16.11",
     "@types/react": "18.3.7",
     "autoprefixer": "10.4.20",
-    "cheerio": "^1.0.0",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.5",
     "playwright": "^1.56.1",
