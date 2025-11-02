@@ -892,7 +892,7 @@ export default function MatchPlayerSlideover({
         </div>
 
         {/* Content area: Video Player + (Mobile Chat if open) */}
-        <div className={`flex flex-col ${viewMode === 'theater' ? 'h-[calc(100vh-70px)] lg:h-[calc(100vh-80px)]' : 'h-[calc(100%-64px)] lg:h-[calc(100%-80px)]'} overflow-hidden`}>
+        <div className={`flex flex-col ${viewMode === 'theater' ? 'h-[calc(100vh-98px)] lg:h-[calc(100vh-98px)]' : 'h-[calc(100%-64px)] lg:h-[calc(100%-98px)]'} overflow-hidden`}>
           {/* Player container with smooth transitions */}
           <div 
             className={`relative w-full theater-mode-transition flex-shrink-0 ${
