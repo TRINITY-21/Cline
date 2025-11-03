@@ -22,41 +22,48 @@ export default function HomePage() {
             </h2>
             <p className="text-white/70 mt-2 text-sm sm:text-base max-w-prose">Browse football, hockey, volleyball and more. Click any game to instantly open the embedded player.</p>
           </div>
-          {/* Buttons - Below text on mobile/tablet, to the right on desktop */}
-          <div className="flex flex-col sm:flex-col md:flex-row md:items-center gap-2 sm:gap-2 mt-2 sm:mt-0 md:mt-0 md:ml-auto md:flex-shrink-0">
-            <button
-              onClick={() => setActiveTab('trending')}
-              className={
-                "btn transition-all text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2 touch-manipulation min-h-[44px] sm:min-h-[44px] w-full sm:w-full md:w-auto flex items-center justify-center " +
-                (activeTab === 'trending' 
-                  ? 'btn-primary shadow-lg shadow-[rgb(var(--brand-yellow))]/20' 
-                  : 'btn-ghost hover:bg-white/10')
-              }
-            >
-              🔥 Trending
-            </button>
-            <button
-              onClick={() => setActiveTab('today')}
-              className={
-                "btn transition-all text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2 touch-manipulation min-h-[44px] sm:min-h-[44px] w-full sm:w-full md:w-auto flex items-center justify-center " +
-                (activeTab === 'today' 
-                  ? 'btn-primary shadow-lg shadow-[rgb(var(--brand-yellow))]/20' 
-                  : 'btn-ghost hover:bg-white/10')
-              }
-            >
-              📅 Today&apos;s Matches
-            </button>
-            <button
-              onClick={() => setActiveTab('scores')}
-              className={
-                "btn transition-all text-xs sm:text-sm px-3 sm:px-4 py-2 sm:py-2 touch-manipulation min-h-[44px] sm:min-h-[44px] w-full sm:w-full md:w-auto flex items-center justify-center " +
-                (activeTab === 'scores' 
-                  ? 'btn-primary shadow-lg shadow-[rgb(var(--brand-yellow))]/20' 
-                  : 'btn-ghost hover:bg-white/10')
-              }
-            >
-              ⚽ Live Scores
-            </button>
+          {/* Segmented Control - Below text on mobile/tablet, to the right on desktop */}
+          <div className="flex items-center mt-2 sm:mt-0 md:mt-0 md:ml-auto md:flex-shrink-0 w-full md:w-auto">
+            <div className="w-full md:w-auto inline-flex items-center bg-[#2C2C2E] border border-[#48484A] rounded-lg p-0.5 overflow-hidden">
+              <button
+                onClick={() => setActiveTab('trending')}
+                className={
+                  "flex-1 md:flex-none px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 touch-manipulation min-h-[44px] flex items-center justify-center gap-1 sm:gap-1.5 " +
+                  (activeTab === 'trending'
+                    ? 'bg-[rgb(var(--brand-yellow))] text-black rounded-md shadow-sm'
+                    : 'text-[#AEAEB2] hover:text-white')
+                }
+              >
+                <span className="text-base sm:text-lg">🔥</span>
+                <span className="hidden min-[475px]:inline whitespace-nowrap">Trending</span>
+              </button>
+              <button
+                onClick={() => setActiveTab('today')}
+                className={
+                  "flex-1 md:flex-none px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 touch-manipulation min-h-[44px] flex items-center justify-center gap-1 sm:gap-1.5 " +
+                  (activeTab === 'today'
+                    ? 'bg-[rgb(var(--brand-yellow))] text-black rounded-md shadow-sm'
+                    : 'text-[#AEAEB2] hover:text-white')
+                }
+              >
+                <span className="text-base sm:text-lg">📅</span>
+                <span className="hidden sm:inline whitespace-nowrap">
+                  <span className="hidden md:inline">Today&apos;s </span>Matches
+                </span>
+              </button>
+              <button
+                onClick={() => setActiveTab('scores')}
+                className={
+                  "flex-1 md:flex-none px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 touch-manipulation min-h-[44px] flex items-center justify-center gap-1 sm:gap-1.5 " +
+                  (activeTab === 'scores'
+                    ? 'bg-[rgb(var(--brand-yellow))] text-black rounded-md shadow-sm'
+                    : 'text-[#AEAEB2] hover:text-white')
+                }
+              >
+                <span className="text-base sm:text-lg">⚽</span>
+                <span className="hidden sm:inline whitespace-nowrap">Live Scores</span>
+              </button>
+            </div>
           </div>
         </div>
         <div className="mt-6">
