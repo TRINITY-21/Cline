@@ -56,6 +56,32 @@ export default function Navigation() {
           )}
         </Link>
         <Link 
+          href="/highlight" 
+          className={`relative px-3 md:px-4 lg:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 group touch-manipulation ${
+            isActive('/highlight')
+              ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/30'
+              : 'text-white/70 hover:text-white hover:bg-white/5'
+          }`}
+        >
+          Highlights
+          {!isActive('/highlight') && (
+            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[rgb(var(--brand-yellow))] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
+          )}
+        </Link>
+        <Link 
+          href="/news" 
+          className={`relative px-3 md:px-4 lg:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 group touch-manipulation ${
+            isActive('/news')
+              ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/30'
+              : 'text-white/70 hover:text-white hover:bg-white/5'
+          }`}
+        >
+          News
+          {!isActive('/news') && (
+            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[rgb(var(--brand-yellow))] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
+          )}
+        </Link>
+        <Link 
           href="/predictions" 
           className={`relative px-3 md:px-4 lg:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 group touch-manipulation ${
             isActive('/predictions')
@@ -68,19 +94,7 @@ export default function Navigation() {
             <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[rgb(var(--brand-yellow))] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
           )}
         </Link>
-        <Link 
-          href="/my-teams" 
-          className={`relative px-3 md:px-4 lg:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 group touch-manipulation ${
-            isActive('/my-teams')
-              ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/30'
-              : 'text-white/70 hover:text-white hover:bg-white/5'
-          }`}
-        >
-          My Teams
-          {!isActive('/my-teams') && (
-            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[rgb(var(--brand-yellow))] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
-          )}
-        </Link>
+        {/* My Teams link removed */}
       </nav>
 
       {/* Mobile Hamburger Button */}
@@ -139,9 +153,52 @@ export default function Navigation() {
                 )}
               </Link>
               <Link
-                href="/predictions"
+                href="/news"
                 onClick={closeMobileMenu}
                 className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 touch-manipulation mb-1 ${
+                  isActive('/news')
+                    ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))] border border-[rgb(var(--brand-yellow))]/30'
+                    : 'text-white/80 hover:bg-white/5 border border-transparent hover:border-white/10'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 20H5a2 2 0 01-2-2V7a2 2 0 012-2h10l4 4v9a2 2 0 01-2 2z" />
+                  </svg>
+                  <span>News</span>
+                </div>
+                {isActive('/news') && (
+                  <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+              </Link>
+              <Link
+                href="/highlight"
+                onClick={closeMobileMenu}
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 touch-manipulation mb-1 ${
+                  isActive('/highlight')
+                    ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))] border border-[rgb(var(--brand-yellow))]/30'
+                    : 'text-white/80 hover:bg-white/5 border border-transparent hover:border-white/10'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.868v4.264a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Highlights</span>
+                </div>
+                {isActive('/highlight') && (
+                  <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+              </Link>
+              <Link
+                href="/predictions"
+                onClick={closeMobileMenu}
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 touch-manipulation ${
                   isActive('/predictions')
                     ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))] border border-[rgb(var(--brand-yellow))]/30'
                     : 'text-white/80 hover:bg-white/5 border border-transparent hover:border-white/10'
@@ -159,27 +216,7 @@ export default function Navigation() {
                   </svg>
                 )}
               </Link>
-              <Link
-                href="/my-teams"
-                onClick={closeMobileMenu}
-                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 touch-manipulation ${
-                  isActive('/my-teams')
-                    ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))] border border-[rgb(var(--brand-yellow))]/30'
-                    : 'text-white/80 hover:bg-white/5 border border-transparent hover:border-white/10'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                  </svg>
-                  <span>My Teams</span>
-                </div>
-                {isActive('/my-teams') && (
-                  <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                )}
-              </Link>
+              {/* My Teams link removed from mobile menu */}
             </div>
           </div>
         )}

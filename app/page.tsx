@@ -12,10 +12,10 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState<TabView>('trending');
 
   return (
-    <div className="space-y-6 sm:space-y-8 md:space-y-10">
-      <section className="surface p-4 sm:p-5 md:p-6 hero-glow">
-        <div className="flex flex-col md:flex-row md:items-center gap-3 sm:gap-4">
-          <div className="flex-1">
+    <div className="space-y-6 sm:space-y-8 md:space-y-10 w-full max-w-full overflow-x-hidden box-border">
+      <section className="surface p-3 sm:p-5 md:p-6 hero-glow w-full max-w-full box-border">
+        <div className="flex flex-col md:flex-row md:items-center gap-3 sm:gap-4 w-full max-w-full">
+          <div className="flex-1 min-w-0">
             <div className="text-[10px] sm:text-[10px] uppercase tracking-[0.2em] text-white/60">Multi‑Sport</div>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold mt-1">
               <span className="text-[rgb(var(--brand-yellow))]">Live</span> & Schedules
@@ -23,45 +23,45 @@ export default function HomePage() {
             <p className="text-white/70 mt-2 text-sm sm:text-base max-w-prose">Browse football, hockey, volleyball and more. Click any game to instantly open the embedded player.</p>
           </div>
           {/* Segmented Control - Below text on mobile/tablet, to the right on desktop */}
-          <div className="flex items-center mt-2 sm:mt-0 md:mt-0 md:ml-auto md:flex-shrink-0 w-full md:w-auto">
-            <div className="w-full md:w-auto inline-flex items-center bg-[#2C2C2E] border border-[#48484A] rounded-lg p-0.5 overflow-hidden">
+          <div className="flex items-center mt-2 sm:mt-0 md:mt-0 md:ml-auto md:flex-shrink-0 w-full md:w-auto min-w-0">
+            <div className="w-full md:w-auto inline-flex items-center bg-[#2C2C2E] border border-[#48484A] rounded-lg p-0.5 overflow-hidden box-border">
               <button
                 onClick={() => setActiveTab('trending')}
                 className={
-                  "flex-1 md:flex-none px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 touch-manipulation min-h-[44px] flex items-center justify-center gap-1 sm:gap-1.5 " +
+                  "flex-1 md:flex-none px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 touch-manipulation min-h-[44px] flex items-center justify-center gap-1 sm:gap-1.5 min-w-0 " +
                   (activeTab === 'trending'
                     ? 'bg-[rgb(var(--brand-yellow))] text-black rounded-md shadow-sm'
                     : 'text-[#AEAEB2] hover:text-white')
                 }
               >
-                <span className="text-base sm:text-lg">🔥</span>
-                <span className="hidden min-[475px]:inline whitespace-nowrap">Trending</span>
+                <span className="text-base sm:text-lg flex-shrink-0">🔥</span>
+                <span className="whitespace-nowrap truncate">Trending</span>
               </button>
               <button
                 onClick={() => setActiveTab('today')}
                 className={
-                  "flex-1 md:flex-none px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 touch-manipulation min-h-[44px] flex items-center justify-center gap-1 sm:gap-1.5 " +
+                  "flex-1 md:flex-none px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 touch-manipulation min-h-[44px] flex items-center justify-center gap-1 sm:gap-1.5 min-w-0 " +
                   (activeTab === 'today'
                     ? 'bg-[rgb(var(--brand-yellow))] text-black rounded-md shadow-sm'
                     : 'text-[#AEAEB2] hover:text-white')
                 }
               >
-                <span className="text-base sm:text-lg">📅</span>
-                <span className="hidden sm:inline whitespace-nowrap">
-                  <span className="hidden md:inline">Today&apos;s </span>Matches
+                <span className="text-base sm:text-lg flex-shrink-0">📅</span>
+                <span className="whitespace-nowrap truncate">
+                  <span className="hidden sm:inline">Today&apos;s </span>Matches
                 </span>
               </button>
               <button
                 onClick={() => setActiveTab('scores')}
                 className={
-                  "flex-1 md:flex-none px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 touch-manipulation min-h-[44px] flex items-center justify-center gap-1 sm:gap-1.5 " +
+                  "flex-1 md:flex-none px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 touch-manipulation min-h-[44px] flex items-center justify-center gap-1 sm:gap-1.5 min-w-0 " +
                   (activeTab === 'scores'
                     ? 'bg-[rgb(var(--brand-yellow))] text-black rounded-md shadow-sm'
                     : 'text-[#AEAEB2] hover:text-white')
                 }
               >
-                <span className="text-base sm:text-lg">⚽</span>
-                <span className="hidden sm:inline whitespace-nowrap">Live Scores</span>
+                <span className="text-base sm:text-lg flex-shrink-0">⚽</span>
+                <span className="whitespace-nowrap truncate">Scores</span>
               </button>
             </div>
           </div>

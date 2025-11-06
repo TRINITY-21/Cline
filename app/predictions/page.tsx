@@ -412,8 +412,9 @@ export default function PredictionsPage() {
   // Show loading state until client-side hydration completes AND initial data fetch completes
   if (!isMounted || isLoading) {
     return (
-      <div className="space-y-10">
-        <section className="surface p-5 md:p-6 hero-glow relative">
+      
+      <div className="space-y-6 sm:space-y-8 md:space-y-10">
+        <section className="surface p-3 sm:p-5 md:p-6 hero-glow relative">
           <div className="flex flex-col items-center justify-center py-20 md:py-32">
             {/* Animated spinner */}
             <div className="relative mb-6">
@@ -448,8 +449,8 @@ export default function PredictionsPage() {
   // Show empty state if no predictions found (only after loading completes)
   if (isMounted && !isLoading && entries.length === 0) {
     return (
-      <div className="space-y-10">
-        <section className="surface p-5 md:p-6 hero-glow relative">
+      <div className="space-y-6 sm:space-y-8 md:space-y-10">
+        <section className="surface p-3 sm:p-5 md:p-6 hero-glow relative">
           <div className="flex flex-col items-center justify-center py-20 md:py-32">
             {/* Empty state icon */}
             <div className="mb-6 relative">
@@ -475,8 +476,8 @@ export default function PredictionsPage() {
   }
 
   return (
-    <div className="space-y-10">
-      <section className="surface p-4 sm:p-5 md:p-6 hero-glow">
+    <div className="space-y-6 sm:space-y-8 md:space-y-10">
+      <section className="surface p-3 sm:p-5 md:p-6 hero-glow">
         {/* Animated background gradient - fixed positioning */}
         <div className="absolute inset-0 opacity-10 pointer-events-none z-0 rounded-xl overflow-hidden">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-[rgb(var(--brand-yellow))] rounded-full blur-3xl" 
