@@ -22,6 +22,9 @@
       ],
       "@/data/*": [
         "data/*"
+      ],
+      "@/hooks/*": [
+        "hooks/*"
       ]
     },
     "types": [

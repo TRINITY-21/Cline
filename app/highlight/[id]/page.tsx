@@ -1,45 +1,71 @@
-import AdSense from '@/components/AdSense';
 import { findTeamByName } from '@/lib/catalog';
-import { getDarkModeFilter } from '@/lib/logos';
-import { readFileSync } from 'fs';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import path from 'path';
 import { type HighlightMatch } from '../data';
-// import { CommentsSection } from './CommentsSection'; // Hidden for now
 
-function getAllMatches(): HighlightMatch[] {
-  const filePath = path.join(process.cwd(), 'data', 'scraped-highlights-enriched.json');
+async function fetchAllMatches(): Promise<HighlightMatch[]> {
   try {
-    const fileContent = readFileSync(filePath, 'utf-8');
-    return JSON.parse(fileContent);
-  } catch (fileError) {
-    // Fallback to basic file
-    const fallbackPath = path.join(process.cwd(), 'data', 'scraped-highlights.json');
-    try {
-      const fileContent = readFileSync(fallbackPath, 'utf-8');
-      return JSON.parse(fileContent);
-    } catch {
-      return [];
-    }
+    const res = await fetch('https://www.scorebat.com/video-api/v3', { cache: 'no-store', headers: { Accept: 'application/json' } });
+    if (!res.ok) return [];
+    const json = await res.json();
+    const items: any[] = Array.isArray(json?.response) ? json.response : [];
+    const mapped: HighlightMatch[] = items.map((item) => {
+      const title: string = item?.title || '';
+      const competition: string = item?.competition || '';
+      const dateIso: string = item?.date || '';
+      const matchviewUrl: string | undefined = item?.matchviewUrl;
+      const firstVideo = Array.isArray(item?.videos) && item.videos.length > 0 ? item.videos[0] : null;
+
+      let homeTeam = '';
+      let awayTeam = '';
+      if (typeof title === 'string' && title.includes(' - ')) {
+        const [home, away] = title.split(' - ');
+        homeTeam = home?.trim();
+        awayTeam = away?.trim();
+      }
+
+      let videoSrc: string | undefined = undefined;
+      if (firstVideo?.embed && typeof firstVideo.embed === 'string') {
+        const m = firstVideo.embed.match(/src='([^']+)'/);
+        videoSrc = m ? m[1] : undefined;
+      }
+      if (!videoSrc && typeof matchviewUrl === 'string') {
+        videoSrc = matchviewUrl;
+      }
+
+      return {
+        id: `${homeTeam || title}-${awayTeam}`.toLowerCase().replace(/\s+/g, '-'),
+        title,
+        homeTeam: homeTeam || title,
+        awayTeam: awayTeam || '',
+        league: competition,
+        date: dateIso ? new Date(dateIso).toLocaleString() : '',
+        videoSrc,
+        category: competition,
+        url: matchviewUrl,
+      } as HighlightMatch;
+    });
+    return mapped;
+  } catch {
+    return [];
   }
 }
 
-function getMatch(id: string): HighlightMatch | null {
-  const matches = getAllMatches();
-  return matches.find(m => 
-    m.id === id || 
-    m.id === decodeURIComponent(id) ||
-    m.id?.includes(id) ||
-    m.url?.includes(id) ||
-    (m.homeTeam && m.awayTeam && 
-     `${m.homeTeam.toLowerCase().replace(/\s+/g, '-')}-vs-${m.awayTeam.toLowerCase().replace(/\s+/g, '-')}`.includes(id.toLowerCase()))
-  ) || null;
+async function getMatch(id: string): Promise<HighlightMatch | null> {
+  const matches = await fetchAllMatches();
+  const decoded = decodeURIComponent(id);
+  const target = decoded.toLowerCase();
+  return (
+    matches.find((m: any) => {
+      const mid = String(m.id || '').toLowerCase();
+      return mid === target || mid.includes(target);
+    }) || null
+  );
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  const match = getMatch(id);
+  const match = await getMatch(id);
   
   if (!match) {
     return {
@@ -55,7 +81,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function MatchDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const match = getMatch(id);
+  const match = await getMatch(id);
   
   if (!match) {
     return (
@@ -72,11 +98,13 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
   }
 
   return (
-    <MatchDetailClient match={match} />
+    <MatchDetailContent match={match} />
   );
 }
 
-function MatchDetailClient({ match }: { match: HighlightMatch }) {
+function MatchDetailContent({ match }: { match: HighlightMatch }) {
+  const streamHomeLogo: string | null = null;
+  const streamAwayLogo: string | null = null;
   // Helper function to detect if a logo is a crest-style (with text/details) vs simple-style (clean like Tottenham)
   const isCrestStyleLogo = (teamName: string, logoUrl: string | null): boolean => {
     if (!logoUrl) return false;
@@ -116,105 +144,86 @@ function MatchDetailClient({ match }: { match: HighlightMatch }) {
   const scrapedAwayLogo = match.logos?.awayTeam && isValidLogoUrl(match.logos.awayTeam) ? match.logos.awayTeam : null;
   const homeTeam = findTeamByName(match.homeTeam, 'Football');
   const awayTeam = findTeamByName(match.awayTeam, 'Football');
-  const homeLogo = scrapedHomeLogo || homeTeam?.logo || null;
-  const awayLogo = scrapedAwayLogo || awayTeam?.logo || null;
+  // Prefer streamed logos when available, fallback to scraped, then catalog
+  const homeLogo = streamHomeLogo || scrapedHomeLogo || homeTeam?.logo || null;
+  const awayLogo = streamAwayLogo || scrapedAwayLogo || awayTeam?.logo || null;
   const isHomeCrest = isCrestStyleLogo(match.homeTeam, homeLogo);
   const isAwayCrest = isCrestStyleLogo(match.awayTeam, awayLogo);
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-500 relative">
-      {/* Team Crests Background - Outside hero section, on main page background */}
-      <>
-        {/* Left Side - Home Team Crest */}
-        {homeLogo && (
-          <div className={`fixed left-0 top-[15%] -translate-x-[45%] w-[500px] h-[500px] md:w-[600px] md:h-[600px] lg:w-[700px] lg:h-[700px] transition-all duration-700 pointer-events-none z-0 ${
-            isHomeCrest 
-              ? 'opacity-[0.10] hover:opacity-[0.30]' 
-              : 'opacity-[0.05] hover:opacity-[0.25]'
-          }`}>
-            <div className="relative w-full h-full flex items-center justify-center">
-              <img
-                src={homeLogo}
-                alt={`${match.homeTeam} crest`}
-                className="w-auto h-auto object-contain"
-                style={{
-                  width: isHomeCrest ? '75%' : '70%',
-                  height: 'auto',
-                  maxWidth: '100%',
-                  ...getDarkModeFilter(isHomeCrest),
-                }}
-              />
-            </div>
-          </div>
-        )}
-        
-        {/* Right Side - Away Team Crest */}
-        {awayLogo && (
-          <div className={`fixed right-0 top-[15%] translate-x-[45%] w-[500px] h-[500px] md:w-[600px] md:h-[600px] lg:w-[700px] lg:h-[700px] transition-all duration-700 pointer-events-none z-0 ${
-            isAwayCrest 
-              ? 'opacity-[0.10] hover:opacity-[0.30]' 
-              : 'opacity-[0.05] hover:opacity-[0.25]'
-          }`}>
-            <div className="relative w-full h-full flex items-center justify-center">
-              <img
-                src={awayLogo}
-                alt={`${match.awayTeam} crest`}
-                className="w-auto h-auto object-contain"
-                style={{
-                  width: isAwayCrest ? '75%' : '70%',
-                  height: 'auto',
-                  maxWidth: '100%',
-                  ...getDarkModeFilter(isAwayCrest),
-                }}
-              />
-            </div>
-          </div>
-        )}
-      </>
-
-      {/* Back Button */}
-      <Link 
-        href="/highlight" 
-        className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-all duration-300 hover:gap-3 group relative z-10"
+    <div className="space-y-4 sm:space-y-6">
+      <a
+        href="/highlight"
+        className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-all duration-300 hover:gap-3 group"
       >
         <span className="transform group-hover:-translate-x-1 transition-transform">←</span>
-        <span>Back to Highlights</span>
-      </Link>
+        <span>Back to Highlighs</span>
+      </a>
 
       {/* Hero Section */}
-      <section className="surface p-6 md:p-8 hero-glow relative overflow-hidden group">
+      <section className="surface p-3 sm:p-4 md:p-5 lg:p-6 relative overflow-auto rounded-xl">
         {/* Animated background gradient overlay */}
         <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-700">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-[rgb(var(--brand-yellow))] rounded-full blur-3xl animate-pulse" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full blur-3xl animate-pulse delay-300" />
         </div>
+        {/* Top row: League (left) and Date/Time (right) */}
+        <div className="relative z-10 mb-4 md:mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            {(match.league || match.category) && (
+              <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 text-white/80 text-xs md:text-sm">
+                <span className="opacity-80">🏷️</span>
+                <span>{match.league || match.category}</span>
+              </div>
+            )}
+          </div>
+          <div>
+            <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 text-white/80 text-xs md:text-sm">
+              <span>📅</span>
+              <span>{match.date}{match.time ? `, ${match.time}` : ''}</span>
+            </div>
+          </div>
+        </div>
         
         <div className="relative z-10">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
-            <div className="space-y-4">
-              {(match.league || match.category) && (
-                <div className="mb-3 animate-in slide-in-from-left duration-500">
-                  <span className="pill pill-active text-sm">
-                    {match.league || match.category}
-                  </span>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-5 mb-5 md:mb-6">
+            <div className="space-y-4 w-full md:w-auto flex flex-col items-center justify-center">
+              <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 animate-in slide-in-from-left duration-700 delay-100 leading-tight w-full">
+                {/* Mobile-friendly header card */}
+                <div className="rounded-xl border border-white/10 bg-white/5 p-4 sm:p-0 sm:border-0 sm:bg-transparent flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-center w-full sm:w-auto">
+                  {/* Home block */}
+                  <div className="flex items-center gap-3">
+                    <div className="relative w-12 h-12 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 overflow-hidden flex items-center justify-center shadow-inner">
+                      {homeLogo ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={homeLogo} alt="" className="object-contain" style={{ width: '80%', height: '80%' }} />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-white/10" />
+                      )}
+                      <div className="absolute inset-0 rounded-full ring-1 ring-white/10" />
+                    </div>
+                    <span className="text-white transition-all inline-block hover:scale-105 text-base sm:text-2xl md:text-4xl lg:text-5xl whitespace-nowrap truncate max-w-[70vw] sm:max-w-none">{match.homeTeam}</span>
+                  </div>
+
+                  {/* VS */}
+                  <span className="px-2 py-0.5 rounded-full bg-white/10 border border-white/15 text-white/70 text-xs font-semibold mx-1 md:mx-3">VS</span>
+
+                  {/* Away block */}
+                  <div className="flex items-center gap-3">
+                    <div className="relative w-12 h-12 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 overflow-hidden flex items-center justify-center shadow-inner">
+                      {awayLogo ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={awayLogo} alt="" className="object-contain" style={{ width: '80%', height: '80%' }} />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-white/10" />
+                      )}
+                      <div className="absolute inset-0 rounded-full ring-1 ring-white/10" />
+                    </div>
+                    <span className="text-white transition-all inline-block hover:scale-105 text-base sm:text-2xl md:text-4xl lg:text-5xl whitespace-nowrap truncate max-w-[70vw] sm:max-w-none">{match.awayTeam}</span>
+                  </div>
                 </div>
-              )}
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-2 animate-in slide-in-from-left duration-700 delay-100">
-                <span className="text-white transition-all inline-block hover:scale-105">{match.homeTeam}</span>
-              <span className="text-white/40 mx-4 font-light">vs</span>
-              <span className="text-white transition-all inline-block hover:scale-105">{match.awayTeam}</span>
               </h1>
               <div className="flex flex-wrap items-center gap-4 text-white/60 text-sm mt-3">
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-all group/item">
-                  <span className="group-hover/item:scale-110 transition-transform">📅</span>
-                  <span>{match.date}</span>
-                </div>
-                {match.time && (
-                  <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-all group/item">
-                    <span className="group-hover/item:scale-110 transition-transform">⏰</span>
-                    <span>{match.time}</span>
-                  </div>
-                )}
                 {match.stage && (
                   <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-all group/item">
                     <span className="group-hover/item:scale-110 transition-transform">🏆</span>
@@ -228,7 +237,7 @@ function MatchDetailClient({ match }: { match: HighlightMatch }) {
             {match.score && (
               <div className="text-center md:text-right animate-in slide-in-from-right duration-700 delay-200">
                 <div className="text-xs uppercase tracking-wider text-white/50 mb-2">Final Score</div>
-                <div className="text-5xl md:text-6xl lg:text-7xl font-black text-[rgb(var(--brand-yellow))] mb-2 hover:scale-105 transition-transform duration-300 whitespace-nowrap">
+                <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[rgb(var(--brand-yellow))] mb-2 hover:scale-105 transition-transform duration-300 whitespace-nowrap">
                   {match.score.replace(/\s+/g, ' ').trim()}
                 </div>
                 {match.halftimeScore && (
@@ -241,10 +250,10 @@ function MatchDetailClient({ match }: { match: HighlightMatch }) {
           </div>
 
           {/* Video Player or Placeholder */}
-          <div className="mt-6 animate-in fade-in duration-700 delay-300">
+          <div className="mt-4 md:mt-5 animate-in fade-in duration-700 delay-300">
             <div className="relative group/video">
               {/* Outer container with subtle border */}
-              <div className="aspect-video rounded-xl overflow-hidden bg-gradient-to-br from-black via-black to-gray-900 relative">
+              <div className="aspect-video md:aspect-[16/10] md:min-h-[410px] lg:aspect-[16/9] lg:min-h-[510px] xl:aspect-[16/8] xl:min-h-[610px] 2xl:min-h-[710px] rounded-xl overflow-hidden bg-gradient-to-br from-black via-black to-gray-900 relative w-full">
                 {/* Subtle inner glow effect */}
                 <div className="absolute inset-[1px] rounded-xl bg-gradient-to-br from-[rgb(var(--brand-yellow))]/5 via-transparent to-blue-500/5 opacity-50" />
                 <div className="absolute inset-[2px] rounded-xl bg-black" />
@@ -257,7 +266,7 @@ function MatchDetailClient({ match }: { match: HighlightMatch }) {
                     ) : (
                       <iframe
                         title={`${match.homeTeam} vs ${match.awayTeam} Highlights`}
-                        src={"https://main.uxsyplayerbcd362c475.click/index.php?id=stivibuspor-3#watermark=https%3A%2F%2Fwww.sporcafe-782a1a67028f.xyz%2Fassets%2Fuploads%2F43543534.png&reklamResim=https%3A%2F%2Fwww.sporcafe-782a1a67028f.xyz%2Fassets%2Fuploads%2Fbtkmbtypmn.gif&reklamGidis=https%3A%2F%2Fcutt.ly%2F1rIwpRBL"}
+                        src={match.videoSrc || ''}
                         allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
                         allowFullScreen
                         referrerPolicy="no-referrer"
@@ -324,9 +333,9 @@ function MatchDetailClient({ match }: { match: HighlightMatch }) {
       </section>
 
       {/* Match Information Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         {/* Teams Section */}
-        <section className="surface p-6 group hover:border-[rgb(var(--brand-yellow))]/30 transition-all duration-300">
+        <section className="surface p-4 sm:p-6 group hover:border-[rgb(var(--brand-yellow))]/30 transition-all duration-300">
           <h2 className="text-lg font-bold mb-4 text-[rgb(var(--brand-yellow))] flex items-center gap-2">
             <span className="w-1 h-6 bg-[rgb(var(--brand-yellow))] rounded-full"></span>
             Teams
@@ -350,12 +359,13 @@ function MatchDetailClient({ match }: { match: HighlightMatch }) {
         </section>
 
         {/* Match Details */}
-        <section className="surface p-6 group hover:border-[rgb(var(--brand-yellow))]/30 transition-all duration-300">
+        <section className="surface p-4 sm:p-6 group hover:border-[rgb(var(--brand-yellow))]/30 transition-all duration-300">
           <h2 className="text-lg font-bold mb-4 text-[rgb(var(--brand-yellow))] flex items-center gap-2">
             <span className="w-1 h-6 bg-[rgb(var(--brand-yellow))] rounded-full"></span>
             Match Details
           </h2>
           <div className="space-y-4">
+            {/* League */}
             {match.venue && (
               <div className="flex items-start gap-3 p-4 bg-gradient-to-r from-white/5 to-white/0 rounded-lg border border-white/10 hover:border-white/20 hover:from-white/10 hover:to-white/5 transition-all duration-300 group/item">
                 <div className="text-2xl group-hover/item:scale-125 transition-transform duration-300">📍</div>
@@ -382,6 +392,20 @@ function MatchDetailClient({ match }: { match: HighlightMatch }) {
                 <div className="flex-1">
                   <div className="text-xs text-white/50 mb-1 uppercase tracking-wider">League</div>
                   <div className="text-white font-medium group-hover/item:text-[rgb(var(--brand-yellow))] transition-colors">{match.league}</div>
+                </div>
+              </div>
+            )}
+
+            {/* Date & Time */}
+            {(match.date || match.time) && (
+              <div className="flex items-start gap-3 p-4 bg-gradient-to-r from-white/5 to-white/0 rounded-lg border border-white/10 hover:border-white/20 hover:from-white/10 hover:to-white/5 transition-all duration-300 group/item">
+                <div className="text-2xl group-hover/item:scale-125 transition-transform duration-300">📅</div>
+                <div className="flex-1">
+                  <div className="text-xs text-white/50 mb-1 uppercase tracking-wider">Date & Time</div>
+                  <div className="text-white font-medium group-hover/item:text-[rgb(var(--brand-yellow))] transition-colors">
+                    {match.date}
+                    {match.time ? `, ${match.time}` : ''}
+                  </div>
                 </div>
               </div>
             )}
@@ -1088,13 +1112,7 @@ function MatchDetailClient({ match }: { match: HighlightMatch }) {
       {/* Comments Section - Hidden for now */}
       {/* <CommentsSection matchId={match.id} initialComments={match.comments || []} /> */}
 
-      {/* AdSense Ad Unit - Only shown on pages with rich content */}
-      <section className="surface p-6 border-t border-white/10">
-        <AdSense 
-          adSlot="3630582848" 
-          className="flex justify-center"
-        />
-      </section>
+      {/* Removed AdSense card previously shown above the actions section */}
 
       {/* Additional Actions */}
       <section className="surface p-6">

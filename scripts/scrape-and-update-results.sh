@@ -1,4 +1,4 @@
-#!/bin/bash
+/#!/bin/bash
 # Script to scrape betistuta match results and update predictions in Firestore
 # Runs every 3 hours via cron job
 
@@ -46,7 +46,7 @@ API_BASE_URL="${API_BASE_URL:-${NEXT_PUBLIC_BASE_URL:-}}"
 if [ -z "$API_BASE_URL" ] && [ -n "$VERCEL_URL" ]; then
     API_BASE_URL="https://${VERCEL_URL}"
 elif [ -z "$API_BASE_URL" ]; then
-    API_BASE_URL="http://localhost:3000"
+    API_BASE_URL="http://localhost:3001"
 fi
 
 INTERNAL_TOKEN="${INTERNAL_UPDATE_TOKEN:-${NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN:-dev-secret-t0Ken}}"

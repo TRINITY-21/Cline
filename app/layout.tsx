@@ -5,7 +5,12 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Three Two • Live',
   description: 'Beautiful multi-sport streaming hub. Official sources only.',
-  metadataBase: new URL('http://localhost:3000'),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || 
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` :
+    (process.env.NEXT_PUBLIC_VERCEL_URL ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` :
+    'http://localhost:3000'))
+  ),
   icons: {
     icon: '/three-two-logo.svg',
     shortcut: '/three-two-logo.svg',
@@ -42,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-screen antialiased flex flex-col">
         <header className="relative border-b border-white/10 backdrop-blur-sm bg-black/40">
-          <div className="container-narrow relative z-10 flex items-center gap-2 sm:gap-2.5 py-2.5 sm:py-3">
+          <div className="container-narrow mx-auto relative z-10 flex items-center gap-2 sm:gap-2.5 py-2.5 sm:py-3">
             {/* Logo with enhanced styling */}
             <a href="/" className="flex items-center gap-2 sm:gap-2.5 group flex-shrink-0">
               <div className="relative">
@@ -88,9 +93,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </header>
-        <main className="container-narrow py-4 sm:py-5 md:py-6 flex-1">{children}</main>
+        <main className="container-narrow mx-auto">
+          <div className="py-4 sm:py-5 md:py-6 flex-1">{children}</div>
+        </main>
+
         <footer className="border-t border-white/10 mt-auto">
-          <div className="container-narrow py-4 sm:py-5 md:py-6">
+          <div className="container-narrow mx-auto py-4 sm:py-5 md:py-6">
             <div className="flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
               <div className="flex items-center gap-2 flex-wrap justify-center md:justify-start">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -101,7 +109,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
               <div className="text-white/60 text-xs flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center md:text-left">
                 <span className="text-white/40 hidden sm:inline">Your ultimate sports streaming destination</span>
-                <a href="/legal" className="underline hover:text-white transition-colors">Legal Notice</a>
               </div>
             </div>
           </div>

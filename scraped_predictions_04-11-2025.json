@@ -1,0 +1,577 @@
+{
+  "predictions": [
+    {
+      "home": "Bolivar",
+      "away": "Universitario de Vinto",
+      "league": "Bolivya",
+      "timeLabel": "00:15",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "6-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Aurora",
+      "away": "Independiente Petrolero",
+      "league": "Bolivya",
+      "timeLabel": "02:30",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Sigma Olomouc U19",
+      "away": "Sparta Prag U19",
+      "league": "Çek Cumhur",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "2-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Slavia Prag U19",
+      "away": "Arsenal U19",
+      "league": "UEFA Gençl",
+      "timeLabel": "15:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Brezilya U17",
+      "away": "Honduras U17",
+      "league": "Dünya Kupa",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "5-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Makedonija GjP",
+      "away": "Struga",
+      "league": "Kuzey Makedonya",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Tikves",
+      "away": "Rabotnicki",
+      "league": "Kuzey Makedonya",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Moghayer Al Sarhan",
+      "away": "Al Hashemeya",
+      "league": "Ürdün",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "0-5",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Ittihad Al Ramtha",
+      "away": "Sama",
+      "league": "Ürdün",
+      "timeLabel": "15:30",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Bristol City U21",
+      "away": "Millwall U21",
+      "league": "Ingiltere",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Charlton Athletic U21",
+      "away": "Brentford U21",
+      "league": "Ingiltere",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Watford U21",
+      "away": "Colchester United U21",
+      "league": "Ingiltere",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "5-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Wigan Athletic U21",
+      "away": "Sheffield United U21",
+      "league": "Ingiltere",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Tottenham U19",
+      "away": "FC Copenhagen U19",
+      "league": "UEFA Gençl",
+      "timeLabel": "16:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Juventus U19",
+      "away": "Sporting CP U19",
+      "league": "UEFA Gençl",
+      "timeLabel": "17:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Al Kuwait",
+      "away": "Al Nasar",
+      "league": "Kuveyt",
+      "timeLabel": "17:25",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "6-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Al Khor",
+      "away": "Al Kharitiyath",
+      "league": "Katar",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Famalicao U23",
+      "away": "Leixoes U23",
+      "league": "Portekiz",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Liverpool U19",
+      "away": "Real Madrid U19",
+      "league": "UEFA Gençl",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Olympiakos U19",
+      "away": "PSV U19",
+      "league": "UEFA Gençl",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Atletico Madrid U19",
+      "away": "Union Saint-Gilloise U19",
+      "league": "UEFA Gençl",
+      "timeLabel": "18:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Ingiltere U17",
+      "away": "Venezuela U17",
+      "league": "Dünya Kupa",
+      "timeLabel": "18:15",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Al Sadd",
+      "away": "Al Ahli Jeddah",
+      "league": "AFC Sampiyonlar",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "2-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Dinamo Batumi",
+      "away": "FC Iberia 1999",
+      "league": "Gürcistan",
+      "timeLabel": "19:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "FC Tallinn II",
+      "away": "Laagri II",
+      "league": "Estonya",
+      "timeLabel": "19:30",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "4-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Al Arabi",
+      "away": "Al Jahra",
+      "league": "Kuveyt",
+      "timeLabel": "19:40",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "4-0",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Napoli",
+      "away": "Eintracht Frankfurt",
+      "league": "UEFA Sampiyonla",
+      "timeLabel": "20:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "San Antonio Bulo Bulo",
+      "away": "Always Ready",
+      "league": "Bolivya",
+      "timeLabel": "22:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Notts County",
+      "away": "Manchester United U21",
+      "league": "Ingiltere",
+      "timeLabel": "22:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Cardiff City U21",
+      "away": "Queens Park Rangers U21",
+      "league": "Ingiltere",
+      "timeLabel": "22:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "4-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Fulham U21",
+      "away": "Nordsjaelland U21",
+      "league": "Premier Lig Ulu",
+      "timeLabel": "22:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "2-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "VVSB",
+      "away": "ASWH",
+      "league": "Hollanda",
+      "timeLabel": "22:30",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Grimsby Town",
+      "away": "Everton U21",
+      "league": "Ingiltere",
+      "timeLabel": "22:30",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "The New Saints",
+      "away": "Caernarfon Town",
+      "league": "Galler",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Haverfordwest County",
+      "away": "Barry Town",
+      "league": "Galler",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Newtown",
+      "away": "Llandudno FC",
+      "league": "Galler",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Cambrian & Clydach",
+      "away": "Briton Ferry",
+      "league": "Galler",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Spalding United",
+      "away": "Quorn",
+      "league": "Ingiltere",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Stratford Town",
+      "away": "Needham Market",
+      "league": "Ingiltere",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Cray Valley PM",
+      "away": "Aveley",
+      "league": "Ingiltere",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Canvey Island",
+      "away": "Wingate & Finchley",
+      "league": "Ingiltere",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "1-5",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Welling United",
+      "away": "Folkestone Invicta",
+      "league": "Ingiltere",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "1-4",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Bamber Bridge",
+      "away": "Warrington Town",
+      "league": "Ingiltere",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Boreham Wood",
+      "away": "Aldershot Town",
+      "league": "Ingiltere",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Hartlepool United",
+      "away": "Morecambe",
+      "league": "Ingiltere",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Slough Town",
+      "away": "Bath City",
+      "league": "Ingiltere",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Dorking Wanderers",
+      "away": "Enfield Town",
+      "league": "Ingiltere",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Scarborough Athletic",
+      "away": "Radcliffe Borough",
+      "league": "Ingiltere",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "1-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Oxford City",
+      "away": "Hereford FC",
+      "league": "Ingiltere",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Chorley",
+      "away": "Alfreton Town",
+      "league": "Ingiltere",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "AFC Telford United",
+      "away": "Merthyr Town",
+      "league": "Ingiltere",
+      "timeLabel": "22:45",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-3",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Coventry",
+      "away": "Sheffield United",
+      "league": "Ingiltere",
+      "timeLabel": "23:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Liverpool",
+      "away": "Real Madrid",
+      "league": "UEFA Sampiyonla",
+      "timeLabel": "23:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Bodo/Glimt",
+      "away": "Monaco",
+      "league": "UEFA Sampiyonla",
+      "timeLabel": "23:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "4-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Atletico Madrid",
+      "away": "Union Saint-Gilloise",
+      "league": "UEFA Sampiyonla",
+      "timeLabel": "23:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "3-1",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "Juventus",
+      "away": "Sporting CP",
+      "league": "UEFA Sampiyonla",
+      "timeLabel": "23:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    },
+    {
+      "home": "PSG",
+      "away": "Bayern Münih",
+      "league": "UEFA Sampiyonla",
+      "timeLabel": "23:00",
+      "matchDate": "2025-11-04",
+      "predictedScoreDisplay": "2-2",
+      "msbs": "Over 3.5",
+      "sport": "Football"
+    }
+  ],
+  "scrapedAt": "2025-11-04T03:03:09.302439",
+  "count": 57
+}Scraping for date: 04-11-2025
+

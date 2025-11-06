@@ -12,6 +12,8 @@ export default function HighlightsPage() {
   const [selectedMatch, setSelectedMatch] = useState<HighlightMatch | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [displayCount, setDisplayCount] = useState(12);
+  const [filtersOpen, setFiltersOpen] = useState<boolean>(true);
+  const [leagueDropdownOpen, setLeagueDropdownOpen] = useState<boolean>(false);
 
   // Fetch matches from API
   useEffect(() => {
@@ -98,22 +100,26 @@ export default function HighlightsPage() {
 
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 sm:space-y-8 md:space-y-10 w-full max-w-full overflow-x-hidden box-border">
       {/* Floating Header - League Filters */}
       {isScrolled && (
-        <div className="fixed top-[68px] left-0 right-0 z-50 px-4 py-3 bg-[rgb(var(--bg))]/95 backdrop-blur-xl border-b border-white/10 shadow-xl">
+        <div
+          className="fixed left-0 right-0 z-50 px-4 py-3 bg-[rgb(var(--bg))]/95 backdrop-blur-xl border-b border-white/10 shadow-xl"
+          style={{ top: 'var(--header-height)' }}
+        >
           <div className="container-narrow">
-            <div className="flex gap-2 overflow-x-auto scroll-x-only no-scrollbar">
+            <div className="hidden md:flex flex-wrap items-center gap-2 md:gap-2.5 lg:gap-3 w-full max-w-full">
               <button
                 onClick={() => {
                   setSelectedLeague('all');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className={`pill whitespace-nowrap ${
-                  selectedLeague === 'all' 
-                    ? 'pill-active' 
-                    : 'pill-muted hover:bg-white/10'
-                }`}
+                className={
+                  "px-3 md:px-4 lg:px-5 py-2 md:py-2.5 rounded-lg font-medium text-xs md:text-sm lg:text-base transition-all duration-200 touch-manipulation min-h-[40px] md:min-h-[44px] whitespace-nowrap flex-shrink-0 " +
+                  (selectedLeague === 'all'
+                    ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20'
+                    : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
+                }
               >
                 All Leagues
               </button>
@@ -124,13 +130,14 @@ export default function HighlightsPage() {
                     setSelectedLeague(league || 'all');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
-                  className={`pill whitespace-nowrap ${
-                    selectedLeague === league
-                      ? 'pill-active'
-                      : 'pill-muted hover:bg-white/10'
-                  }`}
+                  className={
+                    "px-3 md:px-4 lg:px-5 py-2 md:py-2.5 rounded-lg font-medium text-xs md:text-sm lg:text-base transition-all duration-200 touch-manipulation min-h-[40px] md:min-h-[44px] whitespace-nowrap flex-shrink-0 " +
+                    (selectedLeague === league
+                      ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20'
+                      : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
+                  }
                 >
-                  {league}
+                  {formatLeague(league)}
                 </button>
               ))}
             </div>
@@ -139,7 +146,7 @@ export default function HighlightsPage() {
       )}
 
       {/* Header Section */}
-      <section className="surface p-5 md:p-6 hero-glow relative overflow-hidden group">
+      <section className="surface p-3 sm:p-5 md:p-6 hero-glow relative z-[100] overflow-visible md:overflow-hidden group w-full max-w-full box-border">
         {/* Animated background gradient */}
         <div className="absolute inset-0 opacity-10 group-hover:opacity-15 transition-opacity duration-700">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-[rgb(var(--brand-yellow))] rounded-full blur-3xl animate-pulse" />
@@ -150,16 +157,16 @@ export default function HighlightsPage() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <div>
             <div className="text-[10px] uppercase tracking-[0.2em] text-white/60">Football Highlights</div>
-            <h2 className="text-2xl md:text-3xl font-extrabold mt-1">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold mt-1">
               Match <span className="text-[rgb(var(--brand-yellow))]">Highlights</span>
             </h2>
-            <p className="text-white/70 mt-2 max-w-prose">
+            <p className="text-white/70 mt-2 max-w-prose text-sm sm:text-base">
               Watch extended highlights, goals, and key moments from the latest football matches.
             </p>
           </div>
           
           {/* View Toggle */}
-          <div className="flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-2">
             <button
               onClick={() => setViewMode('grid')}
               className={`btn ${viewMode === 'grid' ? 'btn-primary' : 'btn-ghost'}`}
@@ -176,9 +183,115 @@ export default function HighlightsPage() {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 w-full max-w-full box-border">
+          {/* Mobile/Tablet Filters - collapsible, like TodayMatches */}
+          <div className="md:hidden relative z-10 w-full max-w-full box-border">
+            <div className="bg-white/5 border border-white/10 rounded-xl overflow-visible w-full max-w-full box-border">
+              <button
+                onClick={() => setFiltersOpen(!filtersOpen)}
+                className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 transition-colors touch-manipulation rounded-t-xl"
+              >
+                <div className="flex items-center gap-2.5">
+                  <svg className="w-4 h-4 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                  </svg>
+                  <span className="text-white font-medium text-sm">Filters</span>
+                </div>
+                <svg className={`w-4 h-4 text-white/60 transition-transform duration-200 ${filtersOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {filtersOpen && (
+                <div className="px-4 pb-4 space-y-3 pt-2 relative">
+                  {/* Search */}
+                  <div className="w-full relative">
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="Search matches, teams, leagues..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onKeyDown={(e) => { if (e.key === 'Escape') setSearchQuery(''); }}
+                      className="w-full pl-12 pr-4 py-3 rounded-lg bg-white/5 border border-white/15 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[rgb(var(--brand-yellow))]/50 focus:border-[rgb(var(--brand-yellow))]/50 transition-all bg-gradient-to-r from-white/5 to-white/0 hover:from-white/10 hover:to-white/5"
+                      autoComplete="off"
+                    />
+                    {searchQuery && (
+                      <button onClick={() => setSearchQuery('')} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
+
+                  {/* View toggle - segmented */}
+                  <div className="grid grid-cols-2 gap-2">
+                    <button onClick={() => setViewMode('grid')} className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors ${viewMode === 'grid' ? 'bg-[rgb(var(--brand-yellow))] text-black' : 'bg-white/5 text-white/80 border border-white/10 hover:bg-white/10'}`}>Grid</button>
+                    <button onClick={() => setViewMode('list')} className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors ${viewMode === 'list' ? 'bg-[rgb(var(--brand-yellow))] text-black' : 'bg-white/5 text-white/80 border border-white/10 hover:bg-white/10'}`}>List</button>
+                  </div>
+
+                  {/* League dropdown */}
+                  <div className={`relative ${leagueDropdownOpen ? 'z-[10000]' : ''}`} data-dropdown>
+                    <button
+                      onClick={() => setLeagueDropdownOpen(!leagueDropdownOpen)}
+                      className="w-full flex items-center justify-between px-4 py-3 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors touch-manipulation"
+                    >
+                      <span className="text-white text-sm font-medium">{selectedLeague === 'all' ? 'All Leagues' : formatLeague(selectedLeague)}</span>
+                      <svg className={`w-4 h-4 text-white/60 transition-transform duration-200 ${leagueDropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    {leagueDropdownOpen && (
+                      <>
+                        {/* Backdrop to prevent interaction with cards and close on click */}
+                        <div
+                          className="fixed inset-0 z-[9990]"
+                          onClick={() => setLeagueDropdownOpen(false)}
+                        />
+                        <div className="absolute top-full left-0 right-0 mt-1 bg-[rgb(15,15,20)] border border-white/10 rounded-lg shadow-xl z-[10001] max-h-64 overflow-y-auto">
+                          <button
+                            onClick={() => { setSelectedLeague('all'); setLeagueDropdownOpen(false); }}
+                            className={`w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors touch-manipulation border-b border-white/5 ${selectedLeague === 'all' ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))]' : 'text-white/80'}`}
+                          >
+                            <span className="font-medium text-sm">All Leagues</span>
+                            {selectedLeague === 'all' && (
+                              <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                              </svg>
+                            )}
+                          </button>
+                          {leagues.map(league => (
+                            <button
+                              key={league}
+                              onClick={() => { setSelectedLeague(league || 'all'); setLeagueDropdownOpen(false); }}
+                              className={`w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors touch-manipulation border-b border-white/5 last:border-b-0 ${selectedLeague === league ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))]' : 'text-white/80'}`}
+                            >
+                              <span className="font-medium text-sm">{formatLeague(league)}</span>
+                              {selectedLeague === league && (
+                                <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                              )}
+                            </button>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Desktop filters */}
+          <div className="hidden md:block w-full max-w-full box-border">
           {/* Search */}
-          <div className="w-full relative">
+          <div className="w-full relative mb-3">
             <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -212,15 +325,16 @@ export default function HighlightsPage() {
             )}
           </div>
           
-          {/* League Filter */}
-          <div className="flex gap-2 overflow-x-auto scroll-x-only no-scrollbar">
+          {/* League Filter - Responsive wrapping for desktop */}
+          <div className="flex flex-wrap items-center gap-2 md:gap-2.5 lg:gap-3 w-full max-w-full box-border">
             <button
               onClick={() => setSelectedLeague('all')}
-              className={`pill whitespace-nowrap ${
-                selectedLeague === 'all' 
-                  ? 'pill-active' 
-                  : 'pill-muted hover:bg-white/10'
-              }`}
+              className={
+                "px-3 md:px-4 lg:px-5 py-2 md:py-2.5 rounded-lg font-medium text-xs md:text-sm lg:text-base transition-all duration-200 touch-manipulation min-h-[40px] md:min-h-[44px] whitespace-nowrap flex-shrink-0 " +
+                (selectedLeague === 'all'
+                  ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20'
+                  : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
+              }
             >
               All Leagues
             </button>
@@ -228,25 +342,91 @@ export default function HighlightsPage() {
               <button
                 key={league}
                 onClick={() => setSelectedLeague(league || 'all')}
-                className={`pill whitespace-nowrap ${
-                  selectedLeague === league
-                    ? 'pill-active'
-                    : 'pill-muted hover:bg-white/10'
-                }`}
+                className={
+                  "px-3 md:px-4 lg:px-5 py-2 md:py-2.5 rounded-lg font-medium text-xs md:text-sm lg:text-base transition-all duration-200 touch-manipulation min-h-[40px] md:min-h-[44px] whitespace-nowrap flex-shrink-0 " +
+                  (selectedLeague === league
+                    ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20'
+                    : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
+                }
               >
-                {league}
+                {formatLeague(league)}
               </button>
             ))}
+          </div>
           </div>
         </div>
         </div>
       </section>
 
-      {/* Loading State */}
+      {/* Loading State - Skeleton */}
       {loading && (
-        <div className="surface p-12 text-center">
-          <div className="text-white/80 text-lg font-semibold">Loading matches...</div>
-        </div>
+        <>
+          <div className="text-sm text-white/60 font-medium mb-4">
+            <div className="skeleton h-5 w-32 rounded" />
+          </div>
+          {viewMode === 'grid' ? (
+            <div className="w-full max-w-full">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-3 w-full">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <div key={i} className="surface p-4 sm:p-6 space-y-4 w-full min-w-0 max-w-full">
+                  {/* League Badge Skeleton */}
+                  <div className="skeleton h-6 w-32 rounded-full" />
+                  
+                  {/* Teams Skeleton */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <div className="flex-1 text-right">
+                        <div className="skeleton h-6 w-24 rounded ml-auto" />
+                      </div>
+                      <div className="skeleton h-4 w-8 rounded" />
+                      <div className="flex-1">
+                        <div className="skeleton h-6 w-24 rounded" />
+                      </div>
+                    </div>
+                    <div className="skeleton h-8 w-16 rounded mx-auto" />
+                  </div>
+                  
+                  {/* Date & Time Skeleton */}
+                  <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                    <div className="skeleton h-4 w-24 rounded" />
+                    <div className="skeleton h-4 w-20 rounded" />
+                  </div>
+                  
+                  {/* Button Skeleton */}
+                  <div className="pt-1">
+                    <div className="skeleton h-10 w-full rounded-lg" />
+                  </div>
+                </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {Array.from({ length: 12 }).map((_, i) => (
+                <div key={i} className="surface p-5">
+                  <div className="flex flex-col md:flex-row md:items-center gap-4">
+                    <div className="flex-1 space-y-2">
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <div className="skeleton h-6 w-32 rounded" />
+                        <div className="skeleton h-4 w-8 rounded" />
+                        <div className="skeleton h-6 w-32 rounded" />
+                        <div className="skeleton h-6 w-12 rounded" />
+                      </div>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <div className="skeleton h-5 w-24 rounded-full" />
+                        <div className="skeleton h-4 w-28 rounded" />
+                        <div className="skeleton h-4 w-20 rounded" />
+                      </div>
+                    </div>
+                    <div className="min-w-[140px]">
+                      <div className="skeleton h-10 w-full rounded-lg" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
       )}
 
       {/* Results Count */}
@@ -265,17 +445,19 @@ export default function HighlightsPage() {
         </div>
       ) : !loading && viewMode === 'grid' ? (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {displayedMatches.map((match) => (
-              <MatchCard
-                key={match.id}
-                match={match}
-                onClick={() => setSelectedMatch(match)}
-                onDetails={() => {
-                  window.location.href = `/highlight/${encodeURIComponent(match.id)}`;
-                }}
-              />
-            ))}
+          <div className="w-full max-w-full box-border px-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-3 w-full box-border">
+              {displayedMatches.map((match) => (
+                <MatchCard
+                  key={match.id}
+                  match={match}
+                  onClick={() => setSelectedMatch(match)}
+                  onDetails={() => {
+                    window.location.href = `/highlight/${encodeURIComponent(match.id)}`;
+                  }}
+                />
+              ))}
+            </div>
           </div>
           {hasMore && (
             <div className="flex justify-center mt-8">
@@ -324,7 +506,7 @@ export default function HighlightsPage() {
               <div className="flex items-center justify-between p-3 md:p-4 border-b border-white/10">
                 <div className="text-sm md:text-base font-semibold line-clamp-1">
                   {selectedMatch.homeTeam} vs {selectedMatch.awayTeam}
-                  {selectedMatch.league ? ` • ${selectedMatch.league}` : ''}
+                  {selectedMatch.league ? ` • ${formatLeague(selectedMatch.league)}` : ''}
                 </div>
                 <button onClick={() => setSelectedMatch(null)} className="pill pill-muted">Close</button>
               </div>
@@ -382,10 +564,55 @@ export default function HighlightsPage() {
   );
 }
 
+// Format league text for badges in cards: drop country/region prefix like "SPAIN:" or "ASIA:"
+function formatLeague(leagueOrCategory?: string) {
+  // Fix common typos coming from some feeds.
+  const raw = (leagueOrCategory || '').trim();
+  let corrected = raw.replace(/Leaguage/gi, 'League');
+  
+  // Remove all prefixes (country or region): "COUNTRY: League Name" or "REGION: League Name"
+  // Pattern matches: one or more uppercase letters/words followed by colon and optional space
+  corrected = corrected.replace(/^[A-Z\s]+:\s*/, '');
+  
+  // Remove common suffixes like ", Group Stage", ", Knockout Stage", etc.
+  corrected = corrected.replace(/,\s*(Group Stage|Knockout Stage|Round of \d+|Quarter[- ]?Final|Semi[- ]?Final|Final|Playoff|Play[- ]?off)$/gi, '');
+  
+  return corrected.trim();
+}
+
+// Format times like "11:00:00 PM" -> "23:00" or "11:00 PM" -> "23:00"
+function formatTimeShort(raw?: string): string {
+  const text = (raw || '').trim();
+  if (!text) return '';
+  const m = text.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM|am|pm)?$/);
+  if (!m) {
+    // Fallback: strip seconds if present
+    return text.replace(/:(\d{2})(\s*[AP]M)?$/i, '$1').replace(/:(\d{2}):\d{2}/, ':$1').replace(/\s*(AM|PM)$/i, '');
+  }
+  let hour = parseInt(m[1], 10);
+  const minute = m[2];
+  const ampm = m[4]?.toUpperCase();
+  if (ampm === 'AM') {
+    if (hour === 12) hour = 0;
+  } else if (ampm === 'PM') {
+    if (hour !== 12) hour += 12;
+  }
+  const hh = hour.toString().padStart(2, '0');
+  return `${hh}:${minute}`;
+}
+
+// Remove seconds if present in a date string like "11/3/2025, 11:00:00 PM"
+function formatDateNoSeconds(dateText?: string): string {
+  const s = (dateText || '').trim();
+  if (!s) return '';
+  // Replace ":ss" when it's part of the time component
+  return s.replace(/(\d{1,2}):(\d{2}):\d{2}(\s*[AP]M)/i, (_, h, m, ampm) => `${h}:${m}${ampm}`);
+}
+
 function MatchCard({ match, onClick, onDetails }: { match: HighlightMatch; onClick: () => void; onDetails: () => void }) {
   return (
     <div
-      className="surface p-6 group transition-all duration-300 hover:border-[rgb(var(--brand-yellow))]/30 hover:shadow-xl hover:shadow-[rgb(var(--brand-yellow))]/10 hover:-translate-y-1 cursor-pointer relative overflow-hidden"
+      className="surface p-4 sm:p-5 group transition-all duration-300 hover:border-[rgb(var(--brand-yellow))]/30 hover:shadow-xl hover:shadow-[rgb(var(--brand-yellow))]/10 hover:-translate-y-1 cursor-pointer relative overflow-hidden h-full flex flex-col w-full min-w-0 max-w-full box-border"
       onClick={onDetails}
     >
       {/* Animated background gradient on hover */}
@@ -393,27 +620,38 @@ function MatchCard({ match, onClick, onDetails }: { match: HighlightMatch; onCli
         <div className="absolute top-0 right-0 w-32 h-32 bg-[rgb(var(--brand-yellow))]/10 rounded-full blur-2xl" />
       </div>
       
-      <div className="relative z-10">
-        {/* League Badge */}
+      <div className="relative z-10 flex flex-col h-full">
+        {/* League + Date/Time Row */}
         {(match.league || match.category) && (
-          <div className="mb-4">
-            <span className="pill pill-muted text-xs font-semibold hover:bg-white/10 transition-colors">
-              {match.league || match.category}
+          <div className="mb-3 flex items-center justify-between gap-2 min-w-0">
+            <span className="pill pill-muted text-[10px] font-semibold hover:bg-white/10 transition-colors whitespace-nowrap flex-shrink-0">
+              {formatLeague(match.league || match.category)}
             </span>
+            <div className="flex items-center gap-2 text-[11px] text-white/60 flex-shrink-0">
+              <div className="flex items-center gap-1.5">
+                <span className="font-medium whitespace-nowrap">{formatDateNoSeconds(match.date)}</span>
+              </div>
+              {match.time && (
+                <div className="flex items-center gap-1.5">
+                  <span className="text-white/40">⏰</span>
+                  <span className="font-medium whitespace-nowrap">{formatTimeShort(match.time)}</span>
+                </div>
+              )}
+            </div>
           </div>
         )}
 
         {/* Teams */}
-        <div className="space-y-3 mb-5">
-          <div className="flex items-center gap-3">
-            <div className="flex-1 text-right">
-              <div className="font-bold text-white text-lg group-hover:text-[rgb(var(--brand-yellow))] transition-colors">
+        <div className="space-y-2 mb-4 min-w-0">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div className="flex-1 text-right min-w-0">
+              <div className="font-bold text-white text-base sm:text-lg group-hover:text-[rgb(var(--brand-yellow))] transition-colors truncate">
                 {match.homeTeam}
               </div>
             </div>
-            <div className="text-white/40 font-light">vs</div>
-            <div className="flex-1">
-              <div className="font-bold text-white text-lg group-hover:text-[rgb(var(--brand-yellow))] transition-colors">
+            <div className="text-white/40 font-light flex-shrink-0">vs</div>
+            <div className="flex-1 min-w-0">
+              <div className="font-bold text-white text-base sm:text-lg group-hover:text-[rgb(var(--brand-yellow))] transition-colors truncate">
                 {match.awayTeam}
               </div>
             </div>
@@ -422,44 +660,24 @@ function MatchCard({ match, onClick, onDetails }: { match: HighlightMatch; onCli
           {/* Score */}
           {match.score && (
             <div className="text-center">
-              <span className="text-3xl font-black text-[rgb(var(--brand-yellow))] drop-shadow-lg group-hover:scale-110 transition-transform inline-block">
+              <span className="text-2xl sm:text-3xl font-black text-[rgb(var(--brand-yellow))] drop-shadow-lg group-hover:scale-110 transition-transform inline-block">
                 {match.score}
               </span>
             </div>
           )}
         </div>
 
-        {/* Date & Time */}
-        <div className="flex items-center justify-between text-xs text-white/60 mb-4 pb-4 border-b border-white/10">
-          <div className="flex items-center gap-1.5">
-            <span className="text-white/40">📅</span>
-            <span className="font-medium">{match.date}</span>
-          </div>
-          {match.time && (
-            <div className="flex items-center gap-1.5">
-              <span className="text-white/40">⏰</span>
-              <span className="font-medium">{match.time}</span>
-            </div>
-          )}
-        </div>
-
-        {/* Actions */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onClick();
-            }}
-            className="flex-1 btn btn-primary text-sm font-semibold hover:scale-105 transition-transform shadow-lg shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/40"
-          >
-            ▶ Watch
-          </button>
+        {/* Action */}
+        <div className="mt-auto">
+          {/* Divider */}
+          <div className="mb-3 pb-3 border-b border-white/10" />
+          
           <button
             onClick={(e) => {
               e.stopPropagation();
               onDetails();
             }}
-            className="btn btn-ghost text-sm font-semibold hover:bg-white/15 hover:border-white/25 transition-all"
+            className="w-full btn btn-primary text-sm font-semibold hover:scale-[1.02] transition-transform shadow-lg shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/40"
           >
             View Details →
           </button>
@@ -473,59 +691,50 @@ function MatchListItem({ match, onClick }: { match: HighlightMatch; onClick: () 
   return (
     <div
       onClick={onClick}
-      className="surface p-5 cursor-pointer group transition-all duration-300 hover:border-[rgb(var(--brand-yellow))]/30 hover:shadow-lg hover:shadow-[rgb(var(--brand-yellow))]/10 hover:-translate-y-0.5 relative overflow-hidden"
+      className="surface p-4 cursor-pointer group transition-all duration-300 hover:border-[rgb(var(--brand-yellow))]/30 hover:shadow-lg hover:shadow-[rgb(var(--brand-yellow))]/10 hover:-translate-y-0.5 relative overflow-hidden"
     >
       {/* Animated background gradient on hover */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
         <div className="absolute top-0 right-0 w-40 h-40 bg-[rgb(var(--brand-yellow))]/10 rounded-full blur-2xl" />
       </div>
       
-      <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-4">
+      <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-3">
         {/* Teams & Score */}
         <div className="flex-1">
-          <div className="flex items-center gap-3 mb-2 flex-wrap">
-            <div className="font-bold text-white text-lg group-hover:text-[rgb(var(--brand-yellow))] transition-colors">
+          <div className="flex items-center gap-2.5 mb-2 flex-wrap">
+            <div className="font-bold text-white text-base sm:text-lg group-hover:text-[rgb(var(--brand-yellow))] transition-colors">
               {match.homeTeam}
             </div>
             <div className="text-white/40 font-light">vs</div>
-            <div className="font-bold text-white text-lg group-hover:text-[rgb(var(--brand-yellow))] transition-colors">
+            <div className="font-bold text-white text-base sm:text-lg group-hover:text-[rgb(var(--brand-yellow))] transition-colors">
               {match.awayTeam}
             </div>
             {match.score && (
               <>
                 <div className="text-white/40">•</div>
-                <span className="text-xl font-black text-[rgb(var(--brand-yellow))] drop-shadow-lg">{match.score}</span>
+                <span className="text-lg sm:text-xl font-black text-[rgb(var(--brand-yellow))] drop-shadow-lg">{match.score}</span>
               </>
             )}
           </div>
-          <div className="flex items-center gap-3 text-xs text-white/60 flex-wrap">
+          <div className="flex items-center gap-2.5 text-xs text-white/60 flex-wrap">
             {(match.league || match.category) && (
-              <span className="pill pill-muted text-xs font-semibold">{match.league || match.category}</span>
+              <span className="pill pill-muted text-[10px] font-semibold">{formatLeague(match.league || match.category)}</span>
             )}
-            <span className="font-medium">📅 {match.date}</span>
-            {match.time && <span className="font-medium">⏰ {match.time}</span>}
+            <span className="font-medium text-[11px]">{formatDateNoSeconds(match.date)}</span>
+            {match.time && <span className="font-medium text-[11px]">⏰ {formatTimeShort(match.time)}</span>}
           </div>
         </div>
 
-        {/* Actions */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              // This will trigger the watch action
-            }}
-            className="btn btn-primary font-semibold hover:scale-105 transition-transform shadow-lg shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/40"
-          >
-            ▶ Watch
-          </button>
+        {/* Action */}
+        <div className="w-full md:min-w-[140px] md:w-auto">
           <button
             onClick={(e) => {
               e.stopPropagation();
               onClick();
             }}
-            className="btn btn-ghost font-semibold hover:bg-white/15 hover:border-white/25 transition-all"
+            className="w-full md:w-auto btn btn-primary font-semibold hover:scale-[1.02] transition-transform shadow-lg shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/40 mt-2 md:mt-0"
           >
-            Details →
+            View Details →
           </button>
         </div>
       </div>

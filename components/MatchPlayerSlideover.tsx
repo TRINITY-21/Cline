@@ -78,6 +78,8 @@ export default function MatchPlayerSlideover({
   const [isTryingSources, setIsTryingSources] = useState(false);
   const [iframeErrors, setIframeErrors] = useState<Set<number>>(new Set());
   const [showAgentBadge, setShowAgentBadge] = useState(true);
+  const [isPictureInPicture, setIsPictureInPicture] = useState(false);
+  const [pipSupported, setPipSupported] = useState(false);
   const slideoverRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -120,6 +122,58 @@ export default function MatchPlayerSlideover({
       window.removeEventListener('orientationchange', checkMobile);
     };
   }, []);
+
+  const isVideoFile = useMemo(() => {
+    const base = currentSrc || src;
+    if (!base) return false;
+    return base.includes('.mp4') || base.includes('.webm') || base.includes('.m3u8') || 
+           base.includes('video/mp4') || base.includes('streamable.com');
+  }, [src, currentSrc]);
+
+  // Check Picture-in-Picture support and set up listeners
+  useEffect(() => {
+    if (typeof window === 'undefined' || !open) return;
+    
+    // Check if PiP is supported
+    const checkPipSupport = () => {
+      if (videoRef.current && document.pictureInPictureEnabled && 
+          'requestPictureInPicture' in HTMLVideoElement.prototype && isVideoFile) {
+        setPipSupported(true);
+      } else {
+        setPipSupported(false);
+      }
+    };
+    
+    checkPipSupport();
+    
+    const video = videoRef.current;
+    if (!video || !isVideoFile) {
+      setPipSupported(false);
+      return;
+    }
+    
+    // Listen for PiP enter/leave events
+    const handleEnterPictureInPicture = () => {
+      setIsPictureInPicture(true);
+    };
+    
+    const handleLeavePictureInPicture = () => {
+      setIsPictureInPicture(false);
+    };
+    
+    video.addEventListener('enterpictureinpicture', handleEnterPictureInPicture);
+    video.addEventListener('leavepictureinpicture', handleLeavePictureInPicture);
+    
+    // Check initial state
+    if (document.pictureInPictureElement === video) {
+      setIsPictureInPicture(true);
+    }
+    
+    return () => {
+      video.removeEventListener('enterpictureinpicture', handleEnterPictureInPicture);
+      video.removeEventListener('leavepictureinpicture', handleLeavePictureInPicture);
+    };
+  }, [open, isVideoFile, currentSrc]);
 
   // Fetch all available sources when matchId is provided
   useEffect(() => {
@@ -262,13 +316,6 @@ export default function MatchPlayerSlideover({
     };
   }, [availableSources, currentSourceIndex, src, fetchSourceUrl]);
 
-  const isVideoFile = useMemo(() => {
-    const base = currentSrc || src;
-    if (!base) return false;
-    return base.includes('.mp4') || base.includes('.webm') || base.includes('.m3u8') || 
-           base.includes('video/mp4') || base.includes('streamable.com');
-  }, [src, currentSrc]);
-
   // Monitor iframe for errors and console errors (HLS errors)
   useEffect(() => {
     if (!open || isVideoFile) return;
@@ -320,6 +367,31 @@ export default function MatchPlayerSlideover({
     };
   }, [open, isVideoFile, currentSourceIndex, iframeErrors]);
 
+  // Toggle Picture-in-Picture
+  const togglePictureInPicture = useCallback(async () => {
+    const video = videoRef.current;
+    if (!video || !pipSupported || !isVideoFile) return;
+    
+    try {
+      if (document.pictureInPictureElement) {
+        // Exit PiP
+        await document.exitPictureInPicture();
+      } else {
+        // Enter PiP
+        await video.requestPictureInPicture();
+      }
+    } catch (error: any) {
+      // Handle errors gracefully
+      console.error('Picture-in-Picture error:', error);
+      // Show user-friendly error message
+      if (error.name === 'NotAllowedError') {
+        // User denied PiP permission or it's not allowed
+      } else if (error.name === 'NotSupportedError') {
+        // PiP not supported
+      }
+    }
+  }, [pipSupported, isVideoFile]);
+
   // Reset view mode and chat when opening/closing
   useEffect(() => {
     if (open) {
@@ -332,6 +404,7 @@ export default function MatchPlayerSlideover({
       setLastStallTime(0);
       setFailedSourceIndices(new Set());
       setIsTryingSources(false);
+      setIsPictureInPicture(false);
       // Reset sources so they can be fetched fresh
       setAvailableSources([]);
       setIsLoadingSources(false);
@@ -340,6 +413,12 @@ export default function MatchPlayerSlideover({
         sourceVerificationTimeout.current = null;
       }
     } else {
+      // Exit PiP when closing player
+      if (document.pictureInPictureElement && videoRef.current) {
+        document.exitPictureInPicture().catch(() => {
+          // Ignore errors when closing
+        });
+      }
       // Cleanup on close - reset sources
       setAvailableSources([]);
       setCurrentSourceIndex(0);
@@ -711,6 +790,9 @@ export default function MatchPlayerSlideover({
       if ((e.key === 'c' || e.key === 'C') && open && (!e.target || ((e.target as HTMLElement)?.tagName !== 'INPUT' && (e.target as HTMLElement)?.tagName !== 'TEXTAREA'))) {
         setIsChatOpen(prev => !prev);
       }
+      if ((e.key === 'p' || e.key === 'P') && open && pipSupported && isVideoFile && (!e.target || ((e.target as HTMLElement)?.tagName !== 'INPUT' && (e.target as HTMLElement)?.tagName !== 'TEXTAREA'))) {
+        togglePictureInPicture();
+      }
     }
     if (open) {
       window.addEventListener('keydown', onKey);
@@ -720,7 +802,7 @@ export default function MatchPlayerSlideover({
       window.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
     };
-  }, [open, onClose, isAnimating, isChatOpen]);
+  }, [open, onClose, isAnimating, isChatOpen, pipSupported, isVideoFile, togglePictureInPicture]);
 
   const computedSrc = useMemo(() => {
     const base = currentSrc || src;
@@ -796,8 +878,40 @@ export default function MatchPlayerSlideover({
               </div>
             </div>
             
-            {/* View mode toggle and Chat toggle */}
+              {/* View mode toggle and Chat toggle */}
             <div className="flex items-center gap-1.5 lg:gap-2">
+              {/* Picture-in-Picture Button */}
+              {pipSupported && isVideoFile && (
+                <button
+                  onClick={togglePictureInPicture}
+                  className={`px-3 py-2 lg:px-3 lg:py-2 rounded-lg font-medium text-xs lg:text-sm transition-all relative group ${
+                    isPictureInPicture
+                      ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/30 hover:shadow-[rgb(var(--brand-yellow))]/40'
+                      : 'bg-white/10 text-white hover:bg-white/20 border border-white/20 hover:border-white/30'
+                  }`}
+                  aria-label={isPictureInPicture ? 'Exit Picture-in-Picture' : 'Enter Picture-in-Picture'}
+                  title={`${isPictureInPicture ? 'Exit' : 'Enter'} Picture-in-Picture (P)`}
+                >
+                  <span className="flex items-center gap-1 lg:gap-1.5">
+                    {isPictureInPicture ? (
+                      <svg className="w-3.5 h-3.5 lg:w-4 lg:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25" />
+                      </svg>
+                    ) : (
+                      <svg className="w-3.5 h-3.5 lg:w-4 lg:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                      </svg>
+                    )}
+                    <span className="hidden sm:inline">
+                      {isPictureInPicture ? 'Exit PiP' : 'PiP'}
+                    </span>
+                  </span>
+                  {isPictureInPicture && (
+                    <span className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  )}
+                </button>
+              )}
+              
               {/* Reload/Change Source Button */}
               <button
                 onClick={switchToNextSource}
@@ -892,7 +1006,7 @@ export default function MatchPlayerSlideover({
         </div>
 
         {/* Content area: Video Player + (Mobile Chat if open) */}
-        <div className={`flex flex-col ${viewMode === 'theater' ? 'h-[calc(100vh-98px)] lg:h-[calc(100vh-98px)]' : 'h-[calc(100%-64px)] lg:h-[calc(100%-98px)]'} overflow-hidden`}>
+        <div className={`flex flex-col ${viewMode === 'theater' ? 'h-[calc(100vh-120px)] lg:h-[calc(100vh-120px)]' : 'h-[calc(100%-64px)] lg:h-[calc(100%-98px)]'} overflow-hidden`}>
           {/* Player container with smooth transitions */}
           <div 
             className={`relative w-full theater-mode-transition flex-shrink-0 ${
@@ -977,6 +1091,7 @@ export default function MatchPlayerSlideover({
                     src={computedSrc}
                     playsInline
                     key={computedSrc}
+                    disablePictureInPicture={false}
                   >
                     Your browser does not support the video tag.
                   </video>

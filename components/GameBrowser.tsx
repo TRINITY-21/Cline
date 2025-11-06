@@ -1,5 +1,6 @@
 "use client";
 
+// favorites and notifications removed
 import { getCategoryDisplayName } from '@/lib/streamed';
 import type { EnrichedGame } from '@/lib/types';
 import { firstNameOf, getDisplayName } from '@/lib/utils';
@@ -7,19 +8,42 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import useSWR from 'swr';
 import AvatarFallback from './AvatarFallback';
 import MatchPlayerSlideover from './MatchPlayerSlideover';
+// sharing removed
 
 function TeamLogo({ logo, name, size = 80, className = "" }: { logo?: string; name: string; size?: number; className?: string }) {
   const [hasError, setHasError] = useState(false);
   
   if (!logo || hasError) {
-    return <AvatarFallback name={name} size={size} />;
+    // Use a responsive wrapper for AvatarFallback
+    return (
+      <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 lg:w-36 lg:h-36 xl:w-40 xl:h-40 flex items-center justify-center">
+        <AvatarFallback name={name} size={64} className="!w-full !h-full" />
+      </div>
+    );
+  }
+  
+  // If className is provided with responsive classes, use it directly
+  if (className && (className.includes('w-') || className.includes('h-'))) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={logo}
+        alt=""
+        className={`object-contain rounded-full ${className}`}
+        onError={() => setHasError(true)}
+      />
+    );
   }
   
   let imgClassName = "object-contain rounded-full";
-  if (size > 70) {
-    imgClassName = "w-16 h-16 md:w-20 md:h-20 object-contain rounded-full";
+  if (size > 140) {
+    imgClassName = "w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 object-contain rounded-full";
+  } else if (size > 110) {
+    imgClassName = "w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 object-contain rounded-full";
+  } else if (size > 70) {
+    imgClassName = "w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain rounded-full";
   } else if (size > 50) {
-    imgClassName = "w-12 h-12 md:w-16 md:h-16 object-contain rounded-full";
+    imgClassName = "w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 object-contain rounded-full";
   } else {
     imgClassName = "w-4 h-4 rounded-full object-contain";
   }
@@ -54,11 +78,13 @@ const DEFAULT_SRC = 'https://voodc.com/embed/1/85818c92a38e9e86847a8599a08f98878
 const MOCK_GAMES: GameItem[] = [];
 
 export default function GameBrowser() {
-  const [activeSport, setActiveSport] = useState<Sport>('All');
+  const [activeSport, setActiveSport] = useState<Sport>('Football');
   const [selected, setSelected] = useState<GameItem | null>(null);
-  const [filtersOpen, setFiltersOpen] = useState<boolean>(true); // Mobile/tablet filter panel
+  const [filtersOpen, setFiltersOpen] = useState<boolean>(true);
   const [sportDropdownOpen, setSportDropdownOpen] = useState<boolean>(false);
   const sportDropdownRef = useRef<HTMLDivElement>(null);
+  const [nowTs, setNowTs] = useState<number>(() => Date.now());
+  // removed favorites and notifications hooks
 
   // Fetch function for SWR
   const fetcher = async (url: string) => {
@@ -123,14 +149,13 @@ export default function GameBrowser() {
 
   // Build sports array with category-based filtering
   const sports = useMemo(() => {
-    const baseSports: string[] = ['All'];
-    
+    const out: string[] = [];
     availableCategories.forEach(categoryTag => {
       const displayName = getCategoryDisplayName(categoryTag);
-      baseSports.push(displayName);
+      if (!out.includes(displayName)) out.push(displayName);
     });
-    
-    return baseSports.length > 1 ? baseSports : ['All', 'Football', 'Hockey', 'Basketball', 'Tennis'];
+    // Fallback default list without "All Sports"
+    return out.length > 0 ? out : ['Football', 'NFL', 'Basketball', 'Hockey', 'Tennis'];
   }, [availableCategories]);
   
   const games = useMemo<EnrichedGame[]>(() => {
@@ -179,6 +204,56 @@ export default function GameBrowser() {
     });
   }, [activeSport, fetched]);
 
+  // Pick a single featured match: prefer live, otherwise earliest upcoming
+  const featured = useMemo(() => {
+    if (!Array.isArray(fetched) || fetched.length === 0) return null as any;
+
+    // Filter by current sport tab when not showing All
+    let source: any[] = fetched;
+    if (activeSport !== 'All') {
+      source = fetched.filter((m: any) => {
+        if (m?.categoryTag) {
+          const displayName = getCategoryDisplayName(String(m.categoryTag));
+          return displayName === activeSport;
+        }
+        return m?.sport === activeSport;
+      });
+    }
+    if (source.length === 0) return null as any;
+
+    const sorted = [...source].sort((a: any, b: any) => {
+      const aLive = a.status === 'live' ? 1 : 0;
+      const bLive = b.status === 'live' ? 1 : 0;
+      if (aLive !== bLive) return bLive - aLive; // live first
+      const aStart = a.startTime ? new Date(a.startTime).getTime() : Number.MAX_SAFE_INTEGER;
+      const bStart = b.startTime ? new Date(b.startTime).getTime() : Number.MAX_SAFE_INTEGER;
+      return aStart - bStart; // earlier first
+    });
+    return sorted[0];
+  }, [fetched, activeSport]);
+
+  // Countdown timer (updates every second)
+  useEffect(() => {
+    const t = setInterval(() => setNowTs(Date.now()), 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  function formatCountdown(startIso?: string): { label: string; seconds: number; hours: number; minutes: number; secs: number } {
+    if (!startIso) return { label: 'TBD', seconds: 0, hours: 0, minutes: 0, secs: 0 };
+    const start = new Date(startIso).getTime();
+    const diffMs = start - nowTs;
+    const seconds = Math.max(0, Math.floor(diffMs / 1000));
+    if (seconds <= 0) return { label: 'Live now', seconds: 0, hours: 0, minutes: 0, secs: 0 };
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    const parts: string[] = [];
+    if (h > 0) parts.push(`${h}h`);
+    if (m > 0 || h > 0) parts.push(`${m}m`);
+    parts.push(`${s}s`);
+    return { label: `Starts in ${parts.join(' ')}`, seconds, hours: h, minutes: m, secs: s };
+  }
+
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -197,11 +272,12 @@ export default function GameBrowser() {
   // Live detection: if we have a video source, consider it live
 
   return (
-    <div className="space-y-4 sm:space-y-5 fade-in-up">
-      {/* Mobile/Tablet Filter Panel - Collapsible */}
-      <div className="lg:hidden relative z-10">
-        <div className="bg-white/5 border border-white/10 rounded-xl overflow-visible">
-          {/* Filter Header */}
+    <div className="space-y-4 sm:space-y-5 fade-in-up w-full max-w-full box-border">
+      {/* We are focusing on a single featured match for Trending */}
+
+      {/* Mobile/Tablet Filters - collapsible */}
+      <div className="lg:hidden relative z-[100] w-full max-w-full box-border mb-4">
+        <div className={`bg-white/5 border border-white/10 rounded-xl ${sportDropdownOpen ? 'overflow-visible' : 'overflow-hidden'} w-full max-w-full box-border`}>
           <button
             onClick={() => setFiltersOpen(!filtersOpen)}
             className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 transition-colors touch-manipulation rounded-t-xl"
@@ -212,68 +288,50 @@ export default function GameBrowser() {
               </svg>
               <span className="text-white font-medium text-sm">Filters</span>
             </div>
-            <svg 
-              className={`w-4 h-4 text-white/60 transition-transform duration-200 ${filtersOpen ? 'rotate-180' : ''}`} 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              stroke="currentColor" 
-              strokeWidth={2}
-            >
+            <svg className={`w-4 h-4 text-white/60 transition-transform duration-200 ${filtersOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
 
-          {/* Filter Content */}
           {filtersOpen && (
             <div className="px-4 pb-4 space-y-3 pt-2 relative">
-              {/* Sport Dropdown */}
-              <div className={`relative ${sportDropdownOpen ? 'z-[1001]' : 'z-10'}`} data-dropdown>
+              {/* Sport dropdown */}
+              <div className={`relative ${sportDropdownOpen ? 'z-[10000]' : ''}`} data-dropdown>
                 <button
                   onClick={() => setSportDropdownOpen(!sportDropdownOpen)}
                   className="w-full flex items-center justify-between px-4 py-3 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors touch-manipulation"
                 >
-                  <span className="text-white text-sm font-medium">
-                    {activeSport === 'All' ? 'All Sports' : activeSport}
-                  </span>
-                  <svg 
-                    className={`w-4 h-4 text-white/60 transition-transform duration-200 ${sportDropdownOpen ? 'rotate-180' : ''}`} 
-                    fill="none" 
-                    viewBox="0 0 24 24" 
-                    stroke="currentColor" 
-                    strokeWidth={2}
-                  >
+                  <span className="text-white text-sm font-medium">{activeSport}</span>
+                  <svg className={`w-4 h-4 text-white/60 transition-transform duration-200 ${sportDropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-                
                 {sportDropdownOpen && (
-                  <div 
-                    ref={sportDropdownRef}
-                    className="absolute top-full left-0 right-0 mt-1 bg-[rgb(15,15,20)] border border-white/10 rounded-lg shadow-xl z-[1001] max-h-64 overflow-y-auto"
-                  >
-                    {sports.map(s => (
-                      <button
-                        key={s}
-                        onClick={() => {
-                          setActiveSport(s as Sport);
-                          setSportDropdownOpen(false);
-                        }}
-                        className={
-                          "w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors touch-manipulation border-b border-white/5 last:border-b-0 " +
-                          (s === activeSport 
-                            ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))]' 
-                            : 'text-white/80')
-                        }
-                      >
-                        <span className="font-medium text-sm">{s === 'All' ? 'All Sports' : s}</span>
-                        {s === activeSport && (
-                          <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                          </svg>
-                        )}
-                      </button>
-                    ))}
-                  </div>
+                  <>
+                    <div
+                      className="fixed inset-0 z-[9990]"
+                      onClick={() => setSportDropdownOpen(false)}
+                    />
+                    <div className="absolute top-full left-0 right-0 mt-1 bg-[rgb(15,15,20)] border border-white/10 rounded-lg shadow-xl z-[10001] max-h-64 overflow-y-auto">
+                      {sports.map(sport => (
+                        <button
+                          key={sport}
+                          onClick={() => { 
+                            setActiveSport(sport as Sport); 
+                            setSportDropdownOpen(false); 
+                          }}
+                          className={`w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors touch-manipulation border-b border-white/5 last:border-b-0 ${activeSport === sport ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))]' : 'text-white/80'}`}
+                        >
+                          <span className="font-medium text-sm">{sport}</span>
+                          {activeSport === sport && (
+                            <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </>
                 )}
               </div>
             </div>
@@ -281,22 +339,21 @@ export default function GameBrowser() {
         </div>
       </div>
 
-      {/* Desktop Filters - Keep original horizontal scrollable design */}
+      {/* Desktop filters */}
       <div className="hidden lg:block relative w-full">
-        {/* Scrollable container */}
-        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-2 scroll-x-only no-scrollbar touch-pan-x">
-          {sports.map(s => (
+        <div className="flex flex-wrap items-center gap-2 lg:gap-3 w-full max-w-full box-border">
+          {sports.slice(0, 8).map(s => (
             <button
               key={s}
               onClick={() => setActiveSport(s as Sport)}
               className={
-                "px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg font-medium text-[11px] sm:text-xs md:text-sm transition-all duration-200 touch-manipulation min-h-[36px] sm:min-h-[40px] whitespace-nowrap flex-shrink-0 " + 
-                (s === activeSport 
-                  ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20' 
+                "px-3 lg:px-4 py-2 lg:py-2.5 rounded-lg font-medium text-xs lg:text-sm transition-all duration-200 flex-shrink-0 " +
+                (s === activeSport
+                  ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20'
                   : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
               }
             >
-              {s === 'All' ? 'All Sports' : s}
+              {s}
             </button>
           ))}
         </div>
@@ -309,125 +366,124 @@ export default function GameBrowser() {
           <p className="text-white/50">Please try refreshing the page</p>
         </div>
       ) : isLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {[...Array(activeSport === 'All' ? 12 : 6)].map((_, i) => (
-            <div key={i} className="skeleton rounded-xl h-64" />
-          ))}
-        </div>
-      ) : games.length === 0 ? (
+        <div className="skeleton rounded-2xl h-[320px]" />
+      ) : (!featured ? true : false) ? (
         <div className="empty-state text-center py-16 px-8 rounded-xl">
           <div className="text-6xl mb-4">🔥</div>
-          <p className="text-white/80 text-lg font-semibold mb-2">No trending matches</p>
-          <p className="text-white/50">Check back soon for popular matches</p>
+          <p className="text-white/80 text-lg font-semibold mb-2">No featured match</p>
+          <p className="text-white/50">Check back soon for the next big game</p>
         </div>
       ) : (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
-        {games.map((game, i) => {
-          const gameSport = game.sport as Sport;
-          // Use status from API directly, or fallback to checking if videoSrc exists
-          const apiStatus = (game as any).status as string | undefined;
-          const isLive = (apiStatus === 'live' || (apiStatus !== 'ended' && !!game.videoSrc));
-          const isClickable = isLive;
-          const disabledLabel = apiStatus === 'ended' ? 'Ended' : 'Not started';
-          return (
-          <div
-            key={`${gameSport}-${i}-${game.home.name}-${game.away.name}`}
-            title={`${game.home.name} vs ${game.away.name}`}
-            className={
-              "match-card match-grid-item text-left group rounded-xl overflow-hidden border transition-all " +
-              (isLive 
-                ? "live border-white/20 bg-gradient-to-br from-white/5 to-white/[0.02]" 
-                : "border-white/10 bg-gradient-to-br from-white/[0.03] to-white/[0.01]") +
-              (isClickable 
-                ? "hover:bg-white/10 hover:border-white/20 neon-hover cursor-pointer" 
-                : "cursor-not-allowed pointer-events-none")
-            }
-            style={{ animationDelay: `${i * 0.1}s` }}
-          >
-            <div className="relative aspect-video bg-grid-yellow bg-[size:24px_24px]">
-              {/* Duel background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[rgba(255,212,0,0.06)] via-transparent to-transparent" />
-              {/* Big team logos duel */}
-              <div className="absolute inset-0 flex items-center justify-center mt-12">
-                <div className="duel-wrap relative flex items-center gap-6 md:gap-10">
-                  <div className="duel-pedestal w-20 h-20 md:w-32 md:h-32 grid place-items-center overflow-hidden">
-                    <TeamLogo logo={game.home.logo} name={firstNameOf(game.home.name)} size={80} />
-                    <div className="duel-gloss" />
-                  </div>
-                  <span className="text-white/60 text-xs md:text-sm tracking-[0.35em] font-extrabold">VS</span>
-                  <div className="duel-pedestal w-20 h-20 md:w-32 md:h-32 grid place-items-center overflow-hidden">
-                    <TeamLogo logo={game.away.logo} name={firstNameOf(game.away.name)} size={80} />
-                    <div className="duel-gloss" />
-                  </div>
-                </div>
-              </div>
-              
-              <div className="absolute left-2 top-2 flex items-center gap-2">
-                {game.time && (
-                  <span className="pill pill-active text-[10px] px-2 py-0.5">{game.time}</span>
-                )}
-                {isLive && (
-                  <span className="live-indicator w-2.5 h-2.5 rounded-full bg-[rgb(var(--brand-yellow))]" />
-                )}
-                {!game.time && !isLive && (
-                  <span className="pill pill-muted text-[10px] px-2 py-0.5 opacity-50">TBD</span>
-                )}
-              </div>
+      <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.015]">
+        {/* Background grid + glow */}
+        <div className="absolute inset-0 bg-grid-yellow bg-[size:24px_24px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
+
+        {/* Center duel */}
+        <div className="relative z-10 px-3 sm:px-6 md:px-10 py-6 sm:py-12 md:py-16 lg:py-20">
+          <div className="flex flex-row items-center justify-center gap-3 sm:gap-6 md:gap-12 lg:gap-20">
+            <div className="text-center min-w-0">
+              <TeamLogo logo={featured?.home?.logo} name={firstNameOf(featured?.home?.name || '')} size={120} className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 lg:w-36 lg:h-36 xl:w-40 xl:h-40" />
+              <div className="mt-2 sm:mt-3 md:mt-4 text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold text-white/90 max-w-[120px] sm:max-w-[200px] md:max-w-[250px] lg:max-w-[300px] truncate mx-auto">{getDisplayName(featured?.home?.name || '')}</div>
             </div>
-            <div className="p-3 sm:p-4 space-y-2.5 sm:space-y-3">
-              {/* Team Names - Separate pill buttons */}
-              <div className="flex items-center justify-center gap-1 sm:gap-1.5 min-w-0 w-full">
-                <div className="flex-1 min-w-0 inline-flex items-center justify-center rounded-full px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold border border-[rgb(var(--brand-yellow))]/40 bg-gradient-to-br from-[rgb(var(--brand-yellow))]/15 via-[rgb(var(--brand-yellow))]/10 to-[rgb(var(--brand-yellow))]/5 text-[rgb(255,244,180)] whitespace-nowrap overflow-hidden text-ellipsis" title={game.home.name}>
-                  <span className="truncate">{getDisplayName(game.home.name)}</span>
-                </div>
-                <span className="text-[rgb(var(--brand-yellow))]/60 text-[10px] sm:text-xs font-medium flex-shrink-0 px-0.5">vs</span>
-                <div className="flex-1 min-w-0 inline-flex items-center justify-center rounded-full px-1.5 sm:px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold border border-[rgb(var(--brand-yellow))]/40 bg-gradient-to-br from-[rgb(var(--brand-yellow))]/15 via-[rgb(var(--brand-yellow))]/10 to-[rgb(var(--brand-yellow))]/5 text-[rgb(255,244,180)] whitespace-nowrap overflow-hidden text-ellipsis" title={game.away.name}>
-                  <span className="truncate">{getDisplayName(game.away.name)}</span>
-                </div>
-              </div>
-              <div className="flex flex-col items-center justify-center gap-1.5">
-                {isLive ? (
-                  <button
-                    type="button"
-                    className="btn btn-primary px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-xs font-bold shadow-lg shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/30 transition-all flex items-center justify-center gap-1.5 touch-manipulation min-h-[36px] w-full sm:w-auto"
-                    onClick={() =>
-                      setSelected({
-                        id: Math.random().toString(36).slice(2),
-                        sport: gameSport,
-                        league: game.league || '',
-                        home: game.home.name,
-                        away: game.away.name,
-                        time: game.time || '',
-                        videoSrc: game.videoSrc,
-                        matchId: (game as any).matchId
-                      })
-                    }
-                  >
-                    ▶ Watch Live
-                  </button>
-                ) : (
-                  <div className="flex flex-col items-center gap-1.5">
-                    {apiStatus === 'upcoming' || (apiStatus !== 'ended' && apiStatus !== 'live') ? (
-                      <div className="flex items-center gap-1.5 text-[10px] text-white/40">
-                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span>Scheduled</span>
-                      </div>
-                    ) : null}
-                    <span className={`inline-flex items-center justify-center px-4 py-2 rounded-lg text-xs font-medium transition-all ${
-                      apiStatus === 'ended'
-                        ? 'bg-white/5 text-white/50 border border-white/10'
-                        : 'bg-gradient-to-r from-white/8 to-white/5 text-white/70 border border-white/10 backdrop-blur-sm'
-                    }`}>
-                      {disabledLabel}
-                    </span>
-                  </div>
-                )}
-              </div>
+            <span className="text-white/70 text-base sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl tracking-[0.35em] font-extrabold">VS</span>
+            <div className="text-center min-w-0">
+              <TeamLogo logo={featured?.away?.logo} name={firstNameOf(featured?.away?.name || '')} size={120} className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 lg:w-36 lg:h-36 xl:w-40 xl:h-40" />
+              <div className="mt-2 sm:mt-3 md:mt-4 text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold text-white/90 max-w-[120px] sm:max-w-[200px] md:max-w-[250px] lg:max-w-[300px] truncate mx-auto">{getDisplayName(featured?.away?.name || '')}</div>
             </div>
           </div>
-        );})}
+
+          {/* Meta and actions */}
+          <div className="mt-6 sm:mt-8 md:mt-10 flex flex-col items-center gap-4">
+            <div className="flex items-center gap-3">
+              {featured?.timeLabel && (
+                <span className="pill pill-active text-sm sm:text-base md:text-lg px-3 sm:px-4 py-1.5 sm:py-2 rounded-2xl shadow-[0_0_20px_rgba(255,212,0,0.15)]">{featured.timeLabel}</span>
+              )}
+            </div>
+            
+            {(() => {
+              const info = formatCountdown(featured?.startTime);
+              const live = info.seconds === 0 || featured?.status === 'live';
+              
+              if (live) {
+                return (
+                  <div className="flex flex-col items-center gap-3">
+                    <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[rgb(var(--brand-yellow))] tracking-wide">
+                      🔴 LIVE NOW
+                    </span>
+                  </div>
+                );
+              }
+              
+              return (
+                <div className="flex flex-col items-center gap-3 w-full">
+                  <div className="text-xs md:text-sm uppercase tracking-wider text-white/60 font-medium mb-1">
+                    Starts in
+                  </div>
+                  <div className="flex items-center justify-center gap-2 md:gap-3">
+                    {info.hours > 0 && (
+                      <div className="flex flex-col items-center">
+                        <div className="font-mono tabular-nums text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 rounded-2xl bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-md border border-white/20 shadow-[0_0_40px_rgba(255,212,0,0.2)] ring-1 ring-white/10">
+                          {String(info.hours).padStart(2, '0')}
+                        </div>
+                        <div className="text-[10px] sm:text-[10px] md:text-xs uppercase tracking-wider text-white/50 mt-1.5 font-medium">
+                          Hours
+                        </div>
+                      </div>
+                    )}
+                    {info.hours > 0 && (
+                      <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white/40 pb-6 sm:pb-8">:</div>
+                    )}
+                    <div className="flex flex-col items-center">
+                      <div className="font-mono tabular-nums text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 rounded-2xl bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-md border border-white/20 shadow-[0_0_40px_rgba(255,212,0,0.2)] ring-1 ring-white/10">
+                        {String(info.minutes).padStart(2, '0')}
+                      </div>
+                      <div className="text-[10px] sm:text-[10px] md:text-xs uppercase tracking-wider text-white/50 mt-1.5 font-medium">
+                        Minutes
+                      </div>
+                    </div>
+                    <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white/40 pb-6 sm:pb-8">:</div>
+                    <div className="flex flex-col items-center">
+                      <div className="font-mono tabular-nums text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 rounded-2xl bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-md border border-white/20 shadow-[0_0_40px_rgba(255,212,0,0.2)] ring-1 ring-white/10">
+                        {String(info.secs).padStart(2, '0')}
+                      </div>
+                      <div className="text-[10px] sm:text-[10px] md:text-xs uppercase tracking-wider text-white/50 mt-1.5 font-medium">
+                        Seconds
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {(() => {
+              const info = formatCountdown(featured?.startTime);
+              const live = info.seconds === 0 || featured?.status === 'live';
+              return live ? (
+                <button
+                  type="button"
+                  className="btn btn-primary px-5 sm:px-6 py-2.5 text-sm sm:text-base font-bold shadow-lg shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/30"
+                  onClick={() =>
+                    setSelected({
+                      id: Math.random().toString(36).slice(2),
+                      sport: (featured?.sport || 'Football') as Sport,
+                      league: featured?.league?.name || '',
+                      home: featured?.home?.name || '',
+                      away: featured?.away?.name || '',
+                      time: featured?.timeLabel || '',
+                      videoSrc: featured?.videoSrc || '',
+                      matchId: featured?.id,
+                    })
+                  }
+                >
+                  ▶ Watch Live
+                </button>
+              ) : (
+                <div className="text-xs text-white/60">Stay tuned — we’ll start the stream at kickoff</div>
+              );
+            })()}
+          </div>
+        </div>
       </div>
       )}
 

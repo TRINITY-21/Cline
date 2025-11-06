@@ -1,5 +1,6 @@
 "use client";
 
+// favorites and notifications removed
 import { getCategoryDisplayName } from '@/lib/streamed';
 import type { EnrichedGame } from '@/lib/types';
 import { extractTimeLabel, firstNameOf, getDisplayName } from '@/lib/utils';
@@ -7,6 +8,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import useSWR from 'swr';
 import DefaultTeamLogo from './DefaultTeamLogo';
 import MatchPlayerSlideover from './MatchPlayerSlideover';
+// sharing removed
 
 type Sport = 'Football' | 'Hockey' | 'Volleyball' | 'Basketball' | 'Tennis' | 'NFL';
 
@@ -62,6 +64,7 @@ export default function TodayMatches() {
   const [timeDropdownOpen, setTimeDropdownOpen] = useState<boolean>(false);
   const sportDropdownRef = useRef<HTMLDivElement>(null);
   const timeDropdownRef = useRef<HTMLDivElement>(null);
+  // removed favorites and notifications hooks
 
   // Fetch function for SWR
   const fetcher = async (url: string) => {
@@ -381,7 +384,7 @@ export default function TodayMatches() {
               )}
 
               {/* Sport Dropdown */}
-              <div className={`relative ${sportDropdownOpen ? 'z-[1001]' : 'z-10'}`} data-dropdown>
+              <div className={`relative ${sportDropdownOpen ? 'z-[9999]' : 'z-10'}`} data-dropdown>
                 <button
                   onClick={() => {
                     setSportDropdownOpen(!sportDropdownOpen);
@@ -406,7 +409,7 @@ export default function TodayMatches() {
                 {sportDropdownOpen && (
                   <div 
                     ref={sportDropdownRef}
-                    className="absolute top-full left-0 right-0 mt-1 bg-[rgb(15,15,20)] border border-white/10 rounded-lg shadow-xl z-[1001] max-h-64 overflow-y-auto"
+                    className="absolute top-full left-0 right-0 mt-1 bg-[rgb(15,15,20)] border border-white/10 rounded-lg shadow-xl z-[9999] max-h-64 overflow-y-auto"
                   >
                     {sports.map(s => (
                       <button
@@ -435,7 +438,7 @@ export default function TodayMatches() {
               </div>
 
               {/* Time Filters Dropdown (Sources) */}
-              <div className={`relative ${timeDropdownOpen ? 'z-[1001]' : 'z-10'}`} data-dropdown>
+              <div className={`relative ${timeDropdownOpen ? 'z-[9999]' : 'z-10'}`} data-dropdown>
                 <button
                   onClick={() => {
                     setTimeDropdownOpen(!timeDropdownOpen);
@@ -460,7 +463,7 @@ export default function TodayMatches() {
                 {timeDropdownOpen && (
                   <div 
                     ref={timeDropdownRef}
-                    className="absolute top-full left-0 right-0 mt-1 bg-[rgb(15,15,20)] border border-white/10 rounded-lg shadow-xl z-[1001] max-h-64 overflow-y-auto"
+                    className="absolute top-full left-0 right-0 mt-1 bg-[rgb(15,15,20)] border border-white/10 rounded-lg shadow-xl z-[9999] max-h-64 overflow-y-auto"
                   >
                     {timeKeys.map(k => (
                       <button
@@ -606,7 +609,7 @@ export default function TodayMatches() {
           <p className="text-white/50">Please try refreshing the page</p>
         </div>
       ) : isLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-3 md:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-3 md:gap-4">
           {[...Array(10)].map((_, i) => (
             <div key={i} className="skeleton rounded-lg h-48" />
           ))}
@@ -656,7 +659,7 @@ export default function TodayMatches() {
               </button>
 
               {isOpen && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-3 md:gap-4 lg:gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-3 md:gap-4 lg:gap-5">
                 {games.map((game, gameIdx) => {
                   const status = (game as any).status as string | undefined;
                   const derived = (game as any)._derivedStatus as string | undefined;
@@ -717,23 +720,25 @@ export default function TodayMatches() {
                       style={{ animationDelay: `${gameIdx * 0.05}s` }}
                     >
                       {/* Header Section */}
-                      <div className="px-3 sm:px-4 pt-3 sm:pt-4 pb-2.5 sm:pb-3 border-b border-white/5">
-                        <div className="flex items-center justify-between mb-2.5 sm:mb-3 gap-2">
-                          {displayLeague && (
-                            <span className="text-[10px] font-semibold text-white/70 uppercase tracking-wider">
-                              {displayLeague}
+                      <div className="px-2.5 sm:px-4 pt-2.5 sm:pt-4 pb-2 sm:pb-3 border-b border-white/5">
+                      <div className="flex items-center justify-between mb-2.5 sm:mb-3 gap-2 flex-wrap">
+                          <div className="flex items-center gap-2 min-w-0">
+                            {displayLeague && (
+                              <span className="text-[10px] font-semibold text-white/70 uppercase tracking-wider">
+                                {displayLeague}
                               </span>
-                          )}
-                          <div className="flex items-center gap-2">
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2 relative z-0 flex-shrink-0 ml-auto">
                             {game.time && (
                               <span className="text-[10px] font-medium text-white/60 font-mono">
                                 {game.time}
                               </span>
                             )}
                             {isLive && (
-                              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[rgb(var(--brand-yellow))]/15 border border-[rgb(var(--brand-yellow))]/30">
-                                <span className="w-1.5 h-1.5 rounded-full bg-[rgb(var(--brand-yellow))] animate-pulse" />
-                                <span className="text-[9px] font-bold text-[rgb(var(--brand-yellow))] uppercase tracking-wide">
+                              <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-[rgb(var(--brand-yellow))]/15 border border-[rgb(var(--brand-yellow))]/30 flex-shrink-0">
+                                <span className="w-1 h-1 rounded-full bg-[rgb(var(--brand-yellow))] animate-pulse" />
+                                <span className="text-[8px] font-bold text-[rgb(var(--brand-yellow))] uppercase tracking-wide">
                                   Live
                                 </span>
                               </div>
@@ -771,7 +776,7 @@ export default function TodayMatches() {
                       </div>
                       
                       {/* Action Section */}
-                      <div className="px-3 sm:px-4 py-2.5 sm:py-3.5">
+                      <div className="px-2.5 sm:px-4 py-2 sm:py-3.5">
                           {isLive ? (
                             <button
                             className="w-full rounded-lg bg-gradient-to-r from-[rgb(var(--brand-yellow))] to-[#FFE066] text-black font-bold text-xs px-3 sm:px-4 py-2 transition-all duration-200 hover:from-[#FFE066] hover:to-[rgb(var(--brand-yellow))] hover:shadow-lg hover:shadow-[rgb(var(--brand-yellow))]/30 active:scale-[0.98] flex items-center justify-center gap-1.5 touch-manipulation min-h-[44px]"
