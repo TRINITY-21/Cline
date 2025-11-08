@@ -104,7 +104,10 @@ export default async function NewsDetailsPage({ params }: { params: Promise<{ id
       <div className="space-y-4">
         {/* Client logger with null to indicate failure */}
         <NewsConsoleLogger article={null} />
-        <Link href="/news" className="text-sm text-white/60 hover:text-white underline inline-flex items-center gap-2">← Back to News</Link>
+        <Link href="/news" className="text-sm text-white/60 hover:text-white underline inline-flex items-center gap-2">
+          <span className="flex items-center justify-center leading-none">←</span>
+          <span className="leading-normal">Back to News</span>
+        </Link>
         <div className="surface p-8 text-center">
           <h1 className="text-2xl font-bold mb-2">News Not Found</h1>
           <p className="text-white/60">The article you're looking for doesn't exist.</p>

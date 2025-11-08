@@ -87,7 +87,8 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
     return (
       <div className="space-y-4">
         <Link href="/highlight" className="text-sm text-white/60 hover:text-white underline inline-flex items-center gap-2">
-          ← Back to Highlights
+          <span className="flex items-center justify-center leading-none">←</span>
+          <span className="leading-normal">Back to Highlights</span>
         </Link>
         <div className="surface p-8 text-center">
           <h1 className="text-2xl font-bold mb-4">Match Not Found</h1>
@@ -179,8 +180,8 @@ function MatchDetailContent({ match }: { match: HighlightMatch }) {
         href="/highlight"
         className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-all duration-300 hover:gap-3 group"
       >
-        <span className="transform group-hover:-translate-x-1 transition-transform">←</span>
-        <span>Back to Highlighs</span>
+        <span className="transform group-hover:-translate-x-1 transition-transform flex items-center justify-center leading-none">←</span>
+        <span className="leading-normal">Back to Highlighs</span>
       </a>
 
       {/* Hero Section */}
@@ -219,7 +220,7 @@ function MatchDetailContent({ match }: { match: HighlightMatch }) {
             {/* Teams Layout - Home Left, VS Center, Away Right */}
             <div className="w-full flex items-center justify-between gap-6 md:gap-8">
               {/* Home Team - Left */}
-              <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+              <div className="flex flex-col items-center gap-2 md:gap-3 flex-1 min-w-0">
                 <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-full bg-white/[0.03] border border-white/[0.08] overflow-hidden flex items-center justify-center backdrop-blur-sm flex-shrink-0">
                   {homeLogo ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -235,8 +236,8 @@ function MatchDetailContent({ match }: { match: HighlightMatch }) {
                     </div>
                   )}
                 </div>
-                <div className="min-w-0 flex-1">
-                  <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white/95 truncate">
+                <div className="min-w-0 w-full text-center">
+                  <h2 className="text-xs sm:text-sm md:text-base font-medium text-white/90 truncate px-1">
                     {match.homeTeam}
                   </h2>
                 </div>
@@ -250,12 +251,7 @@ function MatchDetailContent({ match }: { match: HighlightMatch }) {
               </div>
 
               {/* Away Team - Right */}
-              <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0 justify-end">
-                <div className="min-w-0 flex-1 text-right">
-                  <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white/95 truncate">
-                    {match.awayTeam}
-                  </h2>
-                </div>
+              <div className="flex flex-col items-center gap-2 md:gap-3 flex-1 min-w-0">
                 <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-full bg-white/[0.03] border border-white/[0.08] overflow-hidden flex items-center justify-center backdrop-blur-sm flex-shrink-0">
                   {awayLogo ? (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -270,6 +266,11 @@ function MatchDetailContent({ match }: { match: HighlightMatch }) {
                       />
                     </div>
                   )}
+                </div>
+                <div className="min-w-0 w-full text-center">
+                  <h2 className="text-xs sm:text-sm md:text-base font-medium text-white/90 truncate px-1">
+                    {match.awayTeam}
+                  </h2>
                 </div>
               </div>
             </div>

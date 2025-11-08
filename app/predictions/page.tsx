@@ -348,6 +348,9 @@ function groupMatchesByDay(matches: Match[]): Record<string, Match[]> {
 export default function PredictionsPage() {
   const [expandedKeys, setExpandedKeys] = useState<Record<string, boolean>>({});
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'Over 1.5 Goals' | 'Over 2.5 Goals'>('all');
+  const [filtersOpen, setFiltersOpen] = useState<boolean>(true);
+  const [dayDropdownOpen, setDayDropdownOpen] = useState<boolean>(false);
+  const [selectedDay, setSelectedDay] = useState<string>('all');
   const groupRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   // Filter matches based on selected filter
@@ -363,20 +366,40 @@ export default function PredictionsPage() {
     return groupMatchesByDay(filteredMatches);
   }, [filteredMatches]);
 
+  // All available days (for dropdown) - from all matches, not filtered
+  const allAvailableDays = useMemo(() => {
+    const allMatchesGrouped = groupMatchesByDay(PREDICTIONS_DATA);
+    const dayOrder = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const availableDays = Object.keys(allMatchesGrouped);
+    const orderedDays = dayOrder.filter(day => availableDays.includes(day));
+    const remainingDays = availableDays.filter(day => !dayOrder.includes(day));
+    return [...orderedDays, ...remainingDays];
+  }, []);
+
   const dayKeys = useMemo(() => {
     const dayOrder = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const availableDays = Object.keys(groupedByDay);
     const orderedDays = dayOrder.filter(day => availableDays.includes(day));
     const remainingDays = availableDays.filter(day => !dayOrder.includes(day));
-    return [...orderedDays, ...remainingDays];
-  }, [groupedByDay]);
+    const allDays = [...orderedDays, ...remainingDays];
+    
+    // Filter by selected day if not 'all'
+    if (selectedDay !== 'all') {
+      return allDays.filter(day => day === selectedDay);
+    }
+    return allDays;
+  }, [groupedByDay, selectedDay]);
 
-  // Initialize expanded state - expand first day by default
+  // Initialize expanded state - expand first day by default or selected day
   useEffect(() => {
     const defaults: Record<string, boolean> = {};
-    if (dayKeys[0]) defaults[dayKeys[0]] = true;
+    if (selectedDay !== 'all' && dayKeys.includes(selectedDay)) {
+      defaults[selectedDay] = true;
+    } else if (dayKeys[0]) {
+      defaults[dayKeys[0]] = true;
+    }
     setExpandedKeys(prev => ({ ...defaults, ...prev }));
-  }, [dayKeys.join('|')]);
+  }, [dayKeys.join('|'), selectedDay]);
 
   function toggleKey(key: string, value?: boolean) {
     setExpandedKeys(prev => ({ ...prev, [key]: value ?? !prev[key] }));
@@ -433,80 +456,202 @@ export default function PredictionsPage() {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
-            <div className="border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm rounded-lg p-4 sm:p-5 group hover:border-white/[0.15] transition-all">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6">
+            <div className="border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm rounded-lg p-3 sm:p-4 md:p-5 group hover:border-white/[0.15] transition-all">
               <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide mb-1">Total Matches</div>
-              <div className="text-2xl sm:text-3xl font-bold text-[rgb(var(--brand-yellow))]">{stats.totalMatches}</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[rgb(var(--brand-yellow))]">{stats.totalMatches}</div>
             </div>
-            <div className="border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm rounded-lg p-4 sm:p-5 group hover:border-white/[0.15] transition-all">
+            <div className="border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm rounded-lg p-3 sm:p-4 md:p-5 group hover:border-white/[0.15] transition-all">
               <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide mb-1">Over 1.5 Goals</div>
-              <div className="text-2xl sm:text-3xl font-bold text-white/95">{stats.over15Matches}</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white/95">{stats.over15Matches}</div>
             </div>
-            <div className="border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm rounded-lg p-4 sm:p-5 group hover:border-white/[0.15] transition-all">
+            <div className="border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm rounded-lg p-3 sm:p-4 md:p-5 group hover:border-white/[0.15] transition-all">
               <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide mb-1">Over 2.5 Goals</div>
-              <div className="text-2xl sm:text-3xl font-bold text-white/95">{stats.over25Matches}</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white/95">{stats.over25Matches}</div>
             </div>
           </div>
 
-          {/* Filter Chips */}
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-6">
+          {/* Mobile Filters - collapsible */}
+          <div className="md:hidden mb-6 relative z-10 w-full max-w-full box-border">
+            <div className="bg-white/5 border border-white/10 rounded-xl overflow-visible w-full max-w-full box-border">
+              <button
+                onClick={() => setFiltersOpen(!filtersOpen)}
+                className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 transition-colors touch-manipulation rounded-t-xl"
+              >
+                <div className="flex items-center gap-2.5">
+                  <svg className="w-4 h-4 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                  </svg>
+                  <span className="text-white font-medium text-sm">Filters</span>
+                </div>
+                <svg className={`w-4 h-4 text-white/60 transition-transform duration-200 ${filtersOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {filtersOpen && (
+                <div className="px-4 pb-4 pt-2 relative">
+                  {/* Day Dropdown */}
+                  <div className={`relative ${dayDropdownOpen ? 'z-[10000]' : ''}`} data-dropdown>
+                    <button
+                      onClick={() => setDayDropdownOpen(!dayDropdownOpen)}
+                      className="w-full flex items-center justify-between px-4 py-3 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors touch-manipulation"
+                    >
+                      <span className="text-white text-sm font-medium">
+                        {selectedDay === 'all' ? 'All Days' : selectedDay}
+                      </span>
+                      <svg className={`w-4 h-4 text-white/60 transition-transform duration-200 ${dayDropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    {dayDropdownOpen && (
+                      <>
+                        {/* Backdrop */}
+                        <div
+                          className="fixed inset-0 z-[9990]"
+                          onClick={() => setDayDropdownOpen(false)}
+                        />
+                        {/* Dropdown Menu */}
+                        <div className="absolute top-full left-0 right-0 mt-1 bg-[rgb(15,15,20)] border border-white/10 rounded-lg shadow-xl z-[10001] max-h-64 overflow-y-auto">
+                          <button
+                            onClick={() => {
+                              setSelectedDay('all');
+                              setDayDropdownOpen(false);
+                            }}
+                            className={`w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors touch-manipulation border-b border-white/5 ${selectedDay === 'all' ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))]' : 'text-white/80'}`}
+                          >
+                            <span className="font-medium text-sm">All Days</span>
+                            {selectedDay === 'all' && (
+                              <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                              </svg>
+                            )}
+                          </button>
+                          {allAvailableDays.map(day => (
+                            <button
+                              key={day}
+                              onClick={() => {
+                                setSelectedDay(day);
+                                setDayDropdownOpen(false);
+                                const el = groupRefs.current[day];
+                                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                toggleKey(day, true);
+                              }}
+                              className={`w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors touch-manipulation border-b border-white/5 last:border-b-0 ${selectedDay === day ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))]' : 'text-white/80'}`}
+                            >
+                              <span className="font-medium text-sm">{day}</span>
+                              {selectedDay === day && (
+                                <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                              )}
+                            </button>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Bet Type Filters - Outside filter card, single row */}
+          <div className="md:hidden flex items-center gap-2 mb-6">
             <button
               onClick={() => setSelectedFilter('all')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+              className={`flex-1 px-3 py-2.5 rounded-lg text-xs font-medium transition-all duration-200 ${
                 selectedFilter === 'all'
-                  ? 'bg-[rgb(var(--brand-yellow))] text-black'
-                  : 'bg-white/[0.02] text-white/70 hover:bg-white/[0.05] border border-white/[0.08] backdrop-blur-sm'
+                  ? 'bg-[rgb(var(--brand-yellow))]/75 text-black'
+                  : 'bg-white/5 text-white/70 hover:bg-white/10 border border-white/10'
               }`}
             >
               All Matches
             </button>
             <button
               onClick={() => setSelectedFilter('Over 1.5 Goals')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+              className={`flex-1 px-3 py-2.5 rounded-lg text-xs font-medium transition-all duration-200 ${
                 selectedFilter === 'Over 1.5 Goals'
-                  ? 'bg-[rgb(var(--brand-yellow))] text-black'
-                  : 'bg-white/[0.02] text-white/70 hover:bg-white/[0.05] border border-white/[0.08] backdrop-blur-sm'
+                  ? 'bg-[rgb(var(--brand-yellow))]/75 text-black'
+                  : 'bg-white/5 text-white/70 hover:bg-white/10 border border-white/10'
               }`}
             >
-              Over 1.5 Goals
+              Over 1.5
             </button>
             <button 
               onClick={() => setSelectedFilter('Over 2.5 Goals')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+              className={`flex-1 px-3 py-2.5 rounded-lg text-xs font-medium transition-all duration-200 ${
                 selectedFilter === 'Over 2.5 Goals'
-                  ? 'bg-[rgb(var(--brand-yellow))] text-black'
-                  : 'bg-white/[0.02] text-white/70 hover:bg-white/[0.05] border border-white/[0.08] backdrop-blur-sm'
+                  ? 'bg-[rgb(var(--brand-yellow))]/75 text-black'
+                  : 'bg-white/5 text-white/70 hover:bg-white/10 border border-white/10'
               }`}
             >
-              Over 2.5 Goals
+              Over 2.5
             </button>
           </div>
 
-          {/* Desktop Sticky chips to jump to days */}
-          <div className="hidden lg:block sticky-rail -mx-3 sm:-mx-4 px-3 sm:px-4 py-2 relative mb-6">
-            <div className="fade-left"></div>
-            <div className="fade-right"></div>
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              <div className="flex-1 scroll-x-only no-scrollbar min-w-0">
-                <div className="flex items-center gap-1.5 sm:gap-2 w-max">
-                  {dayKeys.map(day => (
-                    <button
-                      key={day}
-                      onClick={() => { 
-                        const el = groupRefs.current[day]; 
-                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
-                        toggleKey(day, true); 
-                      }}
-                      className={"pill whitespace-nowrap touch-manipulation min-h-[32px] text-xs " + (expandedKeys[day] ? 'pill-active' : 'pill-muted')}
-                    >
-                      {day}
-                    </button>
-                  ))}
+          {/* Desktop Filters - always visible */}
+          <div className="hidden md:block space-y-4 mb-6">
+            {/* Filter Chips */}
+            <div className="flex items-center gap-3 w-full relative z-20">
+              <button
+                onClick={() => setSelectedFilter('all')}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  selectedFilter === 'all'
+                    ? 'bg-[rgb(var(--brand-yellow))] text-black'
+                    : 'bg-white/[0.02] text-white/70 hover:bg-white/[0.05] border border-white/[0.08] backdrop-blur-sm'
+                }`}
+              >
+                All Matches
+              </button>
+              <button
+                onClick={() => setSelectedFilter('Over 1.5 Goals')}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  selectedFilter === 'Over 1.5 Goals'
+                    ? 'bg-[rgb(var(--brand-yellow))] text-black'
+                    : 'bg-white/[0.02] text-white/70 hover:bg-white/[0.05] border border-white/[0.08] backdrop-blur-sm'
+                }`}
+              >
+                Over 1.5 Goals
+              </button>
+              <button 
+                onClick={() => setSelectedFilter('Over 2.5 Goals')}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  selectedFilter === 'Over 2.5 Goals'
+                    ? 'bg-[rgb(var(--brand-yellow))] text-black'
+                    : 'bg-white/[0.02] text-white/70 hover:bg-white/[0.05] border border-white/[0.08] backdrop-blur-sm'
+                }`}
+              >
+                Over 2.5 Goals
+              </button>
+            </div>
+
+            {/* Day filters */}
+            <div className="sticky-rail -mx-3 sm:-mx-4 px-3 sm:px-4 py-2 relative">
+              <div className="fade-left"></div>
+              <div className="fade-right"></div>
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <div className="flex-1 scroll-x-only no-scrollbar min-w-0 overflow-x-auto">
+                  <div className="flex items-center gap-1.5 sm:gap-2 w-max">
+                    {dayKeys.map(day => (
+                      <button
+                        key={day}
+                        onClick={() => { 
+                          const el = groupRefs.current[day]; 
+                          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
+                          toggleKey(day, true); 
+                        }}
+                        className={"pill whitespace-nowrap touch-manipulation min-h-[32px] text-xs " + (expandedKeys[day] ? 'pill-active' : 'pill-muted')}
+                      >
+                        {day}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="ml-1.5 sm:ml-2 flex items-center gap-1 sm:gap-2 flex-shrink-0">
-                <button className="pill pill-muted touch-manipulation min-h-[32px] text-[10px] sm:text-xs whitespace-nowrap" onClick={expandAll}>Expand</button>
-                <button className="pill pill-muted touch-manipulation min-h-[32px] text-[10px] sm:text-xs whitespace-nowrap" onClick={collapseAll}>Collapse</button>
+                <div className="ml-1.5 sm:ml-2 flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                  <button className="pill pill-muted touch-manipulation min-h-[32px] text-xs whitespace-nowrap" onClick={expandAll}>Expand</button>
+                  <button className="pill pill-muted touch-manipulation min-h-[32px] text-xs whitespace-nowrap" onClick={collapseAll}>Collapse</button>
+                </div>
               </div>
             </div>
           </div>
