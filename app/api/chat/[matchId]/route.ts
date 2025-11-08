@@ -3,14 +3,20 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { matchId: string } }
+  { params }: { params: Promise<{ matchId: string }> }
 ) {
   try {
     const { searchParams } = new URL(req.url);
-    const limit = parseInt(searchParams.get('limit') || '50', 10);
-    const matchId = params.matchId;
+    const limitParam = searchParams.get('limit');
+    const limit = limitParam ? Math.max(1, Math.min(100, parseInt(limitParam, 10))) : 50;
+    
+    if (isNaN(limit)) {
+      return NextResponse.json({ error: 'Invalid limit parameter' }, { status: 400 });
+    }
 
-    if (!matchId) {
+    const { matchId } = await params;
+
+    if (!matchId || typeof matchId !== 'string' || matchId.trim().length === 0) {
       return NextResponse.json({ error: 'Match ID required' }, { status: 400 });
     }
 
@@ -35,7 +41,8 @@ export async function GET(
     messages.reverse();
 
     return NextResponse.json({ messages });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    console.error('Error fetching messages:', error);
     return NextResponse.json(
       { error: 'Failed to fetch messages' },
       { status: 500 }
@@ -45,16 +52,23 @@ export async function GET(
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { matchId: string } }
+  { params }: { params: Promise<{ matchId: string }> }
 ) {
   try {
-    const matchId = params.matchId;
-    const body = await req.json();
-    const { text, author } = body;
-
-    if (!matchId) {
+    const { matchId } = await params;
+    
+    if (!matchId || typeof matchId !== 'string' || matchId.trim().length === 0) {
       return NextResponse.json({ error: 'Match ID required' }, { status: 400 });
     }
+
+    let body: { text?: unknown; author?: unknown };
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
+    }
+
+    const { text, author } = body;
 
     if (!text || typeof text !== 'string' || text.trim().length === 0) {
       return NextResponse.json({ error: 'Message text required' }, { status: 400 });
@@ -109,7 +123,8 @@ export async function POST(
         ...messageData,
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    console.error('Error sending message:', error);
     return NextResponse.json(
       { error: 'Failed to send message' },
       { status: 500 }

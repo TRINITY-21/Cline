@@ -13,10 +13,29 @@ export async function GET() {
       return NextResponse.json({ matches: [], error: `Upstream error: ${res.status}` }, { status: 502 });
     }
 
-    const json = await res.json();
-    const items: any[] = Array.isArray(json?.response) ? json.response : [];
+    const json = await res.json() as { response?: unknown[] };
+    interface ScoreBatItem {
+      title?: string;
+      competition?: string;
+      date?: string;
+      matchviewUrl?: string;
+      videos?: Array<{ embed?: string }>;
+    }
+    const items: ScoreBatItem[] = Array.isArray(json?.response) ? json.response as ScoreBatItem[] : [];
 
-    const matches = items.map((item) => {
+    interface HighlightMatch {
+      id: string;
+      title: string;
+      homeTeam: string;
+      awayTeam: string;
+      league: string;
+      date: string;
+      videoSrc?: string;
+      category: string;
+      url?: string;
+    }
+
+    const matches: HighlightMatch[] = items.map((item) => {
       const title: string = item?.title || '';
       const competition: string = item?.competition || '';
       const dateIso: string = item?.date || '';
@@ -56,14 +75,16 @@ export async function GET() {
     });
 
     // Newest first
-    matches.sort((a: any, b: any) => {
+    matches.sort((a, b) => {
       const ta = new Date(a.date).getTime();
       const tb = new Date(b.date).getTime();
       return (isNaN(tb) ? 0 : tb) - (isNaN(ta) ? 0 : ta);
     });
 
     return NextResponse.json({ matches });
-  } catch (error: any) {
-    return NextResponse.json({ matches: [], error: error?.message || 'Unknown error' }, { status: 500 });
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('Error fetching highlights:', error);
+    return NextResponse.json({ matches: [], error: errorMessage }, { status: 500 });
   }
 }

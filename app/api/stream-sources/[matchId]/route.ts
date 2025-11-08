@@ -37,9 +37,14 @@ async function fetchStreamUrl(source: string, id: string, retries: number = 2): 
       }
 
       // Prefer HD streams, then first available
-      const hdStream = data.find((s: any) => s.hd);
-      const stream = hdStream || data[0];
-      const embedUrl = stream.embedUrl || null;
+      interface StreamData {
+        hd?: boolean;
+        embedUrl?: string;
+      }
+      const streamData = data as StreamData[];
+      const hdStream = streamData.find((s) => s.hd);
+      const stream = hdStream || streamData[0];
+      const embedUrl = stream?.embedUrl || null;
       
       return embedUrl;
     } catch (error) {
@@ -59,10 +64,10 @@ async function fetchStreamUrl(source: string, id: string, retries: number = 2): 
  */
 export async function GET(
   req: NextRequest,
-  { params }: { params: { matchId: string } }
+  { params }: { params: Promise<{ matchId: string }> }
 ) {
   try {
-    const { matchId } = params;
+    const { matchId } = await params;
     
     if (!matchId) {
       return NextResponse.json({ error: 'Match ID required' }, { status: 400 });
@@ -77,19 +82,29 @@ export async function GET(
       next: { revalidate: 60 },
     });
     
-    let match: any;
-    let matchSources: any[] = [];
+    interface StreamSource {
+      source: string;
+      id: string;
+    }
+
+    interface Match {
+      id?: string;
+      sources?: StreamSource[];
+    }
+
+    let match: Match | undefined;
+    let matchSources: StreamSource[] = [];
 
     if (todayResponse.ok) {
-      const todayMatches = await todayResponse.json();
+      const todayMatches = (await todayResponse.json()) as Match[];
       
       // Try exact match first
-      match = todayMatches.find((m: any) => m.id === matchId);
+      match = todayMatches.find((m) => m.id === matchId);
       
       // If no exact match, try partial match (in case matchId format differs)
       if (!match) {
-        match = todayMatches.find((m: any) => 
-          m.id?.includes(matchId) || matchId.includes(m.id)
+        match = todayMatches.find((m) => 
+          m.id?.includes(matchId) || (m.id && matchId.includes(m.id))
         );
       }
       
@@ -105,7 +120,7 @@ export async function GET(
         });
         
         if (matchResponse.ok) {
-          match = await matchResponse.json();
+          match = (await matchResponse.json()) as Match;
           matchSources = match.sources || [];
         } else {
           return NextResponse.json({ 
@@ -128,7 +143,14 @@ export async function GET(
 
     // Fetch all stream URLs in parallel with retry logic
     // Return ALL sources, even if URL fetch fails - client can retry them
-    const streamPromises = matchSources.map(async (src: any) => {
+    interface StreamResult {
+      source: string;
+      url: string | null;
+      id: string;
+      needsRetry?: boolean;
+    }
+
+    const streamPromises = matchSources.map(async (src): Promise<StreamResult | null> => {
       if (!src.source || !src.id) {
         return null;
       }
@@ -155,7 +177,7 @@ export async function GET(
 
     const allStreams = await Promise.all(streamPromises);
     // Filter out only completely invalid sources (null), but keep ALL valid sources (even without URLs)
-    const streams = allStreams.filter((s): s is NonNullable<typeof s> => s !== null);
+    const streams = allStreams.filter((s): s is StreamResult => s !== null);
     
     // Separate streams with URLs and without URLs
     const streamsWithUrls = streams.filter(s => s.url);
@@ -173,7 +195,11 @@ export async function GET(
         needsRetry: streamsWithoutUrls.length,
       }
     });
-  } catch (error) {
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  } catch (error: unknown) {
+    console.error('Error fetching stream sources:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }

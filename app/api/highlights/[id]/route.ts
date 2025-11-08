@@ -2,19 +2,29 @@ import { readFileSync } from 'fs';
 import { NextResponse } from 'next/server';
 import path from 'path';
 
-async function getAllMatches(): Promise<any[]> {
+interface HighlightMatch {
+  id?: string;
+  url?: string;
+  homeTeam?: string;
+  awayTeam?: string;
+  [key: string]: unknown;
+}
+
+async function getAllMatches(): Promise<HighlightMatch[]> {
   // Read from enriched JSON file
   const filePath = path.join(process.cwd(), 'data', 'scraped-highlights-enriched.json');
   
   try {
     const fileContent = readFileSync(filePath, 'utf-8');
-    return JSON.parse(fileContent);
+    const parsed = JSON.parse(fileContent);
+    return Array.isArray(parsed) ? parsed as HighlightMatch[] : [];
   } catch (fileError) {
     // Fallback to basic file if enriched doesn't exist
     const fallbackPath = path.join(process.cwd(), 'data', 'scraped-highlights.json');
     try {
       const fileContent = readFileSync(fallbackPath, 'utf-8');
-      return JSON.parse(fileContent);
+      const parsed = JSON.parse(fileContent);
+      return Array.isArray(parsed) ? parsed as HighlightMatch[] : [];
     } catch (fallbackError) {
       return [];
     }
@@ -44,7 +54,8 @@ export async function GET(
     }
     
     return NextResponse.json({ match });
-  } catch (error) {
+  } catch (error: unknown) {
+    console.error('Error fetching highlight:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

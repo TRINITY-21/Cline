@@ -7,6 +7,7 @@ import { extractTimeLabel, firstNameOf, getDisplayName } from '@/lib/utils';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import useSWR from 'swr';
 import MatchPlayerSlideover from './MatchPlayerSlideover';
+import MatchReminderButton from './MatchReminderButton';
 // sharing removed
 
 type Sport = 'Football' | 'Hockey' | 'Volleyball' | 'Basketball' | 'Tennis' | 'NFL';
@@ -786,7 +787,7 @@ export default function TodayMatches() {
                       </div>
                       
                       {/* Action Section */}
-                      <div className="px-2.5 sm:px-4 py-2 sm:py-3.5">
+                      <div className="px-2.5 sm:px-4 py-2 sm:py-3.5 space-y-2">
                           {isLive ? (
                             <button
                             className="w-full rounded-lg bg-gradient-to-r from-[rgb(var(--brand-yellow))] to-[#FFE066] text-black font-bold text-xs px-3 sm:px-4 py-2 transition-all duration-200 hover:from-[#FFE066] hover:to-[rgb(var(--brand-yellow))] hover:shadow-lg hover:shadow-[rgb(var(--brand-yellow))]/30 active:scale-[0.98] flex items-center justify-center gap-1.5 touch-manipulation min-h-[44px]"
@@ -817,12 +818,25 @@ export default function TodayMatches() {
                             <span>Match Ended</span>
                           </div>
                         ) : isScheduled ? (
-                          <div className="w-full rounded-lg bg-white/[0.02] border border-white/[0.08] text-white/70 font-medium text-xs px-3 sm:px-4 py-2 text-center flex items-center justify-center gap-1.5 min-h-[44px]">
-                            <svg className="w-3.5 h-3.5 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>Scheduled</span>
-                          </div>
+                          <>
+                            <div className="w-full rounded-lg bg-white/[0.02] border border-white/[0.08] text-white/70 font-medium text-xs px-3 sm:px-4 py-2 text-center flex items-center justify-center gap-1.5 min-h-[44px]">
+                              <svg className="w-3.5 h-3.5 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              <span>Scheduled</span>
+                            </div>
+                            {(game as any).matchId && (
+                              <div onClick={(e) => e.stopPropagation()}>
+                                <MatchReminderButton
+                                  matchId={(game as any).matchId}
+                                  matchTime={game.time || ''}
+                                  homeTeam={game.home.name}
+                                  awayTeam={game.away.name}
+                                  league={game.league}
+                                />
+                              </div>
+                            )}
+                          </>
                           ) : null}
                       </div>
                     </Wrapper>

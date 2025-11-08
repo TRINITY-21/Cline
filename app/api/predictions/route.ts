@@ -121,7 +121,16 @@ export async function GET(req: NextRequest) {
     // Optional date filter
     const requestedDate = url.searchParams.get('date');
     
-    const allPredictions: any[] = [];
+    interface Prediction {
+      id?: string;
+      home?: string;
+      away?: string;
+      timeLabel?: string;
+      approved?: boolean;
+      [key: string]: unknown;
+    }
+
+    const allPredictions: Prediction[] = [];
     const overPredictionsCol = admin.firestore().collection('over_predictions');
     
     if (requestedDate) {
@@ -139,7 +148,7 @@ export async function GET(req: NextRequest) {
         const data = dateDocSnap.data();
         const predictions = Array.isArray(data?.predictions) ? data.predictions : [];
         
-        predictions.forEach((pred: any) => {
+        predictions.forEach((pred: Prediction) => {
           // Only include approved predictions (or all if approved field doesn't exist for backward compatibility)
           if (pred.approved !== false) {
             allPredictions.push({
@@ -171,7 +180,7 @@ export async function GET(req: NextRequest) {
           const data = dateDoc.data();
           const predictions = Array.isArray(data?.predictions) ? data.predictions : [];
           
-          predictions.forEach((pred: any) => {
+          predictions.forEach((pred: Prediction) => {
             // Only include approved predictions (or all if approved field doesn't exist for backward compatibility)
             if (pred.approved !== false) {
               allPredictions.push({
@@ -186,18 +195,24 @@ export async function GET(req: NextRequest) {
       
       // Sort by matchDate (desc) then timeLabel (asc)
       allPredictions.sort((a, b) => {
-        const dateCompare = (b.matchDate || '').localeCompare(a.matchDate || '');
+        const aDate = String(a.matchDate || '');
+        const bDate = String(b.matchDate || '');
+        const dateCompare = bDate.localeCompare(aDate);
         if (dateCompare !== 0) return dateCompare;
-        return (a.timeLabel || '').localeCompare(b.timeLabel || '');
+        const aTime = String(a.timeLabel || '');
+        const bTime = String(b.timeLabel || '');
+        return aTime.localeCompare(bTime);
       });
     }
     
     return NextResponse.json(allPredictions);
     
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    console.error('Error fetching predictions:', err);
     return NextResponse.json({ 
       error: 'Failed to fetch predictions', 
-      details: err?.message || String(err) 
+      details: errorMessage 
     }, { status: 500 });
   }
 }
