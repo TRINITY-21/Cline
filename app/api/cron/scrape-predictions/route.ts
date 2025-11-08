@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const revalidate = 0;
 
-// Cron endpoint to scrape and import predictions daily
+// Cron endpoint to scrape and import subtle patterns (predictions) daily
 // Can be called by Vercel Cron, GitHub Actions, external cron services, or manually
 export async function GET(req: NextRequest) {
   try {
@@ -15,22 +15,56 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Get today's date in DD-MM-YYYY format
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    const dateStr = `${dd}-${mm}-${yyyy}`;
+
     // Get base URL and token
     const token = process.env.NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN || '';
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.VERCEL_URL 
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (process.env.VERCEL_URL 
       ? `https://${process.env.VERCEL_URL}` 
-      : 'http://localhost:3000';
+      : 'http://localhost:3000');
     
-    // Call the import endpoint which will handle scraping internally
-    // Note: This requires the scraping to be done separately, or we could call an external scraper
-    // For now, we'll expect the scraping to be done by GitHub Actions or a local cron job
-    // This endpoint mainly serves as a webhook that can trigger the import if data is already scraped
+    // Call the import-subtle-patterns endpoint with type "predictions"
+    const importUrl = `${baseUrl}/api/admin/over-predictions/import-subtle-patterns`;
     
-    return NextResponse.json({ 
-      ok: true, 
-      message: 'Predictions scraping endpoint. Use GitHub Actions workflow or run the script directly.',
-      note: 'This endpoint is for webhook/cron integration. The actual scraping is done via scripts/scrape_betistuta_over35.py'
-    });
+    try {
+      const response = await fetch(importUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-internal-token': token,
+        },
+        body: JSON.stringify({
+          date: dateStr,
+          type: 'predictions',
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        return NextResponse.json({ 
+          error: 'Failed to import predictions',
+          details: result 
+        }, { status: response.status });
+      }
+
+      return NextResponse.json({ 
+        ok: true,
+        message: 'Successfully imported subtle patterns (predictions)',
+        date: dateStr,
+        result: result
+      });
+    } catch (fetchError: any) {
+      return NextResponse.json({ 
+        error: 'Failed to call import endpoint',
+        details: fetchError?.message || String(fetchError)
+      }, { status: 500 });
+    }
   } catch (err: any) {
     return NextResponse.json({ 
       error: 'Failed to process request', 
