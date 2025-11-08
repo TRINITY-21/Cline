@@ -11,3 +11,11 @@
   node_bundler = "esbuild"
   external_node_modules = []
 
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "autoplay=*, encrypted-media=*, fullscreen=*, picture-in-picture=*, accelerometer=*, gyroscope=*"
+

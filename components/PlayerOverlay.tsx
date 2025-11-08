@@ -125,10 +125,11 @@ export default function PlayerOverlay({
               <iframe
                 title={title}
                 src={computedSrc}
-                allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                allow="autoplay; encrypted-media; fullscreen; picture-in-picture; accelerometer; gyroscope"
                 allowFullScreen
                 referrerPolicy="no-referrer"
                 className="w-full h-full"
+                style={{ touchAction: 'manipulation' }}
               />
             )}
           </div>

@@ -184,7 +184,7 @@ export default function HighlightsPage() {
                     "px-4 md:px-5 py-2.5 rounded-lg font-semibold text-sm md:text-base transition-all duration-200 touch-manipulation whitespace-nowrap flex-shrink-0 " +
                     (selectedLeague === 'all'
                       ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20'
-                      : 'bg-white/5 text-white/80 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
+                      : 'bg-white/5 text-white/80 hover:bg-white/10 hover:text-white')
                   }
                 >
                   All Leagues
@@ -392,7 +392,7 @@ export default function HighlightsPage() {
                     "px-4 md:px-5 py-2.5 rounded-lg font-semibold text-sm md:text-base transition-all duration-200 touch-manipulation whitespace-nowrap flex-shrink-0 " +
                     (selectedLeague === league
                       ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20'
-                      : 'bg-white/5 text-white/80 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
+                      : 'bg-white/5 text-white/80 hover:bg-white/10 hover:text-white')
                   }
                 >
                   {league}
@@ -678,7 +678,7 @@ function MatchCard({ match, onClick, onDetails }: { match: HighlightMatch; onCli
               e.stopPropagation();
               onDetails();
             }}
-            className="w-full rounded-lg border border-[rgb(var(--brand-yellow))] bg-transparent text-[rgb(var(--brand-yellow))] font-bold text-xs px-3 sm:px-4 py-2 transition-all duration-200 hover:bg-[rgb(var(--brand-yellow))] hover:text-black hover:shadow-lg hover:shadow-[rgb(var(--brand-yellow))]/30 active:scale-[0.98] flex items-center justify-center gap-1.5 touch-manipulation min-h-[44px]"
+            className="w-full rounded-lg bg-[rgb(var(--brand-yellow))] text-black font-bold text-xs px-3 sm:px-4 py-2 transition-all duration-200 hover:bg-[rgb(var(--brand-yellow))]/90 hover:shadow-lg hover:shadow-[rgb(var(--brand-yellow))]/30 active:scale-[0.98] flex items-center justify-center gap-1.5 touch-manipulation min-h-[44px]"
           >
             <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
               <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />

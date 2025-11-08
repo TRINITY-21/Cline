@@ -1130,30 +1130,33 @@ export default function MatchPlayerSlideover({
                     Your browser does not support the video tag.
                   </video>
                 ) : (
-                  <iframe
-                    ref={iframeRef}
-                    title={title}
-                    src={computedSrc}
-                    allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-                    allowFullScreen
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full border-0"
-                    key={`${currentSourceIndex}-${computedSrc}`}
-                    style={{
-                      backgroundColor: 'rgb(var(--bg))'
-                    }}
-                    onLoad={() => {
-                      // Clear any errors on successful load
-                      setIframeErrors(prev => {
-                        const next = new Set(prev);
-                        next.delete(currentSourceIndex);
-                        return next;
-                      });
-                    }}
-                    onError={() => {
-                      setIframeErrors(prev => new Set(prev).add(currentSourceIndex));
-                    }}
-                  />
+                  <>
+                    <iframe
+                      ref={iframeRef}
+                      title={title}
+                      src={computedSrc}
+                      allow="autoplay; encrypted-media; fullscreen; picture-in-picture; accelerometer; gyroscope"
+                      allowFullScreen
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full border-0"
+                      key={`${currentSourceIndex}-${computedSrc}`}
+                      style={{
+                        backgroundColor: 'rgb(var(--bg))',
+                        touchAction: 'manipulation'
+                      }}
+                      onLoad={() => {
+                        // Clear any errors on successful load
+                        setIframeErrors(prev => {
+                          const next = new Set(prev);
+                          next.delete(currentSourceIndex);
+                          return next;
+                        });
+                      }}
+                      onError={() => {
+                        setIframeErrors(prev => new Set(prev).add(currentSourceIndex));
+                      }}
+                    />
+                  </>
                 )}
               </div>
 
