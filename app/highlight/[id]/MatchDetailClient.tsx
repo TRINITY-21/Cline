@@ -84,8 +84,8 @@ export default function MatchDetailClient({ match }: { match: HighlightMatch }) 
         href="/highlight" 
         className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-all duration-300 hover:gap-3 group relative z-10"
       >
-        <span className="transform group-hover:-translate-x-1 transition-transform">←</span>
-        <span>Back to Highlights</span>
+        <span className="transform group-hover:-translate-x-1 transition-transform flex items-center justify-center leading-none">←</span>
+        <span className="leading-normal">Back to Highlights</span>
       </Link>
 
       {/* Hero Section */}
