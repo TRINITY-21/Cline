@@ -96,7 +96,12 @@ export async function GET(request: Request) {
       const res = await fetch(UPSTREAM_BASE, { cache: 'no-store' });
       if (!res.ok) return NextResponse.json({ sources: [], error: `Upstream error: ${res.status}` }, { status: 502 });
       const json = await res.json();
-      const sources = Array.isArray(json) ? json.map((s: any) => String(s?.title || '').trim()).filter(Boolean) : [];
+      interface SourceItem {
+        title?: string;
+      }
+      const sources = Array.isArray(json) 
+        ? (json as SourceItem[]).map((s) => String(s?.title || '').trim()).filter(Boolean) 
+        : [];
       return NextResponse.json({ sources });
     }
 
@@ -117,7 +122,15 @@ export async function GET(request: Request) {
     const json = await res.json();
     const data = Array.isArray(json?.data) ? json.data : [];
 
-    const articles = data.map((a: any) => ({
+    interface ArticleData {
+      url?: string;
+      title?: string;
+      source?: string;
+      image?: string;
+      timestamp?: string;
+    }
+
+    const articles = (data as ArticleData[]).map((a) => ({
       id: encodeURIComponent(a?.url || a?.title || ''),
       source: a?.source || source,
       author: '',
@@ -155,12 +168,37 @@ export async function GET(request: Request) {
       return true;
     });
 
-    // Sort newest first
-    uniqueArticles.sort((a: { publishedAt: string }, b: { publishedAt: string }) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+    interface Article {
+      id: string;
+      source: string;
+      author: string;
+      title: string;
+      description: string;
+      url: string;
+      image: string;
+      publishedAt: string;
+      content: string;
+    }
 
-    return NextResponse.json({ articles: uniqueArticles, count: uniqueArticles.length, cached: Boolean(json?.cached ?? false) });
-  } catch (err: any) {
-    return NextResponse.json({ articles: [], error: err?.message || 'Unknown error' }, { status: 500 });
+    // Sort newest first
+    uniqueArticles.sort((a: Article, b: Article) => {
+      const timeA = new Date(a.publishedAt).getTime();
+      const timeB = new Date(b.publishedAt).getTime();
+      return timeB - timeA;
+    });
+
+    interface ResponseData {
+      cached?: boolean;
+    }
+
+    return NextResponse.json({ 
+      articles: uniqueArticles, 
+      count: uniqueArticles.length, 
+      cached: Boolean((json as ResponseData)?.cached ?? false) 
+    });
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+    return NextResponse.json({ articles: [], error: errorMessage }, { status: 500 });
   }
 }
 

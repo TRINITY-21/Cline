@@ -1,5 +1,15 @@
 "use client";
 
+import {
+    cacheVideoUrl,
+    clearExpiredCache,
+    detectConnectionQuality,
+    extractDomain,
+    getPreloadStrategy,
+    monitorBufferHealth,
+    preconnectToVideoDomains,
+    type ConnectionQuality
+} from '@/lib/video-optimization';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import MatchChat from './MatchChat';
 
@@ -80,6 +90,8 @@ export default function MatchPlayerSlideover({
   const [showAgentBadge, setShowAgentBadge] = useState(true);
   const [isPictureInPicture, setIsPictureInPicture] = useState(false);
   const [pipSupported, setPipSupported] = useState(false);
+  const [connectionQuality, setConnectionQuality] = useState<ConnectionQuality | null>(null);
+  const [preloadStrategy, setPreloadStrategy] = useState<'none' | 'metadata' | 'auto'>('metadata');
   const slideoverRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -87,6 +99,7 @@ export default function MatchPlayerSlideover({
   const sourceVerificationTimeout = useRef<NodeJS.Timeout | null>(null);
   const iframeErrorCheckTimeout = useRef<NodeJS.Timeout | null>(null);
   const agentBadgeTimeout = useRef<NodeJS.Timeout | null>(null);
+  const bufferCheckInterval = useRef<NodeJS.Timeout | null>(null);
   const availableSourcesRef = useRef<StreamSource[]>([]);
   const currentSourceIndexRef = useRef(0);
   const failedSourceIndicesRef = useRef<Set<number>>(new Set());
@@ -121,6 +134,40 @@ export default function MatchPlayerSlideover({
       window.removeEventListener('resize', checkMobile);
       window.removeEventListener('orientationchange', checkMobile);
     };
+  }, []);
+
+  // Detect connection quality and set preload strategy
+  useEffect(() => {
+    if (open && typeof window !== 'undefined') {
+      detectConnectionQuality().then(quality => {
+        setConnectionQuality(quality);
+        const strategy = getPreloadStrategy(quality);
+        setPreloadStrategy(strategy);
+      });
+    }
+  }, [open]);
+
+  // Preconnect to video domains when sources are available
+  useEffect(() => {
+    if (open && availableSources.length > 0) {
+      const domains = new Set<string>();
+      availableSources.forEach(source => {
+        if (source.url) {
+          const domain = extractDomain(source.url);
+          if (domain) {
+            domains.add(domain);
+          }
+        }
+      });
+      if (domains.size > 0) {
+        preconnectToVideoDomains(Array.from(domains));
+      }
+    }
+  }, [open, availableSources]);
+
+  // Clear expired cache on mount
+  useEffect(() => {
+    clearExpiredCache();
   }, []);
 
   const isVideoFile = useMemo(() => {
@@ -250,6 +297,11 @@ export default function MatchPlayerSlideover({
       const url = stream.embedUrl || null;
       
       if (url) {
+        // Cache the URL for faster future access
+        if (source.id) {
+          cacheVideoUrl(`${source.source}_${source.id}`, url);
+        }
+        
         // Update the source in availableSources
         setAvailableSources(prev => 
           prev.map(s => s.source === source.source && s.id === source.id 
@@ -325,8 +377,8 @@ export default function MatchPlayerSlideover({
     // Intercept console errors to catch HLS errors
     const originalError = console.error;
     
-    console.error = (...args: any[]) => {
-      const errorMsg = args.join(' ');
+    console.error = (...args: unknown[]) => {
+      const errorMsg = args.map(arg => String(arg)).join(' ');
       
       // Check for HLS or stream errors
       if (
@@ -821,6 +873,46 @@ export default function MatchPlayerSlideover({
     }
   }, [src, currentSrc]);
 
+  // Monitor buffer health and proactively switch sources if needed
+  useEffect(() => {
+    if (!open || !isVideoFile || !videoRef.current || availableSources.length <= 1) {
+      if (bufferCheckInterval.current) {
+        clearInterval(bufferCheckInterval.current);
+        bufferCheckInterval.current = null;
+      }
+      return;
+    }
+
+    const video = videoRef.current;
+    
+    // Check buffer health every 2 seconds
+    bufferCheckInterval.current = setInterval(() => {
+      if (!video || video.paused || video.ended) return;
+      
+      const bufferStatus = monitorBufferHealth(video);
+      
+      // If buffer is critically low and we have other sources, switch proactively
+      if (bufferStatus.shouldSwitchSource && availableSources.length > 1) {
+        const currentIdx = currentSourceIndexRef.current;
+        const failed = failedSourceIndicesRef.current;
+        
+        // Only switch if we haven't already tried all sources
+        if (failed.size < availableSources.length - 1) {
+          console.log('Buffer critically low, switching source proactively');
+          setFailedSourceIndices(prev => new Set(prev).add(currentIdx));
+          tryFindWorkingSource(false);
+        }
+      }
+    }, 2000);
+
+    return () => {
+      if (bufferCheckInterval.current) {
+        clearInterval(bufferCheckInterval.current);
+        bufferCheckInterval.current = null;
+      }
+    };
+  }, [open, isVideoFile, availableSources.length, tryFindWorkingSource]);
+
   // Skip first 3 seconds of video to avoid ScoreBat branding
   useEffect(() => {
     if (!open || !isVideoFile || !videoRef.current) return;
@@ -1121,11 +1213,13 @@ export default function MatchPlayerSlideover({
                     ref={videoRef}
                     controls
                     autoPlay
+                    preload={preloadStrategy}
                     className="w-full h-full object-contain"
                     src={computedSrc}
                     playsInline
                     key={computedSrc}
                     disablePictureInPicture={false}
+                    crossOrigin="anonymous"
                   >
                     Your browser does not support the video tag.
                   </video>

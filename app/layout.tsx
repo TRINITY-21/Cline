@@ -1,6 +1,9 @@
+import InstallPrompt from '@/components/InstallPrompt';
 import Navigation from '@/components/Navigation';
+import NotificationPermission from '@/components/NotificationPermission';
 import type { Metadata } from 'next';
 import './globals.css';
+import ServiceWorkerRegister from './sw-register';
 
 export const metadata: Metadata = {
   title: 'Three Two • Live',
@@ -26,6 +29,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet" />
+        {/* PWA Manifest */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#FFD400" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Three Two Live" />
+        <link rel="apple-touch-icon" href="/three-two-logo.svg" />
         {/* Google tag (gtag.js) */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ZS3H6BW5N" />
         <script
@@ -96,6 +106,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="w-full max-w-6xl mx-auto px-3 sm:px-4 md:px-4">
           <div className="py-4 sm:py-5 md:py-6 flex-1">{children}</div>
         </main>
+        <InstallPrompt />
+        <NotificationPermission />
+        <ServiceWorkerRegister />
 
         <footer className="border-t border-white/10 mt-auto">
           <div className="container-narrow mx-auto py-4 sm:py-5 md:py-6">

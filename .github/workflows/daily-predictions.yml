@@ -1,0 +1,138 @@
+name: Daily Predictions Scraper
+
+on:
+  schedule:
+    # Scrape predictions at 6 AM UTC daily
+    - cron: '0 6 * * *'
+    # Update results at midnight UTC (00:00)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allow manual trigger
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        default: 'scrape'
+        type: choice
+        options:
+          - scrape
+          - update-results
+
+jobs:
+  scrape-predictions:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'scrape' || github.event_name == 'schedule'
+    steps:
+      - name: Check if should scrape (not midnight)
+        id: should-scrape
+        run: |
+          HOUR=$(date -u +%H)
+          if [ "$HOUR" = "00" ]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Checkout code
+        if: steps.should-scrape.outputs.skip == 'false'
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        if: steps.should-scrape.outputs.skip == 'false'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        if: steps.should-scrape.outputs.skip == 'false'
+        run: |
+          pip install requests beautifulsoup4 firebase-admin
+      
+      - name: Get today's date
+        if: steps.should-scrape.outputs.skip == 'false'
+        id: date
+        run: |
+          echo "date=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+      
+      - name: Scrape predictions
+        if: steps.should-scrape.outputs.skip == 'false'
+        id: scrape
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          python3 scripts/scrape-betistuta-predictions.py ${{ steps.date.outputs.date }} > predictions.json
+          cat predictions.json
+      
+      - name: Save to Firestore
+        if: steps.should-scrape.outputs.skip == 'false'
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          python3 scripts/save-predictions-to-firestore.py predictions.json
+      
+      - name: Upload predictions JSON
+        if: steps.should-scrape.outputs.skip == 'false' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: predictions-${{ steps.date.outputs.date }}
+          path: predictions.json
+          retention-days: 7
+
+  update-results:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'update-results' || github.event_name == 'schedule'
+    steps:
+      - name: Check if should update (midnight only)
+        id: should-update
+        run: |
+          HOUR=$(date -u +%H)
+          if [ "$HOUR" = "00" ]; then
+            echo "skip=false" >> $GITHUB_OUTPUT
+          else
+            echo "skip=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Checkout code
+        if: steps.should-update.outputs.skip == 'false'
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        if: steps.should-update.outputs.skip == 'false'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        if: steps.should-update.outputs.skip == 'false'
+        run: |
+          pip install requests beautifulsoup4 firebase-admin
+      
+      - name: Get yesterday's date
+        if: steps.should-update.outputs.skip == 'false'
+        id: date
+        run: |
+          echo "date=$(date -d 'yesterday' +%Y-%m-%d)" >> $GITHUB_OUTPUT
+      
+      - name: Scrape results
+        if: steps.should-update.outputs.skip == 'false'
+        id: results
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          python3 scripts/update-prediction-results.py ${{ steps.date.outputs.date }} > results.json
+          cat results.json
+      
+      - name: Update Firestore
+        if: steps.should-update.outputs.skip == 'false'
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          python3 scripts/update-results-in-firestore.py results.json
+      
+      - name: Upload results JSON
+        if: steps.should-update.outputs.skip == 'false' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: results-${{ steps.date.outputs.date }}
+          path: results.json
+          retention-days: 7
+

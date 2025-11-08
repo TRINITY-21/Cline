@@ -52,6 +52,31 @@ html, body, #__next {
   overflow-x: hidden; /* prevent accidental horizontal page scroll */
 }
 
+/* PWA optimizations */
+html {
+  /* Prevent text size adjustment on iOS */
+  -webkit-text-size-adjust: 100%;
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+}
+
+/* Mobile viewport optimizations */
+@supports (-webkit-touch-callout: none) {
+  /* iOS specific */
+  body {
+    /* Prevent pull-to-refresh on iOS */
+    overscroll-behavior-y: contain;
+  }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+}
+
 /* Better touch targets for mobile */
 @media (max-width: 640px) {
   button, a, [role="button"] {
@@ -502,6 +527,22 @@ header {
 
 .animate-fade-in {
   animation: fade-in 0.5s ease-out;
+}
+
+/* Install prompt slide-up animation */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Ensure backdrop blur works on all browsers */

@@ -4,6 +4,9 @@ import * as functions from 'firebase-functions';
 // Initialize Firebase Admin
 admin.initializeApp();
 
+// Export notification functions
+export { sendLiveMatchNotification, sendMatchNotifications } from './send-match-notifications';
+
 // Helper function to get today's date ID using local timezone
 function todayId(): string {
   const d = new Date();

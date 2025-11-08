@@ -7,6 +7,7 @@ import { firstNameOf, getDisplayName } from '@/lib/utils';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import useSWR from 'swr';
 import MatchPlayerSlideover from './MatchPlayerSlideover';
+import MatchReminderButton from './MatchReminderButton';
 // sharing removed
 
 function TeamLogo({ logo, name, size = 80, className = "" }: { logo?: string; name: string; size?: number; className?: string }) {
@@ -512,7 +513,18 @@ export default function GameBrowser() {
                   </button>
                 </div>
               ) : (
-                <p className="text-xs sm:text-sm text-white/60 text-center">Stay tuned — we'll start the stream at kickoff</p>
+                <div className="flex flex-col items-center gap-3 w-full">
+                  <p className="text-xs sm:text-sm text-white/60 text-center">Stay tuned — we'll start the stream at kickoff</p>
+                  {featured?.id && (
+                    <MatchReminderButton
+                      matchId={featured.id}
+                      matchTime={featured.timeLabel || ''}
+                      homeTeam={featured.home?.name || ''}
+                      awayTeam={featured.away?.name || ''}
+                      league={featured.league?.name}
+                    />
+                  )}
+                </div>
               );
             })()}
           </div>
