@@ -102,6 +102,29 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
   );
 }
 
+// Extract only the date part, removing time
+function formatDateOnly(dateText?: string): string {
+  const s = (dateText || '').trim();
+  if (!s) return '';
+  // Extract date part before comma (e.g., "11/5/2025, 11:00 PM" -> "11/5/2025")
+  const match = s.match(/^([^,]+)/);
+  return match ? match[1].trim() : s.split(',')[0].trim();
+}
+
+// Format league text - remove country/region prefixes
+function formatLeague(leagueOrCategory?: string) {
+  const raw = (leagueOrCategory || '').trim();
+  let corrected = raw.replace(/Leaguage/gi, 'League');
+  
+  // Remove all prefixes (country or region): "COUNTRY: League Name" or "REGION: League Name"
+  corrected = corrected.replace(/^[A-Z\s]+:\s*/, '');
+  
+  // Remove common suffixes like ", Group Stage", ", Knockout Stage", etc.
+  corrected = corrected.replace(/,\s*(Group Stage|Knockout Stage|League Stage|Round of \d+|Quarter[- ]?Final|Semi[- ]?Final|Final|Playoff|Play[- ]?off)$/gi, '');
+  
+  return corrected.trim();
+}
+
 function MatchDetailContent({ match }: { match: HighlightMatch }) {
   const streamHomeLogo: string | null = null;
   const streamAwayLogo: string | null = null;
@@ -167,75 +190,103 @@ function MatchDetailContent({ match }: { match: HighlightMatch }) {
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-[rgb(var(--brand-yellow))] rounded-full blur-3xl animate-pulse" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full blur-3xl animate-pulse delay-300" />
         </div>
-        {/* Top row: League (left) and Date/Time (right) */}
-        <div className="relative z-10 mb-4 md:mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            {(match.league || match.category) && (
-              <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 text-white/80 text-xs md:text-sm">
-                <span className="opacity-80">🏷️</span>
-                <span>{match.league || match.category}</span>
+        {/* Top row: League (left) and Date (right) */}
+        <div className="relative z-10 mb-5 md:mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          {(match.league || match.category) && (
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-2 bg-white/[0.02] backdrop-blur-sm rounded-lg border border-white/[0.08] hover:border-white/[0.12] hover:bg-white/[0.04] transition-all duration-200">
+              <div className="flex items-center justify-center w-7 h-7 rounded bg-white/[0.06]">
+                <svg className="w-3.5 h-3.5 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                </svg>
               </div>
-            )}
-          </div>
-          <div>
-            <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 text-white/80 text-xs md:text-sm">
-              <span>📅</span>
-              <span>{match.date}{match.time ? `, ${match.time}` : ''}</span>
+              <span className="text-white/80 font-medium text-xs uppercase tracking-wider">{formatLeague(match.league || match.category)}</span>
             </div>
-          </div>
+          )}
+          {match.date && (
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-2 bg-white/[0.02] backdrop-blur-sm rounded-lg border border-white/[0.08] hover:border-white/[0.12] hover:bg-white/[0.04] transition-all duration-200">
+              <div className="flex items-center justify-center w-7 h-7 rounded bg-white/[0.06]">
+                <svg className="w-3.5 h-3.5 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <span className="text-white/80 font-medium text-xs tracking-wide font-mono">{formatDateOnly(match.date)}</span>
+            </div>
+          )}
         </div>
         
         <div className="relative z-10">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-5 mb-5 md:mb-6">
-            <div className="space-y-4 w-full md:w-auto flex flex-col items-center justify-center">
-              <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 animate-in slide-in-from-left duration-700 delay-100 leading-tight w-full">
-                {/* Mobile-friendly header card */}
-                <div className="rounded-xl border border-white/10 bg-white/5 p-4 sm:p-0 sm:border-0 sm:bg-transparent flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 text-center w-full sm:w-auto">
-                  {/* Home block */}
-                  <div className="flex items-center gap-3">
-                    <div className="relative w-12 h-12 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 overflow-hidden flex items-center justify-center shadow-inner">
-                      {homeLogo ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={homeLogo} alt="" className="object-contain" style={{ width: '80%', height: '80%' }} />
-                      ) : (
-                        <div className="w-8 h-8 rounded-full bg-white/10" />
-                      )}
-                      <div className="absolute inset-0 rounded-full ring-1 ring-white/10" />
+          <div className="flex flex-col gap-6 mb-5 md:mb-6">
+            {/* Teams Layout - Home Left, VS Center, Away Right */}
+            <div className="w-full flex items-center justify-between gap-6 md:gap-8">
+              {/* Home Team - Left */}
+              <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+                <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-full bg-white/[0.03] border border-white/[0.08] overflow-hidden flex items-center justify-center backdrop-blur-sm flex-shrink-0">
+                  {homeLogo ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={homeLogo} alt={match.homeTeam} className="object-contain" style={{ width: '80%', height: '80%' }} />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center p-2.5">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img 
+                        src="https://streamed.pk/api/images/badge/GwZg7AZpYEZgHCAjAJgCzuFgpsCwVgBDQhWYNMATkhQFZgrDh49g773htbKbcAxozAp0kbsSwJ0IWShAx65BgObAwPeOKoTCDVmA1tcEIA.webp" 
+                        alt="" 
+                        className="w-full h-full object-contain opacity-80" 
+                      />
                     </div>
-                    <span className="text-white transition-all inline-block hover:scale-105 text-base sm:text-2xl md:text-4xl lg:text-5xl whitespace-nowrap truncate max-w-[70vw] sm:max-w-none">{match.homeTeam}</span>
-                  </div>
-
-                  {/* VS */}
-                  <span className="px-2 py-0.5 rounded-full bg-white/10 border border-white/15 text-white/70 text-xs font-semibold mx-1 md:mx-3">VS</span>
-
-                  {/* Away block */}
-                  <div className="flex items-center gap-3">
-                    <div className="relative w-12 h-12 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 overflow-hidden flex items-center justify-center shadow-inner">
-                      {awayLogo ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={awayLogo} alt="" className="object-contain" style={{ width: '80%', height: '80%' }} />
-                      ) : (
-                        <div className="w-8 h-8 rounded-full bg-white/10" />
-                      )}
-                      <div className="absolute inset-0 rounded-full ring-1 ring-white/10" />
-                    </div>
-                    <span className="text-white transition-all inline-block hover:scale-105 text-base sm:text-2xl md:text-4xl lg:text-5xl whitespace-nowrap truncate max-w-[70vw] sm:max-w-none">{match.awayTeam}</span>
-                  </div>
+                  )}
                 </div>
-              </h1>
-              <div className="flex flex-wrap items-center gap-4 text-white/60 text-sm mt-3">
-                {match.stage && (
-                  <div className="flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-all group/item">
-                    <span className="group-hover/item:scale-110 transition-transform">🏆</span>
-                    <span>{match.stage}</span>
-                  </div>
-                )}
+                <div className="min-w-0 flex-1">
+                  <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white/95 truncate">
+                    {match.homeTeam}
+                  </h2>
+                </div>
+              </div>
+
+              {/* VS - Center */}
+              <div className="flex-shrink-0">
+                <div className="px-4 py-2 md:px-5 md:py-2.5 rounded-lg bg-white/[0.02] border border-white/[0.08] backdrop-blur-sm">
+                  <span className="text-white/70 text-xs md:text-sm font-medium tracking-widest uppercase">VS</span>
+                </div>
+              </div>
+
+              {/* Away Team - Right */}
+              <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0 justify-end">
+                <div className="min-w-0 flex-1 text-right">
+                  <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-white/95 truncate">
+                    {match.awayTeam}
+                  </h2>
+                </div>
+                <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-full bg-white/[0.03] border border-white/[0.08] overflow-hidden flex items-center justify-center backdrop-blur-sm flex-shrink-0">
+                  {awayLogo ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={awayLogo} alt={match.awayTeam} className="object-contain" style={{ width: '80%', height: '80%' }} />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center p-2.5">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img 
+                        src="https://streamed.pk/api/images/badge/GwZg7AZpYEZgHCAjAJgCzuFgpsCwVgBDQhWYNMATkhQFZgrDh49g773htbKbcAxozAp0kbsSwJ0IWShAx65BgObAwPeOKoTCDVmA1tcEIA.webp" 
+                        alt="" 
+                        className="w-full h-full object-contain opacity-80" 
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
+
+            {/* Stage Badge */}
+            {match.stage && (
+              <div className="flex justify-center">
+                <div className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-all group/item">
+                  <span className="group-hover/item:scale-110 transition-transform">🏆</span>
+                  <span className="text-white/80 text-sm font-medium">{match.stage}</span>
+                </div>
+              </div>
+            )}
             
             {/* Score Display */}
             {match.score && (
-              <div className="text-center md:text-right animate-in slide-in-from-right duration-700 delay-200">
+              <div className="text-center animate-in slide-in-from-bottom duration-700 delay-200">
                 <div className="text-xs uppercase tracking-wider text-white/50 mb-2">Final Score</div>
                 <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[rgb(var(--brand-yellow))] mb-2 hover:scale-105 transition-transform duration-300 whitespace-nowrap">
                   {match.score.replace(/\s+/g, ' ').trim()}
@@ -396,15 +447,14 @@ function MatchDetailContent({ match }: { match: HighlightMatch }) {
               </div>
             )}
 
-            {/* Date & Time */}
-            {(match.date || match.time) && (
+            {/* Date */}
+            {match.date && (
               <div className="flex items-start gap-3 p-4 bg-gradient-to-r from-white/5 to-white/0 rounded-lg border border-white/10 hover:border-white/20 hover:from-white/10 hover:to-white/5 transition-all duration-300 group/item">
                 <div className="text-2xl group-hover/item:scale-125 transition-transform duration-300">📅</div>
                 <div className="flex-1">
-                  <div className="text-xs text-white/50 mb-1 uppercase tracking-wider">Date & Time</div>
+                  <div className="text-xs text-white/50 mb-1 uppercase tracking-wider">Date</div>
                   <div className="text-white font-medium group-hover/item:text-[rgb(var(--brand-yellow))] transition-colors">
-                    {match.date}
-                    {match.time ? `, ${match.time}` : ''}
+                    {formatDateOnly(match.date)}
                   </div>
                 </div>
               </div>

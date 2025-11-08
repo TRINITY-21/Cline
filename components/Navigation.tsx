@@ -47,7 +47,7 @@ export default function Navigation() {
           className={`relative px-3 md:px-4 lg:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 group touch-manipulation ${
             isActive('/')
               ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/30'
-              : 'text-white/70 hover:text-white hover:bg-white/5'
+              : 'text-white/70 hover:text-white hover:bg-white/[0.05]'
           }`}
         >
           Live
@@ -60,7 +60,7 @@ export default function Navigation() {
           className={`relative px-3 md:px-4 lg:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 group touch-manipulation ${
             isActive('/highlight')
               ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/30'
-              : 'text-white/70 hover:text-white hover:bg-white/5'
+              : 'text-white/70 hover:text-white hover:bg-white/[0.05]'
           }`}
         >
           Highlights
@@ -73,7 +73,7 @@ export default function Navigation() {
           className={`relative px-3 md:px-4 lg:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 group touch-manipulation ${
             isActive('/news')
               ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/30'
-              : 'text-white/70 hover:text-white hover:bg-white/5'
+              : 'text-white/70 hover:text-white hover:bg-white/[0.05]'
           }`}
         >
           News
@@ -86,7 +86,7 @@ export default function Navigation() {
           className={`relative px-3 md:px-4 lg:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 group touch-manipulation ${
             isActive('/predictions')
               ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/30'
-              : 'text-white/70 hover:text-white hover:bg-white/5'
+              : 'text-white/70 hover:text-white hover:bg-white/[0.05]'
           }`}
         >
           Predictions

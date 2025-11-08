@@ -89,8 +89,8 @@ header {
 /* Ensure mobile viewport doesn't cause horizontal scroll */
 @media (max-width: 640px) {
   .container-narrow {
-    padding-left: 0.25rem; /* tighter mobile gutter */
-    padding-right: 0.25rem; /* tighter mobile gutter */
+    padding-left: 0.75rem; /* tighter mobile gutter */
+    padding-right: 0.75rem; /* tighter mobile gutter */
   }
 }
 

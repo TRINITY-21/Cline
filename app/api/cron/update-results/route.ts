@@ -2,13 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export const revalidate = 0;
 
-// Cron endpoint to scrape and update results every 3 hours
+// Cron endpoint to scrape and update results (subtle patterns with results) every 3 hours
 // Can be called by Vercel Cron, GitHub Actions, external cron services, or manually
-// 
-// Note: In serverless environments (Vercel), Python scripts cannot run directly.
-// This endpoint serves as a webhook that can trigger external services.
-// For production, use GitHub Actions workflow (.github/workflows/update-results.yml)
-// which runs every 3 hours and handles the actual scraping.
 export async function GET(req: NextRequest) {
   try {
     // Vercel Cron automatically provides a secret header - check it if available
@@ -20,19 +15,56 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // In serverless environments, we can't run Python scripts directly
-    // This endpoint serves as a webhook that can trigger GitHub Actions or external services
-    // The actual scraping and updating is handled by:
-    // 1. GitHub Actions workflow (.github/workflows/update-results.yml) - runs every 3 hours
-    // 2. External cron service calling scripts/scrape-and-update-results.sh
-    // 3. Manual execution of the script
+    // Get today's date in DD-MM-YYYY format
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    const dateStr = `${dd}-${mm}-${yyyy}`;
+
+    // Get base URL and token
+    const token = process.env.NEXT_PUBLIC_INTERNAL_UPDATE_TOKEN || '';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}` 
+      : 'http://localhost:3001');
     
-    return NextResponse.json({ 
-      ok: true,
-      message: 'Results update cron endpoint triggered',
-      note: 'This endpoint is for cron/webhook integration. The actual scraping is done via GitHub Actions workflow (.github/workflows/update-results.yml) which runs every 3 hours.',
-      workflow: 'See .github/workflows/update-results.yml for the actual scraping and update logic'
-    });
+    // Call the import-subtle-patterns endpoint with type "results"
+    const importUrl = `${baseUrl}/api/admin/over-predictions/import-subtle-patterns`;
+    
+    try {
+      const response = await fetch(importUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-internal-token': token,
+        },
+        body: JSON.stringify({
+          date: dateStr,
+          type: 'results',
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        return NextResponse.json({ 
+          error: 'Failed to import results',
+          details: result 
+        }, { status: response.status });
+      }
+
+      return NextResponse.json({ 
+        ok: true,
+        message: 'Successfully imported subtle patterns (results)',
+        date: dateStr,
+        result: result
+      });
+    } catch (fetchError: any) {
+      return NextResponse.json({ 
+        error: 'Failed to call import endpoint',
+        details: fetchError?.message || String(fetchError)
+      }, { status: 500 });
+    }
   } catch (err: any) {
     return NextResponse.json({ 
       error: 'Failed to process request', 

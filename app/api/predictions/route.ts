@@ -154,33 +154,33 @@ export async function GET(req: NextRequest) {
       // Sort by timeLabel
       allPredictions.sort((a, b) => (a.timeLabel || '').localeCompare(b.timeLabel || ''));
     } else {
-      // Fetch all predictions from all weeks
-      const weeksSnapshot = await overPredictionsCol.get();
+      // Fetch predictions for the current week (Monday to Sunday)
+      // This ensures we show all week's predictions even if today has no predictions
+      const today = new Date();
+      const currentWeekId = getWeekId(today);
+      const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       
-      for (const weekDoc of weeksSnapshot.docs) {
-        const weekId = weekDoc.id;
-        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const weekDoc = overPredictionsCol.doc(currentWeekId);
+      
+      for (const day of daysOfWeek) {
+        const dayCol = weekDoc.collection(day);
+        const datesSnapshot = await dayCol.get();
         
-        for (const day of daysOfWeek) {
-          const dayCol = weekDoc.ref.collection(day);
-          const datesSnapshot = await dayCol.get();
+        for (const dateDoc of datesSnapshot.docs) {
+          const dateId = dateDoc.id;
+          const data = dateDoc.data();
+          const predictions = Array.isArray(data?.predictions) ? data.predictions : [];
           
-          for (const dateDoc of datesSnapshot.docs) {
-            const dateId = dateDoc.id;
-            const data = dateDoc.data();
-            const predictions = Array.isArray(data?.predictions) ? data.predictions : [];
-            
-            predictions.forEach((pred: any) => {
-              // Only include approved predictions (or all if approved field doesn't exist for backward compatibility)
-              if (pred.approved !== false) {
-                allPredictions.push({
-                  ...pred,
-                  id: pred.id || generatePredictionId(pred.home || '', pred.away || '', pred.timeLabel || ''),
-                  matchDate: dateId,
-                });
-              }
-            });
-          }
+          predictions.forEach((pred: any) => {
+            // Only include approved predictions (or all if approved field doesn't exist for backward compatibility)
+            if (pred.approved !== false) {
+              allPredictions.push({
+                ...pred,
+                id: pred.id || generatePredictionId(pred.home || '', pred.away || '', pred.timeLabel || ''),
+                matchDate: dateId,
+              });
+            }
+          });
         }
       }
       

@@ -22,6 +22,8 @@ export default function NewsPage() {
   const [source, setSource] = useState<string>('');
   const [filtersOpen, setFiltersOpen] = useState<boolean>(true);
   const [sourceDropdownOpen, setSourceDropdownOpen] = useState<boolean>(false);
+  const [clickedArticleId, setClickedArticleId] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState<number>(15);
 
   // Load sources
   useEffect(() => {
@@ -49,6 +51,7 @@ export default function NewsPage() {
     const controller = new AbortController();
     (async () => {
       setLoading(true);
+      setVisibleCount(15); // Reset visible count when source changes
       try {
         const res = await fetch(`/api/news?source=${encodeURIComponent(source)}`, { cache: 'no-store', signal: controller.signal });
         const json = await res.json();
@@ -62,10 +65,22 @@ export default function NewsPage() {
     return () => { cancelled = true; controller.abort(); };
   }, [source]);
 
+  const visibleArticles = articles.slice(0, visibleCount);
+  const hasMore = articles.length > visibleCount;
+
   return (
-    <div className="space-y-6 sm:space-y-8 md:space-y-10">
+    <div className="space-y-6 sm:space-y-8 md:space-y-10 w-full max-w-full overflow-x-hidden box-border relative">
+      {/* Full-page loading overlay */}
+      {clickedArticleId && (
+        <div className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-sm flex items-center justify-center">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-16 h-16 border-4 border-[rgb(var(--brand-yellow))]/30 border-t-[rgb(var(--brand-yellow))] rounded-full animate-spin" />
+            <span className="text-white/90 text-lg font-medium">Loading article...</span>
+          </div>
+        </div>
+      )}
       {/* Header */}
-      <section className="surface p-3 sm:p-5 md:p-6 hero-glow relative overflow-hidden group min-h-[160px] md:min-h-[200px]">
+      <section className="surface p-3 sm:p-5 md:p-6 hero-glow relative overflow-x-hidden group min-h-[160px] md:min-h-[200px] w-full max-w-full box-border">
         <div className="absolute inset-0 opacity-10 group-hover:opacity-15 transition-opacity duration-700">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-[rgb(var(--brand-yellow))] rounded-full blur-3xl animate-pulse" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full blur-3xl animate-pulse delay-300" />
@@ -141,7 +156,7 @@ export default function NewsPage() {
                     "px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg font-medium text-[11px] sm:text-xs md:text-sm transition-all duration-200 touch-manipulation min-h-[36px] sm:min-h-[40px] whitespace-nowrap flex-shrink-0 " +
                     (source === s
                       ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20'
-                      : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
+                      : 'bg-white/[0.02] text-white/70 border border-white/[0.08] hover:bg-white/[0.05] hover:text-white hover:border-white/[0.15] backdrop-blur-sm')
                   }
                 >
                   {s}
@@ -174,35 +189,56 @@ export default function NewsPage() {
 
       {/* Grid */}
       {!loading && articles.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {articles.map(article => (
-            <Link key={article.id} href={`/news/${article.id}`} className="group surface overflow-hidden rounded-xl border border-white/10 hover:border-[rgb(var(--brand-yellow))]/30 transition-all hover:-translate-y-1">
-              <div className="relative aspect-video bg-white/5 rounded-t-xl overflow-hidden">
-                {article.image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={article.image} alt="" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover" />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center text-4xl opacity-40">📰</div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-black/10" />
-                <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 flex items-center justify-between gap-2 text-[10px] sm:text-xs">
-                  <span className="px-2 py-0.5 sm:py-1 rounded bg-black/40 backdrop-blur-sm border border-white/15 text-white/80 font-semibold truncate max-w-[45%]">{article.source}</span>
-                  <span className="text-white/70 font-mono truncate max-w-[55%]">
-                    <span className="sm:hidden">{new Date(article.publishedAt).toLocaleDateString()}</span>
-                    <span className="hidden sm:inline">{new Date(article.publishedAt).toLocaleString()}</span>
-                  </span>
-                </div>
-              </div>
-              <div className="p-4 space-y-2">
-                <h3 className="text-white font-bold leading-snug group-hover:text-[rgb(var(--brand-yellow))] transition-colors line-clamp-2 text-sm sm:text-base">{article.title}</h3>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-2 pb-2">
+            {visibleArticles.map(article => (
+                <Link 
+                  key={article.id} 
+                  href={`/news/${article.id}`}
+                  onClick={() => setClickedArticleId(article.id)}
+                  className="group surface overflow-hidden rounded-xl border border-white/[0.08] hover:border-white/[0.15] transition-all hover:-translate-y-1 relative bg-white/[0.02] backdrop-blur-sm"
+                >
+                  <div className="relative aspect-video bg-white/5 rounded-t-xl overflow-hidden">
+                    {article.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img 
+                        src={article.image} 
+                        alt="" 
+                        loading="lazy" 
+                        decoding="async" 
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center text-4xl opacity-40">📰</div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-black/10" />
+                    <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 flex items-center justify-between gap-2 text-[10px] sm:text-xs">
+                      <span className="px-2 py-0.5 sm:py-1 rounded bg-white/[0.08] backdrop-blur-sm border border-white/[0.12] text-white/80 font-semibold truncate max-w-[45%]">{article.source}</span>
+                      <span className="text-white/70 font-mono truncate max-w-[55%]">
+                        {new Date(article.publishedAt).toLocaleDateString()}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-4 space-y-2">
+                    <h3 className="text-white/95 font-semibold leading-snug group-hover:text-white transition-colors line-clamp-2 text-sm sm:text-base">{article.title}</h3>
+                  </div>
+                </Link>
+            ))}
+          </div>
+          
+          {/* Load More Button */}
+          {hasMore && (
+            <div className="flex justify-center pt-6 pb-4">
+              <button
+                onClick={() => setVisibleCount(prev => prev + 15)}
+                className="px-6 py-3 bg-[rgb(var(--brand-yellow))] text-black font-semibold rounded-lg hover:bg-[rgb(var(--brand-yellow))]/90 transition-colors shadow-lg shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/30"
+              >
+                Load More
+              </button>
+            </div>
+          )}
+        </>
       )}
-
-      {/* Source credit */}
-      <div className="text-xs text-white/50">Sources via cline-news</div>
     </div>
   );
 }

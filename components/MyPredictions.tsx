@@ -3,7 +3,6 @@
 import { enrichGames } from '@/lib/catalog';
 import { getDisplayName } from '@/lib/utils';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import AvatarFallback from './AvatarFallback';
 import PlayerOverlay from './PlayerOverlay';
 
 type Sport = 'Football' | 'Hockey' | 'Volleyball' | 'Basketball' | 'Tennis';
@@ -37,7 +36,18 @@ function TeamLogo({ logo, name, size = 40, className = "" }: { logo?: string; na
   const [hasError, setHasError] = useState(false);
   
   if (!logo || hasError) {
-    return <AvatarFallback name={name} size={size} />;
+    // Use default image not available logo when team logo is not available
+    return (
+      <div className="flex items-center justify-center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://streamed.pk/api/images/badge/GwZg7AZpYEZgHCAjAJgCzuFgpsCwVgBDQhWYNMATkhQFZgrDh49g773htbKbcAxozAp0kbsSwJ0IWShAx65BgObAwPeOKoTCDVmA1tcEIA.webp"
+          alt=""
+          className="max-w-full max-h-full w-auto h-auto object-contain opacity-80"
+          style={{ maxWidth: '100%', maxHeight: '100%' }}
+        />
+      </div>
+    );
   }
   
   let imgClassName = "object-contain rounded-full";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { type HighlightMatch } from './data';
 
 export default function HighlightsPage() {
@@ -8,12 +8,47 @@ export default function HighlightsPage() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLeague, setSelectedLeague] = useState<string>('all');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [selectedMatch, setSelectedMatch] = useState<HighlightMatch | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [displayCount, setDisplayCount] = useState(12);
   const [filtersOpen, setFiltersOpen] = useState<boolean>(true);
   const [leagueDropdownOpen, setLeagueDropdownOpen] = useState<boolean>(false);
+  const [clickedMatchId, setClickedMatchId] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Skip first 3 seconds of video to avoid ScoreBat branding
+  useEffect(() => {
+    if (!selectedMatch || !videoRef.current) return;
+    
+    const video = videoRef.current;
+    const isVideoFile = selectedMatch.videoSrc?.includes('.mp4') || selectedMatch.videoSrc?.includes('streamable.com/video');
+    
+    if (!isVideoFile) return;
+    
+    const handleCanPlay = () => {
+      if (video.currentTime < 3) {
+        video.currentTime = 3;
+      }
+    };
+    
+    const handleLoadedMetadata = () => {
+      if (video.duration > 3) {
+        video.currentTime = 3;
+      }
+    };
+    
+    video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+    
+    if (video.readyState >= 1 && video.currentTime < 3) {
+      video.currentTime = 3;
+    }
+    
+    return () => {
+      video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+    };
+  }, [selectedMatch]);
 
   // Fetch matches from API
   useEffect(() => {
@@ -51,8 +86,28 @@ export default function HighlightsPage() {
   }, []);
 
   const leagues = useMemo(() => {
-    const leagueSet = new Set(matches.map(m => m.league || m.category).filter(Boolean));
-    return Array.from(leagueSet).sort();
+    // Normalize league names using formatLeague to handle duplicates
+    const normalizedLeagues = matches
+      .map(m => {
+        const raw = m.league || m.category;
+        if (!raw) return null;
+        return formatLeague(raw);
+      })
+      .filter(Boolean) as string[];
+    
+    // Use a Map to track original values by normalized name (keep first occurrence)
+    const leagueMap = new Map<string, string>();
+    matches.forEach(m => {
+      const raw = m.league || m.category;
+      if (!raw) return;
+      const normalized = formatLeague(raw);
+      if (!leagueMap.has(normalized)) {
+        leagueMap.set(normalized, raw);
+      }
+    });
+    
+    // Return unique normalized leagues, sorted
+    return Array.from(new Set(normalizedLeagues)).sort();
   }, [matches]);
 
   const filteredMatches = useMemo(() => {
@@ -60,11 +115,12 @@ export default function HighlightsPage() {
     const leagueFilter = (selectedLeague || '').trim().toLowerCase();
     
     return matches.filter(match => {
-      // League filtering first
+      // League filtering first - normalize for comparison
       let matchesLeague = true;
       if (leagueFilter && leagueFilter !== 'all') {
-        const matchLeague = (match.league || match.category || '').trim().toLowerCase();
-        matchesLeague = matchLeague === leagueFilter;
+        const matchRaw = match.league || match.category || '';
+        const matchNormalized = formatLeague(matchRaw).toLowerCase();
+        matchesLeague = matchNormalized === leagueFilter;
       }
       
       // If no search query, just return league filter result
@@ -100,7 +156,16 @@ export default function HighlightsPage() {
 
 
   return (
-    <div className="space-y-6 sm:space-y-8 md:space-y-10 w-full max-w-full overflow-x-hidden box-border">
+    <div className="space-y-6 sm:space-y-8 md:space-y-10 w-full max-w-full overflow-x-hidden box-border relative">
+      {/* Full-page loading overlay */}
+      {clickedMatchId && (
+        <div className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-sm flex items-center justify-center">
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-16 h-16 border-4 border-[rgb(var(--brand-yellow))]/30 border-t-[rgb(var(--brand-yellow))] rounded-full animate-spin" />
+            <span className="text-white/90 text-lg font-medium">Loading match details...</span>
+          </div>
+        </div>
+      )}
       {/* Floating Header - League Filters */}
       {isScrolled && (
         <div
@@ -108,45 +173,47 @@ export default function HighlightsPage() {
           style={{ top: 'var(--header-height)' }}
         >
           <div className="container-narrow">
-            <div className="hidden md:flex flex-wrap items-center gap-2 md:gap-2.5 lg:gap-3 w-full max-w-full">
-              <button
-                onClick={() => {
-                  setSelectedLeague('all');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className={
-                  "px-3 md:px-4 lg:px-5 py-2 md:py-2.5 rounded-lg font-medium text-xs md:text-sm lg:text-base transition-all duration-200 touch-manipulation min-h-[40px] md:min-h-[44px] whitespace-nowrap flex-shrink-0 " +
-                  (selectedLeague === 'all'
-                    ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20'
-                    : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
-                }
-              >
-                All Leagues
-              </button>
-              {leagues.map(league => (
+            <div className="hidden md:block w-full max-w-full box-border overflow-x-auto no-scrollbar scroll-x-only">
+              <div className="flex items-center gap-2 md:gap-3 min-w-max pb-2">
                 <button
-                  key={league}
                   onClick={() => {
-                    setSelectedLeague(league || 'all');
+                    setSelectedLeague('all');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
                   className={
-                    "px-3 md:px-4 lg:px-5 py-2 md:py-2.5 rounded-lg font-medium text-xs md:text-sm lg:text-base transition-all duration-200 touch-manipulation min-h-[40px] md:min-h-[44px] whitespace-nowrap flex-shrink-0 " +
-                    (selectedLeague === league
+                    "px-4 md:px-5 py-2.5 rounded-lg font-semibold text-sm md:text-base transition-all duration-200 touch-manipulation whitespace-nowrap flex-shrink-0 " +
+                    (selectedLeague === 'all'
                       ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20'
-                      : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
+                      : 'bg-white/5 text-white/80 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
                   }
                 >
-                  {formatLeague(league)}
+                  All Leagues
                 </button>
-              ))}
+                {leagues.map(league => (
+                  <button
+                    key={league}
+                    onClick={() => {
+                      setSelectedLeague(league || 'all');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className={
+                      "px-4 md:px-5 py-2.5 rounded-lg font-semibold text-sm md:text-base transition-all duration-200 touch-manipulation whitespace-nowrap flex-shrink-0 " +
+                      (selectedLeague === league
+                        ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20'
+                        : 'bg-white/5 text-white/80 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
+                    }
+                  >
+                    {league}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       )}
 
       {/* Header Section */}
-      <section className="surface p-3 sm:p-5 md:p-6 hero-glow relative z-[100] overflow-visible md:overflow-hidden group w-full max-w-full box-border">
+      <section className="surface p-3 sm:p-5 md:p-6 hero-glow relative z-[100] overflow-x-hidden md:overflow-hidden group w-full max-w-full box-border">
         {/* Animated background gradient */}
         <div className="absolute inset-0 opacity-10 group-hover:opacity-15 transition-opacity duration-700">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-[rgb(var(--brand-yellow))] rounded-full blur-3xl animate-pulse" />
@@ -154,7 +221,7 @@ export default function HighlightsPage() {
         </div>
         
         <div className="relative z-10">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div className="mb-6">
           <div>
             <div className="text-[10px] uppercase tracking-[0.2em] text-white/60">Football Highlights</div>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold mt-1">
@@ -163,22 +230,6 @@ export default function HighlightsPage() {
             <p className="text-white/70 mt-2 max-w-prose text-sm sm:text-base">
               Watch extended highlights, goals, and key moments from the latest football matches.
             </p>
-          </div>
-          
-          {/* View Toggle */}
-          <div className="hidden md:flex items-center gap-2">
-            <button
-              onClick={() => setViewMode('grid')}
-              className={`btn ${viewMode === 'grid' ? 'btn-primary' : 'btn-ghost'}`}
-            >
-              Grid
-            </button>
-            <button
-              onClick={() => setViewMode('list')}
-              className={`btn ${viewMode === 'list' ? 'btn-primary' : 'btn-ghost'}`}
-            >
-              List
-            </button>
           </div>
         </div>
 
@@ -229,19 +280,13 @@ export default function HighlightsPage() {
                     )}
                   </div>
 
-                  {/* View toggle - segmented */}
-                  <div className="grid grid-cols-2 gap-2">
-                    <button onClick={() => setViewMode('grid')} className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors ${viewMode === 'grid' ? 'bg-[rgb(var(--brand-yellow))] text-black' : 'bg-white/5 text-white/80 border border-white/10 hover:bg-white/10'}`}>Grid</button>
-                    <button onClick={() => setViewMode('list')} className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors ${viewMode === 'list' ? 'bg-[rgb(var(--brand-yellow))] text-black' : 'bg-white/5 text-white/80 border border-white/10 hover:bg-white/10'}`}>List</button>
-                  </div>
-
                   {/* League dropdown */}
                   <div className={`relative ${leagueDropdownOpen ? 'z-[10000]' : ''}`} data-dropdown>
                     <button
                       onClick={() => setLeagueDropdownOpen(!leagueDropdownOpen)}
                       className="w-full flex items-center justify-between px-4 py-3 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors touch-manipulation"
                     >
-                      <span className="text-white text-sm font-medium">{selectedLeague === 'all' ? 'All Leagues' : formatLeague(selectedLeague)}</span>
+                      <span className="text-white text-sm font-medium">{selectedLeague === 'all' ? 'All Leagues' : selectedLeague}</span>
                       <svg className={`w-4 h-4 text-white/60 transition-transform duration-200 ${leagueDropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                       </svg>
@@ -271,7 +316,7 @@ export default function HighlightsPage() {
                               onClick={() => { setSelectedLeague(league || 'all'); setLeagueDropdownOpen(false); }}
                               className={`w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors touch-manipulation border-b border-white/5 last:border-b-0 ${selectedLeague === league ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))]' : 'text-white/80'}`}
                             >
-                              <span className="font-medium text-sm">{formatLeague(league)}</span>
+                              <span className="font-medium text-sm">{league}</span>
                               {selectedLeague === league && (
                                 <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -325,33 +370,35 @@ export default function HighlightsPage() {
             )}
           </div>
           
-          {/* League Filter - Responsive wrapping for desktop */}
-          <div className="flex flex-wrap items-center gap-2 md:gap-2.5 lg:gap-3 w-full max-w-full box-border">
-            <button
-              onClick={() => setSelectedLeague('all')}
-              className={
-                "px-3 md:px-4 lg:px-5 py-2 md:py-2.5 rounded-lg font-medium text-xs md:text-sm lg:text-base transition-all duration-200 touch-manipulation min-h-[40px] md:min-h-[44px] whitespace-nowrap flex-shrink-0 " +
-                (selectedLeague === 'all'
-                  ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20'
-                  : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
-              }
-            >
-              All Leagues
-            </button>
-            {leagues.map(league => (
+          {/* League Filter - Single scrollable row */}
+          <div className="w-full max-w-full box-border overflow-x-auto no-scrollbar scroll-x-only">
+            <div className="flex items-center gap-2 md:gap-3 min-w-max pb-2">
               <button
-                key={league}
-                onClick={() => setSelectedLeague(league || 'all')}
+                onClick={() => setSelectedLeague('all')}
                 className={
-                  "px-3 md:px-4 lg:px-5 py-2 md:py-2.5 rounded-lg font-medium text-xs md:text-sm lg:text-base transition-all duration-200 touch-manipulation min-h-[40px] md:min-h-[44px] whitespace-nowrap flex-shrink-0 " +
-                  (selectedLeague === league
+                  "px-4 md:px-5 py-2.5 rounded-lg font-semibold text-sm md:text-base transition-all duration-200 touch-manipulation whitespace-nowrap flex-shrink-0 " +
+                  (selectedLeague === 'all'
                     ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20'
-                    : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
+                    : 'bg-white/5 text-white/80 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
                 }
               >
-                {formatLeague(league)}
+                All Leagues
               </button>
-            ))}
+              {leagues.map(league => (
+                <button
+                  key={league}
+                  onClick={() => setSelectedLeague(league || 'all')}
+                  className={
+                    "px-4 md:px-5 py-2.5 rounded-lg font-semibold text-sm md:text-base transition-all duration-200 touch-manipulation whitespace-nowrap flex-shrink-0 " +
+                    (selectedLeague === league
+                      ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20'
+                      : 'bg-white/5 text-white/80 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
+                  }
+                >
+                  {league}
+                </button>
+              ))}
+            </div>
           </div>
           </div>
         </div>
@@ -364,95 +411,74 @@ export default function HighlightsPage() {
           <div className="text-sm text-white/60 font-medium mb-4">
             <div className="skeleton h-5 w-32 rounded" />
           </div>
-          {viewMode === 'grid' ? (
-            <div className="w-full max-w-full">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-3 w-full">
-                {Array.from({ length: 12 }).map((_, i) => (
-                  <div key={i} className="surface p-4 sm:p-6 space-y-4 w-full min-w-0 max-w-full">
-                  {/* League Badge Skeleton */}
-                  <div className="skeleton h-6 w-32 rounded-full" />
-                  
-                  {/* Teams Skeleton */}
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="flex-1 text-right">
-                        <div className="skeleton h-6 w-24 rounded ml-auto" />
-                      </div>
-                      <div className="skeleton h-4 w-8 rounded" />
-                      <div className="flex-1">
-                        <div className="skeleton h-6 w-24 rounded" />
-                      </div>
-                    </div>
-                    <div className="skeleton h-8 w-16 rounded mx-auto" />
-                  </div>
-                  
-                  {/* Date & Time Skeleton */}
-                  <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                    <div className="skeleton h-4 w-24 rounded" />
-                    <div className="skeleton h-4 w-20 rounded" />
-                  </div>
-                  
-                  {/* Button Skeleton */}
-                  <div className="pt-1">
-                    <div className="skeleton h-10 w-full rounded-lg" />
-                  </div>
-                </div>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="space-y-3">
+          <div className="w-full max-w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2.5 sm:gap-3 w-full">
               {Array.from({ length: 12 }).map((_, i) => (
-                <div key={i} className="surface p-5">
-                  <div className="flex flex-col md:flex-row md:items-center gap-4">
-                    <div className="flex-1 space-y-2">
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <div className="skeleton h-6 w-32 rounded" />
-                        <div className="skeleton h-4 w-8 rounded" />
-                        <div className="skeleton h-6 w-32 rounded" />
-                        <div className="skeleton h-6 w-12 rounded" />
-                      </div>
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <div className="skeleton h-5 w-24 rounded-full" />
-                        <div className="skeleton h-4 w-28 rounded" />
-                        <div className="skeleton h-4 w-20 rounded" />
-                      </div>
+                <div key={i} className="surface p-4 sm:p-6 space-y-4 w-full min-w-0 max-w-full">
+                {/* League Badge Skeleton */}
+                <div className="skeleton h-6 w-32 rounded-full" />
+                
+                {/* Teams Skeleton */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1 text-right">
+                      <div className="skeleton h-6 w-24 rounded ml-auto" />
                     </div>
-                    <div className="min-w-[140px]">
-                      <div className="skeleton h-10 w-full rounded-lg" />
+                    <div className="skeleton h-4 w-8 rounded" />
+                    <div className="flex-1">
+                      <div className="skeleton h-6 w-24 rounded" />
                     </div>
                   </div>
+                  <div className="skeleton h-8 w-16 rounded mx-auto" />
                 </div>
+                
+                {/* Date & Time Skeleton */}
+                <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                  <div className="skeleton h-4 w-24 rounded" />
+                  <div className="skeleton h-4 w-20 rounded" />
+                </div>
+                
+                {/* Button Skeleton */}
+                <div className="pt-1">
+                  <div className="skeleton h-10 w-full rounded-lg" />
+                </div>
+              </div>
               ))}
             </div>
-          )}
+          </div>
         </>
       )}
 
       {/* Results Count */}
       {!loading && (
-        <div className="text-sm text-white/60 font-medium">
-          {filteredMatches.length} {filteredMatches.length === 1 ? 'match' : 'matches'} found
+        <div className="flex items-center gap-2.5 px-3 py-1.5 w-fit -mt-2">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-semibold text-white/90">
+              <span className="text-[rgb(var(--brand-yellow))] font-bold">{filteredMatches.length}</span>
+              <span className="text-white/70 ml-1.5">{filteredMatches.length === 1 ? 'match' : 'matches'} found</span>
+            </span>
+          </div>
         </div>
       )}
 
-      {/* Matches Grid/List */}
+      {/* Matches Grid */}
       {!loading && filteredMatches.length === 0 ? (
         <div className="surface p-12 text-center">
           <div className="text-6xl mb-4">🔍</div>
           <div className="text-white/80 text-lg font-semibold mb-2">No matches found</div>
           <div className="text-white/60">Try adjusting your search or filters</div>
         </div>
-      ) : !loading && viewMode === 'grid' ? (
+      ) : !loading && (
         <>
           <div className="w-full max-w-full box-border px-0">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-3 w-full box-border">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2.5 sm:gap-3 w-full box-border pt-2 pb-2">
               {displayedMatches.map((match) => (
                 <MatchCard
                   key={match.id}
                   match={match}
                   onClick={() => setSelectedMatch(match)}
                   onDetails={() => {
+                    setClickedMatchId(match.id);
                     window.location.href = `/highlight/${encodeURIComponent(match.id)}`;
                   }}
                 />
@@ -465,31 +491,7 @@ export default function HighlightsPage() {
                 onClick={() => setDisplayCount(prev => prev + 12)}
                 className="btn btn-primary px-8 py-3 text-base font-semibold hover:scale-105 transition-transform shadow-lg shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/40"
               >
-                See More
-              </button>
-            </div>
-          )}
-        </>
-      ) : (
-        <>
-          <div className="space-y-3">
-            {displayedMatches.map((match) => (
-              <MatchListItem
-                key={match.id}
-                match={match}
-                onClick={() => {
-                  window.location.href = `/highlight/${encodeURIComponent(match.id)}`;
-                }}
-              />
-            ))}
-          </div>
-          {hasMore && (
-            <div className="flex justify-center mt-8">
-              <button
-                onClick={() => setDisplayCount(prev => prev + 12)}
-                className="btn btn-primary px-8 py-3 text-base font-semibold hover:scale-105 transition-transform shadow-lg shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/40"
-              >
-                See More
+                Load More
               </button>
             </div>
           )}
@@ -514,6 +516,7 @@ export default function HighlightsPage() {
                 {selectedMatch.videoSrc ? (
                   selectedMatch.videoSrc.includes('.mp4') || selectedMatch.videoSrc.includes('streamable.com/video') ? (
                     <video
+                      ref={videoRef}
                       controls
                       autoPlay
                       className="absolute inset-0 w-full h-full"
@@ -574,8 +577,8 @@ function formatLeague(leagueOrCategory?: string) {
   // Pattern matches: one or more uppercase letters/words followed by colon and optional space
   corrected = corrected.replace(/^[A-Z\s]+:\s*/, '');
   
-  // Remove common suffixes like ", Group Stage", ", Knockout Stage", etc.
-  corrected = corrected.replace(/,\s*(Group Stage|Knockout Stage|Round of \d+|Quarter[- ]?Final|Semi[- ]?Final|Final|Playoff|Play[- ]?off)$/gi, '');
+  // Remove common suffixes like ", Group Stage", ", Knockout Stage", ", League Stage", etc.
+  corrected = corrected.replace(/,\s*(Group Stage|Knockout Stage|League Stage|Round of \d+|Quarter[- ]?Final|Semi[- ]?Final|Final|Playoff|Play[- ]?off)$/gi, '');
   
   return corrected.trim();
 }
@@ -609,49 +612,50 @@ function formatDateNoSeconds(dateText?: string): string {
   return s.replace(/(\d{1,2}):(\d{2}):\d{2}(\s*[AP]M)/i, (_, h, m, ampm) => `${h}:${m}${ampm}`);
 }
 
+// Extract only the date part, removing time
+function formatDateOnly(dateText?: string): string {
+  const s = (dateText || '').trim();
+  if (!s) return '';
+  // Extract date part before comma (e.g., "11/5/2025, 11:00 PM" -> "11/5/2025")
+  const match = s.match(/^([^,]+)/);
+  return match ? match[1].trim() : s.split(',')[0].trim();
+}
+
 function MatchCard({ match, onClick, onDetails }: { match: HighlightMatch; onClick: () => void; onDetails: () => void }) {
   return (
     <div
-      className="surface p-4 sm:p-5 group transition-all duration-300 hover:border-[rgb(var(--brand-yellow))]/30 hover:shadow-xl hover:shadow-[rgb(var(--brand-yellow))]/10 hover:-translate-y-1 cursor-pointer relative overflow-hidden h-full flex flex-col w-full min-w-0 max-w-full box-border"
+      className="surface p-5 sm:p-6 group transition-all duration-300 hover:border-[rgb(var(--brand-yellow))]/40 hover:shadow-2xl hover:shadow-[rgb(var(--brand-yellow))]/15 hover:-translate-y-1 cursor-pointer relative overflow-hidden h-full flex flex-col w-full min-w-0 max-w-full box-border border border-white/10"
       onClick={onDetails}
     >
-      {/* Animated background gradient on hover */}
+      {/* Subtle background gradient */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-[rgb(var(--brand-yellow))]/10 rounded-full blur-2xl" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[rgb(var(--brand-yellow))]/5 via-transparent to-transparent" />
       </div>
       
       <div className="relative z-10 flex flex-col h-full">
-        {/* League + Date/Time Row */}
+        {/* League + Date Row */}
         {(match.league || match.category) && (
-          <div className="mb-3 flex items-center justify-between gap-2 min-w-0">
-            <span className="pill pill-muted text-[10px] font-semibold hover:bg-white/10 transition-colors whitespace-nowrap flex-shrink-0">
+          <div className="mb-4 flex items-center justify-between gap-3 min-w-0">
+            <span className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[9px] font-medium text-white/70 hover:bg-white/10 transition-colors whitespace-nowrap flex-shrink-0">
               {formatLeague(match.league || match.category)}
             </span>
-            <div className="flex items-center gap-2 text-[11px] text-white/60 flex-shrink-0">
-              <div className="flex items-center gap-1.5">
-                <span className="font-medium whitespace-nowrap">{formatDateNoSeconds(match.date)}</span>
-              </div>
-              {match.time && (
-                <div className="flex items-center gap-1.5">
-                  <span className="text-white/40">⏰</span>
-                  <span className="font-medium whitespace-nowrap">{formatTimeShort(match.time)}</span>
-                </div>
-              )}
+            <div className="flex items-center gap-2 text-[10px] text-white/50 flex-shrink-0">
+              <span className="font-medium whitespace-nowrap">{formatDateOnly(match.date)}</span>
             </div>
           </div>
         )}
 
         {/* Teams */}
-        <div className="space-y-2 mb-4 min-w-0">
-          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+        <div className="space-y-3 mb-5 min-w-0 flex-1">
+          <div className="flex items-center gap-3 min-w-0">
             <div className="flex-1 text-right min-w-0">
-              <div className="font-bold text-white text-base sm:text-lg group-hover:text-[rgb(var(--brand-yellow))] transition-colors truncate">
+              <div className="font-semibold text-white text-base sm:text-lg group-hover:text-[rgb(var(--brand-yellow))] transition-colors break-words leading-tight">
                 {match.homeTeam}
               </div>
             </div>
-            <div className="text-white/40 font-light flex-shrink-0">vs</div>
+            <div className="text-white/30 font-light text-xs flex-shrink-0 px-1">vs</div>
             <div className="flex-1 min-w-0">
-              <div className="font-bold text-white text-base sm:text-lg group-hover:text-[rgb(var(--brand-yellow))] transition-colors truncate">
+              <div className="font-semibold text-white text-base sm:text-lg group-hover:text-[rgb(var(--brand-yellow))] transition-colors break-words leading-tight">
                 {match.awayTeam}
               </div>
             </div>
@@ -659,8 +663,8 @@ function MatchCard({ match, onClick, onDetails }: { match: HighlightMatch; onCli
           
           {/* Score */}
           {match.score && (
-            <div className="text-center">
-              <span className="text-2xl sm:text-3xl font-black text-[rgb(var(--brand-yellow))] drop-shadow-lg group-hover:scale-110 transition-transform inline-block">
+            <div className="text-center pt-1">
+              <span className="text-2xl sm:text-3xl font-bold text-[rgb(var(--brand-yellow))] group-hover:scale-105 transition-transform inline-block tracking-tight">
                 {match.score}
               </span>
             </div>
@@ -668,73 +672,18 @@ function MatchCard({ match, onClick, onDetails }: { match: HighlightMatch; onCli
         </div>
 
         {/* Action */}
-        <div className="mt-auto">
-          {/* Divider */}
-          <div className="mb-3 pb-3 border-b border-white/10" />
-          
+        <div className="mt-auto pt-4 border-t border-white/5">
           <button
             onClick={(e) => {
               e.stopPropagation();
               onDetails();
             }}
-            className="w-full btn btn-primary text-sm font-semibold hover:scale-[1.02] transition-transform shadow-lg shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/40"
+            className="w-full px-4 py-3 bg-[rgb(var(--brand-yellow))] text-black font-semibold rounded-lg hover:bg-[rgb(var(--brand-yellow))]/90 transition-all duration-200 shadow-lg shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/30 hover:scale-[1.02] active:scale-[0.98] text-sm flex items-center justify-center gap-2"
           >
-            View Details →
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function MatchListItem({ match, onClick }: { match: HighlightMatch; onClick: () => void }) {
-  return (
-    <div
-      onClick={onClick}
-      className="surface p-4 cursor-pointer group transition-all duration-300 hover:border-[rgb(var(--brand-yellow))]/30 hover:shadow-lg hover:shadow-[rgb(var(--brand-yellow))]/10 hover:-translate-y-0.5 relative overflow-hidden"
-    >
-      {/* Animated background gradient on hover */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-        <div className="absolute top-0 right-0 w-40 h-40 bg-[rgb(var(--brand-yellow))]/10 rounded-full blur-2xl" />
-      </div>
-      
-      <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-3">
-        {/* Teams & Score */}
-        <div className="flex-1">
-          <div className="flex items-center gap-2.5 mb-2 flex-wrap">
-            <div className="font-bold text-white text-base sm:text-lg group-hover:text-[rgb(var(--brand-yellow))] transition-colors">
-              {match.homeTeam}
-            </div>
-            <div className="text-white/40 font-light">vs</div>
-            <div className="font-bold text-white text-base sm:text-lg group-hover:text-[rgb(var(--brand-yellow))] transition-colors">
-              {match.awayTeam}
-            </div>
-            {match.score && (
-              <>
-                <div className="text-white/40">•</div>
-                <span className="text-lg sm:text-xl font-black text-[rgb(var(--brand-yellow))] drop-shadow-lg">{match.score}</span>
-              </>
-            )}
-          </div>
-          <div className="flex items-center gap-2.5 text-xs text-white/60 flex-wrap">
-            {(match.league || match.category) && (
-              <span className="pill pill-muted text-[10px] font-semibold">{formatLeague(match.league || match.category)}</span>
-            )}
-            <span className="font-medium text-[11px]">{formatDateNoSeconds(match.date)}</span>
-            {match.time && <span className="font-medium text-[11px]">⏰ {formatTimeShort(match.time)}</span>}
-          </div>
-        </div>
-
-        {/* Action */}
-        <div className="w-full md:min-w-[140px] md:w-auto">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onClick();
-            }}
-            className="w-full md:w-auto btn btn-primary font-semibold hover:scale-[1.02] transition-transform shadow-lg shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/40 mt-2 md:mt-0"
-          >
-            View Details →
+            <span>View Details</span>
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
           </button>
         </div>
       </div>

@@ -821,6 +821,40 @@ export default function MatchPlayerSlideover({
     }
   }, [src, currentSrc]);
 
+  // Skip first 3 seconds of video to avoid ScoreBat branding
+  useEffect(() => {
+    if (!open || !isVideoFile || !videoRef.current) return;
+    
+    const video = videoRef.current;
+    
+    const handleCanPlay = () => {
+      // Skip to 3 seconds if video hasn't started playing yet
+      if (video.currentTime < 3) {
+        video.currentTime = 3;
+      }
+    };
+    
+    const handleLoadedMetadata = () => {
+      // Set to 3 seconds as soon as metadata is loaded
+      if (video.duration > 3) {
+        video.currentTime = 3;
+      }
+    };
+    
+    video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+    
+    // Also try to set it immediately if video is already loaded
+    if (video.readyState >= 1 && video.currentTime < 3) {
+      video.currentTime = 3;
+    }
+    
+    return () => {
+      video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+    };
+  }, [open, isVideoFile, computedSrc]);
+
   if (!open) return null;
 
   return (
