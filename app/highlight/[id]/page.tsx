@@ -314,19 +314,20 @@ function MatchDetailContent({ match }: { match: HighlightMatch }) {
                   /* Video player - supports both MP4 and iframe */
                   <div className="absolute inset-[2px] rounded-lg overflow-hidden">
                     {match.videoSrc.includes('.mp4') || match.videoSrc.includes('streamable.com/video') ? (
-                     <iframe title="Real Madrid vs Valencia Player" marginHeight={0} marginWidth={0} src="https://embedsports.top/embed/admin/ppv-real-madrid-vs-valencia-cf/1" scrolling="no" allowFullScreen allow="encrypted-media; picture-in-picture;" width="100%" height="100%" frameBorder="0"></iframe>
+                     <iframe title="Real Madrid vs Valencia Player" marginHeight={0} marginWidth={0} src="https://embedsports.top/embed/admin/ppv-real-madrid-vs-valencia-cf/1" scrolling="no" allowFullScreen allow="autoplay; encrypted-media; picture-in-picture; accelerometer; gyroscope" width="100%" height="100%" frameBorder="0" style={{ touchAction: 'manipulation' }}></iframe>
                     ) : (
                       <iframe
                         title={`${match.homeTeam} vs ${match.awayTeam} Highlights`}
                         src={match.videoSrc || ''}
-                        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                        allow="autoplay; encrypted-media; fullscreen; picture-in-picture; accelerometer; gyroscope"
                         allowFullScreen
                         referrerPolicy="no-referrer"
                         className="w-full h-full border-0"
                         style={{ 
                           width: '100%', 
                           height: '100%',
-                          backgroundColor: '#000'
+                          backgroundColor: '#000',
+                          touchAction: 'manipulation'
                         }}
                       />
                     )}
