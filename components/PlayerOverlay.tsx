@@ -18,6 +18,7 @@ export default function PlayerOverlay({
   const [currentSrc, setCurrentSrc] = useState<string>(src);
   const backoffRef = useRef<number>(2000);
   const timerRef = useRef<any>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Reset internal src when the incoming src changes
   useEffect(() => {
@@ -62,6 +63,40 @@ export default function PlayerOverlay({
            base.includes('video/mp4') || base.includes('streamable.com');
   }, [src, currentSrc]);
 
+  // Skip first 3 seconds of video to avoid ScoreBat branding
+  useEffect(() => {
+    if (!open || !isVideoFile || !videoRef.current) return;
+    
+    const video = videoRef.current;
+    
+    const handleCanPlay = () => {
+      // Skip to 3 seconds if video hasn't started playing yet
+      if (video.currentTime < 3) {
+        video.currentTime = 3;
+      }
+    };
+    
+    const handleLoadedMetadata = () => {
+      // Set to 3 seconds as soon as metadata is loaded
+      if (video.duration > 3) {
+        video.currentTime = 3;
+      }
+    };
+    
+    video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+    
+    // Also try to set it immediately if video is already loaded
+    if (video.readyState >= 1 && video.currentTime < 3) {
+      video.currentTime = 3;
+    }
+    
+    return () => {
+      video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+    };
+  }, [open, isVideoFile, computedSrc]);
+
   if (!open) return null;
 
   return (
@@ -77,6 +112,7 @@ export default function PlayerOverlay({
           <div className="w-full aspect-video bg-black">
             {isVideoFile ? (
               <video
+                ref={videoRef}
                 controls
                 autoPlay
                 className="w-full h-full"

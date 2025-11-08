@@ -1,372 +1,375 @@
 "use client";
 
-import PlayerOverlay from '@/components/PlayerOverlay';
-import { enrichGames } from '@/lib/catalog';
 import { getDisplayName } from '@/lib/utils';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-type GameItem = {
+type Match = {
   id: string;
-  sport: string;
-  league: string;
   home: string;
   away: string;
   time: string;
-  thumb?: string;
-  videoSrc: string;
+  league: string;
+  pattern: string;
+  bet: string;
+  betType: 'Over 1.5 Goals' | 'Over 2.5 Goals';
+  confidence: string;
+  ms1: string;
+  ms0: string;
+  ms2: string;
+  result?: string;
+  status: 'PENDING' | 'WON' | 'FAILED';
+  category: 'PERFECT' | 'NEAR-PERFECT' | 'STRONG_FAVORITE';
 };
 
-  type Prediction = {
-  gameId: string;
-  predictedWinner: 'home' | 'away' | 'draw';
-  confidence: number;
-  points?: number;
-  predictedScore?: { home: number; away: number };
-  predictedScoreDisplay?: string; // Display format like "3-1"
-  status?: 'won' | 'failed' | null;
-  msbs?: string; // Over type like "Over 1.5"
-  actualScore?: string | null; // Actual match score
-  matchDate?: string;
-  createdAt?: string;
-  timeLabel?: string;
-};
+// Static data from markdown - all matches are Over 2.5 Goals
+const PREDICTIONS_DATA: Match[] = [
+  // Perfect Pattern Matches - Over 2.5 Goals
+  {
+    id: '1',
+    home: 'Nomme JK Kalju',
+    away: 'Paide Linnameeskond',
+    time: '13:30',
+    league: 'Estonya-Premium Lig',
+    pattern: 'BTTS Yes @ 2.30',
+    bet: 'Over 1.5 Goals @ 2.29',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '2.12',
+    ms0: '3.18',
+    ms2: '2.33',
+    result: 'Nomme JK Kalju v Paide Linnameeskond',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '4',
+    home: 'Rijnsburgse Boys',
+    away: 'Katwijk',
+    time: '15:30',
+    league: 'Hollanda-Tweede Divisie',
+    pattern: 'BTTS Yes @ 2.30',
+    bet: 'Over 1.5 Goals @ 2.3',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '1.8',
+    ms0: '3.35',
+    ms2: '2.77',
+    result: 'Rijnsburgse Boys v Katwijk',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '5',
+    home: 'Eintracht Trier',
+    away: 'Bahlinger SC',
+    time: '16:00',
+    league: 'Almanya-Bölgesel Lig Güney Bati',
+    pattern: 'BTTS Yes @ 2.25',
+    bet: 'Over 1.5 Goals @ 2.24',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '1.25',
+    ms0: '4.62',
+    ms2: '5.12',
+    result: 'Eintracht Trier v Bahlinger SC',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '6',
+    home: 'Lehnerz',
+    away: 'Sonnenhof Grossaspach',
+    time: '16:00',
+    league: 'Almanya-Bölgesel Lig Güney Bati',
+    pattern: 'BTTS Yes @ 2.46',
+    bet: 'Over 1.5 Goals @ 2.45',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '2.65',
+    ms0: '3.46',
+    ms2: '1.82',
+    result: 'Lehnerz v Sonnenhof Grossaspach',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '7',
+    home: 'Newcastle United U21',
+    away: 'Burnley U21',
+    time: '16:00',
+    league: 'Ingiltere-Premier Lig 2',
+    pattern: 'BTTS Yes @ 2.58',
+    bet: 'Over 1.5 Goals @ 2.58',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '1.65',
+    ms0: '3.66',
+    ms2: '2.98',
+    result: 'Newcastle United U21 v Burnley U21',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '8',
+    home: 'Young Boys II',
+    away: 'Cham',
+    time: '16:00',
+    league: 'Isviçre-1.Lig Promotion',
+    pattern: 'BTTS Yes @ 2.41',
+    bet: 'Over 1.5 Goals @ 2.41',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '1.92',
+    ms0: '3.34',
+    ms2: '2.53',
+    result: 'Young Boys II v Cham',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '9',
+    home: 'Sarpsborg 08',
+    away: 'Fredrikstad',
+    time: '16:00',
+    league: 'Norveç-Eliteserien',
+    pattern: 'BTTS Yes @ 2.25',
+    bet: 'Over 1.5 Goals @ 2.24',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '2.02',
+    ms0: '3.37',
+    ms2: '2.58',
+    result: 'Sarpsborg 08 v Fredrikstad',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '11',
+    home: 'Holywell',
+    away: 'Buckley Town',
+    time: '17:00',
+    league: 'Galler-FAW Championship Kuzey',
+    pattern: 'BTTS Yes @ 2.25',
+    bet: 'Over 1.5 Goals @ 2.24',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '1.33',
+    ms0: '4.3',
+    ms2: '4.34',
+    result: 'Holywell v Buckley Town',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '12',
+    home: 'Brentford U21',
+    away: 'Watford U21',
+    time: '17:00',
+    league: 'Ingiltere-Professional Development Lig',
+    pattern: 'BTTS Yes @ 2.30',
+    bet: 'Over 1.5 Goals @ 2.29',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '1.12',
+    ms0: '5.87',
+    ms2: '6.7',
+    result: 'Brentford U21 v Watford U21',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '15',
+    home: 'Basel II',
+    away: 'Breitenrain',
+    time: '17:30',
+    league: 'Isviçre-1.Lig Promotion',
+    pattern: 'BTTS Yes @ 2.30',
+    bet: 'Over 1.5 Goals @ 2.29',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '1.6',
+    ms0: '3.51',
+    ms2: '3.3',
+    result: 'Basel II v Breitenrain',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '16',
+    home: 'Umm Salal',
+    away: 'Al Sadd',
+    time: '17:30',
+    league: 'Katar-Yildizlar Ligi',
+    pattern: 'BTTS Yes @ 2.30',
+    bet: 'Over 1.5 Goals @ 2.29',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '1.6',
+    ms0: '3.51',
+    ms2: '3.3',
+    result: '',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '19',
+    home: 'Morecambe',
+    away: 'Sutton United',
+    time: '18:00',
+    league: 'Ingiltere-Ulusal Lig',
+    pattern: 'BTTS Yes @ 2.25',
+    bet: 'Over 1.5 Goals @ 2.26',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '2.02',
+    ms0: '3.29',
+    ms2: '2.39',
+    result: 'Morecambe v Sutton United',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '20',
+    home: 'Bedford Town',
+    away: 'Merthyr Town',
+    time: '18:00',
+    league: 'Ingiltere-Ulusal Lig N / S Kuzey',
+    pattern: 'BTTS Yes @ 2.25',
+    bet: 'Over 1.5 Goals @ 2.25',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '1.95',
+    ms0: '3.31',
+    ms2: '2.5',
+    result: 'Bedford Town v Merthyr Town',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '21',
+    home: 'Lilleström',
+    away: 'Stabaek',
+    time: '18:00',
+    league: 'Norveç-1.Lig',
+    pattern: 'Over 2.5 Goals @ 1.15',
+    bet: 'Over 2.5 Goals @ 1.15',
+    betType: 'Over 2.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '1.1',
+    ms0: '5.58',
+    ms2: '7.97',
+    result: 'Lilleström v Stabaek',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '23',
+    home: 'Zürich',
+    away: 'Luzern',
+    time: '20:00',
+    league: 'Isviçre-Süper Lig',
+    pattern: 'BTTS Yes @ 2.30',
+    bet: 'Over 1.5 Goals @ 2.29',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '2.04',
+    ms0: '3.35',
+    ms2: '2.55',
+    result: 'Zürich v Luzern',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '24',
+    home: 'Servette',
+    away: 'Thun',
+    time: '22:30',
+    league: 'Isviçre-Süper Lig',
+    pattern: 'BTTS Yes @ 2.30',
+    bet: 'Over 1.5 Goals @ 2.3',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '1.86',
+    ms0: '3.4',
+    ms2: '2.87',
+    result: 'Servette v Thun',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+  {
+    id: '25',
+    home: 'Monaco',
+    away: 'Lens',
+    time: '23:05',
+    league: 'Fransa-Ligue 1',
+    pattern: 'BTTS Yes @ 2.30',
+    bet: 'Over 1.5 Goals @ 2.3',
+    betType: 'Over 1.5 Goals',
+    confidence: 'Very High (100% historical)',
+    ms1: '1.85',
+    ms0: '3.42',
+    ms2: '2.89',
+    result: 'Monaco v Lens',
+    status: 'PENDING',
+    category: 'PERFECT',
+  },
+];
 
-const DEFAULT_SRC = 'https://voodc.com/embed/1/85818c92a38e9e86847a8599a08f9887847c.html';
+// Get day of week from date string (DD-MM-YYYY format)
+function getDayOfWeek(dateStr: string): string {
+  const [day, month, year] = dateStr.split('-').map(Number);
+  const date = new Date(year, month - 1, day);
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  return days[date.getDay()];
+}
 
-// Generate dates for current week (Monday to Sunday)
-function getWeekDates() {
-  const today = new Date();
-  const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, etc.
-  const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // Get Monday of current week
+// Group matches by day of week (all matches are on 08-11-2025)
+function groupMatchesByDay(matches: Match[]): Record<string, Match[]> {
+  const grouped: Record<string, Match[]> = {};
+  const dateStr = '08-11-2025'; // All matches are on this date
+  const dayName = getDayOfWeek(dateStr);
   
-  const monday = new Date(today);
-  monday.setDate(today.getDate() + mondayOffset);
+  if (!grouped[dayName]) {
+    grouped[dayName] = [];
+  }
   
-  const weekDates: Record<string, Date> = {};
-  const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  
-  dayNames.forEach((day, index) => {
-    const date = new Date(monday);
-    date.setDate(monday.getDate() + index);
-    weekDates[day] = date;
+  matches.forEach(match => {
+    grouped[dayName].push(match);
   });
   
-  return weekDates;
-}
-
-// Calculate if Over 1.5 is won (total goals >= 2)
-// Note: Predictions are scraped for Over 3.5, but status uses Over 1.5 logic (2+ goals = won)
-function calculateOver15Status(actualScore: string | null): 'won' | 'failed' | null {
-  if (!actualScore) return null;
-  
-  // Extract goals from score like "2-1" or "3-0"
-  const match = actualScore.match(/(\d+)\s*[-:]\s*(\d+)/);
-  if (!match) return null;
-  
-  const homeGoals = parseInt(match[1], 10);
-  const awayGoals = parseInt(match[2], 10);
-  const totalGoals = homeGoals + awayGoals;
-  
-  // For Over 1.5, we need >= 2 goals
-  if (totalGoals >= 2) {
-    return 'won';
-  } else {
-    return 'failed';
-  }
-}
-
-// Mock predictions data with dates for each day of the week
-function generateMockPredictions(): any[] {
-  const weekDates = getWeekDates();
-  const leagues = ['Brazil', 'Meksika', 'Uruguay', 'Paraguay', 'Venezuela', 'Kosta Rika', 'Japonya', 'Almanya', 'Ingiltere', 'Spain'];
-  const teams = [
-    ['Atletico', 'Paysandu'], ['Guadalajara', 'Necaxa'], ['Toluca', 'Puebla'],
-    ['Montevideo', 'Boston'], ['Deportivo', 'Monagas'], ['Sporting', 'CS'],
-    ['Honda', 'Okinawa'], ['Bayern', 'Dortmund'], ['Arsenal', 'Chelsea'],
-    ['Real Madrid', 'Barcelona']
-  ];
-  const times = ['01:00', '02:00', '02:30', '05:00', '07:00', '10:00', '14:00', '16:00', '19:00', '22:00'];
-        const overType = 'Over 1.5';
-  
-  const mockData: any[] = [];
-  const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  
-  dayNames.forEach((day, dayIndex) => {
-    const matchesPerDay = 10 + Math.floor(Math.random() * 15); // 10-24 matches per day
-    
-    for (let i = 0; i < matchesPerDay; i++) {
-      const leagueIndex = Math.floor(Math.random() * leagues.length);
-      const teamIndex = Math.floor(Math.random() * teams.length);
-      const timeIndex = Math.floor(Math.random() * times.length);
-      
-      // Generate predicted score for Over 1.5 (sum >= 2)
-      // Ensure total goals is at least 2
-      const predictedHomeGoals = Math.floor(Math.random() * 3) + 1; // 1-3 goals
-      const predictedAwayGoals = Math.floor(Math.random() * 3) + 1; // 1-3 goals
-      const predictedScoreDisplay = `${predictedHomeGoals} - ${predictedAwayGoals}`;
-      
-      // Generate actual score - sometimes finished, sometimes pending
-      const isFinished = Math.random() > 0.3; // 70% finished
-      let actualScore: string | null = null;
-      let status: 'won' | 'failed' | null = null;
-      
-      if (isFinished) {
-        // Generate realistic scores
-        const homeGoals = Math.floor(Math.random() * 5);
-        const awayGoals = Math.floor(Math.random() * 5);
-        actualScore = `${homeGoals} - ${awayGoals}`;
-        status = calculateOver15Status(actualScore);
-      }
-      
-      mockData.push({
-        id: `${day.toLowerCase()}-${leagueIndex}-${i}`,
-        sport: 'Football',
-        league: leagues[leagueIndex],
-        home: teams[teamIndex][0],
-        away: teams[teamIndex][1],
-        timeLabel: times[timeIndex],
-        msbs: overType,
-        predictedScoreDisplay: predictedScoreDisplay,
-        actualScore: actualScore,
-        status: status,
-        matchDate: weekDates[day].toISOString().split('T')[0], // Store as YYYY-MM-DD
-        createdAt: weekDates[day].toISOString(),
-      });
-    }
+  // Sort matches by time
+  Object.keys(grouped).forEach(dayKey => {
+    grouped[dayKey].sort((a, b) => a.time.localeCompare(b.time));
   });
   
-  return mockData;
-}
-
-// Parse date string handling different formats (DD-MM-YYYY or YYYY-MM-DD)
-function parseDate(dateStr: string | Date | undefined): Date {
-  if (!dateStr) return new Date();
-  if (dateStr instanceof Date) return dateStr;
-  
-  try {
-    // If it's in DD-MM-YYYY format (from Firestore)
-    if (typeof dateStr === 'string' && dateStr.includes('-')) {
-      const parts = dateStr.split('-');
-      
-      // Check if it's DD-MM-YYYY format (e.g., "02-11-2025")
-      if (parts.length === 3 && parts[0].length <= 2 && parts[2].length === 4) {
-        const day = parseInt(parts[0], 10);
-        const month = parseInt(parts[1], 10) - 1; // Month is 0-indexed
-        const year = parseInt(parts[2], 10);
-        return new Date(year, month, day);
-      }
-      
-      // Check if it's YYYY-MM-DD format (e.g., "2025-11-02")
-      if (parts.length === 3 && parts[0].length === 4) {
-        const year = parseInt(parts[0], 10);
-        const month = parseInt(parts[1], 10) - 1; // Month is 0-indexed
-        const day = parseInt(parts[2], 10);
-        return new Date(year, month, day);
-      }
-    }
-    
-    // Fallback to standard Date parsing
-    const date = new Date(dateStr);
-    if (isNaN(date.getTime())) return new Date();
-    return date;
-  } catch {
-    return new Date();
-  }
-}
-
-// Get day of week name from date string or Date object
-function getDayOfWeek(dateStr: string | Date | undefined): string {
-  if (!dateStr) return '';
-  
-  try {
-    const date = parseDate(dateStr);
-    if (isNaN(date.getTime())) return '';
-    
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    return days[date.getDay()];
-  } catch {
-    return '';
-  }
+  return grouped;
 }
 
 export default function PredictionsPage() {
-  const [selected, setSelected] = useState<GameItem | null>(null);
   const [expandedKeys, setExpandedKeys] = useState<Record<string, boolean>>({});
-  const [entries, setEntries] = useState<any[]>([]);
-  const [isMounted, setIsMounted] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); // Track initial loading state
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const [filtersOpen, setFiltersOpen] = useState<boolean>(true); // Mobile/tablet filter panel
-  const [dayDropdownOpen, setDayDropdownOpen] = useState<boolean>(false);
+  const [selectedFilter, setSelectedFilter] = useState<'all' | 'Over 1.5 Goals' | 'Over 2.5 Goals'>('all');
   const groupRefs = useRef<Record<string, HTMLDivElement | null>>({});
-  const loadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const dayDropdownRef = useRef<HTMLDivElement>(null);
 
-  // Fetch predictions from Firestore API
-  const fetchPredictions = async (showLoading = false) => {
-    if (showLoading) setIsRefreshing(true);
-    
-    // Clear any existing timeout
-    if (loadingTimeoutRef.current) {
-      clearTimeout(loadingTimeoutRef.current);
+  // Filter matches based on selected filter
+  const filteredMatches = useMemo(() => {
+    if (selectedFilter === 'all') {
+      return PREDICTIONS_DATA;
     }
-    
-    // Add timeout to prevent stuck loading (10 seconds)
-    loadingTimeoutRef.current = setTimeout(() => {
-      console.warn('Fetch timeout - forcing loading to complete');
-      setIsLoading(false);
-      if (showLoading) setIsRefreshing(false);
-    }, 10000);
-    
-    try {
-      // Add timestamp to bust cache
-      const timestamp = Date.now();
-      const controller = new AbortController();
-      const timeoutAbort = setTimeout(() => controller.abort(), 8000); // 8 second timeout for fetch
-      
-      const res = await fetch(`/api/predictions?t=${timestamp}`, { 
-        cache: 'no-store',
-        signal: controller.signal,
-        headers: {
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache',
-        },
-      });
-      
-      clearTimeout(timeoutAbort);
-      
-      if (!res.ok) {
-        throw new Error(`Failed to fetch predictions: ${res.status}`);
-      }
-      
-      const data = await res.json();
-      if (Array.isArray(data)) {
-        setEntries(data);
-      } else {
-        setEntries([]);
-      }
-    } catch (err: any) {
-      console.error('Error fetching predictions:', err);
-      if (err.name !== 'AbortError') {
-        setEntries([]); // Set empty array instead of mock data
-      }
-    } finally {
-      if (loadingTimeoutRef.current) {
-        clearTimeout(loadingTimeoutRef.current);
-        loadingTimeoutRef.current = null;
-      }
-      setIsLoading(false); // Always set loading to false after first fetch
-      if (showLoading) setIsRefreshing(false);
-    }
-  };
+    return PREDICTIONS_DATA.filter(m => m.betType === selectedFilter);
+  }, [selectedFilter]);
 
-  useEffect(() => {
-    setIsMounted(true);
-    fetchPredictions();
-    
-    // Refresh predictions every 30 seconds to catch updates (silently in background)
-    const interval = setInterval(() => {
-      fetchPredictions(false);
-    }, 30000);
-    
-    return () => clearInterval(interval);
-  }, []);
-
-  const enrichedGames = useMemo(() => {
-    return enrichGames(entries.map((m: any) => ({
-      sport: m.sport,
-      league: m.league,
-      home: m.home,
-      away: m.away,
-      videoSrc: '',
-      time: m.timeLabel || '',
-    })));
-  }, [entries]);
-
-  const gamesWithPredictions = useMemo(() => {
-    return enrichedGames.map((game, idx) => {
-      const src = entries[idx];
-      return {
-        game,
-        prediction: {
-          gameId: src?.id,
-          predictedWinner: 'home',
-          confidence: 0,
-          status: src?.status || null,
-          msbs: src?.msbs, // This is now the over type like "Over 1.5"
-          predictedScoreDisplay: src?.predictedScoreDisplay || src?.predictedScore,
-          actualScore: src?.actualScore,
-          matchDate: src?.matchDate || src?.matchDateISO,
-          createdAt: src?.createdAt,
-          timeLabel: src?.timeLabel,
-        } as Prediction,
-      };
-    });
-  }, [enrichedGames, entries]);
-
-  // Group predictions by day of week
+  // Group matches by day
   const groupedByDay = useMemo(() => {
-    const groups: Record<string, any[]> = {};
-    let skippedCount = 0;
-    
-    gamesWithPredictions.forEach((entry, idx) => {
-      const dayName = getDayOfWeek(entry.prediction.matchDate || entry.prediction.createdAt);
-      
-      if (!dayName) {
-        skippedCount++;
-        // Still add to a fallback group instead of skipping completely
-        const fallbackDay = 'Unknown';
-        if (!groups[fallbackDay]) groups[fallbackDay] = [];
-        groups[fallbackDay].push(entry);
-        return;
-      }
-      
-      if (!groups[dayName]) groups[dayName] = [];
-      groups[dayName].push(entry);
-    });
-    
-    if (skippedCount > 0) {
-    }
-    
-    return groups;
-  }, [gamesWithPredictions]);
+    return groupMatchesByDay(filteredMatches);
+  }, [filteredMatches]);
 
   const dayKeys = useMemo(() => {
-    const dayOrder = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const dayOrder = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const availableDays = Object.keys(groupedByDay);
     const orderedDays = dayOrder.filter(day => availableDays.includes(day));
-    // Add any remaining days (like "Unknown") at the end
     const remainingDays = availableDays.filter(day => !dayOrder.includes(day));
     return [...orderedDays, ...remainingDays];
   }, [groupedByDay]);
-
-  // Abbreviate day names for chip display
-  const getDayAbbreviation = (day: string): string => {
-    const abbreviations: Record<string, string> = {
-      'Monday': 'Mon',
-      'Tuesday': 'Tue',
-      'Wednesday': 'Wed',
-      'Thursday': 'Thu',
-      'Friday': 'Fri',
-      'Saturday': 'Sat',
-      'Sunday': 'Sund',
-    };
-    return abbreviations[day] || day.slice(0, 4);
-  };
-
-  // Calculate stats
-  const stats = useMemo(() => {
-    const totalMatches = entries.length;
-    const played = entries.filter((e: any) => e.status === 'won' || e.status === 'failed').length;
-    const won = entries.filter((e: any) => e.status === 'won').length;
-    const successRate = played > 0 ? Math.round((won / played) * 100) : 0;
-    
-    return {
-      totalMatches,
-      played,
-      successRate,
-    };
-  }, [entries]);
 
   // Initialize expanded state - expand first day by default
   useEffect(() => {
@@ -391,94 +394,23 @@ export default function PredictionsPage() {
     setExpandedKeys(next);
   }
 
-  // Close dropdowns when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (!target.closest('[data-dropdown]')) {
-        setDayDropdownOpen(false);
-      }
+  // Calculate stats
+  const stats = useMemo(() => {
+    const totalMatches = filteredMatches.length;
+    const over15Matches = filteredMatches.filter(m => m.betType === 'Over 1.5 Goals').length;
+    const over25Matches = filteredMatches.filter(m => m.betType === 'Over 2.5 Goals').length;
+    
+    return {
+      totalMatches,
+      over15Matches,
+      over25Matches,
     };
-
-    if (dayDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
-    }
-  }, [dayDropdownOpen]);
-
-  // Get active day filter (first expanded key, or first available day)
-  const activeDayFilter = dayKeys.find(k => expandedKeys[k]) || dayKeys[0] || 'All Days';
-
-  // Show loading state until client-side hydration completes AND initial data fetch completes
-  if (!isMounted || isLoading) {
-    return (
-      
-      <div className="space-y-6 sm:space-y-8 md:space-y-10">
-        <section className="surface p-3 sm:p-5 md:p-6 hero-glow relative">
-          <div className="flex flex-col items-center justify-center py-20 md:py-32">
-            {/* Animated spinner */}
-            <div className="relative mb-6">
-              <div className="w-16 h-16 border-4 border-white/10 rounded-full"></div>
-              <div className="absolute top-0 left-0 w-16 h-16 border-4 border-transparent border-t-[rgb(var(--brand-yellow))] rounded-full animate-spin"></div>
-              {/* Outer glow effect */}
-              <div className="absolute inset-0 w-16 h-16 rounded-full bg-[rgb(var(--brand-yellow))]/20 blur-xl animate-pulse"></div>
-            </div>
-            
-            {/* Loading text with animation */}
-            <div className="text-center space-y-2">
-              <div className="text-lg md:text-xl font-semibold text-white/90 animate-pulse">
-                Loading predictions...
-              </div>
-              <div className="text-sm text-white/50">
-                Fetching your match predictions
-              </div>
-            </div>
-            
-            {/* Progress dots */}
-            <div className="flex items-center gap-2 mt-8">
-              <div className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-bounce" style={{ animationDelay: '0ms' }}></div>
-              <div className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-bounce" style={{ animationDelay: '150ms' }}></div>
-              <div className="w-2 h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-bounce" style={{ animationDelay: '300ms' }}></div>
-            </div>
-          </div>
-        </section>
-      </div>
-    );
-  }
-
-  // Show empty state if no predictions found (only after loading completes)
-  if (isMounted && !isLoading && entries.length === 0) {
-    return (
-      <div className="space-y-6 sm:space-y-8 md:space-y-10">
-        <section className="surface p-3 sm:p-5 md:p-6 hero-glow relative">
-          <div className="flex flex-col items-center justify-center py-20 md:py-32">
-            {/* Empty state icon */}
-            <div className="mb-6 relative">
-              <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-                <svg className="w-10 h-10 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-              {/* Subtle glow */}
-              <div className="absolute inset-0 w-20 h-20 rounded-full bg-[rgb(var(--brand-yellow))]/10 blur-xl"></div>
-            </div>
-            
-            <div className="text-center space-y-3 max-w-md">
-              <div className="text-xl font-semibold text-white/90">No predictions found</div>
-              <div className="text-white/50 text-sm leading-relaxed">
-                Predictions will appear here once they are added. Check back later.
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    );
-  }
+  }, [filteredMatches]);
 
   return (
-    <div className="space-y-6 sm:space-y-8 md:space-y-10">
-      <section className="surface p-3 sm:p-5 md:p-6 hero-glow">
-        {/* Animated background gradient - fixed positioning */}
+    <div className="space-y-6 sm:space-y-8 md:space-y-10 w-full max-w-full overflow-x-hidden box-border">
+      <section className="surface p-3 sm:p-5 md:p-6 hero-glow relative w-full max-w-full box-border overflow-x-hidden">
+        {/* Animated background gradient */}
         <div className="absolute inset-0 opacity-10 pointer-events-none z-0 rounded-xl overflow-hidden">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-[rgb(var(--brand-yellow))] rounded-full blur-3xl" 
                style={{ animation: 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite' }} />
@@ -487,167 +419,74 @@ export default function PredictionsPage() {
         </div>
         
         <div className="relative z-10">
+          {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
             <div className="flex-1">
-              <div className="text-[10px] uppercase tracking-[0.2em] text-white/60">Football Predictions</div>
+              <div className="text-[10px] uppercase tracking-[0.2em] text-white/60">Subtle Pattern Matches - 08-11-2025</div>
               <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold mt-1">
-                Weekly <span className="text-[rgb(var(--brand-yellow))]">Predictions</span>
+                Premium <span className="text-[rgb(var(--brand-yellow))]">Predictions</span>
               </h2>
               <p className="text-white/70 mt-2 text-sm sm:text-base max-w-prose">
-                View all your predictions organized by day of the week. Track your success rate and see which predictions have been resolved.
+                High-confidence predictions based on historical pattern analysis. Only Over 1.5 Goals and Over 2.5 Goals matches.
               </p>
-            </div>
-            <div className="flex-shrink-0 ml-auto lg:ml-0">
-              <button
-                onClick={() => fetchPredictions(true)}
-                disabled={isRefreshing}
-                className="pill pill-active disabled:opacity-50 flex items-center gap-2 touch-manipulation min-h-[40px] text-xs sm:text-sm whitespace-nowrap"
-                title="Refresh predictions"
-              >
-                <svg 
-                  className={`w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 ${isRefreshing ? 'animate-spin' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                <span>{isRefreshing ? 'Refreshing...' : 'Refresh'}</span>
-              </button>
             </div>
           </div>
 
           {/* Stats Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
-            <div className="border border-white/10 bg-white/5 rounded-lg p-4 sm:p-5 group hover:border-[rgb(var(--brand-yellow))]/30 transition-all">
+            <div className="border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm rounded-lg p-4 sm:p-5 group hover:border-white/[0.15] transition-all">
               <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide mb-1">Total Matches</div>
               <div className="text-2xl sm:text-3xl font-bold text-[rgb(var(--brand-yellow))]">{stats.totalMatches}</div>
             </div>
-            <div className="border border-white/10 bg-white/5 rounded-lg p-4 sm:p-5 group hover:border-[rgb(var(--brand-yellow))]/30 transition-all">
-              <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide mb-1">Played</div>
-              <div className="text-2xl sm:text-3xl font-bold">{stats.played}</div>
+            <div className="border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm rounded-lg p-4 sm:p-5 group hover:border-white/[0.15] transition-all">
+              <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide mb-1">Over 1.5 Goals</div>
+              <div className="text-2xl sm:text-3xl font-bold text-white/95">{stats.over15Matches}</div>
             </div>
-            <div className="border border-white/10 bg-white/5 rounded-lg p-4 sm:p-5 group hover:border-[rgb(var(--brand-yellow))]/30 transition-all">
-              <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide mb-1">Success Rate</div>
-              <div className="text-2xl sm:text-3xl font-bold">{stats.successRate}%</div>
+            <div className="border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm rounded-lg p-4 sm:p-5 group hover:border-white/[0.15] transition-all">
+              <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide mb-1">Over 2.5 Goals</div>
+              <div className="text-2xl sm:text-3xl font-bold text-white/95">{stats.over25Matches}</div>
             </div>
           </div>
 
-          {/* Mobile/Tablet Filter Panel - Collapsible */}
-          <div className="lg:hidden relative z-10 mb-4">
-            <div className="bg-white/5 border border-white/10 rounded-xl overflow-visible">
-              {/* Filter Header */}
-              <button
-                onClick={() => setFiltersOpen(!filtersOpen)}
-                className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 transition-colors touch-manipulation rounded-t-xl"
-              >
-                <div className="flex items-center gap-2.5">
-                  <svg className="w-4 h-4 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                  </svg>
-                  <span className="text-white font-medium text-sm">Filters</span>
-                </div>
-                <svg 
-                  className={`w-4 h-4 text-white/60 transition-transform duration-200 ${filtersOpen ? 'rotate-180' : ''}`} 
-                  fill="none" 
-                  viewBox="0 0 24 24" 
-                  stroke="currentColor" 
-                  strokeWidth={2}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-
-              {/* Filter Content */}
-              {filtersOpen && (
-                <div className="px-4 pb-4 space-y-3 pt-2 relative">
-                  {/* Day Dropdown */}
-                  <div className={`relative ${dayDropdownOpen ? 'z-[1001]' : 'z-10'}`} data-dropdown>
-                    <button
-                      onClick={() => setDayDropdownOpen(!dayDropdownOpen)}
-                      className="w-full flex items-center justify-between px-4 py-3 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors touch-manipulation"
-                    >
-                      <span className="text-white text-sm font-medium">
-                        {activeDayFilter}
-                      </span>
-                      <svg 
-                        className={`w-4 h-4 text-white/60 transition-transform duration-200 ${dayDropdownOpen ? 'rotate-180' : ''}`} 
-                        fill="none" 
-                        viewBox="0 0 24 24" 
-                        stroke="currentColor" 
-                        strokeWidth={2}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </button>
-                    
-                    {dayDropdownOpen && (
-                      <div 
-                        ref={dayDropdownRef}
-                        className="absolute top-full left-0 right-0 mt-1 bg-[rgb(15,15,20)] border border-white/10 rounded-lg shadow-xl z-[1001] max-h-64 overflow-y-auto"
-                      >
-                        {dayKeys.map(day => (
-                          <button
-                            key={day}
-                            onClick={() => {
-                              const el = groupRefs.current[day];
-                              if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                              toggleKey(day, true);
-                              setDayDropdownOpen(false);
-                            }}
-                            className={
-                              "w-full flex items-center justify-between px-4 py-3 text-left hover:bg-white/5 transition-colors touch-manipulation border-b border-white/5 last:border-b-0 " +
-                              (expandedKeys[day] 
-                                ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))]' 
-                                : 'text-white/80')
-                            }
-                          >
-                            <span className="font-medium text-sm">{day}</span>
-                            {expandedKeys[day] && (
-                              <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                              </svg>
-                            )}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Expand/Collapse Controls */}
-                  <div className="flex items-center gap-2 pt-1">
-                    <button 
-                      className="flex-1 px-4 py-2.5 rounded-lg bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white text-sm font-medium touch-manipulation transition-all duration-200 inline-flex items-center justify-center gap-2"
-                      onClick={expandAll}
-                      title="Expand all"
-                    >
-                      <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                      </svg>
-                      <span>Expand</span>
-                    </button>
-                    <button 
-                      className="flex-1 px-4 py-2.5 rounded-lg bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white text-sm font-medium touch-manipulation transition-all duration-200 inline-flex items-center justify-center gap-2"
-                      onClick={collapseAll}
-                      title="Collapse all"
-                    >
-                      <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-                      </svg>
-                      <span>Collapse</span>
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
+          {/* Filter Chips */}
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-6">
+            <button
+              onClick={() => setSelectedFilter('all')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                selectedFilter === 'all'
+                  ? 'bg-[rgb(var(--brand-yellow))] text-black'
+                  : 'bg-white/[0.02] text-white/70 hover:bg-white/[0.05] border border-white/[0.08] backdrop-blur-sm'
+              }`}
+            >
+              All Matches
+            </button>
+            <button
+              onClick={() => setSelectedFilter('Over 1.5 Goals')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                selectedFilter === 'Over 1.5 Goals'
+                  ? 'bg-[rgb(var(--brand-yellow))] text-black'
+                  : 'bg-white/[0.02] text-white/70 hover:bg-white/[0.05] border border-white/[0.08] backdrop-blur-sm'
+              }`}
+            >
+              Over 1.5 Goals
+            </button>
+            <button 
+              onClick={() => setSelectedFilter('Over 2.5 Goals')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                selectedFilter === 'Over 2.5 Goals'
+                  ? 'bg-[rgb(var(--brand-yellow))] text-black'
+                  : 'bg-white/[0.02] text-white/70 hover:bg-white/[0.05] border border-white/[0.08] backdrop-blur-sm'
+              }`}
+            >
+              Over 2.5 Goals
+            </button>
           </div>
 
           {/* Desktop Sticky chips to jump to days */}
-          <div className="hidden lg:block sticky-rail -mx-3 sm:-mx-4 px-3 sm:px-4 py-2 relative">
+          <div className="hidden lg:block sticky-rail -mx-3 sm:-mx-4 px-3 sm:px-4 py-2 relative mb-6">
             <div className="fade-left"></div>
             <div className="fade-right"></div>
             <div className="flex items-center gap-1.5 sm:gap-2">
-              {/* Middle scrollable chips */}
               <div className="flex-1 scroll-x-only no-scrollbar min-w-0">
                 <div className="flex items-center gap-1.5 sm:gap-2 w-max">
                   {dayKeys.map(day => (
@@ -665,7 +504,6 @@ export default function PredictionsPage() {
                   ))}
                 </div>
               </div>
-              {/* Right fixed controls */}
               <div className="ml-1.5 sm:ml-2 flex items-center gap-1 sm:gap-2 flex-shrink-0">
                 <button className="pill pill-muted touch-manipulation min-h-[32px] text-[10px] sm:text-xs whitespace-nowrap" onClick={expandAll}>Expand</button>
                 <button className="pill pill-muted touch-manipulation min-h-[32px] text-[10px] sm:text-xs whitespace-nowrap" onClick={collapseAll}>Collapse</button>
@@ -673,10 +511,10 @@ export default function PredictionsPage() {
             </div>
           </div>
 
-          {/* Predictions List */}
-          {gamesWithPredictions.length === 0 ? (
+          {/* Matches List */}
+          {filteredMatches.length === 0 ? (
             <div className="text-center py-12 text-white/60">
-              <p>No predictions found</p>
+              <p>No matches found for the selected filter</p>
             </div>
           ) : (
             <div className="space-y-6 mt-6">
@@ -695,27 +533,14 @@ export default function PredictionsPage() {
 
                 {isOpen && (
                   <div className="space-y-3">
-                    {entries.map(({ game, prediction }, index) => {
-                      // Determine status colors
-                      const predictionStatus = prediction?.status;
-                      const isWon = predictionStatus === 'won';
-                      const isFailed = predictionStatus === 'failed';
-                      const isFinished = !!prediction?.actualScore;
-                      
-                      // Create a unique key using prediction ID if available, or composite key with all unique fields
-                      const uniqueKey = prediction?.gameId || 
-                        `${game.sport}-${game.home.name}-${game.away.name}-${prediction?.timeLabel || ''}-${day}-${index}`;
+                        {entries.map((match) => {
+                          const isOver15 = match.betType === 'Over 1.5 Goals';
+                          const isOver25 = match.betType === 'Over 2.5 Goals';
                       
                       return (
                         <div
-                          key={uniqueKey}
-                          className={`group rounded-xl overflow-hidden transition-all duration-300 relative ${
-                            isWon
-                              ? 'border-l-4 border-green-500/70 bg-gradient-to-r from-green-500/20 via-green-500/10 to-transparent shadow-sm shadow-green-500/10 hover:shadow-md hover:shadow-green-500/15'
-                              : isFailed
-                              ? 'border-l-4 border-red-500/70 bg-gradient-to-r from-red-500/20 via-red-500/10 to-transparent shadow-sm shadow-red-500/10 hover:shadow-md hover:shadow-red-500/15'
-                              : 'border-l-4 border-white/20 bg-gradient-to-r from-white/10 via-white/5 to-transparent hover:border-l-[rgb(var(--brand-yellow))]/50 hover:from-white/15 hover:via-white/8 hover:shadow-sm hover:shadow-[rgb(var(--brand-yellow))]/5'
-                          }`}
+                              key={match.id}
+                              className="group rounded-xl overflow-hidden transition-all duration-300 relative border-l-4 border-white/[0.12] bg-white/[0.02] backdrop-blur-sm hover:border-l-white/[0.20] hover:bg-white/[0.04] hover:shadow-sm"
                           style={{ transform: 'translateZ(0)', willChange: 'transform' }}
                         >
                           {/* Subtle hover glow */}
@@ -726,100 +551,67 @@ export default function PredictionsPage() {
                           <div className="p-4 sm:p-5 relative z-10">
                             <div className="flex flex-col lg:flex-row lg:items-center gap-3 sm:gap-4">
                               {/* League & Time Section */}
-                              <div className="flex-shrink-0 lg:w-32 space-y-1">
-                                <div className="text-[10px] sm:text-[11px] text-white/70 uppercase tracking-wider font-semibold truncate">{game.league}</div>
-                                {game.time && (
+                                  <div className="flex-shrink-0 lg:w-40 space-y-1">
+                                    <div className="text-[10px] sm:text-[11px] text-white/70 uppercase tracking-wider font-semibold truncate">{match.league}</div>
                                   <div className="flex items-center gap-1.5 text-white/50">
                                     <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
-                                    <span className="text-[10px] sm:text-xs font-mono font-medium">{game.time}</span>
-                                  </div>
-                                )}
+                                      <span className="text-[10px] sm:text-xs font-mono font-medium">{match.time}</span>
+                                    </div>
                               </div>
 
-                              {/* Teams & Score Section */}
+                                  {/* Teams Section */}
                               <div className="flex-1 flex flex-col sm:flex-row items-center gap-2.5 sm:gap-3 lg:gap-6 min-w-0">
                                 {/* Home Team */}
                                 <div className="flex-1 min-w-0 text-center sm:text-left">
-                                  <div className="font-semibold text-xs sm:text-sm lg:text-base text-white/95 truncate" title={game.home.name}>
-                                    {getDisplayName(game.home.name)}
-                                  </div>
-                                </div>
-
-                                {/* Score Display */}
-                                <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-                                  {isFinished && prediction.actualScore ? (
-                                    <div className="flex items-center gap-2 sm:gap-3">
-                                      <div className="flex flex-col items-center">
-                                        <span className="text-xl sm:text-2xl lg:text-3xl font-black text-[rgb(var(--brand-yellow))] leading-none tracking-tight">
-                                          {prediction.actualScore}
-                                        </span>
-                                        {prediction?.predictedScoreDisplay && (
-                                          <span className="text-[9px] sm:text-[10px] text-white/50 mt-0.5 sm:mt-1">Pred: {prediction.predictedScoreDisplay}</span>
-                                        )}
+                                      <div className="font-semibold text-xs sm:text-sm lg:text-base text-white/95 truncate" title={match.home}>
+                                        {getDisplayName(match.home)}
                                       </div>
                                     </div>
-                                  ) : (
+
+                                    {/* VS Display */}
                                     <div className="flex flex-col items-center gap-1.5 sm:gap-2">
                                       <span className="text-[10px] sm:text-xs text-white/40 font-medium uppercase tracking-wider">VS</span>
-                                      {prediction?.predictedScoreDisplay && (
-                                        <div className="px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-gradient-to-r from-[rgb(var(--brand-yellow))]/25 to-[rgb(var(--brand-yellow))]/15 border border-[rgb(var(--brand-yellow))]/50 shadow-sm">
-                                          <div className="flex items-center gap-1 sm:gap-1.5">
-                                            <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[rgb(var(--brand-yellow))]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                            </svg>
-                                            <span className="text-xs sm:text-sm font-black text-[rgb(var(--brand-yellow))] tabular-nums">{prediction.predictedScoreDisplay}</span>
-                                          </div>
-                                        </div>
-                                      )}
-                                    </div>
-                                  )}
                                 </div>
 
                                 {/* Away Team */}
                                 <div className="flex-1 min-w-0 text-center sm:text-right">
-                                  <div className="font-semibold text-xs sm:text-sm lg:text-base text-white/95 truncate" title={game.away.name}>
-                                    {getDisplayName(game.away.name)}
+                                      <div className="font-semibold text-xs sm:text-sm lg:text-base text-white/95 truncate" title={match.away}>
+                                        {getDisplayName(match.away)}
                                   </div>
                                 </div>
                               </div>
 
-                              {/* Prediction & Status Section */}
+                                  {/* Prediction & Bet Section */}
                               <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 flex-shrink-0 justify-center lg:justify-end">
-                                {/* Prediction Type Badge */}
-                                <span className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-[rgb(var(--brand-yellow))]/15 border border-[rgb(var(--brand-yellow))]/40 text-[rgb(var(--brand-yellow))] text-[10px] sm:text-xs font-semibold backdrop-blur-sm whitespace-nowrap">
+                                    {/* Bet Type Badge */}
+                                    <span className={`inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg border text-[10px] sm:text-xs font-semibold backdrop-blur-sm whitespace-nowrap ${
+                                      isOver15 
+                                        ? 'bg-blue-500/15 border-blue-500/40 text-blue-300' 
+                                        : 'bg-green-500/15 border-green-500/40 text-green-300'
+                                    }`}>
                                   <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                                   </svg>
-                                  <span className="truncate">{prediction?.msbs || 'Over 1.5'}</span>
+                                      <span className="truncate">{match.betType}</span>
                                 </span>
                                 
                                 {/* Status Badge */}
-                                {isWon && (
-                                  <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-gradient-to-r from-green-500/30 to-green-500/15 border border-green-500/40 shadow-sm whitespace-nowrap">
-                                    <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                                    </svg>
-                                    <span className="text-[10px] sm:text-xs font-bold text-green-200">Won</span>
-                                  </div>
-                                )}
-                                {isFailed && (
-                                  <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-gradient-to-r from-red-500/30 to-red-500/15 border border-red-500/40 shadow-sm whitespace-nowrap">
-                                    <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-300 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                                    </svg>
-                                    <span className="text-[10px] sm:text-xs font-bold text-red-200">Lost</span>
-                                  </div>
-                                )}
-                                {!isWon && !isFailed && (
                                   <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-white/8 border border-white/20 backdrop-blur-sm whitespace-nowrap">
                                     <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-pulse flex-shrink-0" />
                                     <span className="text-[10px] sm:text-xs font-medium text-white/70">Pending</span>
+                                    </div>
                                   </div>
-                                )}
-                              </div>
-                            </div>
+                                </div>
+
+                                {/* Additional Info Row */}
+                                <div className="mt-3 pt-3 border-t border-white/5 flex flex-wrap items-center gap-3 text-xs text-white/50">
+                                  <div className="flex items-center gap-1.5">
+                                    <span className="text-white/40">Confidence:</span>
+                                    <span className="text-[rgb(var(--brand-yellow))] font-medium">{match.confidence.replace(/\s*\([^)]*\)/g, '')}</span>
+                                  </div>
+                                </div>
                           </div>
                         </div>
                       );
@@ -833,13 +625,6 @@ export default function PredictionsPage() {
           )}
         </div>
       </section>
-
-      <PlayerOverlay
-        open={!!selected}
-        onClose={() => setSelected(null)}
-        title={selected ? `${selected.home} vs ${selected.away} • ${selected.league}` : ''}
-        src={selected?.videoSrc || DEFAULT_SRC}
-      />
     </div>
   );
 }

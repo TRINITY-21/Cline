@@ -94,9 +94,9 @@ export default async function NewsDetailsPage({ params }: { params: Promise<{ id
   const list = await fetchAllArticles();
   const article = list.find(a => a.id === id) || list.find(a => a.url === decoded) || null;
 
-  // Server log for debugging id matching
+  // Article not found - silently handle
   if (!article) {
-    console.log('News details not found. Tried id/url:', id, decoded, 'Sample ids:', list.slice(0, 5).map(a => a.id));
+    // Article not found
   }
 
   if (!article) {
@@ -128,8 +128,7 @@ export default async function NewsDetailsPage({ params }: { params: Promise<{ id
           <div className="flex items-center gap-2 text-[11px] sm:text-xs">
             <span className="px-2 py-1 rounded bg-white/10 border border-white/15 text-white/80 font-semibold truncate max-w-[50%]">{article.source}</span>
             <span className="text-white/60 font-mono truncate max-w-[50%]">
-              <span className="sm:hidden">{new Date(article.publishedAt).toLocaleDateString()}</span>
-              <span className="hidden sm:inline">{new Date(article.publishedAt).toLocaleString()}</span>
+              {new Date(article.publishedAt).toLocaleDateString()}
             </span>
           </div>
           <h1 className="text-2xl md:text-3xl font-extrabold">{article.title}</h1>
@@ -158,18 +157,9 @@ export default async function NewsDetailsPage({ params }: { params: Promise<{ id
   );
 }
 
-// Client-side logger to print content in the browser console for debugging
+// Client-side component (removed console logging for production)
 function NewsConsoleLogger({ article }: { article: NewsArticle | null }) {
-  if (typeof window === 'undefined') return null as any;
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  (async () => {
-    // Defer to next tick to ensure clean logs
-    setTimeout(() => {
-      // Robust logging without breaking rendering
-      // Intentionally concise
-      console.log('News details content:', article?.content || '(no content)');
-    }, 0);
-  })();
+  // Component removed - no longer needed
   return null as any;
 }
 

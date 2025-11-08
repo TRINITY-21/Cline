@@ -11,8 +11,8 @@ export default function StreamCard({
   metadata: PageMetadata;
 }) {
   return (
-    <div className="rounded-lg overflow-hidden bg-white/5 border border-white/10">
-      <div className="relative aspect-video bg-white/5">
+    <div className="rounded-lg overflow-hidden bg-white/[0.02] border border-white/[0.08] backdrop-blur-sm">
+      <div className="relative aspect-video bg-white/[0.02]">
         {metadata.image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={metadata.image} alt={metadata.title ?? providerName} className="w-full h-full object-cover" />
@@ -22,9 +22,9 @@ export default function StreamCard({
       </div>
       <div className="p-4">
         <div className="text-sm text-white/60">{providerName}</div>
-        <div className="text-base font-medium mt-1 line-clamp-2">{metadata.title ?? metadata.siteName ?? providerName}</div>
+        <div className="text-base font-semibold mt-1 line-clamp-2 text-white/95">{metadata.title ?? metadata.siteName ?? providerName}</div>
         <div className="mt-3 flex gap-2">
-          <Link href={`/watch/${slug}`} className="px-3 py-1.5 rounded bg-white text-black text-sm font-medium">
+          <Link href={`/watch/${slug}`} className="px-3 py-1.5 rounded bg-[rgb(var(--brand-yellow))] text-black text-sm font-medium hover:bg-[rgb(var(--brand-yellow))]/90 transition-colors">
             {metadata.canFrame ? 'Watch here' : 'Open official site'}
           </Link>
           {!metadata.canFrame && (
@@ -32,7 +32,7 @@ export default function StreamCard({
               href={metadata.url}
               target="_blank"
               rel="noreferrer"
-              className="px-3 py-1.5 rounded border border-white/20 text-sm"
+              className="px-3 py-1.5 rounded border border-white/[0.12] text-sm text-white/70 hover:text-white hover:border-white/[0.20] transition-colors"
             >
               Visit source
             </a>

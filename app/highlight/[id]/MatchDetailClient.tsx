@@ -109,7 +109,13 @@ export default function MatchDetailClient({ match }: { match: HighlightMatch }) 
                     {homeLogo ? (
                       <img src={homeLogo} alt="" className="object-contain" style={{ width: '80%', height: '80%' }} />
                     ) : (
-                      <div className="w-8 h-8 rounded-full bg-white/10" />
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img 
+                        src="https://streamed.pk/api/images/badge/GwZg7AZpYEZgHCAjAJgCzuFgpsCwVgBDQhWYNMATkhQFZgrDh49g773htbKbcAxozAp0kbsSwJ0IWShAx65BgObAwPeOKoTCDVmA1tcEIA.webp" 
+                        alt="" 
+                        className="object-contain opacity-80" 
+                        style={{ width: '80%', height: '80%' }} 
+                      />
                     )}
                     <div className="absolute inset-0 rounded-full ring-1 ring-white/10" />
                   </div>
@@ -120,7 +126,13 @@ export default function MatchDetailClient({ match }: { match: HighlightMatch }) 
                     {awayLogo ? (
                       <img src={awayLogo} alt="" className="object-contain" style={{ width: '80%', height: '80%' }} />
                     ) : (
-                      <div className="w-8 h-8 rounded-full bg-white/10" />
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img 
+                        src="https://streamed.pk/api/images/badge/GwZg7AZpYEZgHCAjAJgCzuFgpsCwVgBDQhWYNMATkhQFZgrDh49g773htbKbcAxozAp0kbsSwJ0IWShAx65BgObAwPeOKoTCDVmA1tcEIA.webp" 
+                        alt="" 
+                        className="object-contain opacity-80" 
+                        style={{ width: '80%', height: '80%' }} 
+                      />
                     )}
                     <div className="absolute inset-0 rounded-full ring-1 ring-white/10" />
                   </div>

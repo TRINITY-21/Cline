@@ -6,7 +6,6 @@ import type { EnrichedGame } from '@/lib/types';
 import { extractTimeLabel, firstNameOf, getDisplayName } from '@/lib/utils';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import useSWR from 'swr';
-import DefaultTeamLogo from './DefaultTeamLogo';
 import MatchPlayerSlideover from './MatchPlayerSlideover';
 // sharing removed
 
@@ -34,7 +33,18 @@ function TeamLogo({ logo, name, size = 48, className = "" }: { logo?: string; na
   const [hasError, setHasError] = useState(false);
   
   if (!logo || hasError) {
-    return <DefaultTeamLogo name={name} size={size} />;
+    // Use default image not available logo when team logo is not available
+    return (
+      <div className="flex items-center justify-center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://streamed.pk/api/images/badge/GwZg7AZpYEZgHCAjAJgCzuFgpsCwVgBDQhWYNMATkhQFZgrDh49g773htbKbcAxozAp0kbsSwJ0IWShAx65BgObAwPeOKoTCDVmA1tcEIA.webp"
+          alt=""
+          className="max-w-full max-h-full w-auto h-auto object-contain opacity-80"
+          style={{ maxWidth: '100%', maxHeight: '100%' }}
+        />
+      </div>
+    );
   }
   
   // Calculate logo size to fit within container (leave 4px for padding/border)
@@ -512,7 +522,7 @@ export default function TodayMatches() {
                     "px-2.5 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg font-medium text-[11px] sm:text-xs md:text-sm transition-all duration-200 touch-manipulation min-h-[36px] sm:min-h-[40px] whitespace-nowrap flex-shrink-0 " + 
                     (s === activeSport 
                       ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/20' 
-                      : 'bg-white/5 text-white/70 border border-white/10 hover:bg-white/10 hover:text-white hover:border-white/20')
+                      : 'bg-white/[0.02] text-white/70 border border-white/[0.08] hover:bg-white/[0.05] hover:text-white hover:border-white/[0.15] backdrop-blur-sm')
                   }
                 >
                   {s}
@@ -705,22 +715,22 @@ export default function TodayMatches() {
                       {...wrapperProps}
                       title={`${game.home.name} vs ${game.away.name}`}
                       className={
-                        "match-card match-grid-item group relative bg-[rgb(15,15,20)] border border-white/5 rounded-xl overflow-hidden transition-all duration-300 w-full min-w-0 " +
+                        "match-card match-grid-item group relative bg-white/[0.02] backdrop-blur-sm border border-white/[0.08] rounded-xl overflow-hidden transition-all duration-300 w-full min-w-0 " +
                         (isLive 
                           ? "shadow-xl shadow-[rgb(var(--brand-yellow))]/10 border-[rgb(var(--brand-yellow))]/30" 
                           : isEnded
-                          ? "opacity-60 border-white/5"
+                          ? "opacity-60 border-white/[0.08]"
                           : isScheduled
-                          ? "border-white/10 hover:border-white/20"
-                          : "border-white/5") +
+                          ? "border-white/[0.08] hover:border-white/[0.15]"
+                          : "border-white/[0.08]") +
                         (isClickable 
-                          ? "hover:bg-[rgb(18,18,24)] hover:border-[rgb(var(--brand-yellow))]/40 hover:shadow-2xl hover:shadow-[rgb(var(--brand-yellow))]/15 cursor-pointer active:scale-[0.98]" 
+                          ? "hover:bg-white/[0.04] hover:border-[rgb(var(--brand-yellow))]/40 hover:shadow-2xl hover:shadow-[rgb(var(--brand-yellow))]/15 cursor-pointer active:scale-[0.98]" 
                           : "cursor-default")
                       }
                       style={{ animationDelay: `${gameIdx * 0.05}s` }}
                     >
                       {/* Header Section */}
-                      <div className="px-2.5 sm:px-4 pt-2.5 sm:pt-4 pb-2 sm:pb-3 border-b border-white/5">
+                      <div className="px-2.5 sm:px-4 pt-2.5 sm:pt-4 pb-2 sm:pb-3 border-b border-white/[0.08]">
                       <div className="flex items-center justify-between mb-2.5 sm:mb-3 gap-2 flex-wrap">
                           <div className="flex items-center gap-2 min-w-0">
                             {displayLeague && (
@@ -750,7 +760,7 @@ export default function TodayMatches() {
                         <div className="flex items-center gap-2 sm:gap-2.5 md:gap-3">
                           {/* Home Team */}
                           <div className="flex-1 min-w-0 flex flex-col items-center gap-1.5 sm:gap-2">
-                            <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-lg bg-white/5 border border-white/10 p-1.5 flex items-center justify-center flex-shrink-0">
+                            <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-lg bg-white/[0.03] border border-white/[0.08] p-1.5 flex items-center justify-center flex-shrink-0">
                               <TeamLogo logo={game.home.logo} name={firstNameOf(game.home.name)} size={44} />
                             </div>
                             <p className="text-[10px] sm:text-[11px] font-semibold text-white leading-tight line-clamp-2 w-full text-center min-h-[1.5rem] sm:min-h-[1.75rem]">
@@ -765,7 +775,7 @@ export default function TodayMatches() {
                           
                           {/* Away Team */}
                           <div className="flex-1 min-w-0 flex flex-col items-center gap-1.5 sm:gap-2">
-                            <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-lg bg-white/5 border border-white/10 p-1.5 flex items-center justify-center flex-shrink-0">
+                            <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-lg bg-white/[0.03] border border-white/[0.08] p-1.5 flex items-center justify-center flex-shrink-0">
                               <TeamLogo logo={game.away.logo} name={firstNameOf(game.away.name)} size={44} />
                             </div>
                             <p className="text-[10px] sm:text-[11px] font-semibold text-white leading-tight line-clamp-2 w-full text-center min-h-[1.5rem] sm:min-h-[1.75rem]">
@@ -800,14 +810,14 @@ export default function TodayMatches() {
                             <span>Watch Live</span>
                             </button>
                         ) : isEnded ? (
-                          <div className="w-full rounded-lg bg-white/5 border border-white/10 text-white/50 font-medium text-xs px-3 sm:px-4 py-2 text-center flex items-center justify-center gap-1.5 min-h-[44px]">
+                          <div className="w-full rounded-lg bg-white/[0.02] border border-white/[0.08] text-white/50 font-medium text-xs px-3 sm:px-4 py-2 text-center flex items-center justify-center gap-1.5 min-h-[44px]">
                             <svg className="w-3.5 h-3.5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                             </svg>
                             <span>Match Ended</span>
                           </div>
                         ) : isScheduled ? (
-                          <div className="w-full rounded-lg bg-white/5 border border-white/10 text-white/70 font-medium text-xs px-3 sm:px-4 py-2 text-center flex items-center justify-center gap-1.5 min-h-[44px]">
+                          <div className="w-full rounded-lg bg-white/[0.02] border border-white/[0.08] text-white/70 font-medium text-xs px-3 sm:px-4 py-2 text-center flex items-center justify-center gap-1.5 min-h-[44px]">
                             <svg className="w-3.5 h-3.5 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>

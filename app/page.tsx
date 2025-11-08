@@ -13,7 +13,7 @@ export default function HomePage() {
 
   return (
     <div className="space-y-6 sm:space-y-8 md:space-y-10 w-full max-w-full overflow-x-hidden box-border">
-      <section className="surface p-3 sm:p-5 md:p-6 hero-glow w-full max-w-full box-border">
+      <section className="surface p-3 sm:p-5 md:p-6 hero-glow w-full max-w-full box-border overflow-x-hidden">
         <div className="flex flex-col md:flex-row md:items-center gap-3 sm:gap-4 w-full max-w-full">
           <div className="flex-1 min-w-0">
             <div className="text-[10px] sm:text-[10px] uppercase tracking-[0.2em] text-white/60">Multi‑Sport</div>
@@ -24,14 +24,14 @@ export default function HomePage() {
           </div>
           {/* Segmented Control - Below text on mobile/tablet, to the right on desktop */}
           <div className="flex items-center mt-2 sm:mt-0 md:mt-0 md:ml-auto md:flex-shrink-0 w-full md:w-auto min-w-0">
-            <div className="w-full md:w-auto inline-flex items-center bg-[#2C2C2E] border border-[#48484A] rounded-lg p-0.5 overflow-hidden box-border">
+            <div className="w-full md:w-auto inline-flex items-center bg-white/[0.02] border border-white/[0.08] rounded-lg p-0.5 overflow-hidden box-border backdrop-blur-sm">
               <button
                 onClick={() => setActiveTab('trending')}
                 className={
                   "flex-1 md:flex-none px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 touch-manipulation min-h-[44px] flex items-center justify-center gap-1 sm:gap-1.5 min-w-0 " +
                   (activeTab === 'trending'
                     ? 'bg-[rgb(var(--brand-yellow))] text-black rounded-md shadow-sm'
-                    : 'text-[#AEAEB2] hover:text-white')
+                    : 'text-white/70 hover:text-white')
                 }
               >
                 <span className="text-base sm:text-lg flex-shrink-0">🔥</span>
@@ -43,7 +43,7 @@ export default function HomePage() {
                   "flex-1 md:flex-none px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 touch-manipulation min-h-[44px] flex items-center justify-center gap-1 sm:gap-1.5 min-w-0 " +
                   (activeTab === 'today'
                     ? 'bg-[rgb(var(--brand-yellow))] text-black rounded-md shadow-sm'
-                    : 'text-[#AEAEB2] hover:text-white')
+                    : 'text-white/70 hover:text-white')
                 }
               >
                 <span className="text-base sm:text-lg flex-shrink-0">📅</span>
@@ -57,7 +57,7 @@ export default function HomePage() {
                   "flex-1 md:flex-none px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm font-medium transition-all duration-200 touch-manipulation min-h-[44px] flex items-center justify-center gap-1 sm:gap-1.5 min-w-0 " +
                   (activeTab === 'scores'
                     ? 'bg-[rgb(var(--brand-yellow))] text-black rounded-md shadow-sm'
-                    : 'text-[#AEAEB2] hover:text-white')
+                    : 'text-white/70 hover:text-white')
                 }
               >
                 <span className="text-base sm:text-lg flex-shrink-0">⚽</span>
@@ -75,7 +75,7 @@ export default function HomePage() {
 
       {/* Informational Content Section (show only on Trending tab) */}
       {activeTab === 'trending' && (
-      <section className="surface p-4 sm:p-5 md:p-8 hero-glow">
+      <section className="surface p-4 sm:p-5 md:p-8 hero-glow w-full max-w-full box-border overflow-x-hidden">
         <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
           <div>
             <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold mb-3 sm:mb-4">
@@ -168,8 +168,8 @@ export default function HomePage() {
                 { league: 'NHL (National Hockey League)', season: 'October to June, ending with the Stanley Cup Final' },
                 { league: 'MLS (Major League Soccer)', season: 'February/March to December' }
               ].map((item) => (
-                <div key={item.league} className="border border-white/10 rounded-lg p-4 bg-white/5">
-                  <h4 className="font-semibold text-white mb-1">{item.league}</h4>
+                <div key={item.league} className="border border-white/[0.08] rounded-lg p-4 bg-white/[0.02] backdrop-blur-sm">
+                  <h4 className="font-semibold text-white/95 mb-1">{item.league}</h4>
                   <p className="text-white/60 text-sm">{item.season}</p>
                 </div>
               ))}
@@ -223,8 +223,8 @@ export default function HomePage() {
                   a: 'Three Two Live offers free access to sports streams, while paid services provide more reliability and guaranteed quality. Choose based on your needs and preferences.'
                 }
               ].map((faq, i) => (
-                <div key={i} className="border border-white/10 rounded-lg p-4 bg-white/5">
-                  <h4 className="font-semibold text-white mb-2">{faq.q}</h4>
+                <div key={i} className="border border-white/[0.08] rounded-lg p-4 bg-white/[0.02] backdrop-blur-sm">
+                  <h4 className="font-semibold text-white/95 mb-2">{faq.q}</h4>
                   <p className="text-white/70 text-sm">{faq.a}</p>
                 </div>
               ))}

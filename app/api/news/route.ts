@@ -10,14 +10,79 @@ const FOURFOURTWO_BASE = `${UPSTREAM_BASE}/FourFourtwo/bundesliga`;
 function upgradeImage(url: string | undefined | null): string {
   const u = String(url || '').trim();
   if (!u) return '';
+  
+  // OneFootball image-service URLs - upgrade small dimensions (w=64&h=64) to larger ones
+  if (/image-service\.onefootball\.com/.test(u)) {
+    // Replace small dimensions with larger ones for better quality
+    let upgraded = u
+      .replace(/[?&]w=64(?!\d)/g, '&w=1200')
+      .replace(/[?&]h=64(?!\d)/g, '&h=675')
+      .replace(/[?&]w=\d+/g, (match) => {
+        const w = parseInt(match.split('=')[1]);
+        return w < 400 ? `&w=1200` : match;
+      })
+      .replace(/[?&]h=\d+/g, (match) => {
+        const h = parseInt(match.split('=')[1]);
+        return h < 400 ? `&h=675` : match;
+      });
+    
+    // Ensure the first parameter uses ? instead of &
+    const firstAmpersand = upgraded.indexOf('&');
+    const firstQuestion = upgraded.indexOf('?');
+    if (firstAmpersand !== -1 && (firstQuestion === -1 || firstAmpersand < firstQuestion)) {
+      upgraded = upgraded.substring(0, firstAmpersand) + '?' + upgraded.substring(firstAmpersand + 1);
+    }
+    
+    return upgraded;
+  }
+  
+  // OneFootball direct image URLs - upgrade quality and dimensions
+  if (/onefootball\.com|onefootballcdn\.com|img\.onefootball\.com/.test(u) && !/image-service\.onefootball\.com/.test(u)) {
+    // Remove quality restrictions and increase dimensions
+    let upgraded = u
+      .replace(/[?&]q=\d+/g, '') // Remove quality restrictions
+      .replace(/[?&]w=\d+/g, '') // Remove width restrictions
+      .replace(/[?&]h=\d+/g, '') // Remove height restrictions
+      .replace(/\/\d+x\d+\//g, '/1200x675/') // Replace small dimensions with larger ones
+      .replace(/\/\d+x\d+_/g, '/1200x675_') // Replace dimensions in filename patterns
+      .replace(/w_\d+/g, 'w_1200') // Replace width parameters in path
+      .replace(/h_\d+/g, 'h_675'); // Replace height parameters in path
+    
+    // Add quality parameter if not present
+    if (!upgraded.includes('?')) {
+      upgraded += '?q=90';
+    } else if (!upgraded.includes('q=')) {
+      upgraded += '&q=90';
+    }
+    return upgraded;
+  }
+  
   // Common tiny thumbnails from minutemediacdn include w_16; bump to a sensible width
   if (/minutemediacdn\.com/.test(u)) {
     return u.replace(/w_16(?!\d)/g, 'w_1200');
   }
+  
   // Generic pattern: w=16 in query
   if (/[?&]w=16(?!\d)/.test(u)) {
     return u.replace(/([?&]w=)16(?!\d)/, '$1800');
   }
+  
+  // Generic small dimension patterns
+  if (/\/\d+x\d+\//.test(u)) {
+    const match = u.match(/\/(\d+)x(\d+)\//);
+    if (match) {
+      const w = parseInt(match[1]);
+      const h = parseInt(match[2]);
+      // If dimensions are small (less than 400px), upgrade them
+      if (w < 400 || h < 400) {
+        const aspectRatio = h / w;
+        const newWidth = 1200;
+        const newHeight = Math.round(newWidth * aspectRatio);
+        return u.replace(/\/\d+x\d+\//, `/${newWidth}x${newHeight}/`);
+      }
+    }
+  }
+  
   return u;
 }
 
@@ -64,10 +129,36 @@ export async function GET(request: Request) {
       content: '',
     }));
 
-    // Sort newest first
-    articles.sort((a: { publishedAt: string }, b: { publishedAt: string }) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+    // Deduplicate by URL (normalize URLs for comparison)
+    const seenUrls = new Set<string>();
+    const uniqueArticles = articles.filter((article: { url: string; title: string; source: string; publishedAt: string; image: string }) => {
+      let normalizedUrl = article.url?.toLowerCase().trim() || '';
+      if (!normalizedUrl) return false;
+      
+      // Normalize URL: remove query params, fragments, trailing slashes
+      try {
+        // Add protocol if missing (assume https)
+        if (!normalizedUrl.startsWith('http://') && !normalizedUrl.startsWith('https://')) {
+          normalizedUrl = 'https://' + normalizedUrl;
+        }
+        const urlObj = new URL(normalizedUrl);
+        normalizedUrl = `${urlObj.protocol}//${urlObj.host}${urlObj.pathname}`.replace(/\/$/, '');
+      } catch {
+        // If URL parsing fails, use the original normalized URL but remove query params manually
+        normalizedUrl = normalizedUrl.split('?')[0].split('#')[0].replace(/\/$/, '');
+      }
+      
+      if (seenUrls.has(normalizedUrl)) {
+        return false;
+      }
+      seenUrls.add(normalizedUrl);
+      return true;
+    });
 
-    return NextResponse.json({ articles, count: articles.length, cached: Boolean(json?.cached ?? false) });
+    // Sort newest first
+    uniqueArticles.sort((a: { publishedAt: string }, b: { publishedAt: string }) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+
+    return NextResponse.json({ articles: uniqueArticles, count: uniqueArticles.length, cached: Boolean(json?.cached ?? false) });
   } catch (err: any) {
     return NextResponse.json({ articles: [], error: err?.message || 'Unknown error' }, { status: 500 });
   }

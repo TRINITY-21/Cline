@@ -93,7 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </header>
-        <main className="container-narrow mx-auto">
+        <main className="w-full max-w-6xl mx-auto px-3 sm:px-4 md:px-4">
           <div className="py-4 sm:py-5 md:py-6 flex-1">{children}</div>
         </main>
 
