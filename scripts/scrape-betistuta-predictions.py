@@ -17,6 +17,11 @@ from typing import List, Dict, Optional, Tuple
 import re
 from urllib.parse import urljoin
 
+# Use stderr for debug messages, stdout for JSON only
+def debug_print(*args, **kwargs):
+    """Print to stderr for debug messages"""
+    print(*args, file=sys.stderr, **kwargs)
+
 # Headers to mimic browser
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -51,7 +56,7 @@ def scrape_betistuta(date_str: Optional[str] = None) -> List[Dict]:
     date_url = parse_date_for_url(date_str)
     url = f"https://www.betistuta.net/Futbol.aspx?D={date_url}"
     
-    print(f"🔍 Scraping: {url}")
+    debug_print(f"🔍 Scraping: {url}")
     
     try:
         response = requests.get(url, headers=HEADERS, timeout=30)
@@ -87,7 +92,7 @@ def scrape_betistuta(date_str: Optional[str] = None) -> List[Dict]:
                 if 'vs' in text.lower() or '-' in text:
                     match_containers.append(cell)
         
-        print(f"📊 Found {len(match_containers)} potential match containers")
+        debug_print(f"📊 Found {len(match_containers)} potential match containers")
         
         # Extract match data
         for container in match_containers:
@@ -232,7 +237,7 @@ def scrape_betistuta(date_str: Optional[str] = None) -> List[Dict]:
                 matches.append(match_data)
                 
             except Exception as e:
-                print(f"⚠️  Error parsing container: {e}")
+                debug_print(f"⚠️  Error parsing container: {e}")
                 continue
         
         # Remove duplicates based on home/away teams
@@ -244,14 +249,14 @@ def scrape_betistuta(date_str: Optional[str] = None) -> List[Dict]:
                 seen.add(key)
                 unique_matches.append(match)
         
-        print(f"✅ Extracted {len(unique_matches)} unique matches")
+        debug_print(f"✅ Extracted {len(unique_matches)} unique matches")
         return unique_matches
         
     except requests.RequestException as e:
-        print(f"❌ Error fetching page: {e}")
+        debug_print(f"❌ Error fetching page: {e}")
         return []
     except Exception as e:
-        print(f"❌ Unexpected error: {e}")
+        debug_print(f"❌ Unexpected error: {e}")
         import traceback
         traceback.print_exc()
         return []
@@ -709,7 +714,7 @@ def select_best_12(matches: List[Dict]) -> List[Dict]:
     unscored_count = len(matches) - len(scored_matches)
     
     if unscored_count > 0:
-        print(f"⚠️  Warning: {unscored_count} matches without scores")
+        debug_print(f"⚠️  Warning: {unscored_count} matches without scores")
     
     # Sort ALL matches by score (descending)
     sorted_matches = sorted(matches, key=lambda x: x.get('score', 0), reverse=True)
@@ -717,15 +722,15 @@ def select_best_12(matches: List[Dict]) -> List[Dict]:
     # Show score distribution
     if sorted_matches:
         scores = [m.get('score', 0) for m in sorted_matches]
-        print(f"📊 Scoring complete: {len(sorted_matches)} matches analyzed")
-        print(f"   Score range: {min(scores):.1f} - {max(scores):.1f}")
-        print(f"   Average score: {sum(scores)/len(scores):.1f}")
+        debug_print(f"📊 Scoring complete: {len(sorted_matches)} matches analyzed")
+        debug_print(f"   Score range: {min(scores):.1f} - {max(scores):.1f}")
+        debug_print(f"   Average score: {sum(scores)/len(scores):.1f}")
     
     # Take top 12
     best_12 = sorted_matches[:12]
     
-    print(f"🏆 Selected top 12 from {len(sorted_matches)} total matches")
-    print(f"   Top score: {best_12[0].get('score', 0):.1f}, Bottom: {best_12[-1].get('score', 0):.1f}")
+    debug_print(f"🏆 Selected top 12 from {len(sorted_matches)} total matches")
+    debug_print(f"   Top score: {best_12[0].get('score', 0):.1f}, Bottom: {best_12[-1].get('score', 0):.1f}")
     
     return best_12
 
@@ -786,15 +791,15 @@ def main():
     date_str = sys.argv[1] if len(sys.argv) > 1 else None
     
     if date_str:
-        print(f"📅 Scraping predictions for: {date_str}")
+        debug_print(f"📅 Scraping predictions for: {date_str}")
     else:
-        print(f"📅 Scraping predictions for today")
+        debug_print(f"📅 Scraping predictions for today")
     
     # Scrape matches
     all_matches = scrape_betistuta(date_str)
     
     if not all_matches:
-        print("❌ No matches found")
+        debug_print("❌ No matches found")
         sys.exit(1)
     
     # Select best 12
@@ -813,7 +818,9 @@ def main():
         'selected': len(best_12),
     }
     
-    print(json.dumps(output, indent=2, ensure_ascii=False))
+    # Output JSON to stdout (for piping to save script)
+    # Debug messages go to stderr
+    print(json.dumps(output, indent=2, ensure_ascii=False), file=sys.stdout)
     
     return 0
 
