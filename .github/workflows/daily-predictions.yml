@@ -22,14 +22,14 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'scrape' || github.event_name == 'schedule'
     steps:
-      - name: Check if should scrape (not midnight)
+      - name: Check if should scrape (6 AM only)
         id: should-scrape
         run: |
           HOUR=$(date -u +%H)
-          if [ "$HOUR" = "00" ]; then
-            echo "skip=true" >> $GITHUB_OUTPUT
-          else
+          if [ "$HOUR" = "06" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "skip=false" >> $GITHUB_OUTPUT
+          else
+            echo "skip=true" >> $GITHUB_OUTPUT
           fi
       
       - name: Checkout code
@@ -89,7 +89,7 @@ jobs:
         id: should-update
         run: |
           HOUR=$(date -u +%H)
-          if [ "$HOUR" = "00" ]; then
+          if [ "$HOUR" = "00" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "skip=false" >> $GITHUB_OUTPUT
           else
             echo "skip=true" >> $GITHUB_OUTPUT
@@ -119,18 +119,22 @@ jobs:
       - name: Scrape results
         if: steps.should-update.outputs.skip == 'false'
         id: results
-        env:
-          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
         run: |
-          python3 scripts/update-prediction-results.py ${{ steps.date.outputs.date }} > results.json
-          cat results.json
+          python3 scripts/update-prediction-results.py ${{ steps.date.outputs.date }} > results.json 2>results.log
+          echo "📊 Results log:"
+          cat results.log || true
+          echo ""
+          echo "📄 JSON preview:"
+          head -c 500 results.json || echo "No JSON output"
       
       - name: Update Firestore
         if: steps.should-update.outputs.skip == 'false'
         env:
           FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
         run: |
+          echo "💾 Updating Firestore with results..."
           python3 scripts/update-results-in-firestore.py results.json
+          echo "✅ Update completed"
       
       - name: Upload results JSON
         if: steps.should-update.outputs.skip == 'false' && always()
