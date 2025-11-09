@@ -115,7 +115,24 @@ function generatePredictionId(home: string, away: string, timeLabel: string): st
 // Structure: over_predictions/{weekId}/{dayOfWeek}/{dateId} with predictions array
 export async function GET(req: NextRequest) {
   try {
-    const admin = initFirebaseAdmin();
+    let admin;
+    try {
+      admin = initFirebaseAdmin();
+      console.log('[Predictions API] Firebase Admin initialized successfully');
+    } catch (initError: unknown) {
+      const errorMessage = initError instanceof Error ? initError.message : 'Unknown error';
+      console.error('[Predictions API] Firebase initialization error:', errorMessage);
+      console.error('[Predictions API] Stack:', initError instanceof Error ? initError.stack : 'No stack');
+      // Return error details in development, empty array in production
+      if (process.env.NODE_ENV === 'development') {
+        return NextResponse.json({ 
+          error: 'Firebase initialization failed', 
+          details: errorMessage 
+        }, { status: 500 });
+      }
+      return NextResponse.json([]);
+    }
+    
     const url = new URL(req.url);
     
     // Optional date filter
@@ -131,7 +148,9 @@ export async function GET(req: NextRequest) {
     }
 
     const allPredictions: Prediction[] = [];
-    const overPredictionsCol = admin.firestore().collection('over_predictions');
+    const db = admin.firestore();
+    const overPredictionsCol = db.collection('over_predictions');
+    console.log('[Predictions API] Firestore collection reference created');
     
     if (requestedDate) {
       // Fetch predictions for a specific date
@@ -170,28 +189,97 @@ export async function GET(req: NextRequest) {
       const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
       
       const weekDoc = overPredictionsCol.doc(currentWeekId);
+      console.log(`[Predictions API] Querying week document: ${currentWeekId}`);
+      
+      let weekDocSnap;
+      try {
+        weekDocSnap = await weekDoc.get();
+        console.log(`[Predictions API] Week document query completed. Exists: ${weekDocSnap.exists}`);
+      } catch (queryError: unknown) {
+        const errorMsg = queryError instanceof Error ? queryError.message : 'Unknown error';
+        console.error(`[Predictions API] Error querying week document:`, errorMsg);
+        throw queryError;
+      }
+      
+      // Check if week document exists
+      if (!weekDocSnap.exists) {
+        console.log(`[Predictions API] Week document ${currentWeekId} does not exist`);
+        // Try to list all documents in the collection to debug
+        try {
+          const allDocs = await overPredictionsCol.limit(5).get();
+          console.log(`[Predictions API] Found ${allDocs.size} week document(s) in collection (showing first 5):`);
+          allDocs.forEach(doc => {
+            console.log(`  - ${doc.id}`);
+          });
+        } catch (listError) {
+          console.error(`[Predictions API] Error listing documents:`, listError);
+        }
+        return NextResponse.json([]);
+      }
+      
+      console.log(`[Predictions API] Week document exists. Reading subcollections from week ${currentWeekId}`);
       
       for (const day of daysOfWeek) {
-        const dayCol = weekDoc.collection(day);
-        const datesSnapshot = await dayCol.get();
-        
-        for (const dateDoc of datesSnapshot.docs) {
-          const dateId = dateDoc.id;
-          const data = dateDoc.data();
-          const predictions = Array.isArray(data?.predictions) ? data.predictions : [];
+        try {
+          const dayCol = weekDoc.collection(day);
+          console.log(`[Predictions API] Querying ${day} subcollection...`);
           
-          predictions.forEach((pred: Prediction) => {
-            // Only include approved predictions (or all if approved field doesn't exist for backward compatibility)
-            if (pred.approved !== false) {
-              allPredictions.push({
-                ...pred,
-                id: pred.id || generatePredictionId(pred.home || '', pred.away || '', pred.timeLabel || ''),
-                matchDate: dateId,
-              });
+          let datesSnapshot;
+          try {
+            datesSnapshot = await dayCol.get();
+            console.log(`[Predictions API] ${day} subcollection query completed. Found ${datesSnapshot.size} document(s)`);
+          } catch (dayQueryError: unknown) {
+            const errorMsg = dayQueryError instanceof Error ? dayQueryError.message : 'Unknown error';
+            console.error(`[Predictions API] Error querying ${day} subcollection:`, errorMsg);
+            continue; // Continue with other days
+          }
+          
+          if (datesSnapshot.empty) {
+            console.log(`[Predictions API] No date documents in ${day} subcollection`);
+            continue; // Skip empty days
+          }
+          
+          console.log(`[Predictions API] Found ${datesSnapshot.size} date(s) in ${day} subcollection`);
+          
+          for (const dateDoc of datesSnapshot.docs) {
+            const dateId = dateDoc.id;
+            const data = dateDoc.data();
+            const predictions = Array.isArray(data?.predictions) ? data.predictions : [];
+            
+            console.log(`[Predictions API] Date ${dateId} in ${day}: ${predictions.length} predictions, approved check starting...`);
+            
+            if (predictions.length === 0) {
+              console.log(`[Predictions API] Date ${dateId} in ${day} has empty predictions array`);
+              continue;
             }
-          });
+            
+            let approvedCount = 0;
+            let rejectedCount = 0;
+            
+            predictions.forEach((pred: Prediction) => {
+              // Only include approved predictions (or all if approved field doesn't exist for backward compatibility)
+              if (pred.approved !== false) {
+                approvedCount++;
+                allPredictions.push({
+                  ...pred,
+                  id: pred.id || generatePredictionId(pred.home || '', pred.away || '', pred.timeLabel || ''),
+                  matchDate: dateId,
+                });
+              } else {
+                rejectedCount++;
+              }
+            });
+            
+            console.log(`[Predictions API] Date ${dateId} in ${day}: ${approvedCount} approved, ${rejectedCount} rejected`);
+          }
+        } catch (dayError: unknown) {
+          const errorMsg = dayError instanceof Error ? dayError.message : 'Unknown error';
+          console.error(`[Predictions API] Error reading ${day} subcollection:`, errorMsg);
+          // Continue with other days
         }
       }
+      
+      console.log(`[Predictions API] Returning ${allPredictions.length} total predictions`);
       
       // Sort by matchDate (desc) then timeLabel (asc)
       allPredictions.sort((a, b) => {
