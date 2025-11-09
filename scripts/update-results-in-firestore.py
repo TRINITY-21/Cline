@@ -98,14 +98,14 @@ def update_predictions_with_results(db, date_str: str, results: List[Dict[str, A
         # Create results lookup
         results_map = {}
         for result in results:
-            key = (result['home'].lower(), result['away'].lower())
+            key = (result['home'].lower().strip(), result['away'].lower().strip())
             results_map[key] = result
         
         # Update predictions
         updated_count = 0
         for pred in predictions:
-            home = pred.get('home', '').lower()
-            away = pred.get('away', '').lower()
+            home = pred.get('home', '').lower().strip()
+            away = pred.get('away', '').lower().strip()
             
             # Try exact match
             key = (home, away)
@@ -132,6 +132,27 @@ def update_predictions_with_results(db, date_str: str, results: List[Dict[str, A
                 pred['updatedAt'] = datetime.now().isoformat()
                 updated_count += 1
                 continue
+            
+            # Try fuzzy matching (partial team name match)
+            for result_key, result_data in results_map.items():
+                result_home = result_key[0].lower().strip()
+                result_away = result_key[1].lower().strip()
+                
+                # Check if team names partially match (at least 3 characters)
+                home_match = (len(home) >= 3 and (home in result_home or result_home in home)) or \
+                            (len(home) < 3 and home == result_home)
+                away_match = (len(away) >= 3 and (away in result_away or result_away in away)) or \
+                            (len(away) < 3 and away == result_away)
+                
+                if home_match and away_match:
+                    pred['result'] = result_data['result']
+                    pred['homeScore'] = result_data['homeScore']
+                    pred['awayScore'] = result_data['awayScore']
+                    pred['totalGoals'] = result_data['totalGoals']
+                    pred['status'] = result_data['status']
+                    pred['updatedAt'] = datetime.now().isoformat()
+                    updated_count += 1
+                    break
         
         # Save updated predictions
         now = datetime.now().isoformat()
@@ -154,9 +175,24 @@ def main():
     # Read JSON from stdin or file
     if len(sys.argv) > 1:
         with open(sys.argv[1], 'r') as f:
-            data = json.load(f)
+            content = f.read()
     else:
-        data = json.load(sys.stdin)
+        content = sys.stdin.read()
+    
+    # Extract JSON from mixed output (debug messages + JSON)
+    # Find the first '{' which should be the start of JSON
+    json_start = content.find('{')
+    if json_start == -1:
+        print("❌ No JSON found in input")
+        sys.exit(1)
+    
+    json_content = content[json_start:]
+    try:
+        data = json.loads(json_content)
+    except json.JSONDecodeError as e:
+        print(f"❌ Error parsing JSON: {e}")
+        print(f"First 500 chars of content: {content[:500]}")
+        sys.exit(1)
     
     if not data.get('success'):
         print("⚠️  No results found")

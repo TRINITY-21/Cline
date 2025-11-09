@@ -68,29 +68,126 @@ def scrape_betistuta(date_str: Optional[str] = None) -> List[Dict]:
         
         # Find match tables/containers - adjust selectors based on actual HTML structure
         # Common patterns: table rows, div containers with match data
-        match_containers = soup.find_all(['tr', 'div'], class_=re.compile(r'match|game|prediction', re.I))
+        match_containers = []
+        seen_containers = set()
         
-        # If no specific classes, try finding tables
-        if not match_containers:
+        # First, try finding all table rows (most reliable source)
+        # Match structure: [empty, time, home, 'v', away, empty, country, score, ...]
+        all_rows = soup.find_all('tr')
+        for row in all_rows:
+            cells = row.find_all(['td', 'th'])
+            # Need at least 5 cells for valid match structure
+            if len(cells) >= 5:
+                row_text = ' '.join([cell.get_text(strip=True) for cell in cells])
+                row_hash = hash(row_text[:100])
+                
+                # Skip header rows
+                if re.search(r'kod\s+saat\s+evsahibi', row_text.lower(), re.I):
+                    continue
+                
+                # Check if row contains match indicators
+                has_vs = 'vs' in row_text.lower() or ' v ' in row_text.lower()
+                has_time = bool(re.search(r'\d{1,2}:\d{2}', row_text))
+                
+                # For PREDICTIONS (upcoming matches), we need "vs" - played matches don't have "vs"
+                # Cell structure for upcoming: [empty, time, home, 'v', away, ...]
+                # Cell structure for played: [empty, time, home, score, away, ...]
+                cell_1_text = cells[1].get_text(strip=True) if len(cells) > 1 else ''
+                cell_3_text = cells[3].get_text(strip=True).lower() if len(cells) > 3 else ''
+                cell_2_text = cells[2].get_text(strip=True) if len(cells) > 2 else ''
+                cell_4_text = cells[4].get_text(strip=True) if len(cells) > 4 else ''
+                
+                # Check if cell 3 is a score (played match) - skip these for predictions
+                is_played_match = bool(re.search(r'^\d+\s*[-:]\s*\d+$', cell_3_text))
+                if is_played_match:
+                    continue  # Skip played matches - we only want upcoming matches for predictions
+                
+                # For predictions, we need "vs" in cell 3 (upcoming matches)
+                is_upcoming_match = (
+                    (has_time or bool(re.search(r'\d{1,2}:\d{2}', cell_1_text))) and
+                    (cell_3_text in ['v', 'vs'] or has_vs) and
+                    len(cell_2_text) >= 2 and  # Home team
+                    len(cell_4_text) >= 2      # Away team
+                )
+                
+                if is_upcoming_match and row_hash not in seen_containers:
+                    match_containers.append(row)
+                    seen_containers.add(row_hash)
+                elif has_vs and has_time and row_hash not in seen_containers:
+                    # Fallback: if it has both vs and time, include it (upcoming match)
+                    capitalized_words = re.findall(r'\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\b', row_text)
+                    if len(capitalized_words) >= 1:
+                        match_containers.append(row)
+                        seen_containers.add(row_hash)
+        
+        # If we didn't find enough, try finding tables and their rows
+        if len(match_containers) < 50:
             tables = soup.find_all('table')
             for table in tables:
                 rows = table.find_all('tr')
-                match_containers.extend(rows)
+                for row in rows:
+                    cells = row.find_all(['td', 'th'])
+                    if len(cells) >= 3:
+                        row_text = ' '.join([cell.get_text(strip=True) for cell in cells])
+                        row_hash = hash(row_text[:100])
+                        
+                        has_vs = 'vs' in row_text.lower() or ' v ' in row_text.lower()
+                        has_time = bool(re.search(r'\d{1,2}:\d{2}', row_text))
+                        
+                        if (has_vs or has_time) and row_hash not in seen_containers:
+                            capitalized_words = re.findall(r'\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\b', row_text)
+                            if len(capitalized_words) >= 2:
+                                match_containers.append(row)
+                                seen_containers.add(row_hash)
         
         # Alternative: Look for text patterns that indicate matches
-        if not match_containers:
+        if len(match_containers) < 100:
             # Try finding elements with team names pattern (Team A vs Team B)
             all_text = soup.get_text()
             # Look for common match indicators
             vs_pattern = re.compile(r'(\w+(?:\s+\w+)*)\s+vs\s+(\w+(?:\s+\w+)*)', re.I)
             matches_found = vs_pattern.findall(all_text)
             
-            # Try to extract from table cells
+            # Try to extract from table rows (more reliable than individual cells)
+            # Look for table rows that contain match data
+            rows = soup.find_all('tr')
+            seen_rows = set()
+            
+            for row in rows:
+                cells = row.find_all(['td', 'th'])
+                if len(cells) >= 3:  # Reduced from 5 to 3 to catch more matches
+                    row_text = ' '.join([cell.get_text(strip=True) for cell in cells])
+                    row_hash = hash(row_text[:100])  # Use hash to avoid duplicates
+                    
+                    # Check if row contains match indicators
+                    has_vs = 'vs' in row_text.lower() or ' v ' in row_text.lower()
+                    has_time = bool(re.search(r'\d{1,2}:\d{2}', row_text))
+                    
+                    # More lenient: either has vs/v OR has time pattern (some matches might be formatted differently)
+                    if (has_vs or has_time) and row_hash not in seen_rows:
+                        # Additional check: should have some team-like words (capitalized words)
+                        capitalized_words = re.findall(r'\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\b', row_text)
+                        if len(capitalized_words) >= 2:  # At least 2 capitalized words (likely team names)
+                            match_containers.append(row)
+                            seen_rows.add(row_hash)
+            
+            # Also try individual table cells as fallback (for matches in single cells)
             cells = soup.find_all(['td', 'th'])
+            seen_cells = set()
+            
             for cell in cells:
                 text = cell.get_text(strip=True)
-                if 'vs' in text.lower() or '-' in text:
-                    match_containers.append(cell)
+                cell_hash = hash(text[:100])
+                
+                # More specific check - must have both vs/v and time pattern
+                has_vs = ('vs' in text.lower() or ' v ' in text.lower())
+                has_time = bool(re.search(r'\d{1,2}:\d{2}', text))
+                
+                if has_vs and has_time and cell_hash not in seen_cells:
+                    # Avoid duplicates (if already added as part of row)
+                    if cell not in match_containers:
+                        match_containers.append(cell)
+                        seen_cells.add(cell_hash)
         
         debug_print(f"📊 Found {len(match_containers)} potential match containers")
         
@@ -103,56 +200,132 @@ def scrape_betistuta(date_str: Optional[str] = None) -> List[Dict]:
                 if len(text) < 10:
                     continue
                 
+                # Filter out ONLY obvious header/navigation text (be more lenient)
+                # Only skip if it's clearly a header (contains multiple navigation keywords)
+                text_lower = text.lower()
+                header_keywords = [
+                    'betistuta.net betistuta', 'futbol basketbol voleybol', 'orandelli iletisim',
+                    'sun mon tue wed thu fri sat', 'sunday monday tuesday wednesday thursday friday saturday'
+                ]
+                # Only skip if it contains a full header phrase (not just individual words)
+                if any(phrase in text_lower for phrase in header_keywords):
+                    continue  # Skip obvious header/navigation elements
+                
+                # Skip table header rows (common patterns in Turkish)
+                table_header_patterns = [
+                    r'kod\s+saat\s+evsahibi\s+ms\s+deplasman',  # Table column headers
+                    r'kod\s+saat\s+ev\s+ms\s+dep',  # Abbreviated headers
+                    r'msbs\s+ms1\s+ms0\s+ms2',  # Prediction column headers
+                ]
+                if any(re.search(pattern, text_lower) for pattern in table_header_patterns):
+                    continue  # Skip table header rows
+                
+                # Skip if text looks like pure navigation (too many navigation words in short text)
+                nav_words = ['betistuta', 'futbol', 'basketbol', 'voleybol', 'november', 'december']
+                nav_count = sum(1 for word in nav_words if word in text_lower)
+                # Only skip if it has many nav words AND is short (likely pure header)
+                if nav_count >= 4 and len(text) < 100:
+                    continue  # Likely a pure header/navigation element
+                
                 # Extract time first (HH:MM format) - usually appears early
+                # Be more lenient: try to find time, but don't require it for all matches
                 time_match = re.search(r'(\d{1,2}):(\d{2})', text)
-                time_label = time_match.group(0) if time_match else "00:00"
+                time_label = None
+                
+                if time_match:
+                    time_label = time_match.group(0)
+                    # Validate time is reasonable (00:00 to 23:59)
+                    try:
+                        hour, minute = map(int, time_label.split(':'))
+                        if hour > 23 or minute > 59:
+                            time_label = None  # Invalid time, but continue processing
+                    except:
+                        time_label = None
+                
+                # If no valid time found, use default but still process the match
+                if not time_label:
+                    time_label = "00:00"
                 
                 # Improved team name extraction
-                # Pattern: Look for "Team A v Team B" format, capturing full team names
-                # Try multiple patterns to handle different formats
-                vs_patterns = [
-                    # Pattern 1: With time prefix: "ID TIME Team A v Team B Country"
-                    r'(?:\d+\s+)?(\d{1,2}:\d{2})\s+([A-Z][a-zA-Z\s]+?)\s+(?:v|vs|VS|V)\s+([A-Z][a-zA-Z\s]+?)(?:\s+(?:Yeni Zelanda|New Zealand|Japonya|Japan|Endonezya|Indonesia|Tayland|Thailand|Turkiye|Turkey|Almanya|Germany|Ingiltere|England|Ispanya|Spain|Italya|Italy|Fransa|France))',
-                    # Pattern 2: Without time: "Team A v Team B"
-                    r'([A-Z][a-zA-Z][a-zA-Z\s]{1,40}?)\s+(?:v|vs|VS|V)\s+([A-Z][a-zA-Z][a-zA-Z\s]{1,40}?)(?:\s+(?:Yeni Zelanda|New Zealand|Japonya|Japan|Endonezya|Indonesia|Tayland|Thailand|Turkiye|Turkey|Almanya|Germany|Ingiltere|England|Ispanya|Spain|Italya|Italy|Fransa|France))',
-                    # Pattern 3: More flexible - any capitalized words separated by v/vs
-                    r'([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)*)\s+(?:v|vs|VS|V)\s+([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)*)',
-                ]
-                
+                # First try direct cell extraction (more reliable for table structure)
+                # Structure: [empty, time, home, 'v', away, empty, country, score, ...]
                 home_team = None
                 away_team = None
                 
-                for pattern in vs_patterns:
-                    match = re.search(pattern, text)
-                    if match:
-                        # Extract teams based on pattern
-                        groups = match.groups()
-                        if len(groups) >= 3:  # Pattern with time
-                            home_team = groups[1].strip()
-                            away_team = groups[2].strip()
-                        elif len(groups) >= 2:  # Pattern without time
-                            home_team = groups[0].strip()
-                            away_team = groups[1].strip()
+                if hasattr(container, 'find_all'):  # It's a BeautifulSoup element
+                    cells = container.find_all(['td', 'th'])
+                    if len(cells) >= 5:
+                        # Try direct cell access (most reliable)
+                        # Cell 2 should be home team, Cell 4 should be away team
+                        potential_home = cells[2].get_text(strip=True) if len(cells) > 2 else ''
+                        potential_away = cells[4].get_text(strip=True) if len(cells) > 4 else ''
+                        cell_3 = cells[3].get_text(strip=True).lower() if len(cells) > 3 else ''
                         
-                        if home_team and away_team:
-                            # Clean up team names
-                            home_team = re.sub(r'\s+', ' ', home_team).strip()
-                            away_team = re.sub(r'\s+', ' ', away_team).strip()
-                            
-                            # Remove country names if they got included
-                            country_patterns = [
-                                r'\s+(Yeni Zelanda|New Zealand|Japonya|Japan|Endonezya|Indonesia|Tayland|Thailand|Turkiye|Turkey|Almanya|Germany|Ingiltere|England|Ispanya|Spain|Italya|Italy|Fransa|France)$',
-                            ]
-                            for cp in country_patterns:
-                                home_team = re.sub(cp, '', home_team, flags=re.I).strip()
-                                away_team = re.sub(cp, '', away_team, flags=re.I).strip()
-                            
-                            # Validate team names (at least 3 chars, not just single letters)
-                            if len(home_team) >= 3 and len(away_team) >= 3 and \
-                               not re.match(r'^[A-Z]$', home_team) and not re.match(r'^[A-Z]$', away_team):
-                                break
+                        # Check if cell 3 is 'v' or 'vs' (confirms it's a match row)
+                        if cell_3 in ['v', 'vs'] and potential_home and potential_away:
+                            if len(potential_home) >= 2 and len(potential_away) >= 2:
+                                home_team = potential_home
+                                away_team = potential_away
                 
+                # Fallback to pattern matching if direct extraction didn't work
+                if not home_team or not away_team:
+                    vs_patterns = [
+                        # Pattern 1: With time prefix: "ID TIME Team A v Team B Country"
+                        r'(?:\d+\s+)?(\d{1,2}:\d{2})\s+([A-Z][a-zA-Z\s]+?)\s+(?:v|vs|VS|V)\s+([A-Z][a-zA-Z\s]+?)(?:\s+(?:Yeni Zelanda|New Zealand|Japonya|Japan|Endonezya|Indonesia|Tayland|Thailand|Turkiye|Turkey|Almanya|Germany|Ingiltere|England|Ispanya|Spain|Italya|Italy|Fransa|France))',
+                        # Pattern 2: Without time: "Team A v Team B"
+                        r'([A-Z][a-zA-Z][a-zA-Z\s]{1,40}?)\s+(?:v|vs|VS|V)\s+([A-Z][a-zA-Z][a-zA-Z\s]{1,40}?)(?:\s+(?:Yeni Zelanda|New Zealand|Japonya|Japan|Endonezya|Indonesia|Tayland|Thailand|Turkiye|Turkey|Almanya|Germany|Ingiltere|England|Ispanya|Spain|Italya|Italy|Fransa|France))',
+                        # Pattern 3: More flexible - any capitalized words separated by v/vs
+                        r'([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)*)\s+(?:v|vs|VS|V)\s+([A-Z][a-zA-Z]+(?:\s+[A-Z][a-zA-Z]+)*)',
+                    ]
+                    
+                    for pattern in vs_patterns:
+                        match = re.search(pattern, text)
+                        if match:
+                            # Extract teams based on pattern
+                            groups = match.groups()
+                            if len(groups) >= 3:  # Pattern with time
+                                home_team = groups[1].strip()
+                                away_team = groups[2].strip()
+                            elif len(groups) >= 2:  # Pattern without time
+                                home_team = groups[0].strip()
+                                away_team = groups[1].strip()
+                            
+                            if home_team and away_team:
+                                # Clean up team names
+                                home_team = re.sub(r'\s+', ' ', home_team).strip()
+                                away_team = re.sub(r'\s+', ' ', away_team).strip()
+                                
+                                # Remove country names if they got included
+                                country_patterns = [
+                                    r'\s+(Yeni Zelanda|New Zealand|Japonya|Japan|Endonezya|Indonesia|Tayland|Thailand|Turkiye|Turkey|Almanya|Germany|Ingiltere|England|Ispanya|Spain|Italya|Italy|Fransa|France)$',
+                                ]
+                                for cp in country_patterns:
+                                    home_team = re.sub(cp, '', home_team, flags=re.I).strip()
+                                    away_team = re.sub(cp, '', away_team, flags=re.I).strip()
+                                
+                                # Validate team names (at least 3 chars, not just single letters)
+                                if len(home_team) >= 3 and len(away_team) >= 3 and \
+                                   not re.match(r'^[A-Z]$', home_team) and not re.match(r'^[A-Z]$', away_team):
+                                    break
+                
+                # More lenient validation - accept if we have at least 2 chars (some team names might be short)
                 if not home_team or not away_team or len(home_team) < 2 or len(away_team) < 2:
+                    continue
+                
+                # Additional check: if team names are very short (1-2 chars), they're likely not valid
+                if len(home_team.strip()) < 2 or len(away_team.strip()) < 2:
+                    continue
+                
+                # Additional validation: team names shouldn't be too long (likely parsing errors)
+                # But be more lenient - only skip if extremely long
+                if len(home_team) > 80 or len(away_team) > 80:
+                    continue
+                
+                # Team names shouldn't contain navigation keywords, but be lenient
+                # Only skip if team name IS a navigation keyword (not just contains it)
+                invalid_keywords = ['betistuta', 'futbol', 'basketbol', 'november', 'december']
+                if (home_team.lower().strip() in invalid_keywords or 
+                    away_team.lower().strip() in invalid_keywords):
                     continue
                 
                 # Extract league/country name (usually appears after teams)
@@ -244,12 +417,13 @@ def scrape_betistuta(date_str: Optional[str] = None) -> List[Dict]:
         unique_matches = []
         seen = set()
         for match in matches:
-            key = (match['home'].lower(), match['away'].lower())
+            key = (match['home'].lower().strip(), match['away'].lower().strip())
             if key not in seen:
                 seen.add(key)
                 unique_matches.append(match)
         
-        debug_print(f"✅ Extracted {len(unique_matches)} unique matches")
+        debug_print(f"✅ Extracted {len(unique_matches)} unique matches from {len(matches)} total parsed")
+        debug_print(f"📋 All matches will be scored before selecting top 12")
         return unique_matches
         
     except requests.RequestException as e:
@@ -725,11 +899,27 @@ def select_best_12(matches: List[Dict]) -> List[Dict]:
         debug_print(f"📊 Scoring complete: {len(sorted_matches)} matches analyzed")
         debug_print(f"   Score range: {min(scores):.1f} - {max(scores):.1f}")
         debug_print(f"   Average score: {sum(scores)/len(scores):.1f}")
+        
+        # DEBUG: Show top 30 scores
+        debug_print(f"\n🔍 Top 30 scores:")
+        for i, match in enumerate(sorted_matches[:30], 1):
+            home = match.get('home', 'N/A')[:25]
+            away = match.get('away', 'N/A')[:25]
+            score = match.get('score', 0)
+            debug_print(f"   {i:2d}. {score:6.1f} - {home:25s} vs {away}")
+        
+        # DEBUG: Show score distribution
+        debug_print(f"\n📈 Score distribution:")
+        debug_print(f"   >= 60: {sum(1 for s in scores if s >= 60)} matches")
+        debug_print(f"   >= 50: {sum(1 for s in scores if s >= 50)} matches")
+        debug_print(f"   >= 40: {sum(1 for s in scores if s >= 40)} matches")
+        debug_print(f"   >= 30: {sum(1 for s in scores if s >= 30)} matches")
+        debug_print(f"   < 30:  {sum(1 for s in scores if s < 30)} matches")
     
     # Take top 12
     best_12 = sorted_matches[:12]
     
-    debug_print(f"🏆 Selected top 12 from {len(sorted_matches)} total matches")
+    debug_print(f"\n🏆 Selected top 12 from {len(sorted_matches)} total matches")
     debug_print(f"   Top score: {best_12[0].get('score', 0):.1f}, Bottom: {best_12[-1].get('score', 0):.1f}")
     
     return best_12
@@ -795,14 +985,32 @@ def main():
     else:
         debug_print(f"📅 Scraping predictions for today")
     
-    # Scrape matches
+    # Scrape matches - extract ALL available matches
     all_matches = scrape_betistuta(date_str)
     
     if not all_matches:
         debug_print("❌ No matches found")
         sys.exit(1)
     
-    # Select best 12
+    # Score ALL matches - ensure every extracted match gets scored before selection
+    debug_print(f"📊 Scoring all {len(all_matches)} extracted matches before selecting top 12...")
+    scored_count = 0
+    for match in all_matches:
+        if 'score' not in match:
+            match['score'] = calculate_match_score(
+                match.get('home', ''),
+                match.get('away', ''),
+                match.get('league', 'Unknown League'),
+                match.get('overOdds'),
+                match.get('rawText', '')
+            )
+            scored_count += 1
+    
+    if scored_count > 0:
+        debug_print(f"✅ Successfully scored {scored_count} matches")
+    
+    # Select best 12 from ALL scored matches
+    debug_print(f"🏆 Selecting top 12 from {len(all_matches)} total scored matches...")
     best_12 = select_best_12(all_matches)
     
     # Format for Firestore

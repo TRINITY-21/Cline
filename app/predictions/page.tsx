@@ -104,7 +104,7 @@ export default function PredictionsPage() {
               timeLabel: pred.timeLabel || pred.time || '00:00',
               league: pred.league || 'Unknown League',
               pattern: pred.pattern || '',
-              bet: pred.overOdds ? `Over 1.5 Goals @ ${pred.overOdds}` : 'Over 1.5 Goals',
+              bet: 'Over 1.5 Goals',
               betType: pred.betType || 'Over 1.5 Goals',
               confidence: pred.confidence || (pred.score ? `Score: ${pred.score}` : ''),
               ms1: pred.ms1 || '',
@@ -210,13 +210,13 @@ export default function PredictionsPage() {
   // Calculate stats
   const stats = useMemo(() => {
     const totalMatches = filteredMatches.length;
-    const over15Matches = filteredMatches.filter(m => m.betType === 'Over 1.5 Goals').length;
-    const over25Matches = filteredMatches.filter(m => m.betType === 'Over 2.5 Goals').length;
+    const playedMatches = filteredMatches.filter(m => m.status !== 'PENDING' && m.result).length;
+    const wonMatches = filteredMatches.filter(m => m.status === 'WON').length;
     
     return {
       totalMatches,
-      over15Matches,
-      over25Matches,
+      playedMatches,
+      wonMatches,
     };
   }, [filteredMatches]);
 
@@ -235,12 +235,12 @@ export default function PredictionsPage() {
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
             <div className="flex-1">
-              <div className="text-[10px] uppercase tracking-[0.2em] text-white/60">Subtle Pattern Matches - 08-11-2025</div>
+              <div className="text-[10px] uppercase tracking-[0.2em] text-white/60">Premium Predictions - {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '-')}</div>
               <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold mt-1">
                 Premium <span className="text-[rgb(var(--brand-yellow))]">Predictions</span>
               </h2>
               <p className="text-white/70 mt-2 text-sm sm:text-base max-w-prose">
-                High-confidence predictions based on historical pattern analysis. Only Over 1.5 Goals and Over 2.5 Goals matches.
+                High-confidence predictions based on historical pattern analysis. Over 1.5 Goals and Over 2.5 Goals matches.
               </p>
             </div>
           </div>
@@ -252,12 +252,12 @@ export default function PredictionsPage() {
               <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[rgb(var(--brand-yellow))]">{stats.totalMatches}</div>
             </div>
             <div className="border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm rounded-lg p-3 sm:p-4 md:p-5 group hover:border-white/[0.15] transition-all">
-              <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide mb-1">Over 1.5 Goals</div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white/95">{stats.over15Matches}</div>
+              <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide mb-1">Matches Played</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white/95">{stats.playedMatches}</div>
             </div>
             <div className="border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm rounded-lg p-3 sm:p-4 md:p-5 group hover:border-white/[0.15] transition-all">
-              <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide mb-1">Over 2.5 Goals</div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white/95">{stats.over25Matches}</div>
+              <div className="text-[10px] sm:text-xs text-white/60 uppercase tracking-wide mb-1">Matches Won</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[rgb(var(--brand-yellow))]">{stats.wonMatches}</div>
             </div>
           </div>
 
@@ -451,7 +451,7 @@ export default function PredictionsPage() {
             <div className="text-center py-12 text-white/60">
               <div className="inline-flex items-center gap-2">
                 <div className="w-4 h-4 border-2 border-[rgb(var(--brand-yellow))] border-t-transparent rounded-full animate-spin"></div>
-                <p>Loading predictions from Firestore...</p>
+                <p>Loading predictions...</p>
               </div>
             </div>
           ) : filteredMatches.length === 0 ? (
@@ -578,12 +578,6 @@ export default function PredictionsPage() {
                                       <span className="text-[rgb(var(--brand-yellow))] font-medium">
                                         {typeof match.confidence === 'string' ? match.confidence.replace(/\s*\([^)]*\)/g, '') : match.confidence}
                                       </span>
-                                    </div>
-                                  )}
-                                  {match.overOdds && (
-                                    <div className="flex items-center gap-1.5">
-                                      <span className="text-white/40">Odds:</span>
-                                      <span className="text-white/70 font-medium">{match.overOdds}</span>
                                     </div>
                                   )}
                                   {match.result && match.status !== 'PENDING' && (

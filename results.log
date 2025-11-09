@@ -1,0 +1,2 @@
+/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/google/api_core/_python_version_support.py:237: FutureWarning: You are using a non-supported Python version (3.7.0). Google will not post any further updates to google.api_core supporting this Python version. Please upgrade to the latest Python version, or at least Python 3.10, and then update google.api_core.
+  warnings.warn(message, FutureWarning)
