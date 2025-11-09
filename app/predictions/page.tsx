@@ -8,312 +8,26 @@ type Match = {
   home: string;
   away: string;
   time: string;
+  timeLabel?: string;
   league: string;
-  pattern: string;
-  bet: string;
+  pattern?: string;
+  bet?: string;
   betType: 'Over 1.5 Goals' | 'Over 2.5 Goals';
-  confidence: string;
-  ms1: string;
-  ms0: string;
-  ms2: string;
+  confidence?: string;
+  ms1?: string;
+  ms0?: string;
+  ms2?: string;
   result?: string;
-  status: 'PENDING' | 'WON' | 'FAILED';
-  category: 'PERFECT' | 'NEAR-PERFECT' | 'STRONG_FAVORITE';
+  homeScore?: number;
+  awayScore?: number;
+  totalGoals?: number;
+  status?: 'PENDING' | 'WON' | 'FAILED';
+  category?: 'PERFECT' | 'NEAR-PERFECT' | 'STRONG_FAVORITE';
+  matchDate?: string;
+  overOdds?: number;
+  score?: number;
 };
 
-// Static data from markdown - all matches are Over 2.5 Goals
-const PREDICTIONS_DATA: Match[] = [
-  // Perfect Pattern Matches - Over 2.5 Goals
-  {
-    id: '1',
-    home: 'Nomme JK Kalju',
-    away: 'Paide Linnameeskond',
-    time: '13:30',
-    league: 'Estonya-Premium Lig',
-    pattern: 'BTTS Yes @ 2.30',
-    bet: 'Over 1.5 Goals @ 2.29',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '2.12',
-    ms0: '3.18',
-    ms2: '2.33',
-    result: 'Nomme JK Kalju v Paide Linnameeskond',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '4',
-    home: 'Rijnsburgse Boys',
-    away: 'Katwijk',
-    time: '15:30',
-    league: 'Hollanda-Tweede Divisie',
-    pattern: 'BTTS Yes @ 2.30',
-    bet: 'Over 1.5 Goals @ 2.3',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '1.8',
-    ms0: '3.35',
-    ms2: '2.77',
-    result: 'Rijnsburgse Boys v Katwijk',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '5',
-    home: 'Eintracht Trier',
-    away: 'Bahlinger SC',
-    time: '16:00',
-    league: 'Almanya-Bölgesel Lig Güney Bati',
-    pattern: 'BTTS Yes @ 2.25',
-    bet: 'Over 1.5 Goals @ 2.24',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '1.25',
-    ms0: '4.62',
-    ms2: '5.12',
-    result: 'Eintracht Trier v Bahlinger SC',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '6',
-    home: 'Lehnerz',
-    away: 'Sonnenhof Grossaspach',
-    time: '16:00',
-    league: 'Almanya-Bölgesel Lig Güney Bati',
-    pattern: 'BTTS Yes @ 2.46',
-    bet: 'Over 1.5 Goals @ 2.45',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '2.65',
-    ms0: '3.46',
-    ms2: '1.82',
-    result: 'Lehnerz v Sonnenhof Grossaspach',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '7',
-    home: 'Newcastle United U21',
-    away: 'Burnley U21',
-    time: '16:00',
-    league: 'Ingiltere-Premier Lig 2',
-    pattern: 'BTTS Yes @ 2.58',
-    bet: 'Over 1.5 Goals @ 2.58',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '1.65',
-    ms0: '3.66',
-    ms2: '2.98',
-    result: 'Newcastle United U21 v Burnley U21',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '8',
-    home: 'Young Boys II',
-    away: 'Cham',
-    time: '16:00',
-    league: 'Isviçre-1.Lig Promotion',
-    pattern: 'BTTS Yes @ 2.41',
-    bet: 'Over 1.5 Goals @ 2.41',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '1.92',
-    ms0: '3.34',
-    ms2: '2.53',
-    result: 'Young Boys II v Cham',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '9',
-    home: 'Sarpsborg 08',
-    away: 'Fredrikstad',
-    time: '16:00',
-    league: 'Norveç-Eliteserien',
-    pattern: 'BTTS Yes @ 2.25',
-    bet: 'Over 1.5 Goals @ 2.24',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '2.02',
-    ms0: '3.37',
-    ms2: '2.58',
-    result: 'Sarpsborg 08 v Fredrikstad',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '11',
-    home: 'Holywell',
-    away: 'Buckley Town',
-    time: '17:00',
-    league: 'Galler-FAW Championship Kuzey',
-    pattern: 'BTTS Yes @ 2.25',
-    bet: 'Over 1.5 Goals @ 2.24',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '1.33',
-    ms0: '4.3',
-    ms2: '4.34',
-    result: 'Holywell v Buckley Town',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '12',
-    home: 'Brentford U21',
-    away: 'Watford U21',
-    time: '17:00',
-    league: 'Ingiltere-Professional Development Lig',
-    pattern: 'BTTS Yes @ 2.30',
-    bet: 'Over 1.5 Goals @ 2.29',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '1.12',
-    ms0: '5.87',
-    ms2: '6.7',
-    result: 'Brentford U21 v Watford U21',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '15',
-    home: 'Basel II',
-    away: 'Breitenrain',
-    time: '17:30',
-    league: 'Isviçre-1.Lig Promotion',
-    pattern: 'BTTS Yes @ 2.30',
-    bet: 'Over 1.5 Goals @ 2.29',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '1.6',
-    ms0: '3.51',
-    ms2: '3.3',
-    result: 'Basel II v Breitenrain',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '16',
-    home: 'Umm Salal',
-    away: 'Al Sadd',
-    time: '17:30',
-    league: 'Katar-Yildizlar Ligi',
-    pattern: 'BTTS Yes @ 2.30',
-    bet: 'Over 1.5 Goals @ 2.29',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '1.6',
-    ms0: '3.51',
-    ms2: '3.3',
-    result: '',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '19',
-    home: 'Morecambe',
-    away: 'Sutton United',
-    time: '18:00',
-    league: 'Ingiltere-Ulusal Lig',
-    pattern: 'BTTS Yes @ 2.25',
-    bet: 'Over 1.5 Goals @ 2.26',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '2.02',
-    ms0: '3.29',
-    ms2: '2.39',
-    result: 'Morecambe v Sutton United',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '20',
-    home: 'Bedford Town',
-    away: 'Merthyr Town',
-    time: '18:00',
-    league: 'Ingiltere-Ulusal Lig N / S Kuzey',
-    pattern: 'BTTS Yes @ 2.25',
-    bet: 'Over 1.5 Goals @ 2.25',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '1.95',
-    ms0: '3.31',
-    ms2: '2.5',
-    result: 'Bedford Town v Merthyr Town',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '21',
-    home: 'Lilleström',
-    away: 'Stabaek',
-    time: '18:00',
-    league: 'Norveç-1.Lig',
-    pattern: 'Over 2.5 Goals @ 1.15',
-    bet: 'Over 2.5 Goals @ 1.15',
-    betType: 'Over 2.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '1.1',
-    ms0: '5.58',
-    ms2: '7.97',
-    result: 'Lilleström v Stabaek',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '23',
-    home: 'Zürich',
-    away: 'Luzern',
-    time: '20:00',
-    league: 'Isviçre-Süper Lig',
-    pattern: 'BTTS Yes @ 2.30',
-    bet: 'Over 1.5 Goals @ 2.29',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '2.04',
-    ms0: '3.35',
-    ms2: '2.55',
-    result: 'Zürich v Luzern',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '24',
-    home: 'Servette',
-    away: 'Thun',
-    time: '22:30',
-    league: 'Isviçre-Süper Lig',
-    pattern: 'BTTS Yes @ 2.30',
-    bet: 'Over 1.5 Goals @ 2.3',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '1.86',
-    ms0: '3.4',
-    ms2: '2.87',
-    result: 'Servette v Thun',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-  {
-    id: '25',
-    home: 'Monaco',
-    away: 'Lens',
-    time: '23:05',
-    league: 'Fransa-Ligue 1',
-    pattern: 'BTTS Yes @ 2.30',
-    bet: 'Over 1.5 Goals @ 2.3',
-    betType: 'Over 1.5 Goals',
-    confidence: 'Very High (100% historical)',
-    ms1: '1.85',
-    ms0: '3.42',
-    ms2: '2.89',
-    result: 'Monaco v Lens',
-    status: 'PENDING',
-    category: 'PERFECT',
-  },
-];
 
 // Get day of week from date string (DD-MM-YYYY format)
 function getDayOfWeek(dateStr: string): string {
@@ -323,29 +37,37 @@ function getDayOfWeek(dateStr: string): string {
   return days[date.getDay()];
 }
 
-// Group matches by day of week (all matches are on 08-11-2025)
+// Group matches by day of week
 function groupMatchesByDay(matches: Match[]): Record<string, Match[]> {
   const grouped: Record<string, Match[]> = {};
-  const dateStr = '08-11-2025'; // All matches are on this date
-  const dayName = getDayOfWeek(dateStr);
-  
-  if (!grouped[dayName]) {
-    grouped[dayName] = [];
-  }
   
   matches.forEach(match => {
+    // Use matchDate if available, otherwise use today
+    const dateStr = match.matchDate || new Date().toLocaleDateString('en-GB').replace(/\//g, '-');
+    const dayName = getDayOfWeek(dateStr);
+    
+    if (!grouped[dayName]) {
+      grouped[dayName] = [];
+    }
+    
     grouped[dayName].push(match);
   });
   
   // Sort matches by time
   Object.keys(grouped).forEach(dayKey => {
-    grouped[dayKey].sort((a, b) => a.time.localeCompare(b.time));
+    grouped[dayKey].sort((a, b) => {
+      const timeA = a.timeLabel || a.time || '00:00';
+      const timeB = b.timeLabel || b.time || '00:00';
+      return timeA.localeCompare(timeB);
+    });
   });
   
   return grouped;
 }
 
 export default function PredictionsPage() {
+  const [predictions, setPredictions] = useState<Match[]>([]);
+  const [loading, setLoading] = useState(true);
   const [expandedKeys, setExpandedKeys] = useState<Record<string, boolean>>({});
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'Over 1.5 Goals' | 'Over 2.5 Goals'>('all');
   const [filtersOpen, setFiltersOpen] = useState<boolean>(true);
@@ -353,13 +75,81 @@ export default function PredictionsPage() {
   const [selectedDay, setSelectedDay] = useState<string>('all');
   const groupRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
+  // Fetch predictions from Firestore
+  useEffect(() => {
+    let cancelled = false;
+    async function fetchPredictions() {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/predictions', { cache: 'no-store' });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        
+        if (!cancelled) {
+          if (data.error) {
+            console.error('Error fetching predictions:', data.error, data.details);
+            // Show error but still set empty array
+            setPredictions([]);
+          } else if (Array.isArray(data)) {
+            // Transform API data to Match format
+            const transformed: Match[] = data.map((pred: any) => ({
+              id: pred.id || `${pred.home}-vs-${pred.away}`,
+              home: pred.home || '',
+              away: pred.away || '',
+              time: pred.timeLabel || pred.time || '00:00',
+              timeLabel: pred.timeLabel || pred.time || '00:00',
+              league: pred.league || 'Unknown League',
+              pattern: pred.pattern || '',
+              bet: pred.overOdds ? `Over 1.5 Goals @ ${pred.overOdds}` : 'Over 1.5 Goals',
+              betType: pred.betType || 'Over 1.5 Goals',
+              confidence: pred.confidence || (pred.score ? `Score: ${pred.score}` : ''),
+              ms1: pred.ms1 || '',
+              ms0: pred.ms0 || '',
+              ms2: pred.ms2 || '',
+              result: pred.result || undefined,
+              homeScore: pred.homeScore,
+              awayScore: pred.awayScore,
+              totalGoals: pred.totalGoals,
+              status: pred.status || (pred.result ? (pred.totalGoals && pred.totalGoals > 1 ? 'WON' : 'FAILED') : 'PENDING'),
+              category: pred.category || 'PERFECT',
+              matchDate: pred.matchDate,
+              overOdds: pred.overOdds,
+              score: pred.score,
+            }));
+            setPredictions(transformed);
+            console.log(`✅ Loaded ${transformed.length} predictions from Firestore`);
+          } else {
+            console.warn('Unexpected API response format:', data);
+            setPredictions([]);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching predictions:', error);
+        if (!cancelled) {
+          setPredictions([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+    
+    fetchPredictions();
+    return () => { cancelled = true; };
+  }, []);
+
   // Filter matches based on selected filter
   const filteredMatches = useMemo(() => {
     if (selectedFilter === 'all') {
-      return PREDICTIONS_DATA;
+      return predictions;
     }
-    return PREDICTIONS_DATA.filter(m => m.betType === selectedFilter);
-  }, [selectedFilter]);
+    return predictions.filter(m => m.betType === selectedFilter);
+  }, [predictions, selectedFilter]);
 
   // Group matches by day
   const groupedByDay = useMemo(() => {
@@ -368,13 +158,13 @@ export default function PredictionsPage() {
 
   // All available days (for dropdown) - from all matches, not filtered
   const allAvailableDays = useMemo(() => {
-    const allMatchesGrouped = groupMatchesByDay(PREDICTIONS_DATA);
+    const allMatchesGrouped = groupMatchesByDay(predictions);
     const dayOrder = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const availableDays = Object.keys(allMatchesGrouped);
     const orderedDays = dayOrder.filter(day => availableDays.includes(day));
     const remainingDays = availableDays.filter(day => !dayOrder.includes(day));
     return [...orderedDays, ...remainingDays];
-  }, []);
+  }, [predictions]);
 
   const dayKeys = useMemo(() => {
     const dayOrder = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -657,9 +447,17 @@ export default function PredictionsPage() {
           </div>
 
           {/* Matches List */}
-          {filteredMatches.length === 0 ? (
+          {loading ? (
             <div className="text-center py-12 text-white/60">
-              <p>No matches found for the selected filter</p>
+              <div className="inline-flex items-center gap-2">
+                <div className="w-4 h-4 border-2 border-[rgb(var(--brand-yellow))] border-t-transparent rounded-full animate-spin"></div>
+                <p>Loading predictions from Firestore...</p>
+              </div>
+            </div>
+          ) : filteredMatches.length === 0 ? (
+            <div className="text-center py-12 text-white/60 space-y-2">
+              <p className="text-lg font-medium">No predictions found</p>
+              <p className="text-sm text-white/50">Check back later for today's matches!</p>
             </div>
           ) : (
             <div className="space-y-6 mt-6">
@@ -702,7 +500,7 @@ export default function PredictionsPage() {
                                     <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
-                                      <span className="text-[10px] sm:text-xs font-mono font-medium">{match.time}</span>
+                                      <span className="text-[10px] sm:text-xs font-mono font-medium">{match.timeLabel || match.time}</span>
                                     </div>
                               </div>
 
@@ -743,19 +541,59 @@ export default function PredictionsPage() {
                                 </span>
                                 
                                 {/* Status Badge */}
-                                  <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-white/8 border border-white/20 backdrop-blur-sm whitespace-nowrap">
-                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-pulse flex-shrink-0" />
-                                    <span className="text-[10px] sm:text-xs font-medium text-white/70">Pending</span>
+                                  {match.status === 'WON' ? (
+                                    <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-green-500/15 border border-green-500/40 backdrop-blur-sm whitespace-nowrap">
+                                      <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                      </svg>
+                                      <span className="text-[10px] sm:text-xs font-medium text-green-300">Won</span>
+                                      {match.result && (
+                                        <span className="text-[9px] sm:text-[10px] text-green-400/80 ml-1">({match.result})</span>
+                                      )}
                                     </div>
+                                  ) : match.status === 'FAILED' ? (
+                                    <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-red-500/15 border border-red-500/40 backdrop-blur-sm whitespace-nowrap">
+                                      <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                                      </svg>
+                                      <span className="text-[10px] sm:text-xs font-medium text-red-300">Failed</span>
+                                      {match.result && (
+                                        <span className="text-[9px] sm:text-[10px] text-red-400/80 ml-1">({match.result})</span>
+                                      )}
+                                    </div>
+                                  ) : (
+                                    <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-white/8 border border-white/20 backdrop-blur-sm whitespace-nowrap">
+                                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[rgb(var(--brand-yellow))] animate-pulse flex-shrink-0" />
+                                      <span className="text-[10px] sm:text-xs font-medium text-white/70">Pending</span>
+                                    </div>
+                                  )}
                                   </div>
                                 </div>
 
                                 {/* Additional Info Row */}
                                 <div className="mt-3 pt-3 border-t border-white/5 flex flex-wrap items-center gap-3 text-xs text-white/50">
-                                  <div className="flex items-center gap-1.5">
-                                    <span className="text-white/40">Confidence:</span>
-                                    <span className="text-[rgb(var(--brand-yellow))] font-medium">{match.confidence.replace(/\s*\([^)]*\)/g, '')}</span>
-                                  </div>
+                                  {match.confidence && (
+                                    <div className="flex items-center gap-1.5">
+                                      <span className="text-white/40">Confidence:</span>
+                                      <span className="text-[rgb(var(--brand-yellow))] font-medium">
+                                        {typeof match.confidence === 'string' ? match.confidence.replace(/\s*\([^)]*\)/g, '') : match.confidence}
+                                      </span>
+                                    </div>
+                                  )}
+                                  {match.overOdds && (
+                                    <div className="flex items-center gap-1.5">
+                                      <span className="text-white/40">Odds:</span>
+                                      <span className="text-white/70 font-medium">{match.overOdds}</span>
+                                    </div>
+                                  )}
+                                  {match.result && match.status !== 'PENDING' && (
+                                    <div className="flex items-center gap-1.5">
+                                      <span className="text-white/40">Result:</span>
+                                      <span className={`font-medium ${match.status === 'WON' ? 'text-green-400' : 'text-red-400'}`}>
+                                        {match.result}
+                                      </span>
+                                    </div>
+                                  )}
                                 </div>
                           </div>
                         </div>
