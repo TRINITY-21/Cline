@@ -56,18 +56,22 @@ jobs:
       - name: Scrape predictions
         if: steps.should-scrape.outputs.skip == 'false'
         id: scrape
-        env:
-          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_JSON }}
         run: |
-          python3 scripts/scrape-betistuta-predictions.py ${{ steps.date.outputs.date }} > predictions.json
-          cat predictions.json
+          python3 scripts/scrape-betistuta-predictions.py ${{ steps.date.outputs.date }} > predictions.json 2>scrape.log
+          echo "📊 Scrape log:"
+          cat scrape.log || true
+          echo ""
+          echo "📄 JSON preview:"
+          head -c 500 predictions.json || echo "No JSON output"
       
       - name: Save to Firestore
         if: steps.should-scrape.outputs.skip == 'false'
         env:
-          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_JSON }}
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
         run: |
+          echo "💾 Saving to Firestore..."
           python3 scripts/save-predictions-to-firestore.py predictions.json
+          echo "✅ Save completed"
       
       - name: Upload predictions JSON
         if: steps.should-scrape.outputs.skip == 'false' && always()
@@ -116,7 +120,7 @@ jobs:
         if: steps.should-update.outputs.skip == 'false'
         id: results
         env:
-          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_JSON }}
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
         run: |
           python3 scripts/update-prediction-results.py ${{ steps.date.outputs.date }} > results.json
           cat results.json
@@ -124,7 +128,7 @@ jobs:
       - name: Update Firestore
         if: steps.should-update.outputs.skip == 'false'
         env:
-          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_JSON }}
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
         run: |
           python3 scripts/update-results-in-firestore.py results.json
       

@@ -148,9 +148,24 @@ def main():
     # Read JSON from stdin or file
     if len(sys.argv) > 1:
         with open(sys.argv[1], 'r') as f:
-            data = json.load(f)
+            content = f.read()
     else:
-        data = json.load(sys.stdin)
+        content = sys.stdin.read()
+    
+    # Extract JSON from mixed output (debug messages + JSON)
+    # Find the first '{' which should be the start of JSON
+    json_start = content.find('{')
+    if json_start == -1:
+        print("❌ No JSON found in input")
+        sys.exit(1)
+    
+    json_content = content[json_start:]
+    try:
+        data = json.loads(json_content)
+    except json.JSONDecodeError as e:
+        print(f"❌ Error parsing JSON: {e}")
+        print(f"First 500 chars of content: {content[:500]}")
+        sys.exit(1)
     
     if not data.get('success'):
         print("❌ Scraping failed")
