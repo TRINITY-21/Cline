@@ -1,0 +1,133 @@
+📅 Updating results for: 2025-11-08
+📋 Found 12 predictions to update
+🔍 Scraping results from: https://www.betistuta.net/Futbol.aspx?D=11/8/2025
+🔍 Looking for 12 specific matches in the table...
+✅ Found result: Inter Miami vs Nashville SC ABD - 5-2
+✅ Found result: Barito Putera vs PSS Sleman - 1-1
+✅ Found result: Visakha vs Phnom Penh Crown Kambo - 2-6
+✅ Found result: Kamuzu Barracks vs Karonga United Malavi - 2-1
+✅ Found result: Muras United vs Alga Kirgizistan - 3-1
+✅ Found result: Tamale City vs Northern City Gana - 1-0
+✅ Found result: Berekum Arsenal vs Victory Club Warriors Gana - 0-1
+✅ Found result: Yate Town vs Poole Town - 1-3
+✅ Found result: Orapa United vs Gaborone United Botsvana - 1-2
+✅ Found result: Ourense CF vs Orihuela - 2-1
+✅ Found result: Wilhelmshaven vs LSK Hansa - 2-1
+✅ Found 11 results for predicted matches
+{
+  "success": true,
+  "date": "2025-11-08",
+  "results": [
+    {
+      "home": "Inter Miami",
+      "away": "Nashville SC ABD",
+      "homeScore": 5,
+      "awayScore": 2,
+      "totalGoals": 7,
+      "result": "5-2",
+      "over15": true,
+      "status": "WON"
+    },
+    {
+      "home": "Barito Putera",
+      "away": "PSS Sleman",
+      "homeScore": 1,
+      "awayScore": 1,
+      "totalGoals": 2,
+      "result": "1-1",
+      "over15": true,
+      "status": "WON"
+    },
+    {
+      "home": "Visakha",
+      "away": "Phnom Penh Crown Kambo",
+      "homeScore": 2,
+      "awayScore": 6,
+      "totalGoals": 8,
+      "result": "2-6",
+      "over15": true,
+      "status": "WON"
+    },
+    {
+      "home": "Kamuzu Barracks",
+      "away": "Karonga United Malavi",
+      "homeScore": 2,
+      "awayScore": 1,
+      "totalGoals": 3,
+      "result": "2-1",
+      "over15": true,
+      "status": "WON"
+    },
+    {
+      "home": "Muras United",
+      "away": "Alga Kirgizistan",
+      "homeScore": 3,
+      "awayScore": 1,
+      "totalGoals": 4,
+      "result": "3-1",
+      "over15": true,
+      "status": "WON"
+    },
+    {
+      "home": "Tamale City",
+      "away": "Northern City Gana",
+      "homeScore": 1,
+      "awayScore": 0,
+      "totalGoals": 1,
+      "result": "1-0",
+      "over15": false,
+      "status": "FAILED"
+    },
+    {
+      "home": "Berekum Arsenal",
+      "away": "Victory Club Warriors Gana",
+      "homeScore": 0,
+      "awayScore": 1,
+      "totalGoals": 1,
+      "result": "0-1",
+      "over15": false,
+      "status": "FAILED"
+    },
+    {
+      "home": "Yate Town",
+      "away": "Poole Town",
+      "homeScore": 1,
+      "awayScore": 3,
+      "totalGoals": 4,
+      "result": "1-3",
+      "over15": true,
+      "status": "WON"
+    },
+    {
+      "home": "Orapa United",
+      "away": "Gaborone United Botsvana",
+      "homeScore": 1,
+      "awayScore": 2,
+      "totalGoals": 3,
+      "result": "1-2",
+      "over15": true,
+      "status": "WON"
+    },
+    {
+      "home": "Ourense CF",
+      "away": "Orihuela",
+      "homeScore": 2,
+      "awayScore": 1,
+      "totalGoals": 3,
+      "result": "2-1",
+      "over15": true,
+      "status": "WON"
+    },
+    {
+      "home": "Wilhelmshaven",
+      "away": "LSK Hansa",
+      "homeScore": 2,
+      "awayScore": 1,
+      "totalGoals": 3,
+      "result": "2-1",
+      "over15": true,
+      "status": "WON"
+    }
+  ],
+  "resultsFound": 11
+}

@@ -1,0 +1,20 @@
+📅 Updating results for: 2025-11-08
+🔍 Scraping results from: https://www.betistuta.net/Futbol.aspx?D=11/8/2025
+✅ Found 1 match results
+{
+  "success": true,
+  "date": "2025-11-08",
+  "results": [
+    {
+      "home": "Envigado",
+      "away": "Mi",
+      "homeScore": 200,
+      "awayScore": 0,
+      "totalGoals": 200,
+      "result": "200-0",
+      "over15": true,
+      "status": "WON"
+    }
+  ],
+  "resultsFound": 1
+}
