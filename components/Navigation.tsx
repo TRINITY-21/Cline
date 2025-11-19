@@ -94,6 +94,19 @@ export default function Navigation() {
             <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[rgb(var(--brand-yellow))] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
           )}
         </Link>
+        <Link 
+          href="/scores" 
+          className={`relative px-3 md:px-4 lg:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-200 group touch-manipulation ${
+            isActive('/scores')
+              ? 'bg-[rgb(var(--brand-yellow))] text-black shadow-lg shadow-[rgb(var(--brand-yellow))]/30'
+              : 'text-white/70 hover:text-white hover:bg-white/[0.05]'
+          }`}
+        >
+          Scores
+          {!isActive('/scores') && (
+            <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[rgb(var(--brand-yellow))] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left" />
+          )}
+        </Link>
         {/* My Teams link removed */}
       </nav>
 
@@ -198,7 +211,7 @@ export default function Navigation() {
               <Link
                 href="/predictions"
                 onClick={closeMobileMenu}
-                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 touch-manipulation ${
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 touch-manipulation mb-1 ${
                   isActive('/predictions')
                     ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))] border border-[rgb(var(--brand-yellow))]/30'
                     : 'text-white/80 hover:bg-white/5 border border-transparent hover:border-white/10'
@@ -211,6 +224,27 @@ export default function Navigation() {
                   <span>Predictions</span>
                 </div>
                 {isActive('/predictions') && (
+                  <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+              </Link>
+              <Link
+                href="/scores"
+                onClick={closeMobileMenu}
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 touch-manipulation ${
+                  isActive('/scores')
+                    ? 'bg-[rgb(var(--brand-yellow))]/10 text-[rgb(var(--brand-yellow))] border border-[rgb(var(--brand-yellow))]/30'
+                    : 'text-white/80 hover:bg-white/5 border border-transparent hover:border-white/10'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                  <span>Scores</span>
+                </div>
+                {isActive('/scores') && (
                   <svg className="w-4 h-4 text-[rgb(var(--brand-yellow))] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>

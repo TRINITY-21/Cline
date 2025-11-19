@@ -381,152 +381,145 @@ export default function GameBrowser() {
           <p className="text-white/50">Check back soon for the next big game</p>
         </div>
       ) : (
-      <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm">
+      <div className="relative rounded-xl overflow-hidden border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm">
         {/* Background grid + glow */}
-        <div className="absolute inset-0 bg-grid-yellow bg-[size:24px_24px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
+        <div className="absolute inset-0 bg-grid-yellow bg-[size:20px_20px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30" />
 
-        {/* Center duel */}
-        <div className="relative z-10 px-4 sm:px-6 md:px-8 py-4 sm:py-6 md:py-8">
-          <div className="flex flex-row items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12">
-            <div className="text-center min-w-0 flex-1 max-w-[180px] sm:max-w-[220px] md:max-w-[260px]">
-              <div className="flex items-center justify-center mb-1.5 sm:mb-2 p-1.5 sm:p-2">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 flex items-center justify-center overflow-visible">
-                  <TeamLogo logo={featured?.home?.logo} name={firstNameOf(featured?.home?.name || '')} size={120} className="max-w-full max-h-full w-auto h-auto" />
-                </div>
+        {/* Match Display */}
+        <div className="relative z-10 px-4 py-3">
+          <div className="flex flex-row items-center justify-center gap-2">
+            {/* Home Team - Left Side */}
+            <div className="flex flex-col items-center flex-shrink-0">
+              <div className="w-10 h-10 flex items-center justify-center mb-1">
+                <TeamLogo logo={featured?.home?.logo} name={firstNameOf(featured?.home?.name || '')} size={40} className="max-w-full max-h-full w-auto h-auto" />
               </div>
-              <div className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-semibold text-white/90 truncate">{getDisplayName(featured?.home?.name || '')}</div>
-            </div>
-            <span className="text-white/60 text-base sm:text-lg md:text-xl lg:text-2xl font-medium flex-shrink-0">VS</span>
-            <div className="text-center min-w-0 flex-1 max-w-[180px] sm:max-w-[220px] md:max-w-[260px]">
-              <div className="flex items-center justify-center mb-1.5 sm:mb-2 p-1.5 sm:p-2">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 xl:w-32 xl:h-32 flex items-center justify-center overflow-visible">
-                  <TeamLogo logo={featured?.away?.logo} name={firstNameOf(featured?.away?.name || '')} size={120} className="max-w-full max-h-full w-auto h-auto" />
-                </div>
+              <div className="text-[10px] font-medium text-white/90 text-center leading-tight px-1">
+                {getDisplayName(featured?.home?.name || '')}
               </div>
-              <div className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-semibold text-white/90 truncate">{getDisplayName(featured?.away?.name || '')}</div>
             </div>
-          </div>
 
-          {/* Meta and actions */}
-          <div className="mt-4 sm:mt-5 md:mt-6 flex flex-col items-center gap-3 sm:gap-4">
-            {/* League and Time Info - Combined */}
-            <div className="flex items-center gap-3 sm:gap-4">
-              {featured?.league?.name && (
-                <span className="text-[10px] sm:text-xs uppercase tracking-wider text-white/60 font-medium">
-                  {featured.league.name}
-                </span>
-              )}
-              {featured?.timeLabel && (
-                <>
-                  {featured?.league?.name && <span className="text-white/30">•</span>}
-                  <span className="text-xs sm:text-sm font-mono text-white/60">
-                    {featured.timeLabel}
+            {/* Center - Meta and actions */}
+            <div className="flex flex-col items-center gap-1.5 mx-3">
+              {/* League and Time Info */}
+              <div className="flex items-center gap-1.5">
+                {featured?.league?.name && (
+                  <span className="text-[7px] uppercase tracking-wider text-white/55 font-medium">
+                    {featured.league.name}
                   </span>
-                </>
-              )}
-            </div>
-            
-            {(() => {
-              const info = formatCountdown(featured?.startTime);
-              const live = info.seconds === 0 || featured?.status === 'live';
+                )}
+                {featured?.timeLabel && (
+                  <>
+                    {featured?.league?.name && <span className="text-white/25 text-[8px]">•</span>}
+                    <span className="text-[9px] font-mono text-white/55">
+                      {featured.timeLabel}
+                    </span>
+                  </>
+                )}
+              </div>
               
-              if (live) {
-                return null; // Live indicator will be shown with the button
-              }
-              
-              return (
-                <div className="flex flex-col items-center gap-3 w-full">
-                  <div className="text-xs md:text-sm uppercase tracking-wider text-white/60 font-medium mb-1">
-                    Starts in
-                  </div>
-                  <div className="flex items-center justify-center gap-2 md:gap-3">
-                    {info.hours > 0 && (
+              {(() => {
+                const info = formatCountdown(featured?.startTime);
+                const live = info.seconds === 0 || featured?.status === 'live';
+                
+                if (live) {
+                  return (
+                    <div className="flex flex-col items-center gap-1.5">
+                      <div className="flex items-center gap-1">
+                        <span className="relative flex h-1 w-1">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-1 w-1 bg-red-500"></span>
+                        </span>
+                        <span className="text-[9px] font-semibold text-red-400 uppercase tracking-wide">
+                          Live Now
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        className="px-2.5 py-1 rounded-lg bg-[rgb(var(--brand-yellow))] text-black text-[9px] font-semibold hover:bg-[rgb(var(--brand-yellow))]/90 transition-colors shadow-md shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/30 flex items-center gap-1"
+                        onClick={() =>
+                          setSelected({
+                            id: Math.random().toString(36).slice(2),
+                            sport: (featured?.sport || 'Football') as Sport,
+                            league: featured?.league?.name || '',
+                            home: featured?.home?.name || '',
+                            away: featured?.away?.name || '',
+                            time: featured?.timeLabel || '',
+                            videoSrc: featured?.videoSrc || '',
+                            matchId: featured?.id,
+                          })
+                        }
+                      >
+                        <svg className="w-2 h-2" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                        </svg>
+                        <span>Watch Live</span>
+                      </button>
+                    </div>
+                  );
+                }
+                
+                return (
+                  <div className="flex flex-col items-center gap-1 w-full">
+                    <div className="text-[8px] uppercase tracking-wider text-white/55 font-medium">
+                      Starts in
+                    </div>
+                    <div className="flex items-center justify-center gap-1">
+                      {info.hours > 0 && (
+                        <div className="flex flex-col items-center">
+                          <div className="font-mono tabular-nums text-base font-bold text-white px-1.5 py-0.5 rounded-lg bg-white/[0.05] backdrop-blur-sm border border-white/[0.10] shadow-[0_0_10px_rgba(255,212,0,0.1)]">
+                            {String(info.hours).padStart(2, '0')}
+                          </div>
+                          <div className="text-[7px] uppercase tracking-wider text-white/45 mt-0.5 font-medium">
+                            H
+                          </div>
+                        </div>
+                      )}
+                      {info.hours > 0 && (
+                        <div className="text-xs font-bold text-white/35 pb-2">:</div>
+                      )}
                       <div className="flex flex-col items-center">
-                        <div className="font-mono tabular-nums text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 rounded-2xl bg-white/[0.05] backdrop-blur-md border border-white/[0.12] shadow-[0_0_40px_rgba(255,212,0,0.15)]">
-                          {String(info.hours).padStart(2, '0')}
+                        <div className="font-mono tabular-nums text-base font-bold text-white px-1.5 py-0.5 rounded-lg bg-white/[0.05] backdrop-blur-sm border border-white/[0.10] shadow-[0_0_10px_rgba(255,212,0,0.1)]">
+                          {String(info.minutes).padStart(2, '0')}
                         </div>
-                        <div className="text-[10px] sm:text-[10px] md:text-xs uppercase tracking-wider text-white/50 mt-1.5 font-medium">
-                          Hours
+                        <div className="text-[7px] uppercase tracking-wider text-white/45 mt-0.5 font-medium">
+                          M
                         </div>
                       </div>
-                    )}
-                    {info.hours > 0 && (
-                      <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white/40 pb-6 sm:pb-8">:</div>
-                    )}
-                    <div className="flex flex-col items-center">
-                      <div className="font-mono tabular-nums text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 rounded-2xl bg-white/[0.05] backdrop-blur-md border border-white/[0.12] shadow-[0_0_40px_rgba(255,212,0,0.15)]">
-                        {String(info.minutes).padStart(2, '0')}
-                      </div>
-                      <div className="text-[10px] sm:text-[10px] md:text-xs uppercase tracking-wider text-white/50 mt-1.5 font-medium">
-                        Minutes
+                      <div className="text-xs font-bold text-white/35 pb-2">:</div>
+                      <div className="flex flex-col items-center">
+                        <div className="font-mono tabular-nums text-base font-bold text-white px-1.5 py-0.5 rounded-lg bg-white/[0.05] backdrop-blur-sm border border-white/[0.10] shadow-[0_0_10px_rgba(255,212,0,0.1)]">
+                          {String(info.secs).padStart(2, '0')}
+                        </div>
+                        <div className="text-[7px] uppercase tracking-wider text-white/45 mt-0.5 font-medium">
+                          S
+                        </div>
                       </div>
                     </div>
-                    <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white/40 pb-6 sm:pb-8">:</div>
-                    <div className="flex flex-col items-center">
-                      <div className="font-mono tabular-nums text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 rounded-2xl bg-white/[0.05] backdrop-blur-md border border-white/[0.12] shadow-[0_0_40px_rgba(255,212,0,0.15)]">
-                        {String(info.secs).padStart(2, '0')}
-                      </div>
-                      <div className="text-[10px] sm:text-[10px] md:text-xs uppercase tracking-wider text-white/50 mt-1.5 font-medium">
-                        Seconds
-                      </div>
-                    </div>
+                    <p className="text-[9px] text-white/55 text-center mt-0.5">Stay tuned — we'll start the stream at kickoff</p>
+                    {featured?.id && (
+                      <MatchReminderButton
+                        matchId={featured.id}
+                        matchTime={featured.timeLabel || ''}
+                        homeTeam={featured.home?.name || ''}
+                        awayTeam={featured.away?.name || ''}
+                        league={featured.league?.name}
+                      />
+                    )}
                   </div>
-                </div>
-              );
-            })()}
+                );
+              })()}
+            </div>
 
-            {(() => {
-              const info = formatCountdown(featured?.startTime);
-              const live = info.seconds === 0 || featured?.status === 'live';
-              return live ? (
-                <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="flex items-center gap-2 sm:gap-2.5">
-                    <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-red-500"></span>
-                    </span>
-                    <span className="text-sm sm:text-base font-semibold text-red-400 uppercase tracking-wide">
-                      Live Now
-                    </span>
-                  </div>
-                  <button
-                    type="button"
-                    className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg bg-[rgb(var(--brand-yellow))] text-black text-sm sm:text-base font-semibold hover:bg-[rgb(var(--brand-yellow))]/90 transition-colors shadow-lg shadow-[rgb(var(--brand-yellow))]/20 hover:shadow-[rgb(var(--brand-yellow))]/30 flex items-center gap-2"
-                    onClick={() =>
-                      setSelected({
-                        id: Math.random().toString(36).slice(2),
-                        sport: (featured?.sport || 'Football') as Sport,
-                        league: featured?.league?.name || '',
-                        home: featured?.home?.name || '',
-                        away: featured?.away?.name || '',
-                        time: featured?.timeLabel || '',
-                        videoSrc: featured?.videoSrc || '',
-                        matchId: featured?.id,
-                      })
-                    }
-                  >
-                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
-                    </svg>
-                    <span>Watch Live</span>
-                  </button>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center gap-3 w-full">
-                  <p className="text-xs sm:text-sm text-white/60 text-center">Stay tuned — we'll start the stream at kickoff</p>
-                  {featured?.id && (
-                    <MatchReminderButton
-                      matchId={featured.id}
-                      matchTime={featured.timeLabel || ''}
-                      homeTeam={featured.home?.name || ''}
-                      awayTeam={featured.away?.name || ''}
-                      league={featured.league?.name}
-                    />
-                  )}
-                </div>
-              );
-            })()}
+            {/* Away Team - Right Side */}
+            <div className="flex flex-col items-center flex-shrink-0">
+              <div className="w-10 h-10 flex items-center justify-center mb-1">
+                <TeamLogo logo={featured?.away?.logo} name={firstNameOf(featured?.away?.name || '')} size={40} className="max-w-full max-h-full w-auto h-auto" />
+              </div>
+              <div className="text-[10px] font-medium text-white/90 text-center leading-tight px-1">
+                {getDisplayName(featured?.away?.name || '')}
+              </div>
+            </div>
           </div>
         </div>
       </div>

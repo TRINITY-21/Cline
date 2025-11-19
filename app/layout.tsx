@@ -2,6 +2,7 @@ import InstallPrompt from '@/components/InstallPrompt';
 import Navigation from '@/components/Navigation';
 import NotificationPermission from '@/components/NotificationPermission';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import './globals.css';
 import ServiceWorkerRegister from './sw-register';
 
@@ -121,6 +122,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </span>
               </div>
               <div className="text-white/60 text-xs flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center md:text-left">
+                <Link 
+                  href="/about"
+                  className="text-white/60 hover:text-white transition-colors underline-offset-2 hover:underline"
+                >
+                  About
+                </Link>
                 <span className="text-white/40 hidden sm:inline">Your ultimate sports streaming destination</span>
               </div>
             </div>

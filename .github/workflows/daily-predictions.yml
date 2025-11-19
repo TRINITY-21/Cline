@@ -6,6 +6,8 @@ on:
     - cron: '0 6 * * *'
     # Update results at midnight UTC (00:00)
     - cron: '0 0 * * *'
+    # Update weekly results every 3 hours
+    - cron: '0 */3 * * *'
   workflow_dispatch: # Allow manual trigger
     inputs:
       action:
@@ -16,6 +18,7 @@ on:
         options:
           - scrape
           - update-results
+          - update-weekly-results
 
 jobs:
   scrape-predictions:
@@ -45,7 +48,7 @@ jobs:
       - name: Install dependencies
         if: steps.should-scrape.outputs.skip == 'false'
         run: |
-          pip install requests beautifulsoup4 firebase-admin
+          pip install -r scripts/requirements.txt
       
       - name: Get today's date
         if: steps.should-scrape.outputs.skip == 'false'
@@ -108,39 +111,97 @@ jobs:
       - name: Install dependencies
         if: steps.should-update.outputs.skip == 'false'
         run: |
-          pip install requests beautifulsoup4 firebase-admin
+          pip install -r scripts/requirements.txt
       
       - name: Get yesterday's date
         if: steps.should-update.outputs.skip == 'false'
         id: date
         run: |
-          echo "date=$(date -d 'yesterday' +%Y-%m-%d)" >> $GITHUB_OUTPUT
+          # Calculate yesterday's date in UTC using Python for reliability
+          python3 -c "from datetime import datetime, timedelta, timezone; print((datetime.now(timezone.utc) - timedelta(days=1)).strftime('%Y-%m-%d'))" > yesterday.txt
+          echo "date=$(cat yesterday.txt)" >> $GITHUB_OUTPUT
+          echo "📅 Updating results for: $(cat yesterday.txt)"
       
       - name: Scrape results
         if: steps.should-update.outputs.skip == 'false'
         id: results
         run: |
-          python3 scripts/update-prediction-results.py ${{ steps.date.outputs.date }} > results.json 2>results.log
+          echo "🔍 Scraping results for: ${{ steps.date.outputs.date }}"
+          python3 scripts/update-prediction-results.py ${{ steps.date.outputs.date }} > results.json 2>results.log || exit 1
           echo "📊 Results log:"
           cat results.log || true
           echo ""
           echo "📄 JSON preview:"
-          head -c 500 results.json || echo "No JSON output"
+          if [ -f results.json ] && [ -s results.json ]; then
+            head -c 500 results.json
+            echo ""
+            echo "✅ Results JSON generated successfully"
+          else
+            echo "⚠️ No JSON output or file is empty"
+            exit 1
+          fi
       
       - name: Update Firestore
-        if: steps.should-update.outputs.skip == 'false'
+        if: steps.should-update.outputs.skip == 'false' && steps.results.outcome == 'success'
         env:
           FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
         run: |
           echo "💾 Updating Firestore with results..."
-          python3 scripts/update-results-in-firestore.py results.json
+          if [ ! -f results.json ] || [ ! -s results.json ]; then
+            echo "❌ results.json is missing or empty"
+            exit 1
+          fi
+          python3 scripts/update-results-in-firestore.py results.json || exit 1
           echo "✅ Update completed"
       
       - name: Upload results JSON
-        if: steps.should-update.outputs.skip == 'false' && always()
+        if: steps.should-update.outputs.skip == 'false'
         uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
           name: results-${{ steps.date.outputs.date }}
           path: results.json
           retention-days: 7
+
+  update-weekly-results:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'update-weekly-results' || github.event_name == 'schedule'
+    steps:
+      - name: Check if should update (every 3 hours)
+        id: should-update-weekly
+        run: |
+          HOUR=$(date -u +%H)
+          HOUR_NUM=$((10#$HOUR))
+          # Run every 3 hours: 0, 3, 6, 9, 12, 15, 18, 21
+          if [ $((HOUR_NUM % 3)) -eq 0 ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "skip=false" >> $GITHUB_OUTPUT
+            echo "Running at hour: $HOUR_NUM"
+          else
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "Skipping at hour: $HOUR_NUM (not divisible by 3)"
+          fi
+      
+      - name: Checkout code
+        if: steps.should-update-weekly.outputs.skip == 'false'
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        if: steps.should-update-weekly.outputs.skip == 'false'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        if: steps.should-update-weekly.outputs.skip == 'false'
+        run: |
+          pip install -r scripts/requirements.txt
+      
+      - name: Update weekly results
+        if: steps.should-update-weekly.outputs.skip == 'false'
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          echo "🔄 Updating weekly results..."
+          python3 scripts/update-weekly-results.py
+          echo "✅ Weekly results update completed"
 
